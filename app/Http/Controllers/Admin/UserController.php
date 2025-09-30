@@ -16,12 +16,12 @@ class UserController extends Controller
     public function index()
     {
         $staff = User::where('role', 'staff')->get();
-        return view('admin.index', compact('staff'));
+        return view('admin.users.index', compact('staff'));
     }
     // show form to create staff
     public function create()
     {
-        return view('admin.create');
+        return view('admin.users.create');
     }
 
     // store the staff account
@@ -51,7 +51,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $staff = User::where('role', 'staff')->findOrFail($id);
-        return view('admin.edit', compact('staff'));
+        return view('admin.users.edit', compact('staff'));
     }
 
     public function update(Request $request, $id)

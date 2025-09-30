@@ -2,15 +2,16 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+    //return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,12 +30,47 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/staff/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
 });
 
+// All Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+});
+
+// All Staff Routes
+Route::prefix('staff')->name('staff.')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('staff.dashboard');
+    })->name('dashboard');
+});
+
+// All Residents Routes
+Route::prefix('residents')->name('residents.')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('residents.dashboard');
+    })->name('dashboard');
+});
+
 // All Users Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('users.dashboard');
-    })->name('dashboard');
-
     Route::get('/activities', function () {
         return view('users.activities');
     })->name('activities');
