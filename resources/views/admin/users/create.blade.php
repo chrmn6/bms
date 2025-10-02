@@ -6,52 +6,88 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
-                <form action="{{ route('staff.store') }}" method="POST" class="space-y-4">
-                    @csrf
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-                    <div>
-                        <label class="block mb-1">First Name</label>
-                        <input type="text" name="first_name" value="{{ old('first_name') }}" class="border p-2 w-full">
-                        @error('first_name') <span class="text-red-600">{{ $message }}</span> @enderror
-                    </div>
+            <!-- Staff Creation Form -->
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="max-w-xl mx-auto">
 
-                    <div>
-                        <label class="block mb-1">Last Name</label>
-                        <input type="text" name="last_name" value="{{ old('last_name') }}" class="border p-2 w-full">
-                        @error('last_name') <span class="text-red-600">{{ $message }}</span> @enderror
-                    </div>
+                    @if(session('success'))
+                        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-                    <div>
-                        <label class="block mb-1">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" class="border p-2 w-full">
-                        @error('email') <span class="text-red-600">{{ $message }}</span> @enderror
-                    </div>
+                    <form action="{{ route('staff.store') }}" method="POST" class="space-y-6">
+                        @csrf
 
-                    <div>
-                        <label class="block mb-1">Phone Number</label>
-                        <input type="text" name="phone_number" value="{{ old('phone_number') }}"
-                            class="border p-2 w-full">
-                        @error('phone_number') <span class="text-red-600">{{ $message }}</span> @enderror
-                    </div>
+                        <!-- First Name -->
+                        <div>
+                            <x-input-label for="first_name" :value="__('First Name')" />
+                            <x-text-input id="first_name" name="first_name" type="text" class="mt-1 block w-full"
+                                :value="old('first_name')" required autofocus />
+                            <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
+                        </div>
 
-                    <div>
-                        <label class="block mb-1">Password</label>
-                        <input type="password" name="password" class="border p-2 w-full">
-                        @error('password') <span class="text-red-600">{{ $message }}</span> @enderror
-                    </div>
+                        <!-- Last Name -->
+                        <div>
+                            <x-input-label for="last_name" :value="__('Last Name')" />
+                            <x-text-input id="last_name" name="last_name" type="text" class="mt-1 block w-full"
+                                :value="old('last_name')" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
+                        </div>
 
-                    <div>
-                        <label class="block mb-1">Confirm Password</label>
-                        <input type="password" name="password_confirmation" class="border p-2 w-full">
-                    </div>
+                        <!-- Email -->
+                        <div>
+                            <x-input-label for="email" :value="__('Email')" />
+                            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
+                                :value="old('email')" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                        </div>
 
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
-                        Create Staff
-                    </button>
-                </form>
+                        <!-- Phone Number -->
+                        <div>
+                            <x-input-label for="phone_number" :value="__('Phone Number')" />
+                            <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
+                                :value="old('phone_number')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <x-input-label for="password" :value="__('Password')" />
+                            <x-text-input id="password" name="password" type="password" class="mt-1 block w-full"
+                                required />
+                            <x-input-error class="mt-2" :messages="$errors->get('password')" />
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div>
+                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                            <x-text-input id="password_confirmation" name="password_confirmation" type="password"
+                                class="mt-1 block w-full" required />
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex items-center gap-4">
+                            <x-primary-button>
+                                {{ __('Create Staff') }}
+                            </x-primary-button>
+
+                            @if(session('status') === 'staff-created')
+                                <p x-data="{ show: true }" x-show="show" x-transition
+                                    x-init="setTimeout(() => show = false, 2000)"
+                                    class="text-sm text-gray-600 dark:text-gray-400">
+                                    {{ __('Staff account created.') }}
+                                </p>
+                            @endif
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
+
         </div>
     </div>
 </x-app-layout>
