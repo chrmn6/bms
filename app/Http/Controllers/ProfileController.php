@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Household;
 
 class ProfileController extends Controller
 {
@@ -18,11 +19,13 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $resident = $user->resident;
+        $households = Household::all();
 
         return view('profile.edit', [
             'user' => $user,
             'resident' => $resident,
             'profile' => $resident?->profile,
+            'households' => $households,
         ]);
     }
 
@@ -52,6 +55,7 @@ class ProfileController extends Controller
                 'date_of_birth',
                 'gender',
                 'address',
+                'household_id',
             ]));
 
             // Ensure profile exists

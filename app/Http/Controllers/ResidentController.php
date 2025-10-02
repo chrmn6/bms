@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Resident;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Household;
 
 class ResidentController extends Controller
 {
@@ -42,7 +43,9 @@ class ResidentController extends Controller
             $user->resident->load('profile');
         }
 
-        return view('residents.edit', ['resident' => $user->resident, 'profile' => $user->resident->profile]);
+        $households = Household::all();
+
+        return view('residents.edit', ['resident' => $user->resident, 'profile' => $user->resident->profile, 'households' => $households,]);
     }
 
     
@@ -57,6 +60,7 @@ class ResidentController extends Controller
             'date_of_birth' => 'nullable|date',
             'gender' => 'nullable|in:Male,Female',
             'address' => 'nullable|string|max:255',
+            'household_id' => 'nullable|exists:households,household_id',
 
             'civil_status' => 'nullable|string|max:50',
             'citizenship' => 'nullable|string|max:50',
@@ -71,6 +75,7 @@ class ResidentController extends Controller
             'date_of_birth',
             'gender',
             'address',
+            'household_id',
         ]));
 
         $profile = $resident->profile ?? $resident->profile()->create([

@@ -29,7 +29,7 @@
                             @method('patch')
 
                             {{-- Middle Name --}}
-                            <div>
+                            <div class="mt-2">
                                 <x-input-label for="middle_name" :value="__('Middle Name')" />
                                 <x-text-input id="middle_name" name="middle_name" type="text" class="mt-1 block w-full"
                                     :value="old('middle_name', $resident->middle_name ?? '')" />
@@ -37,7 +37,7 @@
                             </div>
 
                             {{-- Suffix --}}
-                            <div>
+                            <div class="mt-2">
                                 <x-input-label for="suffix" :value="__('Suffix')" />
                                 <x-text-input id="suffix" name="suffix" type="text" class="mt-1 block w-full"
                                     :value="old('suffix', $resident->suffix ?? '')" />
@@ -45,7 +45,7 @@
                             </div>
 
                             {{-- Place of Birth --}}
-                            <div>
+                            <div class="mt-2">
                                 <x-input-label for="place_of_birth" :value="__('Place of Birth')" />
                                 <x-text-input id="place_of_birth" name="place_of_birth" type="text"
                                     class="mt-1 block w-full" :value="old('place_of_birth', $resident->place_of_birth ?? '')" />
@@ -53,7 +53,7 @@
                             </div>
 
                             {{-- Date of Birth --}}
-                            <div>
+                            <div class="mt-2">
                                 <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
                                 <x-text-input id="date_of_birth" name="date_of_birth" type="date"
                                     class="mt-1 block w-full" :value="old('date_of_birth', $resident->date_of_birth ?? '')" />
@@ -61,7 +61,7 @@
                             </div>
 
                             {{-- Gender --}}
-                            <div>
+                            <div class="mt-2">
                                 <x-input-label for="gender" :value="__('Gender')" />
                                 <select id="gender" name="gender" class="mt-1 block w-full border-gray-300 rounded-md">
                                     <option value="">Select Gender</option>
@@ -73,19 +73,24 @@
                             </div>
 
                             {{-- Address --}}
-                            <div>
+                            <div class="mt-2">
                                 <x-input-label for="address" :value="__('Address')" />
                                 <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
                                     :value="old('address', $resident->address ?? '')" />
                                 <x-input-error class="mt-2" :messages="$errors->get('address')" />
                             </div>
 
-                            {{-- Phone Number --}}
-                            <div>
-                                <x-input-label for="phone_number" :value="__('Phone Number')" />
-                                <x-text-input id="phone_number" name="phone_number" type="text"
-                                    class="mt-1 block w-full" :value="old('phone_number', $user->phone_number ?? '')" />
-                                <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
+                            <div class="mt-2">
+                                <x-input-label for="household_id" :value="__('Household')" />
+                                <select id="household_id" name="household_id"
+                                    class="mt-1 block w-full border-gray-300 rounded-md">
+                                    <option value="">Select Household</option>
+                                    @foreach($households as $household)
+                                        <option value="{{ $household->household_id }}" {{ $resident->household_id == $household->household_id ? 'selected' : '' }}>
+                                            {{ $household->household_number }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('household_id')" />
                             </div>
 
                             {{-- Resident Profile Fields --}}
@@ -96,8 +101,18 @@
                                 {{-- Civil Status --}}
                                 <div class="mt-2">
                                     <x-input-label for="civil_status" :value="__('Civil Status')" />
-                                    <x-text-input id="civil_status" name="civil_status" type="text"
-                                        class="mt-1 block w-full" :value="old('civil_status', $profile->civil_status ?? '')" />
+                                    <select id="civil_status" name="civil_status"
+                                        class="mt-1 block w-full border-gray-300 rounded-md">
+                                        <option value="">Select Civil Status</option>
+                                        <option value="Single" {{ old('civil_status', $profile->civil_status ?? '') == 'Single' ? 'selected' : '' }}>
+                                            Single</option>
+                                        <option value="Married" {{ old('civil_status', $profile->civil_status ?? '') == 'Married' ? 'selected' : '' }}>
+                                            Married</option>
+                                        <option value="Widowed" {{ old('civil_status', $profile->civil_status ?? '') == 'Widowed' ? 'selected' : '' }}>
+                                            Widowed</option>
+                                        <option value="Divorced" {{ old('civil_status', $profile->civil_status ?? '') == 'Divorced' ? 'selected' : '' }}>
+                                            Divorced</option>
+                                    </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('civil_status')" />
                                 </div>
 
@@ -120,8 +135,18 @@
                                 {{-- Education --}}
                                 <div class="mt-2">
                                     <x-input-label for="education" :value="__('Education')" />
-                                    <x-text-input id="education" name="education" type="text" class="mt-1 block w-full"
-                                        :value="old('education', $profile->education ?? '')" />
+                                    <select id="education" name="education"
+                                        class="mt-1 block w-full border-gray-300 rounded-md">
+                                        <option value="">Select Education Level</option>
+                                        <option value="Elementary" {{ old('education', $profile->education ?? '') == 'Elementary' ? 'selected' : '' }}>
+                                            Elementary</option>
+                                        <option value="High School" {{ old('education', $profile->education ?? '') == 'High School' ? 'selected' : '' }}>
+                                            High School</option>
+                                        <option value="Vocational/Technical" {{ old('education', $profile->education ?? '') == 'Vocational/Technical' ? 'selected' : '' }}>Vocational/Technical
+                                        </option>
+                                        <option value="College" {{ old('education', $profile->education ?? '') == 'College' ? 'selected' : '' }}>College
+                                        </option>
+                                    </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('education')" />
                                 </div>
                             </div>

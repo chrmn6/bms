@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Household extends Model
 {
 
+    protected $table = 'households';
     protected $primaryKey = 'household_id';
     protected $fillable = [
         'household_number',
