@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -68,8 +69,6 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
         return view('residents.dashboard');
     })->name('dashboard');
 });
-
-use App\Http\Controllers\ResidentController;
 
 Route::middleware(['auth', 'role:resident'])->group(function () {
      Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
