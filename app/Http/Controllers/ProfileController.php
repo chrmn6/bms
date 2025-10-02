@@ -16,26 +16,45 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+    $user = $request->user();
+    $resident = $user->resident; // Eloquent relationship
+
+    return view('profile.edit', [
+        'user' => $user,
+        'resident' => $resident,
+    ]);
     }
+
 
     /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Update users table
+        $user->fill($request->validated());
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
+        $user->save();
 
-        $request->user()->save();
+        // Update residents table
+        if ($user->resident) {
+            $user->resident->update($request->only([
+                'middle_name',
+                'suffix',
+                'place_of_birth',
+                'date_of_birth',
+                'gender',
+                'address',
+            ]));
+        }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
 
     /**
      * Delete the user's account.

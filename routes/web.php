@@ -9,9 +9,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/dashboard', function () {
-    //return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -68,6 +68,14 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
         return view('residents.dashboard');
     })->name('dashboard');
 });
+
+use App\Http\Controllers\ResidentController;
+
+Route::middleware(['auth', 'role:resident'])->group(function () {
+     Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
+     Route::post('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
+ });
+
 
 // All Users Routes
 Route::middleware(['auth'])->group(function () {
