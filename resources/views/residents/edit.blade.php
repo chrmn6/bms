@@ -80,6 +80,52 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('address')" />
                             </div>
 
+                            {{-- Phone Number --}}
+                            <div>
+                                <x-input-label for="phone_number" :value="__('Phone Number')" />
+                                <x-text-input id="phone_number" name="phone_number" type="text"
+                                    class="mt-1 block w-full" :value="old('phone_number', $user->phone_number ?? '')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
+                            </div>
+
+                            {{-- Resident Profile Fields --}}
+                            <div class="mt-6">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Additional Profile Info
+                                </h3>
+
+                                {{-- Civil Status --}}
+                                <div class="mt-2">
+                                    <x-input-label for="civil_status" :value="__('Civil Status')" />
+                                    <x-text-input id="civil_status" name="civil_status" type="text"
+                                        class="mt-1 block w-full" :value="old('civil_status', $profile->civil_status ?? '')" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('civil_status')" />
+                                </div>
+
+                                {{-- Citizenship --}}
+                                <div class="mt-2">
+                                    <x-input-label for="citizenship" :value="__('Citizenship')" />
+                                    <x-text-input id="citizenship" name="citizenship" type="text"
+                                        class="mt-1 block w-full" :value="old('citizenship', $profile->citizenship ?? '')" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('citizenship')" />
+                                </div>
+
+                                {{-- Occupation --}}
+                                <div class="mt-2">
+                                    <x-input-label for="occupation" :value="__('Occupation')" />
+                                    <x-text-input id="occupation" name="occupation" type="text"
+                                        class="mt-1 block w-full" :value="old('occupation', $profile->occupation ?? '')" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('occupation')" />
+                                </div>
+
+                                {{-- Education --}}
+                                <div class="mt-2">
+                                    <x-input-label for="education" :value="__('Education')" />
+                                    <x-text-input id="education" name="education" type="text" class="mt-1 block w-full"
+                                        :value="old('education', $profile->education ?? '')" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('education')" />
+                                </div>
+                            </div>
+
                             {{-- Submit Button --}}
                             <div class="flex items-center gap-4">
                                 <x-primary-button>

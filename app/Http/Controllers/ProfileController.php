@@ -16,13 +16,14 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-    $user = $request->user();
-    $resident = $user->resident; // Eloquent relationship
+        $user = $request->user();
+        $resident = $user->resident;
 
-    return view('profile.edit', [
-        'user' => $user,
-        'resident' => $resident,
-    ]);
+        return view('profile.edit', [
+            'user' => $user,
+            'resident' => $resident,
+            'profile' => $resident?->profile,
+        ]);
     }
 
 
@@ -33,16 +34,18 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        // Update users table
+    // Update users table including phone_number
         $user->fill($request->validated());
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
         $user->save();
 
-        // Update residents table
-        if ($user->resident) {
-            $user->resident->update($request->only([
+        $resident = $user->resident;
+
+        if ($resident) {
+            // Update residents table
+            $resident->update($request->only([
                 'middle_name',
                 'suffix',
                 'place_of_birth',
@@ -50,11 +53,26 @@ class ProfileController extends Controller
                 'gender',
                 'address',
             ]));
+
+            // Ensure profile exists
+            $profile = $resident->profile ?? $resident->profile()->create([
+                'civil_status' => null,
+                'citizenship' => null,
+                'occupation' => null,
+                'education' => null,
+            ]);
+
+            // Update profile
+            $profile->update($request->only([
+                'civil_status',
+                'citizenship',
+                'occupation',
+                'education',
+            ]));
         }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
 
     /**
      * Delete the user's account.

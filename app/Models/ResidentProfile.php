@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResidentProfile extends Model
 {
-    protected $table = 'resident_profiles';
+    protected $table = 'residents_profile';
     protected $primaryKey = 'resident_profile_id';
 
     protected $fillable = [
