@@ -73,7 +73,7 @@ use App\Http\Controllers\ResidentController;
 
 Route::middleware(['auth', 'role:resident'])->group(function () {
      Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
-     Route::post('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
+     Route::patch('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
  });
 
 
