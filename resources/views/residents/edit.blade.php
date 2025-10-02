@@ -87,7 +87,8 @@
                                     <option value="">Select Household</option>
                                     @foreach($households as $household)
                                         <option value="{{ $household->household_id }}" {{ $resident->household_id == $household->household_id ? 'selected' : '' }}>
-                                            {{ $household->household_number }}</option>
+                                            {{ $household->household_number }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('household_id')" />
