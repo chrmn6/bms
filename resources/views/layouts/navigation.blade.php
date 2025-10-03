@@ -78,7 +78,7 @@
                 @endif
 
                 <!-- Other links -->
-                <x-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
+                <x-nav-link :href="route('staff.activities.index')" :active="request()->routeIs('staff.activities.*')">
                     <span class="inline-flex items-center">
                         <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Activity</span>

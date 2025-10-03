@@ -61,14 +61,12 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
 
 Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
     Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
-});
-
-Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
-    Route::resource('activities', ActivityController::class);
-});
-
-Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
     Route::resource('announcements', AnnouncementController::class);
+});
+
+Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
+    Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
+    Route::resource('activities', ActivityController::class);
 });
 
 
