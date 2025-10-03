@@ -50,9 +50,9 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Announcement $announcements)
+    public function show(Announcement $announcement)
     {
-        return view('staff.announcements.show', compact('activity'));
+        return view('staff.announcements.show', compact('announcements'));
     }
 
     /**
@@ -61,7 +61,7 @@ class AnnouncementController extends Controller
     public function edit(Announcement $announcement)
     {
         if ($announcement->user_id !== Auth::id()) abort(403);
-        return view('staff.announcements.edit', compact('announcement'));
+        return view('staff.announcements.edit', compact('announcements'));
     }
 
     /**
