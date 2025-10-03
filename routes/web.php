@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,12 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     })->name('dashboard');
 });
 
+Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
+    Route::resource('activities', ActivityController::class);
+});
+
+
+
 // All Residents Routes
 Route::prefix('residents')->name('residents.')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -71,8 +78,8 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
 });
 
 Route::middleware(['auth', 'role:resident'])->group(function () {
-     Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
-     Route::patch('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
+    Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
+    Route::patch('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
  });
 
 

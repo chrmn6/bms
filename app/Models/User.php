@@ -53,4 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Resident::class, 'user_id', 'id');
     }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
 }
