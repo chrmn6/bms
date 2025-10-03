@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
 
 Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
     Route::resource('activities', ActivityController::class);
+});
+
+Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
+    Route::resource('announcements', AnnouncementController::class);
 });
 
 
