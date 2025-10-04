@@ -98,6 +98,6 @@ class ResidentController extends Controller
             'education'
         ]));
 
-        return back()->with('success', 'Your profile has been updated.');
+        return redirect()->route('residents.dashboard')->with('success', 'Profile updated successfully.');
     }
 }

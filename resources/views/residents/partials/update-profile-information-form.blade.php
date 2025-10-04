@@ -159,10 +159,13 @@
                     </x-primary-button>
 
                     @if (session('status') === 'profile-updated')
-                        <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                            class="text-sm text-gray-600 dark:text-gray-400">
+                        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2000)"
+                            x-transition
+                            style="background-color: #16a34a; color: #fff; z-index: 9999; left: 50%; transform: translateX(-50%);"
+                            class="fixed top-10 px-6 py-3 rounded shadow-lg min-w-[200px]">
                             {{ __('Saved.') }}
-                        </p>
+                            <button @click="show = false" style="color: #fff;" class="ml-2 font-bold float-right">×</button>
+                        </div>
                     @endif
                 </div>
             </form>
