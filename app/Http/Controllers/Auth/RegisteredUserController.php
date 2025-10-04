@@ -50,11 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($user->role === 'resident') {
-            return redirect()->route('residents.edit')
-                ->with('info', 'Please complete your profile before proceeding.');
-        }
-
         return redirect()->intended('residents.dashboard');
     }
 }

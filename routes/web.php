@@ -90,6 +90,7 @@ Route::middleware(['auth', 'role:resident'])->group(function () {
  });
 
 
+
 // All Users Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/activities', function () {
