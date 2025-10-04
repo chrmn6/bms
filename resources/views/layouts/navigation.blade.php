@@ -31,6 +31,8 @@
 
         <!-- Navigation Links -->
         <div class="flex-grow px-4 space-y-1 overflow-y-auto">
+
+            <!-- ROLE BASED NAVIGATION FOR ALL USERS-->
             @if ($user)
                 @if ($user->role === 'admin')
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
@@ -55,18 +57,29 @@
                     </x-nav-link>
                 @endif
 
-                <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>{{ $user->first_name }} {{ $user->last_name }}</span>
-                    </span>
-                </x-nav-link>
+                {{-- Profile Link based on Role --}}
+                @if ($user->role === 'admin' || $user->role === 'staff')
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>{{ $user->first_name }} {{ $user->last_name }}</span>
+                        </span>
+                    </x-nav-link>
+                @else
+                    <x-nav-link :href="route('residents.edit')" :active="request()->routeIs('residents.edit')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>{{ $user->first_name }} {{ $user->last_name }}</span>
+                        </span>
+                    </x-nav-link>
+                @endif
 
+                <!-- ROLE BASED NAVIGATION FOR ADMIN-->
                 @if($user->role === 'admin')
                     <x-nav-link :href="route('staff.index')" :active="request()->routeIs('staff.index')">
                         <span class="inline-flex items-center">
                             <ion-icon name="people-circle-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>User Management</span>
+                            <span>Manage Users</span>
                         </span>
                     </x-nav-link>
                     <x-nav-link :href="route('staff.index')" :active="request()->routeIs('staff.index')">
@@ -78,17 +91,36 @@
                 @endif
 
                 <!-- Other links -->
-                <x-nav-link :href="route('staff.activities.index')" :active="request()->routeIs('staff.activities.*')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Activity</span>
-                    </span>
-                </x-nav-link>
-                <x-nav-link :href="route('staff.announcements.index')"
-                    :active="request()->routeIs('staff.announcements.*')">
+
+                <!-- ROLE BASED NAVIGATION FOR STAFF-->
+                @if($user->role === 'staff')
+                    <x-nav-link :href="route('staff.activities.index')" :active="request()->routeIs('staff.activities.*')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>Manage Activity</span>
+                        </span>
+                    </x-nav-link>
+                    <x-nav-link :href="route('staff.announcements.index')"
+                        :active="request()->routeIs('staff.announcements.*')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="megaphone-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>Manage Announcement</span>
+                        </span>
+                    </x-nav-link>
+                @endif
+
+                <!--- DAPAT ANG MAG VIEW LANG ANI KAY ANG RESIDENTS AND ADMIN----->
+                <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')">
                     <span class="inline-flex items-center">
                         <ion-icon name="megaphone-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Announcement</span>
+                    </span>
+                </x-nav-link>
+
+                <x-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
+                    <span class="inline-flex items-center">
+                        <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
+                        <span>Activities</span>
                     </span>
                 </x-nav-link>
 

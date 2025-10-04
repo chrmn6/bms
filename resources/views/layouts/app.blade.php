@@ -15,6 +15,7 @@
 
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.taildwindcss.com"></script>
 </head>
 
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">

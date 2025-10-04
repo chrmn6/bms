@@ -16,7 +16,8 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+//FOR ADMIN AND STAFF
+Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -70,7 +71,6 @@ Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(f
 });
 
 
-
 // All Residents Routes
 Route::prefix('residents')->name('residents.')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -86,7 +86,7 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
 
 Route::middleware(['auth', 'role:resident'])->group(function () {
     Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
-    Route::patch('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
+    Route::put('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
  });
 
 

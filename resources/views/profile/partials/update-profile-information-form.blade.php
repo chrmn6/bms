@@ -17,137 +17,42 @@
         @csrf
         @method('patch')
 
-        <!-- Users Table Fields -->
         <div>
             <x-input-label for="first_name" :value="__('First Name')" />
             <x-text-input id="first_name" name="first_name" type="text" class="mt-1 block w-full"
-                :value="old('first_name', $user->first_name)" required autofocus />
+                :value="old('first_name', $user->first_name)" required autofocus autocomplete="first_name" />
             <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
         </div>
 
         <div>
             <x-input-label for="last_name" :value="__('Last Name')" />
-            <x-text-input id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $user->last_name)" required />
+            <x-text-input id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $user->last_name)" required autofocus autocomplete="last_name" />
             <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
-        </div>
 
-        <!-- Residents Table Fields -->
-        <div>
-            <x-input-label for="middle_name" :value="__('Middle Name')" />
-            <x-text-input id="middle_name" name="middle_name" type="text" class="mt-1 block w-full"
-                :value="old('middle_name', $resident->middle_name ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('middle_name')" />
-        </div>
+            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
+                <div>
+                    <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                        {{ __('Your email address is unverified.') }}
 
-        <div>
-            <x-input-label for="suffix" :value="__('Suffix')" />
-            <x-text-input id="suffix" name="suffix" type="text" class="mt-1 block w-full" :value="old('suffix', $resident->suffix ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('suffix')" />
-        </div>
+                        <button form="send-verification"
+                            class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                            {{ __('Click here to re-send the verification email.') }}
+                        </button>
+                    </p>
 
-        <div>
-            <x-input-label for="place_of_birth" :value="__('Place of Birth')" />
-            <x-text-input id="place_of_birth" name="place_of_birth" type="text" class="mt-1 block w-full"
-                :value="old('place_of_birth', $resident->place_of_birth ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('place_of_birth')" />
-        </div>
-
-        <div>
-            <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
-            <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full"
-                :value="old('date_of_birth', $resident->date_of_birth ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
-        </div>
-
-        <div>
-            <x-input-label for="gender" :value="__('Gender')" />
-            <select id="gender" name="gender" class="mt-1 block w-full border-gray-300 rounded-md">
-                <option value="">Select Gender</option>
-                <option value="Male" {{ old('gender', $resident->gender ?? '') == 'Male' ? 'selected' : '' }}>Male
-                </option>
-                <option value="Female" {{ old('gender', $resident->gender ?? '') == 'Female' ? 'selected' : '' }}>Female
-                </option>
-            </select>
-            <x-input-error class="mt-2" :messages="$errors->get('gender')" />
-        </div>
-
-        <div>
-            <x-input-label for="address" :value="__('Address')" />
-            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $resident->address ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('address')" />
-        </div>
-
-        <div class="mt-2">
-            <x-input-label for="household_id" :value="__('Household')" />
-            <select id="household_id" name="household_id" class="mt-1 block w-full border-gray-300 rounded-md">
-                <option value="">Select Household</option>
-                @foreach($households as $household)
-                    <option value="{{ $household->household_id }}" {{ $resident->household_id == $household->household_id ? 'selected' : '' }}>
-                        {{ $household->household_number }}
-                    </option>
-                @endforeach
-            </select>
-            <x-input-error class="mt-2" :messages="$errors->get('household_id')" />
-        </div>
-
-        <div>
-            <x-input-label for="phone_number" :value="__('Phone Number')" />
-            <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
-                :value="old('phone_number', $user->phone_number ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
-        </div>
-
-        <div class="mt-2">
-            <x-input-label for="civil_status" :value="__('Civil Status')" />
-            <select id="civil_status" name="civil_status" class="mt-1 block w-full border-gray-300 rounded-md">
-                <option value="">Select Civil Status</option>
-                <option value="Single" {{ old('civil_status', $profile->civil_status ?? '') == 'Single' ? 'selected' : '' }}>
-                    Single</option>
-                <option value="Married" {{ old('civil_status', $profile->civil_status ?? '') == 'Married' ? 'selected' : '' }}>
-                    Married</option>
-                <option value="Widowed" {{ old('civil_status', $profile->civil_status ?? '') == 'Widowed' ? 'selected' : '' }}>
-                    Widowed</option>
-                <option value="Divorced" {{ old('civil_status', $profile->civil_status ?? '') == 'Divorced' ? 'selected' : '' }}>
-                    Divorced</option>
-            </select>
-            <x-input-error class="mt-2" :messages="$errors->get('civil_status')" />
-        </div>
-
-        <div class="mt-2">
-            <x-input-label for="citizenship" :value="__('Citizenship')" />
-            <x-text-input id="citizenship" name="citizenship" type="text" class="mt-1 block w-full"
-                :value="old('citizenship', $profile->citizenship ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('citizenship')" />
-        </div>
-
-        <div class="mt-2">
-            <x-input-label for="occupation" :value="__('Occupation')" />
-            <x-text-input id="occupation" name="occupation" type="text" class="mt-1 block w-full"
-                :value="old('occupation', $profile->occupation ?? '')" />
-            <x-input-error class="mt-2" :messages="$errors->get('occupation')" />
-        </div>
-
-        <div class="mt-2">
-            <x-input-label for="education" :value="__('Education')" />
-            <select id="education" name="education" class="mt-1 block w-full border-gray-300 rounded-md">
-                <option value="">Select Education Level</option>
-                </option>
-                <option value="Elementary" {{ old('education', $profile->education ?? '') == 'Elementary' ? 'selected' : '' }}>
-                    Elementary</option>
-                <option value="High School" {{ old('education', $profile->education ?? '') == 'High School' ? 'selected' : '' }}>
-                    High School</option>
-                <option value="Vocational/Technical" {{ old('education', $profile->education ?? '') == 'Vocational/Technical' ? 'selected' : '' }}>Vocational/Technical</option>
-                <option value="College" {{ old('education', $profile->education ?? '') == 'College' ? 'selected' : '' }}>
-                    College
-                </option>
-            </select>
-            <x-input-error class="mt-2" :messages="$errors->get('education')" />
+                    @if (session('status') === 'verification-link-sent')
+                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                            {{ __('A new verification link has been sent to your email address.') }}
+                        </p>
+                    @endif
+                </div>
+            @endif
         </div>
 
         <div class="flex items-center gap-4">
@@ -159,5 +64,4 @@
             @endif
         </div>
     </form>
-
 </section>

@@ -43,17 +43,21 @@ class ResidentController extends Controller
             $user->resident->load('profile');
         }
 
+        
         $households = Household::all();
 
-        return view('residents.edit', ['resident' => $user->resident, 'profile' => $user->resident->profile, 'households' => $households,]);
+        return view('residents.edit', ['user' => $user, 'resident' => $user->resident, 'profile' => $user->resident->profile, 'households' => $households,]);
     }
 
     
     public function update(Request $request)
     {
+        $user = Auth::user();
         $resident = Auth::user()->resident;
 
         $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'suffix' => 'nullable|string|max:255',
             'place_of_birth' => 'nullable|string|max:255',
@@ -66,6 +70,11 @@ class ResidentController extends Controller
             'citizenship' => 'nullable|string|max:50',
             'occupation' => 'nullable|string|max:100',
             'education' => 'nullable|string|max:100',
+        ]);
+
+        $user->update([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
         ]);
 
         $resident->update($request->only([

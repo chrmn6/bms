@@ -10,16 +10,22 @@ class RoleMiddleware
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role)
-{
-    if (!Auth::check() || Auth::user()->role !== $role) {
-        abort(403, 'Unauthorized access.');
+    public function handle(Request $request, Closure $next, $roles)
+    {
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        $userRole = Auth::user()->role;
+
+        // Support multiple roles separated by |
+        $allowedRoles = explode('|', $roles);
+
+        if (!in_array($userRole, $allowedRoles)) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        return $next($request);
     }
-
-    return $next($request);
-}
-
 }
