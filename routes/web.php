@@ -60,11 +60,6 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     })->name('dashboard');
 });
 
-Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
-    Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
-    Route::resource('announcements', AnnouncementController::class);
-});
-
 Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
     Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
     Route::resource('activities', ActivityController::class);
@@ -87,19 +82,10 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
 Route::middleware(['auth', 'role:resident'])->group(function () {
     Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
     Route::put('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
- });
-
-
+});
 
 // All Users Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/activities', function () {
-        return view('users.activities');
-    })->name('activities');
-
-    Route::get('/announcement', function () {
-        return view('users.announcement');
-    })->name('announcement');
 
     Route::get('/emergency', function () {
         return view('users.emergency');
@@ -113,5 +99,28 @@ Route::middleware(['auth'])->group(function () {
         return view('users.blotter');
     })->name('blotter');
 });
+
+//ANNOUNCEMENT ROUTES
+Route::middleware(['auth'])->group(function () {
+    Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+    Route::get('announcements/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');
+});
+
+// Staff only
+Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
+    Route::resource('announcements', AnnouncementController::class);
+});
+
+// ACTIVITIES ROUTE
+Route::middleware(['auth'])->group(function () {
+    Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
+    Route::get('activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
+});
+
+// Staff only
+Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
+    Route::resource('activities', ActivityController::class)->except(['index','show']);
+});
+
 
 require __DIR__.'/auth.php';

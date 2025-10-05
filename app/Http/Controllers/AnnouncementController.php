@@ -11,7 +11,8 @@ class AnnouncementController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'role:staff']);
+        $this->middleware(['auth', 'role:staff'])->except(['index', 'show']);
+        $this->middleware('auth')->only(['index', 'show']);
     }
 
     /**
@@ -19,16 +20,20 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = Auth::user()->announcements()->latest()->get();
-        return view('staff.announcements.index', compact('announcements'));
+
+        $this->authorize('viewAny', Announcement::class);
+        $announcements = Announcement::latest()->get();
+        return view('announcements.index', compact('announcements'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('staff.announcements.create');
+        $this->authorize('create', Announcement::class);
+        return view('announcements.create');
     }
 
     /**
@@ -36,6 +41,7 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Announcement::class);
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'nullable|string',
@@ -44,7 +50,7 @@ class AnnouncementController extends Controller
         $data['user_id'] = Auth::id();
         Announcement::create($data);
 
-        return redirect()->route('staff.announcements.index')->with('success', 'Announcement created successfully.');
+        return redirect()->route('announcements.index')->with('success', 'Announcement created successfully.');
     }
 
     /**
@@ -52,7 +58,8 @@ class AnnouncementController extends Controller
      */
     public function show(Announcement $announcement)
     {
-        return view('staff.announcements.show', compact('announcements'));
+        $this->authorize('view', $announcement);
+        return view('announcements.show', compact('announcement'));
     }
 
     /**
@@ -60,8 +67,8 @@ class AnnouncementController extends Controller
      */
     public function edit(Announcement $announcement)
     {
-        if ($announcement->user_id !== Auth::id()) abort(403);
-        return view('staff.announcements.edit', compact('announcements'));
+        $this->authorize('update', $announcement);
+        return view('announcements.edit', compact('announcement'));
     }
 
     /**
@@ -69,7 +76,7 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, Announcement $announcement)
     {
-        if ($announcement->user_id !== Auth::id()) abort(403);
+        $this->authorize('update', $announcement);
 
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -78,7 +85,7 @@ class AnnouncementController extends Controller
 
         $announcement->update($data);
 
-        return redirect()->route('staff.announcements.index')->with('success', 'Announcement updated successfully.');
+        return redirect()->route('announcements.index')->with('success', 'Announcement updated successfully.');
     }
 
     /**
@@ -86,7 +93,8 @@ class AnnouncementController extends Controller
      */
     public function destroy(Announcement $announcement)
     {
+        $this->authorize('delete', $announcement);
         $announcement->delete();
-        return redirect()->route('staff.announcements.index')->with('success', 'Announcement deleted successfully.');
+        return redirect()->route('announcements.index')->with('success', 'Announcement deleted successfully.');
     }
 }

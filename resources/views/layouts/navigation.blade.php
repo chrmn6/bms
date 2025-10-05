@@ -92,32 +92,14 @@
 
                 <!-- Other links -->
 
-                <!-- ROLE BASED NAVIGATION FOR STAFF-->
-                @if($user->role === 'staff')
-                    <x-nav-link :href="route('staff.activities.index')" :active="request()->routeIs('staff.activities.*')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Manage Activity</span>
-                        </span>
-                    </x-nav-link>
-                    <x-nav-link :href="route('staff.announcements.index')"
-                        :active="request()->routeIs('staff.announcements.*')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="megaphone-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Manage Announcement</span>
-                        </span>
-                    </x-nav-link>
-                @endif
-
-                <!--- DAPAT ANG MAG VIEW LANG ANI KAY ANG RESIDENTS AND ADMIN----->
-                <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')">
+                <x-nav-link :href="route('announcements.index')" :active="request()->routeIs('announcements.index')">
                     <span class="inline-flex items-center">
                         <ion-icon name="megaphone-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Announcement</span>
                     </span>
                 </x-nav-link>
 
-                <x-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
+                <x-nav-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
                     <span class="inline-flex items-center">
                         <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Activities</span>

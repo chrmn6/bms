@@ -11,7 +11,8 @@ class ActivityController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'role:staff']);
+        $this->middleware(['auth', 'role:staff'])->except(['index', 'show']);
+        $this->middleware('auth')->only(['index', 'show']);
     }
 
     /**
@@ -19,8 +20,11 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Auth::user()->activities()->latest()->get();
-        return view('staff.activities.index', compact('activities'));
+
+        $this->authorize('viewAny', Activity::class);
+
+        $activities = Activity::latest()->get();
+        return view('activities.index', compact('activities'));
     }
 
     /**
@@ -28,14 +32,18 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        return view('staff.activities.create');
+
+        $this->authorize('create', Activity::class);
+        return view('activities.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
+
+        $this->authorize('create', Activity::class);
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -55,7 +63,8 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        return view('staff.activities.show', compact('activity'));
+        $this->authorize('view', $activity);
+        return view('activities.show', compact('activity'));
     }
 
     /**
@@ -63,8 +72,9 @@ class ActivityController extends Controller
      */
     public function edit(Activity $activity)
     {
-        if ($activity->user_id !== Auth::id()) abort(403);
-        return view('staff.activities.edit', compact('activity'));
+        $this->authorize('update', $activity);
+
+        return view('activities.edit', compact('activity'));
     }
 
     /**
@@ -72,7 +82,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-        if ($activity->user_id !== Auth::id()) abort(403);
+        $this->authorize('update', $activity);
 
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -92,7 +102,10 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
+
+        $this->authorize('delete', $activity);
         $activity->delete();
+
         return redirect()->route('staff.activities.index')->with('success', 'Activity deleted successfully.');
     }
 }
