@@ -35,8 +35,6 @@
                     </a>
                 </div>
             </form>
-        @else
-            <p class="text-gray-600 dark:text-gray-300">You do not have permission to create an announcement.</p>
         @endcan
     </div>
 </x-app-layout>

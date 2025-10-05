@@ -82,16 +82,16 @@ Route::middleware(['auth', 'role:resident'])->group(function () {
 
 // All Users Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/emergency', function () {
-        return view('users.emergency');
-    })->name('emergency');
+    Route::get('/contact', function () {
+        return view('contact.index');
+    })->name('contact');
 
     Route::get('/clearance', function () {
-        return view('users.clearance');
+        return view('clearance.index');
     })->name('clearance');
 
     Route::get('/blotter', function () {
-        return view('users.blotter');
+        return view('blotter.index');
     })->name('blotter');
 });
 
