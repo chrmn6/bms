@@ -119,6 +119,6 @@ Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group
 });
 
 // BLOTTER ROUTE
-Route::resource('blotters', BlotterController::class)->except(['destroy', 'edit']);
+Route::resource('blotters', BlotterController::class)->except(['destroy']);
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,9 @@
 <x-app-layout>
-    <h1>Edit Activity</h1>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Edit Activity') }}
+        </h2>
+    </x-slot>
 
     @if ($errors->any())
         <div class="mb-3 text-red-600">
@@ -11,51 +15,58 @@
         </div>
     @endif
 
-    @if(auth()->user()->role === 'staff')
-        <form action="{{ route('staff.activities.update', $activity->activity_id) }}" method="POST">
-            @csrf
-            @method('PUT')
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @can('update', $activity)
+                        <form action="{{ route('staff.activities.update', $activity->activity_id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
 
-            <div class="mb-3">
-                <label>Title</label>
-                <input type="text" name="title" value="{{ old('title', $activity->title) }}" class="form-control" required>
+                            <div class="mb-3">
+                                <label class="block text-gray-900 dark:text-gray-300">Title</label>
+                                <input type="text" name="title" value="{{ old('title', $activity->title) }}"
+                                    class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="block text-gray-900 dark:text-gray-300">Description</label>
+                                <textarea name="description"
+                                    class="form-control">{{ old('description', $activity->description) }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="block text-gray-900 dark:text-gray-300">Date & Time</label>
+                                <input type="datetime-local" name="date_time"
+                                    value="{{ old('date_time', \Carbon\Carbon::parse($activity->date_time)->format('Y-m-d\TH:i')) }}"
+                                    class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="block text-gray-900 dark:text-gray-300">Location</label>
+                                <input type="text" name="location" value="{{ old('location', $activity->location) }}"
+                                    class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="block text-gray-900 dark:text-gray-300">Status</label>
+                                <select name="status" class="form-control">
+                                    <option value="scheduled" {{ old('status', $activity->status) === 'scheduled' ? 'selected' : '' }}>
+                                        Scheduled</option>
+                                    <option value="completed" {{ old('status', $activity->status) === 'completed' ? 'selected' : '' }}>
+                                        Completed</option>
+                                    <option value="canceled" {{ old('status', $activity->status) === 'canceled' ? 'selected' : '' }}>Canceled
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                                Update
+                            </button>
+                            <a href="{{ route('staff.activities.index') }}"
+                                class="inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                Back
+                            </a>
+                        </form>
+                    @endcan
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label>Description</label>
-                <textarea name="description"
-                    class="form-control">{{ old('description', $activity->description) }}</textarea>
-            </div>
-
-            <div class="mb-3">
-                <label>Date & Time</label>
-                <input type="datetime-local" name="date_time"
-                    value="{{ old('date_time', \Carbon\Carbon::parse($activity->date_time)->format('Y-m-d\TH:i')) }}"
-                    class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label>Location</label>
-                <input type="text" name="location" value="{{ old('location', $activity->location) }}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label>Status</label>
-                <select name="status" class="form-control">
-                    <option value="scheduled" {{ old('status', $activity->status) === 'scheduled' ? 'selected' : '' }}>
-                        Scheduled</option>
-                    <option value="completed" {{ old('status', $activity->status) === 'completed' ? 'selected' : '' }}>
-                        Completed</option>
-                    <option value="canceled" {{ old('status', $activity->status) === 'canceled' ? 'selected' : '' }}>Canceled
-                    </option>
-                </select>
-            </div>
-
-            <button type="submit" class="px-4 py-2 bg-green-600 text-black rounded hover:bg-green-700">Update</button>
-            <a href="{{ route('staff.activities.index') }}"
-                class="px-4 py-2 bg-green-600 text-black rounded hover:bg-green-700">Cancel</a>
-        </form>
-    @else
-        <p class="text-red-600">You are not authorized to edit this activity.</p>
-    @endif
+        </div>
+    </div>
 </x-app-layout>

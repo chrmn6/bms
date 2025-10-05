@@ -112,7 +112,7 @@
                         <span>Clearance</span>
                     </span>
                 </x-nav-link>
-                <x-nav-link :href="route('blotter')" :active="request()->routeIs('blotter')">
+                <x-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
                     <span class="inline-flex items-center">
                         <ion-icon name="newspaper-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Blotter Report</span>

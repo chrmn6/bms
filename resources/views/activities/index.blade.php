@@ -36,9 +36,9 @@
                                     </td>
                                     <td
                                         class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                        {{ $activity->status == 'completed' ? 'text-green-600 font-semibold' : '' }}
-                                                        {{ $activity->status == 'canceled' ? 'text-red-600 font-semibold' : '' }}
-                                                        {{ $activity->status == 'scheduled' ? 'text-yellow-600 font-semibold' : '' }}">
+                                                            {{ $activity->status == 'completed' ? 'text-green-600 font-semibold' : '' }}
+                                                            {{ $activity->status == 'canceled' ? 'text-red-600 font-semibold' : '' }}
+                                                            {{ $activity->status == 'scheduled' ? 'text-yellow-600 font-semibold' : '' }}">
                                         {{ ucfirst($activity->status) }}
                                     </td>
                                     <td
@@ -73,7 +73,7 @@
                     </table>
 
                     <!-- Pagination -->
-                    <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+                    <div class="flex items-center justify-between border-t border-gray-200 bg-white py-3">
                         <div class="flex flex-1 justify-between sm:hidden">
                             <a href="#"
                                 class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>

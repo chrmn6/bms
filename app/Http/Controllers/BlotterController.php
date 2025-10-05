@@ -12,15 +12,25 @@ class BlotterController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        
+{
+    $user = Auth::user();
+
+    if ($user->role === 'resident') {
+        $blotters = Blotter::where('resident_id', $user->resident->resident_id)->get();
+    } else {
+        $blotters = Blotter::all();
     }
+
+    return view('blotters.index', compact('blotters'));
+}
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('create', Blotter::class);
         return view('blotters.create');
     }
 
@@ -50,15 +60,18 @@ class BlotterController extends Controller
      */
     public function show(Blotter $blotter)
     {
+        $this->authorize('view', $blotter);
         return view('blotters.show', compact('blotter'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Blotter $blotter)
     {
-        //
+        $this->authorize('update', $blotter);
+
+        return view('blotters.edit', compact('blotter'));
     }
 
     /**
@@ -66,6 +79,8 @@ class BlotterController extends Controller
      */
     public function update(Request $request, Blotter $blotter)
     {
+        $this->authorize('update', $blotter);
+
         $validated = $request->validate([
             'status' => 'required|in:processing,approved,rejected,pending'
         ]);
