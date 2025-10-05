@@ -31,32 +31,26 @@
                                     <td class="px-4 py-2">{{ $activity->title }}</td>
                                     <td class="px-4 py-2">{{ $activity->date_time }}</td>
                                     <td class="px-4 py-2">{{ ucfirst($activity->status) }}</td>
-                                    <td class="px-4 py-2 flex gap-2">
-
-                                        {{-- View button: visible to all --}}
+                                    <td class="px-4 py-2 flex gap-2 justify-center">
                                         <a href="{{ route('activities.show', $activity->activity_id) }}"
-                                            class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                                            class="px-4 py-1 bg-blue-500 text-black rounded hover:bg-blue-600 text-sm">
                                             View
                                         </a>
-
-                                        {{-- Edit/Delete only for staff --}}
                                         @if(auth()->user()->role === 'staff')
                                             <a href="{{ route('staff.activities.edit', $activity->activity_id) }}"
-                                                class="px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+                                                class="px-2 py-1 bg-yellow-500 text-black rounded hover:bg-yellow-600 text-sm">
                                                 Edit
                                             </a>
-
                                             <form action="{{ route('staff.activities.destroy', $activity->activity_id) }}"
                                                 method="POST" onsubmit="return confirm('Delete this activity?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">
+                                                    class="px-2 py-1 bg-red-600 text-black rounded hover:bg-red-700 text-sm">
                                                     Delete
                                                 </button>
                                             </form>
                                         @endif
-
                                     </td>
                                 </tr>
                             @endforeach

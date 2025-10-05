@@ -11,7 +11,6 @@
         </div>
     @endif
 
-    {{-- Only show form if the user is staff --}}
     @if(auth()->user()->role === 'staff')
         <form action="{{ route('staff.activities.update', $activity->activity_id) }}" method="POST">
             @csrf
@@ -52,8 +51,9 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-success">Update</button>
-            <a href="{{ route('staff.activities.index') }}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="px-4 py-2 bg-green-600 text-black rounded hover:bg-green-700">Update</button>
+            <a href="{{ route('staff.activities.index') }}"
+                class="px-4 py-2 bg-green-600 text-black rounded hover:bg-green-700">Cancel</a>
         </form>
     @else
         <p class="text-red-600">You are not authorized to edit this activity.</p>

@@ -10,7 +10,6 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    {{-- Activity Details --}}
                     <h1 class="text-2xl font-bold mb-4">{{ $activity->title }}</h1>
 
                     <p><strong>Date & Time:</strong>
@@ -21,10 +20,9 @@
                     <p class="mt-4"><strong>Description:</strong></p>
                     <p>{{ $activity->description ?? 'No description provided.' }}</p>
 
-                    {{-- Back button --}}
                     <a href="{{ route('activities.index') }}"
                         class="mt-6 inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                        Back to Activities
+                        Back
                     </a>
 
                 </div>
