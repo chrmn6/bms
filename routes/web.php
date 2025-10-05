@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
@@ -106,7 +107,7 @@ Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group
     Route::resource('announcements', AnnouncementController::class);
 });
 
-// ACTIVITIES ROUTE
+// ACTIVITIES ROUTES
 Route::middleware(['auth'])->group(function () {
     Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
     Route::get('activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
@@ -117,5 +118,7 @@ Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group
     Route::resource('activities', ActivityController::class)->except(['index','show']);
 });
 
+// BLOTTER ROUTE
+Route::resource('blotters', BlotterController::class)->except(['destroy', 'edit']);
 
 require __DIR__.'/auth.php';

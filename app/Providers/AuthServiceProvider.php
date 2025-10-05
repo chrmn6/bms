@@ -7,6 +7,8 @@ use App\Models\Announcement;
 use App\Policies\AnnouncementPolicy;
 use App\Models\Activity;
 use App\Policies\ActivityPolicy;
+use App\Models\Blotter;
+use App\Policies\BlotterPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Announcement::class => AnnouncementPolicy::class,
         Activity::class => ActivityPolicy::class,
+        Blotter::class => BlotterPolicy::class,
     ];
 
     public function boot(): void
