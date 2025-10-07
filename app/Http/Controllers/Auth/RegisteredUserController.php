@@ -50,6 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended('residents.dashboard');
+        return redirect()->intended(route('residents.dashboard'));
     }
 }
