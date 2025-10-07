@@ -74,7 +74,7 @@
                     </x-nav-link>
                 @endif
 
-                <!-- ROLE BASED NAVIGATION FOR ADMIN-->
+
                 @if($user->role === 'admin')
                     <x-nav-link :href="route('staff.index')" :active="request()->routeIs('staff.index')">
                         <span class="inline-flex items-center">
