@@ -24,7 +24,7 @@ class Blotter extends Model
         return $this->belongsTo(Resident::class, 'resident_id', 'resident_id');
     }
 
-    public function mediatedBy()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
