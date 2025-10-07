@@ -37,21 +37,21 @@
                 @if ($user->role === 'admin')
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="laptop-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
                             <span>Dashboard</span>
                         </span>
                     </x-nav-link>
                 @elseif ($user->role === 'staff')
                     <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="laptop-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
                             <span>Dashboard</span>
                         </span>
                     </x-nav-link>
                 @else
                     <x-nav-link :href="route('residents.dashboard')" :active="request()->routeIs('residents.dashboard')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="laptop-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
                             <span>Dashboard</span>
                         </span>
                     </x-nav-link>
