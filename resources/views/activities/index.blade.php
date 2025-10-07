@@ -29,7 +29,7 @@
                 },
                 events: [
                     @foreach($activities as $activity)
-                                {
+                            {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
