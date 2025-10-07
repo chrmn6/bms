@@ -23,7 +23,7 @@ class ActivityController extends Controller
 
         $this->authorize('viewAny', Activity::class);
 
-        $activities = Activity::latest()->get();
+        $activities = Activity::with('user')->get();
         return view('activities.index', compact('activities'));
     }
 

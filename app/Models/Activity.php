@@ -17,7 +17,7 @@ class Activity extends Model
         'status',
     ];
 
-    public function staff()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

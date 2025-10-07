@@ -22,7 +22,7 @@ class AnnouncementController extends Controller
     {
 
         $this->authorize('viewAny', Announcement::class);
-        $announcements = Announcement::latest()->get();
+        $announcements = Announcement::with('user')->latest()->paginate(6);
         return view('announcements.index', compact('announcements'));
     }
 
