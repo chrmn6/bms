@@ -62,14 +62,14 @@
                     <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
                         <span class="inline-flex items-center">
                             <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>{{ $user->first_name }} {{ $user->last_name }}</span>
+                            <span>Profile</span>
                         </span>
                     </x-nav-link>
                 @else
                     <x-nav-link :href="route('residents.edit')" :active="request()->routeIs('residents.edit')">
                         <span class="inline-flex items-center">
                             <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>{{ $user->first_name }} {{ $user->last_name }}</span>
+                            <span>Profile</span>
                         </span>
                     </x-nav-link>
                 @endif
