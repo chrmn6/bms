@@ -85,14 +85,6 @@ Route::middleware(['auth', 'role:resident'])->group(function () {
     Route::put('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
 });
 
-Route::middleware(['auth', 'role:resident'])->group(function () {
-    Route::get('/complete-profile', [App\Http\Controllers\ResidentController::class, 'showCompleteProfile'])
-        ->name('residents.complete-profile');
-
-    Route::put('/complete-profile', [App\Http\Controllers\ResidentController::class, 'updateCompleteProfile'])
-        ->name('residents.update-profile');
-});
-
 // All Users Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/contact', function () {
