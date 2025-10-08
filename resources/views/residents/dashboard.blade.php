@@ -5,6 +5,60 @@
         </h2>
     </x-slot>
 
+    @php
+        $user = Auth::user();
+        $resident = $user->resident;
+        $profile = $resident?->profile;
+        $household = $resident?->household;
+
+        $isIncomplete = false;
+        if (!$resident || !$profile || !$household) {
+            $isIncomplete = true;
+        } else {
+            $requiredFields = [
+
+                // residents table
+                $resident->middle_name,
+                $resident->suffix,
+                $resident->place_of_birth,
+                $resident->date_of_birth,
+                $resident->gender,
+                $resident->address,
+
+                // residents profile
+                $profile->civil_status,
+                $profile->citizenship,
+                $profile->occupation,
+                $profile->education,
+
+                //household
+                $household->household_number,
+            ];
+
+            foreach ($requiredFields as $field) {
+                if (empty($field)) {
+                    $isIncomplete = true;
+                    break;
+                }
+            }
+        }
+    @endphp
+
+    <div class="py-3">
+        @if ($isIncomplete)
+            <div class="bg-yellow-100 border-yellow-500 text-yellow-700 p-4 mb-6 mx-6 rounded">
+                <p class="font-bold">⚠️ Please complete your profile information</p>
+                <p class="text-sm mb-2">
+                    You need to complete your profile information first before fully accessing the system.
+                </p>
+                <a href="{{ route('residents.edit') }}"
+                    class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+                    Complete Profile
+                </a>
+            </div>
+        @endif
+    </div>
+
     @if(session('success'))
         <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2000)" x-transition
             class="fixed top-10 px-6 py-3 rounded shadow-lg z-50"
@@ -13,7 +67,6 @@
             <button @click="show = false" style="color: #ffffff;" class="ml-2 font-bold float-right">×</button>
         </div>
     @endif
-
 
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -15,7 +15,7 @@
                 </a>
             @endcan
 
-            <div class="mt-6 grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($announcements as $announcement)
                     <div
                         class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md p-5 flex flex-col justify-between">
