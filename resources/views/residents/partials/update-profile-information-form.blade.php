@@ -2,6 +2,7 @@
     <header>
         <h2 class="text-xl bold font-medium text-gray-900 dark:text-gray-100">
             Personal Information
+
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Before you proceed, kindly fill out the necessary fields. If not applicable, just type <b>N/A</b>.
