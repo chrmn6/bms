@@ -34,6 +34,11 @@ class Resident extends Model
         return $this->hasOne(ResidentProfile::class, 'resident_id', 'resident_id');
     }
 
+    public function clearances()
+    {
+        return $this->hasMany(Clearance::class);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->user->first_name . ' ' . $this->user->last_name;
