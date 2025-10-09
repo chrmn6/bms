@@ -13,7 +13,7 @@ class Household extends Model
         'household_number',
     ];
 
-    public function residents()
+    public function resident()
     {
         return $this->hasMany(Resident::class);
     }
