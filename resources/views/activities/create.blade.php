@@ -53,8 +53,8 @@
                             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
                                 Create
                             </button>
-                            <a href="{{ route('staff.activities.index') }}" class="inline-block px-4 py-2 bg-gray-500
-                                    text-white rounded hover:bg-gray-600">
+                            <a href="{{ route('staff.activities.index') }}"
+                                class="inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
                                 Back
                             </a>
                         </form>

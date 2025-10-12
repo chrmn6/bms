@@ -18,7 +18,7 @@ class BlotterController extends Controller
     if ($user->role === 'resident') {
         $blotters = Blotter::where('resident_id', $user->resident->resident_id)->paginate(3);
     } else {
-        $blotters = Blotter::all();
+        $blotters = Blotter::paginate(3);
     }
 
     return view('blotters.index', compact('blotters'));
