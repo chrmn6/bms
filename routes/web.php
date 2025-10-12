@@ -26,13 +26,7 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 
 // Admin routes for managing users
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/staff', [UserController::class, 'index'])->name('staff.index');
-    Route::get('/staff/create', [UserController::class, 'create'])->name('staff.create');
-    Route::post('/staff/store', [UserController::class, 'store'])->name('staff.store');
-
-    Route::get('/staff/{id}/edit', [UserController::class, 'edit'])->name('staff.edit');
-    Route::put('/staff/{id}', [UserController::class, 'update'])->name('staff.update');
-    Route::delete('/staff/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
+    Route::resource('staff', UserController::class)->except(['show']);
 });
 
 // All Admin Routes

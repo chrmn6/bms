@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $staff = User::where('role', 'staff')->get();
+        $staff = User::where('role', 'staff')->paginate(3);
         return view('admin.users.index', compact('staff'));
     }
     // show form to create staff
