@@ -21,7 +21,6 @@
                                 <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Name</th>
                                 <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Email</th>
                                 <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Phone</th>
-                                <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,22 +34,6 @@
                                     </td>
                                     <td class="p-2 border border-gray-300 dark:border-gray-600 text-center">
                                         {{ $user->phone_number }}
-                                    </td>
-                                    <td
-                                        class="px-4 py-2 border border-gray-300 dark:border-gray-600 flex gap-2 justify-center">
-                                        <a href="{{ route('staff.edit', $user->id) }}"
-                                            class="px-2 py-1 bg-yellow-500 text-black rounded hover:bg-yellow-600 text-sm flex items-center justify-center">
-                                            <ion-icon name="pencil-outline" class="text-base"></ion-icon>
-                                        </a>
-                                        <form action="{{ route('staff.destroy', $user->id) }}" method="POST"
-                                            onsubmit="return confirm('Delete this staff?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="px-2 py-1 bg-red-600 text-black rounded hover:bg-red-700 text-sm flex items-center justify-center">
-                                                <ion-icon name="trash-outline" class="text-base"></ion-icon>
-                                            </button>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $staff = User::where('role', 'staff')->paginate(3);
+        $staff = User::where('role', 'staff')->paginate(4);
         return view('admin.users.index', compact('staff'));
     }
     // show form to create staff
@@ -44,43 +44,8 @@ class UserController extends Controller
             'role' => 'staff',
         ]);
 
-        return redirect()->route('staff.index')->with('success', 'Staff account created successfully.');
+        return view('admin.users.index')->with('success', 'Staff account created successfully.');
 
-    }
-
-    public function edit($id)
-    {
-        $staff = User::where('role', 'staff')->findOrFail($id);
-        return view('admin.users.edit', compact('staff'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $staff = User::where('role', 'staff')->findOrFail($id);
-
-        $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $staff->id],
-            'phone_number' => ['nullable', 'string', 'max:20'],
-        ]);
-
-        $staff->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-        ]);
-
-        return redirect()->route('staff.index')->with('success', 'Staff account updated successfully.');
-    }
-
-    public function destroy($id)
-    {
-        $staff = User::where('role', 'staff')->findOrFail($id);
-        $staff->delete();
-
-        return redirect()->route('staff.index')->with('success', 'Staff account deleted successfully.');
     }
 
 }
