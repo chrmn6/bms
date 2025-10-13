@@ -26,7 +26,7 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 
 // Admin routes for managing users
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('staff', UserController::class)->except(['show', 'destroy', 'edit', 'update']);
+    Route::resource('staff', UserController::class)->only(['index', 'create', 'store']);
 });
 
 // All Admin Routes

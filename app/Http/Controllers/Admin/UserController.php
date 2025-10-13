@@ -44,7 +44,7 @@ class UserController extends Controller
             'role' => 'staff',
         ]);
 
-        return view('admin.users.index')->with('success', 'Staff account created successfully.');
+        return redirect()->route('staff.index')->with('success', 'Staff account created successfully.');
 
     }
 
