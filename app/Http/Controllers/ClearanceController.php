@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clearance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClearanceController extends Controller
 {
@@ -12,7 +13,15 @@ class ClearanceController extends Controller
      */
     public function index()
     {
-        //
+    $user = Auth::user();
+
+    if ($user->role === 'resident') {
+        $clearance = Clearance::where('resident_id', $user->resident->resident_id)->paginate(3);
+    } else {
+        $clearance = Clearance::paginate(3);
+    }
+
+    return view('clearance.index', compact('clearance'));
     }
 
     /**
@@ -20,7 +29,8 @@ class ClearanceController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Clearance::class);
+        return view('clearance.create');
     }
 
     /**
@@ -28,7 +38,20 @@ class ClearanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'clearance_type' => 'required|string|max:255',
+            'purpose' => 'required|date',
+            'issued_date' => 'required',
+            'status' => 'required|string|max:255',
+            'remarks' => 'required|string',
+        ]);
+
+        $data['resident_id'] = Auth::user()->resident->resident_id;
+        $data['user_id'] = null;
+
+        Clearance::create($data);
+
+        return redirect()->route('clearance.index')->with('success', 'Clearance created successfully.');
     }
 
     /**

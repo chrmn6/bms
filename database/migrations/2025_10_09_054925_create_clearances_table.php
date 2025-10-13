@@ -22,9 +22,6 @@ return new class extends Migration
             $table->date('issued_date')->nullable();
             $table->date('valid_until')->nullable();
             $table->enum('status', ['Pending', 'Approved', 'Rejected', 'Released']);
-            $table->string('or_number')->nullable();
-            $table->decimal('amount_paid', 10, 2)->nullable();
-            $table->enum('payment_status', ['Unpaid', 'Paid'])->default('Unpaid');
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

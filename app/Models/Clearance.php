@@ -14,10 +14,8 @@ class Clearance extends Model
         'clearance_type',
         'purpose',
         'issued_date',
+        'valid_until',
         'status',
-        'amount_paid',
-        'payment_status',
-        'or_number',
         'remarks',
     ];
 
