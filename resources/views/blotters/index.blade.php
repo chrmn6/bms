@@ -39,16 +39,15 @@
                                     <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
                                         {{ $blotter->location }}
                                     </td>
-                                    <td
-                                        class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                                    {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                                    {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
-                                                                    {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                                    {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                    <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
+                                                {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                                {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
+                                                {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                                {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                         {{ ucfirst($blotter->status) }}
                                     </td>
-                                    <td class=" px-4 py-2 border border-gray-300 dark:border-gray-600 flex gap-2
-                                                            justify-center">
+                                    <td
+                                        class=" px-4 py-2 border border-gray-300 dark:border-gray-600 flex gap-2 justify-center">
                                         <a href="{{ route('blotters.show', $blotter->blotter_id) }}"
                                             class="px-2 py-1 bg-blue-500 text-black rounded hover:bg-blue-600 text-sm flex items-center justify-center">
                                             <ion-icon name="eye-outline" class="text-base"></ion-icon>

@@ -12,7 +12,7 @@ class BlotterController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
+    {
     $user = Auth::user();
 
     if ($user->role === 'resident') {
@@ -22,7 +22,7 @@ class BlotterController extends Controller
     }
 
     return view('blotters.index', compact('blotters'));
-}
+    }
 
 
     /**

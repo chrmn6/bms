@@ -17,7 +17,7 @@
                     <p><strong>Location: </strong> {{ $blotter->location ?? 'N/A' }}</p>
                     <p><strong>Status: </strong> {{ ucfirst($blotter->status) }}</p>
                     <p><strong>Complainant: </strong> {{ $blotter->resident->full_name }}</p>
-                    <p><strong>Mediated by: </strong> {{ $blotter->user->first_name }}</p>
+                    <p><strong>Mediated by: </strong> {{ $blotter->user?->first_name ?? 'N/A' }}</p>
 
                     <a href="{{ route('blotters.index') }}"
                         class="mt-6 inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
