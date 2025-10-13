@@ -16,12 +16,12 @@ class ClearanceController extends Controller
     $user = Auth::user();
 
     if ($user->role === 'resident') {
-        $clearance = Clearance::where('resident_id', $user->resident->resident_id)->paginate(3);
+        $clearances = Clearance::where('resident_id', $user->resident->resident_id)->paginate(3);
     } else {
-        $clearance = Clearance::paginate(3);
+        $clearances = Clearance::paginate(3);
     }
 
-    return view('clearance.index', compact('clearance'));
+    return view('clearance.index', compact('clearances'));
     }
 
     /**
@@ -40,13 +40,13 @@ class ClearanceController extends Controller
     {
         $data = $request->validate([
             'clearance_type' => 'required|string|max:255',
-            'purpose' => 'required|date',
-            'issued_date' => 'required',
-            'status' => 'required|string|max:255',
-            'remarks' => 'required|string',
+            'purpose' => 'required|string|max:255',
         ]);
 
         $data['resident_id'] = Auth::user()->resident->resident_id;
+        $data['status'] = 'pending';
+        $data['issued_date'] = null;
+        $data['valid_until'] = null;
         $data['user_id'] = null;
 
         Clearance::create($data);
@@ -59,7 +59,8 @@ class ClearanceController extends Controller
      */
     public function show(Clearance $clearance)
     {
-        //
+        $this->authorize('view', $clearance);
+        return view('clearance.show', compact('clearance'));
     }
 
     /**
@@ -67,7 +68,9 @@ class ClearanceController extends Controller
      */
     public function edit(Clearance $clearance)
     {
-        //
+        $this->authorize('update', $clearance);
+
+        return view('clearance.edit', compact('clearance'));
     }
 
     /**
@@ -75,7 +78,25 @@ class ClearanceController extends Controller
      */
     public function update(Request $request, Clearance $clearance)
     {
-        //
+        $this->authorize('update', $clearance);
+
+        $validated = $request->validate([
+            'status' => 'required|in:pending,released,rejected,approved'
+        ]);
+
+        if ($validated['status'] === 'approved') {
+        $clearance->issued_date = now();
+        $clearance->valid_until = now();
+        }
+
+        $clearance->update([
+            'status' => $validated['status'],
+            'user_id' => Auth::id(),
+            'issued_date' => $clearance->issued_date,
+            'valid_until' => $clearance->valid_until,
+        ]);
+
+        return redirect()->route('clearance.index')->with('success', 'Clearance updated successfully.');
     }
 
     /**

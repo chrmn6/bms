@@ -21,12 +21,12 @@ class ClearancePolicy
      */
     public function view(User $user, Clearance $clearance): bool
     {
+        // Resident can only view their own clearance
         if ($user->role === 'resident') {
-            // Resident can only view their own clearance
             return $clearance->resident_id === $user->resident->resident_id;
         }
 
-        // Staff and admin can view all clearances
+        // Staff and admin can view all the clearances
         return in_array($user->role, ['staff', 'admin']);
     }
 
@@ -35,6 +35,7 @@ class ClearancePolicy
      */
     public function create(User $user): bool
     {
+        // user can only create clearance if they are a resident
         return $user->role === 'resident';
     }
 
@@ -43,6 +44,7 @@ class ClearancePolicy
      */
     public function update(User $user, Clearance $clearance): bool
     {
+        // only staff can update clearance status
         return $user->role === 'staff';
     }
 

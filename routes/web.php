@@ -6,6 +6,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
 
@@ -114,5 +115,9 @@ Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group
 
 // BLOTTER ROUTE
 Route::resource('blotters', BlotterController::class)->except(['destroy']);
+
+// BLOTTER ROUTE
+Route::resource('clearance', ClearanceController::class)->except(['destroy']);
+
 
 require __DIR__.'/auth.php';

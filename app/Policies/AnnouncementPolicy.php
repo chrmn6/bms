@@ -29,6 +29,7 @@ class AnnouncementPolicy
      */
     public function create(User $user): bool
     {
+        // staff can only create an announcement
         return $user->role === 'staff';
     }
 
@@ -37,6 +38,7 @@ class AnnouncementPolicy
      */
     public function update(User $user, Announcement $announcement): bool
     {
+        // staff can only update an announcement
         return $user->role === 'staff';
     }
 
@@ -45,6 +47,7 @@ class AnnouncementPolicy
      */
     public function delete(User $user, Announcement $announcement): bool
     {
+        // staff can only delete an announcement
         return $user->role === 'staff';
     }
 

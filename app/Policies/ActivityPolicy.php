@@ -29,6 +29,7 @@ class ActivityPolicy
      */
     public function create(User $user): bool
     {
+        // staff can only create an activity
         return $user->role === 'staff';
     }
 
@@ -37,6 +38,7 @@ class ActivityPolicy
      */
     public function update(User $user, Activity $activity): bool
     {
+        // staff can only update an activity
         return $user->role === 'staff';
     }
 
@@ -45,6 +47,7 @@ class ActivityPolicy
      */
     public function delete(User $user, Activity $activity): bool
     {
+        // staff can only delete an activity
         return $user->role === 'staff';
     }
 

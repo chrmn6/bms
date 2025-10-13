@@ -21,10 +21,12 @@ class BlotterPolicy
      */
     public function view(User $user, Blotter $blotter): bool
     {
+        // Resident can only view their own blotter
        if ($user->role === 'resident') {
         return $user->resident->resident_id === $blotter->resident_id;
        }
 
+       // Staff and admin can view all the blotters
        return in_array($user->role, ['staff', 'admin']);
     }
 
@@ -33,6 +35,7 @@ class BlotterPolicy
      */
     public function create(User $user): bool
     {
+        // user can only create blotter if they are a resident
         return $user->role === 'resident';
     }
 
@@ -41,6 +44,7 @@ class BlotterPolicy
      */
     public function update(User $user, Blotter $blotter): bool
     {
+        // only staff can update blotter status
         return $user->role === 'staff';
     }
 

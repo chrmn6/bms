@@ -6,27 +6,19 @@
         <div class="shrink-0 flex items-center justify-center px-4 py-6">
             @php
                 $user = Auth::user();
+
+                $dashboardRoute = $user
+                    ? match ($user->role) {
+                        'admin' => 'admin.dashboard',
+                        'staff' => 'staff.dashboard',
+                        default => 'residents.dashboard',
+                    }
+                    : 'login';
             @endphp
 
-            @if ($user)
-                @if ($user->role === 'admin')
-                    <a href="{{ route('admin.dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                @elseif ($user->role === 'staff')
-                    <a href="{{ route('staff.dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                @else
-                    <a href="{{ route('residents.dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                @endif
-            @else
-                <a href="{{ route('login') }}">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                </a>
-            @endif
+            <a href="{{ route($dashboardRoute) }}">
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            </a>
         </div>
 
         <!-- Navigation Links -->
@@ -34,28 +26,12 @@
 
             <!-- ROLE BASED NAVIGATION FOR ALL USERS-->
             @if ($user)
-                @if ($user->role === 'admin')
-                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Dashboard</span>
-                        </span>
-                    </x-nav-link>
-                @elseif ($user->role === 'staff')
-                    <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Dashboard</span>
-                        </span>
-                    </x-nav-link>
-                @else
-                    <x-nav-link :href="route('residents.dashboard')" :active="request()->routeIs('residents.dashboard')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Dashboard</span>
-                        </span>
-                    </x-nav-link>
-                @endif
+                <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
+                    <span class="inline-flex items-center">
+                        <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
+                        <span>Dashboard</span>
+                    </span>
+                </x-nav-link>
 
                 {{-- Profile Link based on Role --}}
                 @if ($user->role === 'admin' || $user->role === 'staff')
@@ -75,6 +51,7 @@
                 @endif
 
 
+                <!-- ADMIN ROUTE FOR CREATING A STAFF ACCOUNT-->
                 @if($user->role === 'admin')
                     <x-nav-link :href="route('staff.index')" :active="request()->routeIs('staff.index')">
                         <span class="inline-flex items-center">
@@ -106,12 +83,13 @@
                     </span>
                 </x-nav-link>
 
-                <x-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')">
+                <x-nav-link :href="route('clearance.index')" :active="request()->routeIs('clearance.*')">
                     <span class="inline-flex items-center">
                         <ion-icon name="reader-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Clearance</span>
                     </span>
                 </x-nav-link>
+
                 <x-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
                     <span class="inline-flex items-center">
                         <ion-icon name="newspaper-outline" class="w-5 h-5 mr-6"></ion-icon>
