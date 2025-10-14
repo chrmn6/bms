@@ -69,7 +69,6 @@ class ClearanceController extends Controller
     public function edit(Clearance $clearance)
     {
         $this->authorize('update', $clearance);
-
         return view('clearance.edit', compact('clearance'));
     }
 
@@ -83,11 +82,6 @@ class ClearanceController extends Controller
         $validated = $request->validate([
             'status' => 'required|in:pending,released,rejected,approved'
         ]);
-
-        if ($validated['status'] === 'approved') {
-        $clearance->issued_date = now();
-        $clearance->valid_until = now();
-        }
 
         $clearance->update([
             'status' => $validated['status'],

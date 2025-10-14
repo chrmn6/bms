@@ -8,6 +8,7 @@ use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\CertificateController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -78,6 +79,12 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
 Route::middleware(['auth', 'role:resident'])->group(function () {
     Route::get('/residents/profile', [ResidentController::class, 'edit'])->name('residents.edit');
     Route::put('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
+});
+
+Route::prefix('resident')->name('resident.')->group(function () {
+    Route::get('/{id}/barangay-clearance', [CertificateController::class, 'barangayClearance'])->name('barangay-clearance');
+    Route::get('/{id}/business-clearance', [CertificateController::class, 'businessClearance'])->name('business-clearance');
+    Route::get('/{id}/residency-clearance', [CertificateController::class, 'residencyClearance'])->name('residency-clearance');
 });
 
 // All Users Routes

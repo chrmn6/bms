@@ -76,5 +76,12 @@
                 </div>
             </div>
         </div>
+
+        <a href="{{ route('resident.barangay-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
+            Barangay Clearance</a>
+        <a href="{{ route('resident.business-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
+            Business Clearance</a>
+        <a href="{{ route('resident.residency-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
+            Residency Clearance</a>
     </div>
 </x-app-layout>
