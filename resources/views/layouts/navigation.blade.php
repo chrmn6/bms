@@ -4,21 +4,25 @@
     <div class="flex flex-col h-full">
         <!-- Logo -->
         <div class="shrink-0 flex items-center justify-center px-4 py-6">
-            @php
-                $user = Auth::user();
-
-                $dashboardRoute = $user
-                    ? match ($user->role) {
-                        'admin' => 'admin.dashboard',
-                        'staff' => 'staff.dashboard',
-                        default => 'residents.dashboard',
-                    }
-                    : 'login';
-            @endphp
-
-            <a href="{{ route($dashboardRoute) }}">
-                <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-            </a>
+            @if ($user)
+                @if ($user->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                @elseif ($user->role === 'staff')
+                    <a href="{{ route('staff.dashboard') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                @else
+                    <a href="{{ route('residents.dashboard') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}">
+                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                </a>
+            @endif
         </div>
 
         <!-- Navigation Links -->
@@ -26,12 +30,28 @@
 
             <!-- ROLE BASED NAVIGATION FOR ALL USERS-->
             @if ($user)
-                <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Dashboard</span>
-                    </span>
-                </x-nav-link>
+                @if ($user->role === 'admin')
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>Dashboard</span>
+                        </span>
+                    </x-nav-link>
+                @elseif ($user->role === 'staff')
+                    <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>Dashboard</span>
+                        </span>
+                    </x-nav-link>
+                @else
+                    <x-nav-link :href="route('residents.dashboard')" :active="request()->routeIs('residents.dashboard')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
+                            <span>Dashboard</span>
+                        </span>
+                    </x-nav-link>
+                @endif
 
                 {{-- Profile Link based on Role --}}
                 @if ($user->role === 'admin' || $user->role === 'staff')
@@ -49,7 +69,6 @@
                         </span>
                     </x-nav-link>
                 @endif
-
 
                 <!-- ADMIN ROUTE FOR CREATING A STAFF ACCOUNT-->
                 @if($user->role === 'admin')
