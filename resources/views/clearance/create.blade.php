@@ -37,7 +37,7 @@
                         @enderror
                     </div>
 
-                    <x-primary-button type="button" class="mt-4"
+                    <x-primary-button type="button" class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700"
                         onclick="event.preventDefault(); this.closest('form').submit();">
                         Submit Request
                     </x-primary-button>

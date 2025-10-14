@@ -36,18 +36,25 @@
                                 <option value="rejected" {{ old('status', $clearance->status) === 'rejected' ? 'selected' : '' }}>Rejected
                                 </option>
                             </select>
+
+                            @error('status')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="remarks"
                                 class="block font-medium text-sm text-gray-700 dark:text-gray-300">Remarks</label>
-                            <textarea name="remarks" id="remarks" rows="3"
+                            <textarea name="remarks" id="remarks" rows="3" required
                                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md p-2"
                                 placeholder="Enter any notes here.">{{ old('remarks', $clearance->remarks) }}</textarea>
+
+                            @error('remarks')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
-                        <x-primary-button type="button" class="mt-4"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
+                        <x-primary-button type="submit" class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700">
                             Update
                         </x-primary-button>
                     </form>

@@ -62,6 +62,7 @@
                                     class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700">
                                     Update
                                 </x-primary-button>
+
                                 <x-primary-button type="button"
                                     onclick="window.location.href='{{ route('staff.activities.index') }}'">
                                     Back
