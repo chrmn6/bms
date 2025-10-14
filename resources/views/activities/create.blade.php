@@ -50,13 +50,16 @@
                                     </option>
                                 </select>
                             </div>
-                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
-                                Create
-                            </button>
-                            <a href="{{ route('staff.activities.index') }}"
-                                class="inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                                Back
-                            </a>
+
+                            <div class="flex items-center gap-2">
+                                <x-primary-button type="submit" class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                                    Create
+                                </x-primary-button>
+                                <x-primary-button type="button"
+                                    onclick="window.location.href='{{ route('staff.activities.index') }}'">
+                                    Back
+                                </x-primary-button>
+                            </div>
                         </form>
                     @endcan
                 </div>

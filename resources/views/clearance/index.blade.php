@@ -11,10 +11,11 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @can('create', App\Models\Clearance::class)
-                        <a href="{{ route('clearance.create') }}"
-                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                            Request A Clearance
-                        </a>
+                        <form action="{{ route('clearance.create') }}" method="GET">
+                            <x-primary-button class="mt-2">
+                                Request A Clearance
+                            </x-primary-button>
+                        </form>
                     @endcan
 
                     <table class="table-auto mt-3 w-full border border-gray-300 dark:border-gray-600">
@@ -46,28 +47,31 @@
                                     </td>
                                     <td
                                         class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
-                                                {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                                    {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                                    {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
+                                                    {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                                    {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                         {{ ucfirst($clearance->status) }}
                                     </td>
                                     <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
                                         {{ $clearance->remarks }}
                                     </td>
-                                    <td
-                                        class=" px-4 py-2 border border-gray-300 dark:border-gray-600 flex gap-2 justify-center">
-                                        <a href="{{ route('clearance.show', $clearance->clearance_id) }}"
-                                            class="px-2 py-1 bg-blue-500 text-black rounded hover:bg-blue-600 text-sm flex items-center justify-center">
-                                            <ion-icon name="eye-outline" class="text-base"></ion-icon>
-                                        </a>
+                                    <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 align-middle">
+                                        <div class="flex gap-2 justify-center">
+                                            <x-primary-button type="button"
+                                                class="p-1.5 rounded flex items-center justify-center"
+                                                onclick="window.location.href='{{ route('clearance.show', $clearance->clearance_id) }}'">
+                                                <ion-icon name="eye-outline" class="text-lg"></ion-icon>
+                                            </x-primary-button>
 
-                                        @can('update', $clearance)
-                                            <a href="{{ route('clearance.edit', $clearance->clearance_id) }}"
-                                                class="px-2 py-1 bg-yellow-500 text-black rounded hover:bg-yellow-600 text-sm flex items-center justify-center"><ion-icon
-                                                    name="pencil-outline" class="text-base"></ion-icon>
-                                            </a>
-                                        @endcan
+                                            @can('update', $clearance)
+                                                <x-primary-button type="button"
+                                                    class="p-1.5 rounded flex items-center justify-center"
+                                                    onclick="window.location.href='{{ route('clearance.edit', $clearance->clearance_id) }}'">
+                                                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
+                                                </x-primary-button>
+                                            @endcan
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

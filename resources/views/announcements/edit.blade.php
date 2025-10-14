@@ -37,13 +37,14 @@
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                                <x-primary-button type="submit"
+                                    class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700">
                                     Update
-                                </button>
-                                <a href="{{ route('announcements.index') }}"
-                                    class="inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                                    Cancel
-                                </a>
+                                </x-primary-button>
+                                <x-primary-button type="button"
+                                    onclick="window.location.href='{{ route('announcements.index') }}'">
+                                    Back
+                                </x-primary-button>
                             </div>
                         </form>
                     @else

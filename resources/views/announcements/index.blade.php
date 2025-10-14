@@ -9,13 +9,14 @@
         <div class="p-6 text-gray-900 dark:text-gray-100">
 
             @can('create', App\Models\Announcement::class)
-                <a href="{{ route('staff.announcements.create') }}"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                    Create
-                </a>
+                <form action="{{ route('staff.announcements.create') }}" method="GET">
+                    <x-primary-button class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                        Create
+                    </x-primary-button>
+                </form>
             @endcan
 
-            <div class="mt-6 grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class=" mt-6 grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($announcements as $announcement)
                     <div
                         class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md p-5 flex flex-col justify-between">
@@ -28,22 +29,24 @@
                             </p>
                         </div>
 
-                        <div class="flex gap-2 items-center justify-between mt-4">
-                            <p class="text-gray-700 dark:text-gray-300 text-xs">
-                                Posted by: {{ $announcement->user->first_name }}
+                        <div class="flex items-center justify-between mt-4 px-1">
+                            <p class="text-gray-700 dark:text-gray-300 text-sm">
+                                Posted by: <span class="font-medium">{{ $announcement->user->first_name }}</span>
                             </p>
 
-                            <div class="flex gap-2">
-                                <a href="{{ route('announcements.show', $announcement->announcement_id) }}"
-                                    class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm flex items-center justify-center">
+                            <div class="flex gap-1">
+                                <x-primary-button type="button"
+                                    class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 rounded flex items-center justify-center"
+                                    onclick="window.location.href='{{ route('announcements.show', $announcement->announcement_id) }}'">
                                     <ion-icon name="eye-outline" class="text-base"></ion-icon>
-                                </a>
+                                </x-primary-button>
 
                                 @can('update', $announcement)
-                                    <a href="{{ route('staff.announcements.edit', $announcement->announcement_id) }}"
-                                        class="px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm flex items-center justify-center">
+                                    <x-primary-button type="button"
+                                        class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 rounded flex items-center justify-center"
+                                        onclick="window.location.href='{{ route('staff.announcements.edit', $announcement->announcement_id) }}'">
                                         <ion-icon name="pencil-outline" class="text-base"></ion-icon>
-                                    </a>
+                                    </x-primary-button>
                                 @endcan
 
                                 @can('delete', $announcement)
@@ -51,10 +54,11 @@
                                         method="POST" onsubmit="return confirm('Delete this announcement?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm flex items-center justify-center">
+
+                                        <x-primary-button type="submit"
+                                            class="!bg-red-500 hover:!bg-red-600 active:!bg-red-700 rounded flex items-center justify-center">
                                             <ion-icon name="trash-outline" class="text-base"></ion-icon>
-                                        </button>
+                                        </x-primary-button>
                                     </form>
                                 @endcan
                             </div>

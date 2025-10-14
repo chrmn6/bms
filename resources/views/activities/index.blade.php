@@ -7,10 +7,11 @@
 
     <div class="py-6 px-4">
         @can('create', App\Models\Activity::class)
-            <a href="{{ route('staff.activities.create') }}"
-                class="mb-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Create Activity
-            </a>
+            <form action="{{ route('staff.activities.create') }}" method="GET">
+                <x-primary-button class="mb-4 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                    Create Activity
+                </x-primary-button>
+            </form>
         @endcan
 
         <div id='calendar' class="bg-white rounded-lg shadow-md p-4"></div>

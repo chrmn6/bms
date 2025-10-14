@@ -37,10 +37,10 @@
                         @enderror
                     </div>
 
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition">
+                    <x-primary-button type="button" class="mt-4"
+                        onclick="event.preventDefault(); this.closest('form').submit();">
                         Submit Request
-                    </button>
+                    </x-primary-button>
                 </form>
 
             </div>

@@ -15,10 +15,11 @@
 
                     <div class="mt-4 flex gap-2">
                         @can('update', $announcement)
-                            <a href="{{ route('staff.announcements.edit', $announcement->announcement_id) }}"
-                                class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                            <x-primary-button type="button"
+                                class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 rounded flex items-center justify-center"
+                                onclick="window.location.href='{{ route('staff.announcements.edit', $announcement->announcement_id) }}'">
                                 Edit
-                            </a>
+                            </x-primary-button>
                         @endcan
 
                         @can('delete', $announcement)
@@ -26,16 +27,17 @@
                                 method="POST" onsubmit="return confirm('Delete this announcement?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                <x-primary-button type="submit"
+                                    class="!bg-red-500 hover:!bg-red-600 active:!bg-red-700 rounded flex items-center justify-center">
                                     Delete
-                                </button>
+                                </x-primary-button>
                             </form>
                         @endcan
 
-                        <a href="{{ route('announcements.index') }}"
-                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                        <x-primary-button type="button"
+                            onclick="window.location.href='{{ route('announcements.index') }}'">
                             Back
-                        </a>
+                        </x-primary-button>
                     </div>
                 </div>
             </div>

@@ -11,10 +11,11 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @can('create', App\Models\Blotter::class)
-                        <a href="{{ route('blotters.create') }}"
-                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                            File A Report
-                        </a>
+                        <form action="{{ route('blotters.create') }}" method="GET">
+                            <x-primary-button class="mt-2 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                                File A Report
+                            </x-primary-button>
+                        </form>
                     @endcan
 
                     <table class="table-auto mt-3 w-full border border-gray-300 dark:border-gray-600">
@@ -40,25 +41,29 @@
                                         {{ $blotter->location }}
                                     </td>
                                     <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
-                                                {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                            {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                            {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
+                                            {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                            {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                         {{ ucfirst($blotter->status) }}
                                     </td>
-                                    <td
-                                        class=" px-4 py-2 border border-gray-300 dark:border-gray-600 flex gap-2 justify-center">
-                                        <a href="{{ route('blotters.show', $blotter->blotter_id) }}"
-                                            class="px-2 py-1 bg-blue-500 text-black rounded hover:bg-blue-600 text-sm flex items-center justify-center">
-                                            <ion-icon name="eye-outline" class="text-base"></ion-icon>
-                                        </a>
 
-                                        @can('update', $blotter)
-                                            <a href="{{ route('blotters.edit', $blotter->blotter_id) }}"
-                                                class="px-2 py-1 bg-yellow-500 text-black rounded hover:bg-yellow-600 text-sm flex items-center justify-center"><ion-icon
-                                                    name="pencil-outline" class="text-base"></ion-icon>
-                                            </a>
-                                        @endcan
+                                    <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 align-middle">
+                                        <div class="flex gap-2 justify-center">
+                                            <x-primary-button type="button"
+                                                class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 rounded flex items-center justify-center"
+                                                onclick="window.location.href='{{ route('blotters.show', $blotter->blotter_id) }}'">
+                                                <ion-icon name="eye-outline" class="text-lg"></ion-icon>
+                                            </x-primary-button>
+
+                                            @can('update', $blotter)
+                                                <x-primary-button type="button"
+                                                    class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 rounded flex items-center justify-center"
+                                                    onclick="window.location.href='{{ route('blotters.edit', $blotter->blotter_id) }}'">
+                                                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
+                                                </x-primary-button>
+                                            @endcan
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

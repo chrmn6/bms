@@ -36,9 +36,11 @@
                                 </option>
                             </select>
                         </div>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                        <x-primary-button type="button"
+                            class="mt-4 !bg-green-500 hover:!bg-green-600 active:!bg-green-700"
+                            onclick="event.preventDefault(); this.closest('form').submit();">
                             Update
-                        </button>
+                        </x-primary-button>
                     </form>
                 </div>
             </div>
