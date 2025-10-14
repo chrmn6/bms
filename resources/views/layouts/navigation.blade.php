@@ -4,6 +4,9 @@
     <div class="flex flex-col h-full">
         <!-- Logo -->
         <div class="shrink-0 flex items-center justify-center px-4 py-6">
+            @php
+                $user = Auth::user();
+            @endphp
             @if ($user)
                 @if ($user->role === 'admin')
                     <a href="{{ route('admin.dashboard') }}">
@@ -27,7 +30,6 @@
 
         <!-- Navigation Links -->
         <div class="flex-grow px-4 space-y-1 overflow-y-auto">
-
             <!-- ROLE BASED NAVIGATION FOR ALL USERS-->
             @if ($user)
                 @if ($user->role === 'admin')
