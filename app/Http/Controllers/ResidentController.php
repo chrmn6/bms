@@ -72,7 +72,7 @@ class ResidentController extends Controller
             'education' => 'nullable|string|max:100',
         ]);
 
-        $user->update($request->only(['first_name', 'last_name']));
+        $user->update($request->only(['first_name', 'last_name', 'email']));
 
         $resident->update($request->only([
             'middle_name',
