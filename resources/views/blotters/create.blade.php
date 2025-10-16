@@ -49,7 +49,7 @@
 
                     <div class="mb-4">
                         <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
-                        <input type="file" name="image" accept="image/*"
+                        <input type="file" name="image" id="image"
                             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                     </div>
 

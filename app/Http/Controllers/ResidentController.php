@@ -70,9 +70,26 @@ class ResidentController extends Controller
             'citizenship' => 'nullable|string|max:50',
             'occupation' => 'nullable|string|max:100',
             'education' => 'nullable|string|max:100',
+
+            // profile photo for users
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $user->update($request->only(['first_name', 'last_name', 'email']));
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imageName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/residents'), $imageName);
+
+            // Delete old image if it exists
+            if ($resident->image && file_exists(public_path('uploads/residents/' . $resident->image))) {
+                unlink(public_path('uploads/residents/' . $resident->image));
+            }
+
+            $resident->image = $imageName;
+            $resident->save();
+        }
 
         $resident->update($request->only([
             'middle_name',

@@ -7,9 +7,32 @@
     </header>
 
     <div class="mt-6">
-        <form method="POST" action="{{ route('residents.update') }}" class="space-y-8">
+        <form method="POST" action="{{ route('residents.update')  }}" class="space-y-8" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
+            <div class="mb-4 flex flex-col items-center">
+                <label for="image" class="relative cursor-pointer group">
+                    <div
+                        class="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 shadow-md flex items-center justify-center bg-gray-100">
+                        @if ($resident->image)
+                            <img id="profilePreview" src="{{ asset('uploads/residents/' . $resident->image) }}"
+                                class="w-full h-full object-cover" alt="Profile Photo">
+                            <span id="uploadText" class="hidden text-gray-500 text-sm">Upload Photo</span>
+                        @else
+                            <img id="profilePreview" class="hidden w-full h-full object-cover" alt="Profile Photo">
+                            <span id="uploadText" class="text-gray-500 text-sm">Upload Photo</span>
+                        @endif
+
+                        <input type="file" name="image" id="image" class="hidden">
+                    </div>
+                </label>
+
+                <!-- RESIDENT NAME-->
+                <label class="mb-4 text-gray-700 dark:text-gray-300 font-semibold mt-3 text-center text-xl">
+                    {{ $resident->full_name }}
+                </label>
+            </div>
 
             <div class="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!--First name-->
@@ -180,6 +203,19 @@
             <div class="flex items-center">
                 <x-primary-button>Save Changes</x-primary-button>
             </div>
+
+            <script>
+                document.getElementById('image').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const preview = document.getElementById('profilePreview');
+                    const uploadText = document.getElementById('uploadText');
+                    if (file) {
+                        preview.src = URL.createObjectURL(file);
+                        preview.classList.remove('hidden');
+                        uploadText.classList.add('hidden');
+                    }
+                });
+            </script>
         </form>
     </div>
 </section>

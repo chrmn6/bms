@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('date_of_birth')->nullable();
             $table->enum('gender', ['Male', 'Female'])->nullable();
             $table->string('address')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
