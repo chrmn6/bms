@@ -87,17 +87,6 @@ Route::prefix('resident')->name('resident.')->group(function () {
     Route::get('/{id}/residency-clearance', [CertificateController::class, 'residencyClearance'])->name('residency-clearance');
 });
 
-// All Users Routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/contact', function () {
-        return view('contact.index');
-    })->name('contact');
-
-    Route::get('/clearance', function () {
-        return view('clearance.index');
-    })->name('clearance');
-});
-
 //ANNOUNCEMENT ROUTES
 Route::middleware(['auth'])->group(function () {
     Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');

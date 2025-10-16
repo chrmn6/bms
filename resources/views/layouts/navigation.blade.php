@@ -117,12 +117,6 @@
                         <span>Blotter Report</span>
                     </span>
                 </x-nav-link>
-                <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="call-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Contact Info</span>
-                    </span>
-                </x-nav-link>
 
                 <!-- Logout Link -->
                 <form method="POST" action="{{ route('logout') }}" class="inline">
