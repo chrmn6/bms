@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
 
-                <form action="{{ route('blotters.store') }}" method="POST">
+                <form action="{{ route('blotters.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-4">
@@ -45,6 +45,12 @@
                         <textarea name="description"
                             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                             required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
+                        <input type="file" name="image" accept="image/*"
+                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
                     </div>
 
                     <x-primary-button type="button" class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700"

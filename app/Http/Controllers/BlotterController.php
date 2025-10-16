@@ -45,14 +45,22 @@ class BlotterController extends Controller
             'incident_time' => 'required',
             'location' => 'required|string|max:255',
             'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/blotters'), $fileName);
+        }
 
         $data['resident_id'] = Auth::user()->resident->resident_id;
         $data['user_id'] = null;
+        $data['image'] = $fileName ?? null;
 
         Blotter::create($data);
 
-        return redirect()->route('blotters.index')->with('success', 'Blotter created successfully.');
+        return redirect()->route('blotters.index')->with('success', 'Blotter report filed successfully!');
     }
 
     /**
