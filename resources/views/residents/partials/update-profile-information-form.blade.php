@@ -1,12 +1,5 @@
 <section>
-    <header>
-        <h2 class="text-xl bold font-medium text-gray-900 dark:text-gray-100">
-            Personal Information
-
-        </h2>
-    </header>
-
-    <div class="mt-6">
+    <div>
         <form method="POST" action="{{ route('residents.update')  }}" class="space-y-8" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -14,7 +7,7 @@
             <div class="mb-4 flex flex-col items-center">
                 <label for="image" class="relative cursor-pointer group">
                     <div
-                        class="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 shadow-md flex items-center justify-center bg-gray-100">
+                        class="w-32 h-32 rounded-full overflow-hidden border-2 shadow-md flex items-center justify-center bg-gray-100">
                         @if ($resident->image)
                             <img id="profilePreview" src="{{ asset('uploads/residents/' . $resident->image) }}"
                                 class="w-full h-full object-cover" alt="Profile Photo">
@@ -29,10 +22,21 @@
                 </label>
 
                 <!-- RESIDENT NAME-->
-                <label class="mb-4 text-gray-700 dark:text-gray-300 font-semibold mt-3 text-center text-xl">
+                <label class="text-gray-700 dark:text-gray-300 font-semibold mt-3 text-center text-xl">
                     {{ $resident->full_name }}
                 </label>
+
+                <!-- RESIDENT Email-->
+                <label class="text-gray-700 dark:text-gray-300 font-normal text-center text-base">
+                    {{ $user->email }}
+                </label>
             </div>
+
+            <header>
+                <h2 class="text-xl bold font-medium text-gray-900 dark:text-gray-100">
+                    Basic Information
+                </h2>
+            </header>
 
             <div class="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!--First name-->
@@ -53,7 +57,7 @@
 
                 <!--Middle name-->
                 <div>
-                    <x-input-label for="middle_name" :value="__('Middle Name')" />
+                    <x-input-label for="middle_name" :value="__('Middle Name (Optional)')" />
                     <x-text-input id="middle_name" name="middle_name" type="text" class="mt-1 block w-full"
                         :value="old('middle_name', $resident->middle_name ?? '') "
                         placeholder="Provide your middle name" />
@@ -63,7 +67,15 @@
                 <!--Suffix-->
                 <div>
                     <x-input-label for="suffix" :value="__('Suffix')" />
-                    <x-text-input id="suffix" name="suffix" type="text" class="mt-1 block w-full" :value="old('suffix', $resident->suffix ?? '')" placeholder="Provide your suffix" />
+                    <select id="suffix" name="suffix" class="mt-1 block w-full border-gray-300 rounded-md">
+                        <option value="">N/A</option>
+                        <option value="Jr." {{ old('suffix', $resident->suffix ?? '') == 'Jr.' ? 'selected' : '' }}>Jr.
+                        </option>
+                        <option value="Sr." {{ old('suffix', $resident->suffix ?? '') == 'Sr.' ? 'selected' : '' }}>Sr.
+                        </option>
+                        <option value="III" {{ old('suffix', $resident->suffix ?? '') == 'III' ? 'selected' : '' }}>III
+                        </option>
+                    </select>
                     <x-input-error class="mt-2" :messages="$errors->get('suffix')" />
                 </div>
 
@@ -97,14 +109,6 @@
                     <x-input-error class="mt-2" :messages="$errors->get('gender')" />
                 </div>
 
-                <!--Address-->
-                <div>
-                    <x-input-label for="address" :value="__('Address')" />
-                    <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
-                        :value="old('address', $resident->address ?? '')" placeholder="Provide your address" />
-                    <x-input-error class="mt-2" :messages="$errors->get('address')" />
-                </div>
-
                 <!--Household-->
                 <div>
                     <x-input-label for="household_id" :value="__('Household')" />
@@ -117,6 +121,14 @@
                         @endforeach
                     </select>
                     <x-input-error class="mt-2" :messages="$errors->get('household_id')" />
+                </div>
+
+                <!--Address-->
+                <div>
+                    <x-input-label for="address" :value="__('Address')" />
+                    <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
+                        :value="old('address', $resident->address ?? '')" placeholder="Provide your address" />
+                    <x-input-error class="mt-2" :messages="$errors->get('address')" />
                 </div>
 
                 <div>
