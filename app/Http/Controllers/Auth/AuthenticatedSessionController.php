@@ -53,12 +53,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         // Redirect based on role
-        if ($role === 'admin') {
-            return redirect('/admin/login');
-        } elseif ($role === 'staff') {
-            return redirect('/staff/login');
-        } else {
-            return redirect('/');
-        }
+        return redirect('/');
     }
 }

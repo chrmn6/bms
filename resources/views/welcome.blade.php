@@ -1528,28 +1528,117 @@
                 @auth
                     @php $user = Auth::user(); @endphp
                     <a href="
-                                                        @if ($user->role === 'admin')
-                                                            {{ route('admin.dashboard') }}
-                                                        @elseif ($user->role === 'staff')
-                                                            {{ route('staff.dashboard') }}
-                                                        @elseif ($user->role === 'resident')
-                                                            {{ route('residents.dashboard') }}
-                                                        @else
-                                                            {{ route('dashboard') }}
-                                                        @endif
-                                                    "
+                    @if ($user->role === 'admin')
+                        {{ route('admin.dashboard') }}
+                    @elseif ($user->role === 'staff')
+                        {{ route('staff.dashboard') }}
+                    @elseif ($user->role === 'resident')
+                        {{ route('residents.dashboard') }}
+                    @else
+                        {{ route('dashboard') }}
+                    @endif
+                    "
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                         Dashboard
                     </a>
                 @else
-                    <a href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
-                        Log in
-                    </a>
+
+                    <!--LOGIN MODAL-->
+                    <div x-data="{ openLogin: false }" @keydown.escape.window="openLogin = false">
+                        <!-- Login Button -->
+                        <button @click="openLogin = true"
+                            class="inline-block px-5 py-1.5 text-[var(--text-color)] dark:text-[var(--neutral-color)] border border-transparent hover:border-[var(--primary-color)] rounded-sm text-base leading-normal">
+                            Log in
+                        </button>
+
+                        <!-- Modal Background -->
+                        <div x-show="openLogin" x-transition.opacity
+                            class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                            @click.self="openLogin = false">
+                            <!-- Modal Box -->
+                            <div x-transition.scale
+                                class="relative bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-md">
+                                <!-- Close button -->
+                                <button @click="openLogin = false"
+                                    class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                    aria-label="Close">
+                                    <!-- Heroicon X -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+
+                                <!-- Logo -->
+                                <div class="flex justify-center mt-2">
+                                    <a href="/">
+                                        <x-application-logo class="w-auto h-16" />
+                                    </a>
+                                </div>
+
+                                <!-- Modal Header -->
+                                <div class="mb-4 text-center">
+                                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Log in</h2>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        Please sign in to continue.
+                                    </p>
+                                </div>
+
+                                <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                                <!-- Login Form -->
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+
+                                    <!-- Email Address -->
+                                    <div>
+                                        <x-input-label for="email" :value="__('Email')" />
+                                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                            :value="old('email')" required autofocus autocomplete="username" />
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="mt-4">
+                                        <x-input-label for="password" :value="__('Password')" />
+
+                                        <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                            required autocomplete="current-password" />
+
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    </div>
+
+                                    <!-- Remember Me -->
+                                    <div class="block mt-4">
+                                        <label for="remember_me" class="inline-flex items-center">
+                                            <input id="remember_me" type="checkbox"
+                                                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                                                name="remember">
+                                            <span
+                                                class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="flex items-center justify-end mt-4">
+                                        @if (Route::has('password.request'))
+                                            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                                href="{{ route('password.request') }}">
+                                                {{ __('Forgot your password?') }}
+                                            </a>
+                                        @endif
+
+                                        <x-primary-button class="ms-3">
+                                            {{ __('Log in') }}
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                            class="inline-block px-5 py-1.5 text-[var(--secondary-color)] border border-[var(--primary-color)] hover:text-[var(--secondary-color)] dark:text-[var(--neutral-color)] bg-[var(--primary-color)] text-[var(--secondary-color)] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-base leading-normal">
                             Register
                         </a>
                     @endif
@@ -1564,10 +1653,10 @@
             <!-- Text Section -->
             <div class="flex-1 p-6 pb-12 lg:p-18 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC]">
                 <h1 class="mb-1 font-medium"
-                    style="font-size: 3rem; line-height: 1; text-transform: uppercase; font-weight: bold;">
+                    style="font-size: 3.2rem; line-height: 1; text-transform: uppercase; font-weight: bold; text-align: center;">
                     Welcome to Barangay Matina Gravahan
                 </h1>
-                <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] font-size: 1rem;">
+                <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-base text-center">
                     Simplifying barangay operations for a <br> more connected and efficient community.
                 </p>
             </div>
@@ -1576,8 +1665,8 @@
                 <!-- Light mode image -->
                 <img src="{{ asset('images/bms-home.png') }}" alt="BMS Header Light" class="w-full max-w-md lg:max-w-2xl h-auto object-contain/>
 
-                            <!-- Dark mode image -->
-                            <img src=" {{ asset('images/bms-home.png') }}" alt="BMS Header Dark"
+                <!-- Dark mode image -->
+                <img src=" {{ asset('images/bms-home.png') }}" alt="BMS Header Dark"
                     class="w-full max-w-md lg:max-w-2xl h-auto object-contain hidden dark:block" />
             </div>
         </main>

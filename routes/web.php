@@ -32,12 +32,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 // All Admin Routes
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
-
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -45,11 +39,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 // All Staff Routes
-Route::prefix('staff')->name('staff.')->group(function () {
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
 
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
     Route::get('/dashboard', function () {
@@ -64,11 +53,6 @@ Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(f
 
 
 // All Residents Routes
-Route::prefix('residents')->name('residents.')->group(function () {
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
 
 Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
     Route::get('/dashboard', function () {
