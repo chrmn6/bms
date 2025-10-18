@@ -33,9 +33,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // All Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 });
 
 // All Staff Routes
@@ -99,5 +97,7 @@ Route::resource('blotters', BlotterController::class)->except(['destroy']);
 // BLOTTER ROUTE
 Route::resource('clearance', ClearanceController::class)->except(['destroy']);
 
+// Clearances
+Route::resource('clearances', ClearanceController::class);
 
 require __DIR__.'/auth.php';
