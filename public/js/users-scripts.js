@@ -71,3 +71,17 @@ function viewUser(id) {
             alert('Could not fetch user data.');
         });
 }
+
+function closeAddModal() {
+    // Get the modal element
+    const modalEl = document.getElementById('addAnnouncementModal');
+
+    // Get existing Bootstrap modal instance, or create a new one
+    const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+
+    // Hide the modal
+    modal.hide();
+
+    // Optional: reset the form fields
+    document.getElementById('addAnnouncementForm').reset();
+}

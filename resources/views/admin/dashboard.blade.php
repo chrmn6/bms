@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
     <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
 
-    <div class="p-2 sm:p-8 bg-white dark:bg-gray-800">
-        <div class="main-content container-fluid py-8">
+
+    <div class="container px-3 px-md-4">
+        <div class="main-content py-8">
             <!-- Welcome Card -->
             <div class="row mb-4">
                 <div class="col-12">
@@ -270,11 +271,11 @@
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span
                                                     class="badge 
-                                                                                                                                                @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                @else bg-secondary
-                                                                                                                                                @endif">
+                                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                                        @else bg-secondary
+                                                                                                                                                                                        @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>
@@ -297,4 +298,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

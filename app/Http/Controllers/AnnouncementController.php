@@ -56,9 +56,16 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Announcement $announcement)
+   public function show(Announcement $announcement)
     {
         $this->authorize('view', $announcement);
+
+        // If the request came from HTMX, return only the partial view (no layout)
+        if (request()->header('HX-Request')) {
+            return view('announcements.partials.show', compact('announcement'));
+        }
+
+        // Otherwise, return the full page view
         return view('announcements.show', compact('announcement'));
     }
 
