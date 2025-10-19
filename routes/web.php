@@ -26,13 +26,9 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin routes for managing users
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('staff', UserController::class)->only(['index', 'create', 'store']);
-});
-
 // All Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('staff', UserController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 });
 

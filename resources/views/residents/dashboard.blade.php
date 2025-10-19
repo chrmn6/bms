@@ -18,8 +18,6 @@
             $requiredFields = [
 
                 // residents table
-                $resident->middle_name,
-                $resident->suffix,
                 $resident->place_of_birth,
                 $resident->date_of_birth,
                 $resident->gender,

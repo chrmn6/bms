@@ -49,7 +49,7 @@ class UserController extends Controller
             'role' => 'staff',
         ]);
 
-        return redirect()->route('staff.index')->with('success', 'Staff account created successfully.');
+        return redirect()->route('admin.staff.index')->with('success', 'Staff account created successfully.');
 
     }
 
@@ -67,7 +67,7 @@ class UserController extends Controller
     ];
 
     // Get recent activities
-    $recent_announcements = Announcement::with('author')
+    $recent_announcements = Announcement::with('user')
         ->latest()
         ->take(5)
         ->get();
@@ -77,5 +77,43 @@ class UserController extends Controller
         ->get();
 
     return view('admin.dashboard', compact('stats', 'recent_announcements', 'recent_activities'));
+    }
+
+    public function show(User $staff)
+    {
+        return response()->json([
+            'id' => $staff->id,
+            'first_name' => $staff->first_name,
+            'last_name' => $staff->last_name,
+            'email' => $staff->email,
+            'phone_number' => $staff->phone_number,
+            'role' => $staff->role,
+            'status' => $staff->status ?? 'Active',
+            'created_at' => $staff->created_at->format('M d, Y'),
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $staff = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $staff->id,
+            'role' => 'required|string',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $staff->name = $validated['name'];
+        $staff->email = $validated['email'];
+        $staff->role = $validated['role'];
+
+        if (!empty($validated['password'])) {
+            $staff->password = bcrypt($validated['password']);
+        }
+
+        $staff->save();
+
+        return redirect()->back()->with('success', 'Staff updated successfully!');
     }
 }
