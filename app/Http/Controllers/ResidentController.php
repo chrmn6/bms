@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Resident;
+use App\Models\Activity;
+use App\Models\Announcement;
+use App\Models\Clearance;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Household;
@@ -14,6 +17,32 @@ class ResidentController extends Controller
     {
         $this->middleware(['auth', 'role:resident']);
     }
+
+    public function index()
+    {
+        $user = Auth::user();
+        $resident = $user->resident; // make sure User model has resident() relationship
+
+        // Get recent announcements
+        $announcements = Announcement::with('user')
+            ->latest()
+            ->take(10)
+            ->get();
+
+        // Get recent activities
+        $activities = Activity::latest()
+            ->take(10)
+            ->get();
+
+        // Get resident's clearance requests
+        $clearances = Clearance::where('resident_id', $resident->id)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('residents.dashboard', compact('resident', 'announcements', 'activities', 'clearances'));
+    }
+
 
     public function edit()
     {

@@ -6,6 +6,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\CertificateController;
@@ -35,9 +36,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 // All Staff Routes
 
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('staff.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [StaffController::class, 'dashboard'])->name('dashboard');
 });
 
 Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
@@ -49,9 +48,7 @@ Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(f
 // All Residents Routes
 
 Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('residents.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware(['auth', 'role:resident'])->group(function () {

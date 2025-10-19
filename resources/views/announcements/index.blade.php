@@ -59,36 +59,34 @@
                                         <p class="card-text">{{ Str::limit($announcement->content, 150) }}</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <small class="text-muted">
-                                                By {{ $announcement->user->first_name }} •
+                                                Posted by: {{ $announcement->user->first_name }}
+                                                {{ $announcement->user->last_name }} •
                                                 {{ $announcement->created_at->diffForHumans() }}
                                             </small>
-                                            <div class="btn-group" role="group">
-                                                <a href="#" class="btn btn-sm btn-outline-info" title="View"
+                                            <div role="group">
+                                                <button type="button" class="btn btn-sm btn-outline-info"
                                                     hx-get="{{ route('announcements.show', $announcement) }}"
                                                     hx-target="#announcementModalBody" hx-trigger="click"
                                                     hx-swap="innerHTML" data-bs-toggle="modal"
                                                     data-bs-target="#announcementModal">
                                                     <i class="bi bi-eye"></i>
-                                                </a>
+                                                </button>
 
-                                                {{-- Edit --}}
                                                 @can('update', $announcement)
-                                                    <a href="{{ route('staff.announcements.edit', $announcement) }}"
-                                                        class="btn btn-sm btn-outline-warning" title="Edit">
+                                                    <button type="button" class="btn btn-sm btn-outline-warning"
+                                                        onclick="window.location='{{ route('staff.announcements.edit', $announcement) }}'">
                                                         <i class="bi bi-pencil"></i>
-                                                    </a>
+                                                    </button>
                                                 @endcan
 
-                                                {{-- Delete --}}
                                                 @can('delete', $announcement)
                                                     <form method="POST"
                                                         action="{{ route('staff.announcements.destroy', $announcement) }}"
-                                                        style="display:inline;"
+                                                        class="d-inline"
                                                         onsubmit="return confirm('Are you sure you want to delete this announcement?')">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                            title="Delete">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
                                                             <i class="bi bi-trash"></i>
                                                         </button>
                                                     </form>
@@ -104,19 +102,15 @@
                                     <div class="card-body">
                                         <i class="bi bi-megaphone-fill fa-3x text-muted mb-3"></i>
                                         <h4>No Announcements Yet</h4>
-                                        <p class="text-muted">Create your first announcement to keep residents informed.
                                         </p>
-                                        @can('create', App\Models\Announcement::class)
-                                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#addAnnouncementModal">
-                                                <i class="bi bi-plus-circle"></i>
-                                                Create First Announcement
-                                            </button>
-                                        @endcan
                                     </div>
                                 </div>
                             </div>
                         @endforelse
+
+                        <div class="mt-6">
+                            {{ $announcements->links() }}
+                        </div>
                     </div>
                 </div>
 

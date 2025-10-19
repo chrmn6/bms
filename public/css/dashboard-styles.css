@@ -468,7 +468,7 @@
 }
 
 .action-content h5 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 5px;
     color: #1f2937;
@@ -545,6 +545,25 @@
 
 .warning-action:hover {
     border-color: #CD853F;
+}
+
+.announcement-item {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.announcement-item:last-child {
+    border-bottom: none;
+}
+
+.announcement-item h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.announcement-item small {
+    color: #6c757d;
 }
 
 /* Animations */
@@ -712,28 +731,6 @@
     color: white;
     border-radius: 10px 10px 0 0 !important;
     border: none;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    border: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
-    transform: translateY(-1px);
-}
-
-.btn-outline-primary {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
 }
 
 .stat-card {

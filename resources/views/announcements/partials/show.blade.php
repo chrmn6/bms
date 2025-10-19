@@ -8,7 +8,8 @@
         @if ($announcement->updated_at != $announcement->created_at)
             • Updated {{ $announcement->updated_at->diffForHumans() }}
         @endif
-        • Posted by: <span class="fw-semibold">{{ $announcement->user->first_name }}</span>
+        • Posted by: <span class="fw-medium">{{ $announcement->user->first_name }}
+            {{ $announcement->user->last_name }}</span>
     </small>
 
     <div class="d-flex justify-content-end gap-2">
