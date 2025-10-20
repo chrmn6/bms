@@ -55,7 +55,7 @@
                     </x-nav-link>
                 @endif
 
-                {{-- Profile Link based on Role --}}
+                {{-- PROFILE LINK BASED ON ROLES --}}
                 @if ($user->role === 'admin' || $user->role === 'staff')
                     <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
                         <span class="inline-flex items-center">
@@ -116,6 +116,14 @@
                     <span class="inline-flex items-center">
                         <ion-icon name="newspaper-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Blotter Report</span>
+                    </span>
+                </x-nav-link>
+
+                {{-- SETTINGS LINK BASED ON ROLES --}}
+                <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
+                    <span class="inline-flex items-center">
+                        <ion-icon name="settings-outline" class="w-5 h-5 mr-6"></ion-icon>
+                        <span>Settings</span>
                     </span>
                 </x-nav-link>
 

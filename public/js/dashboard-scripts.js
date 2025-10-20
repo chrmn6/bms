@@ -25,21 +25,6 @@ function animateNumbers() {
     });
 }
 
-// Stagger the animation of stat cards
-function staggerCardAnimations() {
-    const cards = document.querySelectorAll('.enhanced-stat-card');
-    cards.forEach(function (card, index) {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-
-        setTimeout(function () {
-            card.style.transition = 'all 0.6s ease-out';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-}
-
 // Animate action cards
 function animateActionCards() {
     const actionCards = document.querySelectorAll('.action-card');
@@ -55,69 +40,13 @@ function animateActionCards() {
     });
 }
 
-// Add enhanced hover effects to stat cards
-function addStatCardInteractions() {
-    const statCards = document.querySelectorAll('.enhanced-stat-card');
-    statCards.forEach(function (card) {
-        card.addEventListener('mouseenter', function () {
-            const icon = card.querySelector('.stat-icon');
-            const progressBar = card.querySelector('.stat-progress-bar');
-            const number = card.querySelector('.stat-number');
-
-            if (icon) {
-                icon.style.transform = 'scale(1.15) rotate(10deg)';
-            }
-            if (progressBar) {
-                progressBar.style.width = '85%';
-            }
-            if (number) {
-                number.style.transform = 'scale(1.05)';
-            }
-        });
-
-        card.addEventListener('mouseleave', function () {
-            const icon = card.querySelector('.stat-icon');
-            const progressBar = card.querySelector('.stat-progress-bar');
-            const number = card.querySelector('.stat-number');
-
-            if (icon) {
-                icon.style.transform = 'scale(1) rotate(0deg)';
-            }
-            if (progressBar) {
-                progressBar.style.width = '0%';
-            }
-            if (number) {
-                number.style.transform = 'scale(1)';
-            }
-        });
-
-        // Add pulse effect on click
-        card.addEventListener('click', function () {
-            card.style.animation = 'pulse 0.6s ease-in-out';
-            setTimeout(() => {
-                card.style.animation = '';
-            }, 600);
-        });
-    });
-}
-
-// Add floating animation to cards (DISABLED - too much movement)
-function addFloatingAnimation() {
-    // Animation disabled per user preference
-    return;
-}
-
 // Add parallax effect to trend icons (DISABLED - too much movement)
 function addParallaxEffect() {
     // Parallax effect disabled per user preference
     return;
 }
 
-// Initialize all animations and effects
-setTimeout(staggerCardAnimations, 300);
 setTimeout(animateNumbers, 800);
-setTimeout(animateActionCards, 1200);
-setTimeout(addFloatingAnimation, 1500);
 addStatCardInteractions();
 addParallaxEffect();
 

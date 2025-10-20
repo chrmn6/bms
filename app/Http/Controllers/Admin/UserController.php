@@ -20,8 +20,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $staff = User::where('role', 'staff')->paginate(4);
-        return view('admin.users.index', compact('staff'));
+        $users = User::whereIn('role', ['admin', 'staff'])->paginate(4);
+        return view('admin.users.index', compact('users'));
     }
     // show form to create staff
     public function create()

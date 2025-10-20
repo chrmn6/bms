@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AnnouncementController;
@@ -92,5 +93,12 @@ Route::resource('clearance', ClearanceController::class)->except(['destroy']);
 
 // Clearances
 Route::resource('clearances', ClearanceController::class);
+
+//Settings
+Route::middleware('auth')->group(function () {
+    Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings', [SettingsController::class, 'update'])->name('settings.updatePassword');
+    Route::delete('/settings', [SettingsController::class, 'destroy'])->name('settings.destroy');
+});
 
 require __DIR__.'/auth.php';

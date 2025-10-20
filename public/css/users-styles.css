@@ -12,14 +12,6 @@
     font-size: 14px;
 }
 
-.stat-card {
-    transition: transform 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-}
-
 .table th {
     border-top: none;
     font-weight: 600;
@@ -29,12 +21,10 @@
 .btn-primary {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     border: none;
-    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
     background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
-    transform: translateY(-1px);
 }
 
 .btn-outline-primary {

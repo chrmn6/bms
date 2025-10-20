@@ -60,15 +60,6 @@
         @endif
     </div>
 
-    @if(session('success'))
-        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2000)" x-transition
-            class="fixed top-10 px-6 py-3 rounded shadow-lg z-50"
-            style="background-color: #16a34a; color: #ffffff; min-width: 200px; left: 50%; transform: translateX(-50%);">
-            {{ session('success') }}
-            <button @click="show = false" style="color: #ffffff;" class="ml-2 font-bold float-right">×</button>
-        </div>
-    @endif
-
     <div class="container px-3 px-md-4">
         <div class="main-content py-8">
             <!-- Success Message -->

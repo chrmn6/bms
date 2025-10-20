@@ -52,7 +52,7 @@
             <div class="row mb-2 g-3">
                 @if(auth()->user()->role === 'admin')
                     <!-- Total Users -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                         <div class="enhanced-stat-card users-card admin-card">
                             <div class="stat-icon">
                                 <i class="bi bi-person-gear"></i>
@@ -71,7 +71,7 @@
                     </div>
 
                     <!-- Staff Members -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                         <a href="{{ route('admin.staff.index') }}" class="text-decoration-none">
                             <div class="enhanced-stat-card staff-card admin-card">
                                 <div class="stat-icon">
@@ -93,7 +93,7 @@
 
                 @endif
 
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                     <div class="enhanced-stat-card residents-card">
                         <div class="stat-icon">
                             <i class="bi bi-people"></i>
@@ -115,7 +115,7 @@
             <!-- Second Row -->
             <div class="row mb-2 g-3">
                 <!-- Announcements -->
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                     <a href="{{ route('announcements.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card announcements-card">
                             <div class="stat-icon">
@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- Pending Reports -->
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                     <a href="{{ route('blotters.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card reports-card">
                             <div class="stat-icon">
@@ -156,7 +156,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                     <a href="{{ route('clearance.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card clearances-card">
                             <div class="stat-icon">
@@ -180,7 +180,7 @@
             <!--THIRD ROW-->
             <div class="row mb-2 g-3">
                 <!-- Announcements -->
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
                     <a href="{{ route('activities.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card announcements-card">
                             <div class="stat-icon">
@@ -271,11 +271,11 @@
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span
                                                     class="badge 
-                                                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                        @else bg-secondary
-                                                                                                                                                                                                        @endif">
+                                                                                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                                                                                        @else bg-secondary
+                                                                                                                                                                                                                                        @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>

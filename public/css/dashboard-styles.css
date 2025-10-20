@@ -1,17 +1,15 @@
 /* Enhanced Dashboard Styles */
 .welcome-card {
-    background: linear-gradient(135deg, #B76E79 0%, #6D0512 100%);
+    background: #6D0512;
     border-radius: 20px;
     padding: 20px;
     color: white;
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(183, 110, 121, 0.3);
-    transition: all 0.3s ease;
 }
 
 .welcome-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(183, 110, 121, 0.4);
 }
 
@@ -81,7 +79,6 @@
     border-radius: 20px;
     padding: 15px 20px;
     box-shadow: 0 8px 25px rgba(183, 110, 121, 0.08), 0 3px 6px rgba(183, 110, 121, 0.05);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     border: 2px solid transparent;
@@ -93,7 +90,6 @@
 }
 
 .enhanced-stat-card:hover {
-    transform: translateY(-8px);
     box-shadow: 0 20px 50px rgba(183, 110, 121, 0.15), 0 8px 16px rgba(183, 110, 121, 0.1);
     border: 3px solid transparent;
     background: linear-gradient(white, white) padding-box,
@@ -131,10 +127,6 @@
     transition: opacity 0.4s ease;
 }
 
-.enhanced-stat-card:hover::after {
-    opacity: 0.3;
-}
-
 .enhanced-stat-card p {
     line-height: 1.2;
 }
@@ -167,39 +159,33 @@
     transition: opacity 0.3s ease;
 }
 
-.enhanced-stat-card:hover .stat-icon::before {
-    opacity: 1;
-}
-
 .stat-content {
     position: relative;
     z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 
 .stat-content h3 {
     font-size: 1.4rem;
     font-weight: 800;
-    margin-bottom: 8px;
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, var(--card-color), var(--card-color-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    transition: all 0.3s ease;
-}
-
-.enhanced-stat-card:hover .stat-content h3 {
-    transform: scale(1.05);
+    margin: 0;
 }
 
 .stat-content p {
     color: #6c757d;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    margin: 0;
     text-transform: uppercase;
     letter-spacing: 1px;
-    position: relative;
+    margin: 0;
 }
 
 .stat-content p::after {
@@ -213,14 +199,10 @@
     transition: width 0.3s ease;
 }
 
-.enhanced-stat-card:hover .stat-content p::after {
-    width: 100%;
-}
-
 .stat-trend {
     position: absolute;
-    top: 25px;
-    right: 25px;
+    top: 15px;
+    right: 20px;
     width: 40px;
     height: 40px;
     border-radius: 12px;
@@ -231,12 +213,6 @@
     opacity: 0.6;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     backdrop-filter: blur(10px);
-}
-
-.enhanced-stat-card:hover .stat-trend {
-    opacity: 1;
-    transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .stat-progress {
@@ -258,19 +234,11 @@
     border-radius: 0 0 20px 20px;
 }
 
-.enhanced-stat-card:hover .stat-progress-bar {
-    width: 85%;
-}
-
 .card {
     border: none;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-2px);
 }
 
 .card-header {
@@ -660,24 +628,24 @@
     }
 
     .enhanced-stat-card {
-        padding: 12px 15px;
-        border-radius: 12px;
+        padding: 18px 20px;
+        min-height: 120px;
     }
 
     .stat-icon {
         width: 35px;
         height: 35px;
-        font-size: 1rem;
-        margin-bottom: 6px;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
     }
 
     .stat-content h3 {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         margin-bottom: 2px;
     }
 
     .stat-content p {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
         letter-spacing: 0.5px;
     }
 
@@ -685,8 +653,8 @@
         width: 25px;
         height: 25px;
         font-size: 0.8rem;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 15px;
     }
 
     .stat-progress-bar {
@@ -707,23 +675,10 @@
     --text-color: #333333;
 }
 
-.main-content {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 20px auto 40px auto;
-    padding: 30px 30px;
-}
-
 .card {
     border: none;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-2px);
 }
 
 .card-header {
