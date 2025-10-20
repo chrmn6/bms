@@ -21,28 +21,18 @@ class ResidentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $resident = $user->resident; // make sure User model has resident() relationship
+        $resident = Resident::where('user_id', $user->id)->first();
 
-        // Get recent announcements
-        $announcements = Announcement::with('user')
-            ->latest()
-            ->take(10)
-            ->get();
+        if (!$resident) {
+            return redirect()->route('residents.edit')->with('error', 'No resident profile found. Please complete your profile information.');
+        }
 
-        // Get recent activities
-        $activities = Activity::latest()
-            ->take(10)
-            ->get();
-
-        // Get resident's clearance requests
-        $clearances = Clearance::where('resident_id', $resident->id)
-            ->latest()
-            ->take(5)
-            ->get();
+        $announcements = Announcement::with('user')->latest()->take(10)->get();
+        $activities = Activity::latest()->take(10)->get();
+        $clearances = $resident->clearances()->latest()->take(5)->get();
 
         return view('residents.dashboard', compact('resident', 'announcements', 'activities', 'clearances'));
     }
-
 
     public function edit()
     {

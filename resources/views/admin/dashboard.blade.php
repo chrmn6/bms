@@ -19,8 +19,8 @@
     <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
 
 
-    <div class="container px-3 px-md-4">
-        <div class="main-content py-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="py-3">
             <!-- Welcome Card -->
             <div class="row mb-4">
                 <div class="col-12">
@@ -271,11 +271,11 @@
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span
                                                     class="badge 
-                                                                                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                                                        @else bg-secondary
-                                                                                                                                                                                                                                        @endif">
+                                                                                                                                                                                                                                                @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                                                                                                @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                                                                                                @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                                                                                                @else bg-secondary
+                                                                                                                                                                                                                                                @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>

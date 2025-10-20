@@ -19,6 +19,10 @@ class Resident extends Model
         'address',
     ];
 
+    protected $casts = [
+    'date_of_birth' => 'date',
+    ];
+
     public function household()
     {
         return $this->belongsTo(Household::class, 'household_id', 'household_id');
@@ -36,7 +40,7 @@ class Resident extends Model
 
     public function clearances()
     {
-        return $this->hasMany(Clearance::class);
+        return $this->hasMany(Clearance::class, 'resident_id', 'resident_id');
     }
 
     public function getFullNameAttribute()

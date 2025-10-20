@@ -11,87 +11,85 @@
     @endpush
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Staff Accounts') }}
         </h2>
     </x-slot>
 
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="p-6 text-gray-900 dark:text-gray-100">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    <i class="bi bi-person-plus"></i>
-                    Add New User
-                </button>
-            </div>
+        <div class="py-3">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="bi bi-person-plus"></i>
+                Add New User
+            </button>
+        </div>
 
-            <!-- Users Table -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        <i class="bi bi-table"></i>
-                        System Users
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover text-center">
-                            <thead class="table-light">
+        <!-- Users Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-table"></i>
+                    System Users
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>User ID</th>
+                                <th>Full Name</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Account Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $user)
+                                @php
+                                    $isCurrentUser = Auth::check() && Auth::id() === $user->id;
+                                @endphp
                                 <tr>
-                                    <th>User ID</th>
-                                    <th>Full Name</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Account Created</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($users as $user)
-                                    @php
-                                        $isCurrentUser = Auth::check() && Auth::id() === $user->id;
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>
+                                    <td>{{ $user->id }}</td>
+                                    <td>
+                                        <div>
                                             <div>
-                                                <div>
-                                                    <strong>{{ $user->first_name }}
-                                                        {{ $user->last_name }}</strong><br>
-                                                    <small class="text-muted">{{ $user->email }}</small>
-                                                </div>
+                                                <strong>{{ $user->first_name }}
+                                                    {{ $user->last_name }}</strong><br>
+                                                <small class="text-muted">{{ $user->email }}</small>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success">
-                                                {{ ucfirst($user->role) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            @if ($isCurrentUser)
-                                                <span class="badge bg-info">Current User</span>
-                                            @else
-                                                <span class="badge bg-success">Active</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="text-muted">{{ $user->created_at->format('M d, Y') }}</span><br>
-                                            <small class="text-muted">{{ $user->created_at->diffForHumans() }}</small>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-sm btn-outline-info"
-                                                    onclick="viewUser({{ $user->id }})" title="View Details">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">
+                                            {{ ucfirst($user->role) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if ($isCurrentUser)
+                                            <span class="badge bg-info">Current User</span>
+                                        @else
+                                            <span class="badge bg-success">Active</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">{{ $user->created_at->format('M d, Y') }}</span><br>
+                                        <small class="text-muted">{{ $user->created_at->diffForHumans() }}</small>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-sm btn-outline-info" onclick="viewUser({{ $user->id }})"
+                                                title="View Details">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

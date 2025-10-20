@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('resident_profile_id');
             $table->unsignedBigInteger('resident_id')->unique();
             $table->foreign('resident_id')->references('resident_id')->on('residents')->onDelete('cascade');
-            $table->enum('civil_status', ['Single', 'Married', 'Widowed', 'Divorced'])->nullable();
+            $table->enum('civil_status', ['Single', 'In A Relationship', 'Married', 'Widowed', 'Divorced'])->nullable();
             $table->string('citizenship')->nullable();
             $table->string('occupation')->nullable();
             $table->string('education')->nullable();

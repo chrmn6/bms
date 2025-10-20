@@ -8,77 +8,34 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
     <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
 
-    @php
-        $user = Auth::user();
-        $resident = $user->resident;
-        $profile = $resident?->profile;
-        $household = $resident?->household;
 
-        $isIncomplete = false;
-        if (!$resident || !$profile || !$household) {
-            $isIncomplete = true;
-        } else {
-            $requiredFields = [
-
-                // residents table
-                $resident->place_of_birth,
-                $resident->date_of_birth,
-                $resident->gender,
-                $resident->address,
-
-                // residents profile
-                $profile->civil_status,
-                $profile->citizenship,
-                $profile->occupation,
-                $profile->education,
-
-                //household
-                $household->household_number,
-            ];
-
-            foreach ($requiredFields as $field) {
-                if (empty($field)) {
-                    $isIncomplete = true;
-                    break;
-                }
-            }
-        }
-    @endphp
-
-    <div>
-        @if ($isIncomplete)
-            <div class=" bg-yellow-100 border-yellow-500 text-yellow-700 p-4 mb-6 mx-6 rounded">
-                <p class="font-bold">⚠️ Please complete your profile information</p>
-                <p class="text-sm mb-2">
-                    You need to complete your profile information first before fully accessing the system.
-                </p>
-                <a href="{{ route('residents.edit') }}"
-                    class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium">
-                    Complete Profile
-                </a>
-            </div>
-        @endif
-    </div>
-
-    <div class="container px-3 px-md-4">
-        <div class="main-content py-8">
-            <!-- Success Message -->
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle me-2"></i>
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif
-
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="py-3">
             <!-- Welcome Card -->
-            <div class="welcome-card mb-4">
-                <h2><i
-                        class="bi bi-{{ date('H') < 12 ? 'sun' : (date('H') < 18 ? 'brightness-high' : 'moon-stars') }}"></i>
-                    Good {{ date('H') < 12 ? 'Morning' : (date('H') < 18 ? 'Afternoon' : 'Evening') }},
-                    {{ $resident->full_name }}!
-                </h2>
-                <p>Access services, view announcements, and stay connected with your community.</p>
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="welcome-card">
+                        <div class="welcome-content">
+                            <div class="welcome-icon">
+                                <i
+                                    class="bi bi-{{ date('H') < 12 ? 'sun' : (date('H') < 18 ? 'sun' : 'moon-stars') }}"></i>
+                            </div>
+                            <div class="welcome-text">
+                                <h3 class="welcome-greeting">
+                                    Good {{ date('H') < 12 ? 'Morning' : (date('H') < 18 ? 'Afternoon' : 'Evening') }},
+                                    {{ $resident->full_name }}!
+                                </h3>
+                                <p class="welcome-subtitle">Welcome to the Barangay Matina Gravahan Management System.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="welcome-decoration">
+                            <div class="decoration-circle"></div>
+                            <div class="decoration-circle"></div>
+                            <div class="decoration-circle"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Quick Actions -->
@@ -89,7 +46,7 @@
                             <i class="bi bi-file-earmark-text text-primary"></i>
                             <h6 class="card-title">Request Clearance</h6>
                             <p class="card-text text-muted">Apply for clearance online.</p>
-                            <a href="#" class="btn btn-primary">
+                            <a href="{{ route('clearance.index') }}" class="btn btn-primary">
                                 <i class="bi bi-plus-circle"></i> Request Now
                             </a>
                         </div>
@@ -101,7 +58,7 @@
                             <i class="bi bi-exclamation-triangle text-warning"></i>
                             <h6 class="card-title">File Blotter Report</h6>
                             <p class="card-text text-muted">Report incidents to barangay officials.</p>
-                            <a href="#" class="btn btn-warning">
+                            <a href="{{ route('blotters.index') }}" class="btn btn-warning">
                                 <i class="bi bi-plus-circle"></i> File Report
                             </a>
                         </div>
@@ -113,7 +70,7 @@
                             <i class="bi bi-person-circle text-info"></i>
                             <h6 class="card-title">My Profile</h6>
                             <p class="card-text text-muted">View and update your information</p>
-                            <a href="#" class="btn btn-info">
+                            <a href="{{ route('residents.edit') }}" class="btn btn-info">
                                 <i class="bi bi-pencil"></i> View Profile
                             </a>
                         </div>
@@ -160,7 +117,8 @@
                                 <div class="text-center py-4">
                                     <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
                                     <p class="text-muted mt-2">No clearance requests yet.</p>
-                                    <a href="#" class="btn btn-sm btn-primary">Request your first
+                                    <a href="{{ route('clearance.index') }}" class="btn btn-sm btn-primary">Request your
+                                        first
                                         clearance</a>
                                 </div>
                             @endif

@@ -81,7 +81,7 @@
                         </span>
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
+                    <x-nav-link :href="route('admin.resident.index')" :active="request()->routeIs('admin.resident.index')">
                         <span class="inline-flex items-center">
                             <ion-icon name="people-outline" class="w-5 h-5 mr-6"></ion-icon>
                             <span>Resident List</span>

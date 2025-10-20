@@ -5,16 +5,18 @@
         </h2>
     </x-slot>
 
-    <div class="py-6 px-4">
-        @can('create', App\Models\Activity::class)
-            <form action="{{ route('staff.activities.create') }}" method="GET">
-                <x-primary-button class="mb-4 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
-                    Create Activity
-                </x-primary-button>
-            </form>
-        @endcan
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="py-3">
+            @can('create', App\Models\Activity::class)
+                <form action="{{ route('staff.activities.create') }}" method="GET">
+                    <x-primary-button class="mb-4 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                        Create Activity
+                    </x-primary-button>
+                </form>
+            @endcan
 
-        <div id='calendar' class="bg-white rounded-lg shadow-md p-4"></div>
+            <div id='calendar' class="bg-white rounded-lg shadow-md p-4"></div>
+        </div>
     </div>
 
     <script>
@@ -30,7 +32,7 @@
                 },
                 events: [
                     @foreach($activities as $activity)
-                            {
+                                {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',

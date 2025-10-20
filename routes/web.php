@@ -8,6 +8,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\Admin\AdminResidentController;
 use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\CertificateController;
@@ -32,6 +33,11 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('staff', UserController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+});
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/residents', [AdminResidentController::class, 'index'])->name('resident.index');
+    Route::get('/residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
 });
 
 // All Staff Routes
