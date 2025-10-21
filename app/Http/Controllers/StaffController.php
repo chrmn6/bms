@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Resident;
 use App\Models\Announcement;
 use App\Models\Blotter;
@@ -13,6 +14,9 @@ class StaffController extends Controller
 {
     public function dashboard()
     {
+
+        $user = Auth::user();
+
         $stats = [
             'users_count' => User::count(),
             'staff_count' => User::where('role', 'staff')->count(),
@@ -26,6 +30,6 @@ class StaffController extends Controller
         $recent_announcements = Announcement::with('user')->latest()->take(5)->get();
         $recent_activities = Activity::latest()->take(5)->get();
 
-        return view('staff.dashboard', compact('stats', 'recent_announcements', 'recent_activities'));
+        return view('staff.dashboard', compact('stats', 'recent_announcements', 'recent_activities', 'user'));
     }
 }

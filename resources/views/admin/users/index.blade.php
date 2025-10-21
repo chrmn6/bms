@@ -18,7 +18,7 @@
 
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="py-3">
+        <div class="py-3 flex justify-end">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 <i class="bi bi-person-plus"></i>
                 Add New User
