@@ -60,9 +60,10 @@
                             </div>
 
                             <div class="col-md-2 mb-3 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="bi bi-search"></i> Search
-                                </button>
+                                <x-primary-button type="submit"
+                                    class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D] flex items-center gap-2">
+                                    <ion-icon name="search-outline" class="text-sm"></ion-icon>Search
+                                </x-primary-button>
                             </div>
                         </div>
 
@@ -119,9 +120,11 @@
                                             <td>{{ $resident->user->phone_number ?: 'N/A' }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('admin.resident.show', $resident->resident_id) }}"
-                                                        class="btn btn-sm btn-outline-info" title="View Details">
-                                                        <i class="bi bi-eye"></i> View
+                                                    <a href="{{ route('admin.resident.show', $resident->resident_id) }}">
+                                                        <x-primary-button type="button"
+                                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                                                            <ion-icon name="eye-outline" class="text-sm"></ion-icon>
+                                                        </x-primary-button>
                                                     </a>
                                                 </div>
                                             </td>

@@ -208,13 +208,24 @@
                                     </div>
                                 @endforeach
                                 <div class="text-center">
-                                    <a href="{{ route('announcements.index') }}" class="btn btn-sm btn-outline-primary">View
-                                        All</a>
+                                    <a href="{{ route('announcements.index') }}"
+                                        class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                        View All
+                                    </a>
                                 </div>
                             @else
                                 <div class="text-center text-muted py-4">
                                     <i class="bi bi-megaphone-fill fa-3x mb-3"></i>
                                     <p>No announcements yet.</p>
+                                    @can('create', App\Models\Announcement::class)
+                                        <a href="{{ route('staff.announcements.create') }}">
+                                            <x-primary-button type="button"
+                                                class="!bg-[#6D0512] hover:!bg-#8A0A1A] active:!bg-#50040D] flex items-center gap-2">
+                                                <ion-icon name="add-circle-outline" class="text-sm"></ion-icon>Create
+                                                Announcement
+                                            </x-primary-button>
+                                        </a>
+                                    @endcan
                                 </div>
                             @endif
                         </div>
@@ -245,13 +256,12 @@
                                             <small class="text-muted">
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
-                                                <span
-                                                    class="badge 
-                                                                                                                                                                                                                                                                                                @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                                                                                                                @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                                                                                                                @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                                                                                                                @else bg-secondary
-                                                                                                                                                                                                                                                                                                @endif">
+                                                <span class="badge 
+                                                                @if($activity->status === 'scheduled') bg-warning
+                                                                @elseif($activity->status === 'completed') bg-success
+                                                                @elseif($activity->status === 'canceled') bg-danger
+                                                                @else bg-secondary
+                                                                @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>
@@ -259,13 +269,24 @@
                                     </div>
                                 @endforeach
                                 <div class="text-center">
-                                    <a href="{{ route('activities.index') }}" class="btn btn-sm btn-outline-success">View
-                                        All</a>
+                                    <a href="{{ route('activities.index') }}"
+                                        class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                        View All
+                                    </a>
                                 </div>
                             @else
                                 <div class="text-center text-muted py-4">
                                     <i class="bi bi-calendar-event-fill fa-3x mb-3"></i>
                                     <p>No activities scheduled.</p>
+                                    @can('create', App\Models\Activity::class)
+                                        <a href="{{ route('staff.activities.create') }}">
+                                            <x-primary-button type="button"
+                                                class="!bg-[#6D0512] hover:!bg-#8A0A1A] active:!bg-#50040D] flex items-center gap-2">
+                                                <ion-icon name="add-circle-outline" class="text-sm"></ion-icon>Create
+                                                Activity
+                                            </x-primary-button>
+                                        </a>
+                                    @endcan
                                 </div>
                             @endif
                         </div>

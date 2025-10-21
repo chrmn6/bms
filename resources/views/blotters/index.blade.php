@@ -38,12 +38,11 @@
                             <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
                                 {{ $blotter->location }}
                             </td>
-                            <td
-                                class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                    {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                    {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
-                                                    {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                    {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                            <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
+                                        {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                        {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
+                                        {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                        {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                 {{ ucfirst($blotter->status) }}
                             </td>
 

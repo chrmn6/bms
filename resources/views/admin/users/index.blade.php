@@ -19,10 +19,10 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3 flex justify-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                <i class="bi bi-person-plus"></i>
-                Add New User
-            </button>
+            <x-primary-button type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
+                class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-2">
+                <ion-icon name="add-circle-outline" class="text-base"></ion-icon>Add New User
+            </x-primary-button>
         </div>
 
         <!-- Users Table -->
@@ -79,12 +79,11 @@
                                         <small class="text-muted">{{ $user->created_at->diffForHumans() }}</small>
                                     </td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-sm btn-outline-info" onclick="viewUser({{ $user->id }})"
-                                                title="View Details">
-                                                <i class="bi bi-eye"></i>
-                                            </button>
-                                        </div>
+                                        <x-primary-button type="button" onclick="viewUser({{ $user->id }})"
+                                            title="View Details"
+                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
+                                            <ion-icon name="eye-outline" class="text-sm"></ion-icon>
+                                        </x-primary-button>
                                     </td>
                                 </tr>
                             @endforeach

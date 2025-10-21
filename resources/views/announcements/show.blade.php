@@ -49,10 +49,11 @@
 
                             <div class="d-flex gap-2">
                                 @can('update', $announcement)
-                                    <a href="{{ route('staff.announcements.edit', $announcement) }}"
-                                        class="btn btn-outline-warning btn-sm">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </a>
+                                    <button type="submit"
+                                        class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 border-[#dc2626] flex items-center justify-center p-2 text-white"
+                                        onclick="window.location='{{ route('staff.announcements.edit', $announcement) }}'">
+                                        <ion-icon name="pencil-outline"></ion-icon>
+                                    </button>
                                 @endcan
                                 @can('delete', $announcement)
                                     <form method="POST" action="{{ route('staff.announcements.destroy', $announcement) }}"

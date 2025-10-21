@@ -46,8 +46,11 @@
                             <i class="bi bi-file-earmark-text text-primary"></i>
                             <h6 class="card-title">Request Clearance</h6>
                             <p class="card-text text-muted">Apply for clearance online.</p>
-                            <a href="{{ route('clearance.index') }}" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Request Now
+                            <a href="{{ route('clearances.index') }}">
+                                <x-primary-button type="button"
+                                    class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                                    Request Now
+                                </x-primary-button>
                             </a>
                         </div>
                     </div>
@@ -58,8 +61,11 @@
                             <i class="bi bi-exclamation-triangle text-warning"></i>
                             <h6 class="card-title">File Blotter Report</h6>
                             <p class="card-text text-muted">Report incidents to barangay officials.</p>
-                            <a href="{{ route('blotters.index') }}" class="btn btn-warning">
-                                <i class="bi bi-plus-circle"></i> File Report
+                            <a href="{{ route('blotters.index') }}">
+                                <x-primary-button type="button"
+                                    class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700">
+                                    File Report Now
+                                </x-primary-button>
                             </a>
                         </div>
                     </div>
@@ -70,8 +76,11 @@
                             <i class="bi bi-person-circle text-info"></i>
                             <h6 class="card-title">My Profile</h6>
                             <p class="card-text text-muted">View and update your information</p>
-                            <a href="{{ route('residents.edit') }}" class="btn btn-info">
-                                <i class="bi bi-pencil"></i> View Profile
+                            <a href="{{ route('clearances.index') }}">
+                                <x-primary-button type="button"
+                                    class="!bg-black-500 hover:!bg-black-600 active:!bg-black-700">
+                                    Edit Profile
+                                </x-primary-button>
                             </a>
                         </div>
                     </div>
@@ -79,8 +88,125 @@
             </div>
 
             <div class="row">
-                <!-- My Clearance Requests -->
+                <!-- Announcements -->
                 <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="bi bi-megaphone"></i>
+                                Recent Announcements
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            @if($recent_announcements->count() > 0)
+                                @foreach($recent_announcements as $announcement)
+                                    <div class="d-flex mb-3 pb-3 border-bottom">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                                                style="width: 40px; height: 40px;">
+                                                <i class="bi bi-megaphone text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1">{{ $announcement->title }}</h6>
+                                            <p class="mb-1 text-muted small">{{ Str::limit($announcement->content, 100) }}</p>
+                                            <small class="text-muted">
+                                                By {{ $announcement->user->first_name }} {{ $announcement->user->last_name }} •
+                                                {{ $announcement->created_at->diffForHumans() }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="text-center">
+                                    <a href="{{ route('announcements.index') }}"
+                                        class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                        View All
+                                    </a>
+                                </div>
+                            @else
+                                <div class="text-center text-muted py-4">
+                                    <i class="bi bi-megaphone-fill fa-3x mb-3"></i>
+                                    <p>No announcements yet.</p>
+                                    @can('create', App\Models\Announcement::class)
+                                        <a href="{{ route('staff.announcements.create') }}">
+                                            <x-primary-button type="button"
+                                                class="!bg-[#6D0512] hover:!bg-#8A0A1A] active:!bg-#50040D] flex items-center gap-2">
+                                                <ion-icon name="add-circle-outline" class="text-sm"></ion-icon>Create
+                                                Announcement
+                                            </x-primary-button>
+                                        </a>
+                                    @endcan
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activities -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="bi bi-calendar-event"></i>
+                                Recent Activities
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            @if($recent_activities->count() > 0)
+                                @foreach($recent_activities as $activity)
+                                    <div class="d-flex mb-3 pb-3 border-bottom">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                                                style="width: 40px; height: 40px;">
+                                                <i class="bi bi-calendar-event text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1">{{ $activity->title }}</h6>
+                                            <p class="mb-1 text-muted small">{{ Str::limit($activity->description, 80) }}</p>
+                                            <small class="text-muted">
+                                                <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
+                                                <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
+                                                <span
+                                                    class="badge 
+                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                        @else bg-secondary
+                                                                                                                                                                        @endif">
+                                                    {{ ucfirst($activity->status) }}
+                                                </span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="text-center">
+                                    <a href="{{ route('activities.index') }}"
+                                        class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                        View All
+                                    </a>
+                                </div>
+                            @else
+                                <div class="text-center text-muted py-4">
+                                    <i class="bi bi-calendar-event-fill fa-3x mb-3"></i>
+                                    <p>No activities scheduled.</p>
+                                    @can('create', App\Models\Activity::class)
+                                        <a href="{{ route('staff.activities.create') }}">
+                                            <x-primary-button type="button"
+                                                class="!bg-[#6D0512] hover:!bg-#8A0A1A] active:!bg-#50040D] flex items-center gap-2">
+                                                <ion-icon name="add-circle-outline" class="text-sm"></ion-icon>Create
+                                                Activity
+                                            </x-primary-button>
+                                        </a>
+                                    @endcan
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Clearance Requests -->
+                <div class="col-lg-12 mb-4">
                     <div class="card section-card">
                         <div class="card-header">
                             <h5><i class="bi bi-file-earmark-check"></i> My Clearance Requests</h5>
@@ -117,79 +243,15 @@
                                 <div class="text-center py-4">
                                     <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
                                     <p class="text-muted mt-2">No clearance requests yet.</p>
-                                    <a href="{{ route('clearance.index') }}" class="btn btn-sm btn-primary">Request your
-                                        first
-                                        clearance</a>
+                                    <a href="{{ route('clearances.index') }}">
+                                        <x-primary-button type="button"
+                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
+                                            Submit A Request
+                                        </x-primary-button>
+                                    </a>
                                 </div>
                             @endif
                         </div>
-                    </div>
-                </div>
-
-                <!-- Announcements -->
-                <div class="col-lg-6 mb-4">
-                    <div class="card section-card">
-                        <div class="card-header">
-                            <h5><i class="bi bi-megaphone"></i> Latest Announcements</h5>
-                        </div>
-                        <div class="card-body">
-                            @if($announcements->count() > 0)
-                                @foreach($announcements->take(5) as $announcement)
-                                    <div class="announcement-item">
-                                        <h6>{{ $announcement->title }}</h6>
-                                        <p class="mb-1">{{ Str::limit($announcement->content, 100) }}</p>
-                                        <small>
-                                            <i class="bi bi-calendar"></i>
-                                            {{ $announcement->created_at->format('M d, Y') }}
-                                        </small>
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="text-center py-4">
-                                    <i class="bi bi-megaphone text-muted" style="font-size: 3rem;"></i>
-                                    <p class="text-muted mt-2">No announcements available.</p>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Activities -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card section-card">
-                        <div class="card-header">
-                            <h5><i class="bi bi-calendar-event"></i> Upcoming Activities</h5>
-                        </div>
-                        <div class="card-body">
-                            @if($activities->count() > 0)
-                                    <div class="row">
-                                        @foreach($activities->take(3) as $activity)
-                                                <div class="col-md-4 mb-3">
-                                                    <div class="card h-100">
-                                                        <div class="card-body">
-                                                            <h6 class="card-title text-primary">{{ $activity->title }}
-                                                            </h6>
-                                                            <p class="card-text small">
-                                                                {{ Str::limit($activity->description, 80) }}
-                                                            </p>
-                                                            <small class="text-muted">
-                                                                <i class="bi bi-calendar"></i>
-                                                                {{ \Carbon\Carbon::parse($activity->event_date)->format('M d, Y') }}
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                </div>
-                            @else
-                            <div class="text-center py-4">
-                                <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
-                                <p class="text-muted mt-2">No upcoming activities.</p>
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -202,15 +264,4 @@
         Business Clearance</a>
     <a href="{{ route('resident.residency-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
         Residency Clearance</a> --}}
-    </div>
-
-    <script>
-        const successAlert = document.querySelector('.alert-success');
-        if (successAlert) {
-            setTimeout(function () {
-                const bsAlert = new bootstrap.Alert(successAlert);
-                bsAlert.close();
-            }, 5000);
-        }
-    </script>
 </x-app-layout>

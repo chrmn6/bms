@@ -27,10 +27,10 @@
                 </h1>
                 @can('create', App\Models\Announcement::class)
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
-                            <i class="bi bi-plus-circle"></i>
-                            Create Announcement
-                        </button>
+                        <x-primary-button type="button" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
+                            class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-2">
+                            <ion-icon name="add-circle-outline" class="text-base"></ion-icon>Create
+                        </x-primary-button>
                     </div>
                 @endcan
             </div>
@@ -60,18 +60,20 @@
                                         {{ $announcement->user->last_name }} •
                                         {{ $announcement->created_at->diffForHumans() }}
                                     </small>
-                                    <div role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-info"
+                                    <div class="d-flex align-items-center gap-1">
+                                        <button type="button"
+                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 border-[#dc2626] flex items-center justify-center p-2 text-white"
                                             hx-get="{{ route('announcements.show', $announcement) }}"
                                             hx-target="#announcementModalBody" hx-trigger="click" hx-swap="innerHTML"
                                             data-bs-toggle="modal" data-bs-target="#announcementModal">
-                                            <i class="bi bi-eye"></i>
+                                            <ion-icon name="eye-outline"></ion-icon>
                                         </button>
 
                                         @can('update', $announcement)
-                                            <button type="button" class="btn btn-sm btn-outline-warning"
+                                            <button type="button"
+                                                class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 border-[#dc2626] flex items-center justify-center p-2 text-white"
                                                 onclick="window.location='{{ route('staff.announcements.edit', $announcement) }}'">
-                                                <i class="bi bi-pencil"></i>
+                                                <ion-icon name="pencil-outline"></ion-icon>
                                             </button>
                                         @endcan
 
@@ -82,8 +84,9 @@
                                                 onsubmit="return confirm('Are you sure you want to delete this announcement?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                    <i class="bi bi-trash"></i>
+                                                <button type="submit"
+                                                    class="!bg-red-500 hover:!bg-red-600 active:!bg-red-700 border-[#dc2626] flex items-center justify-center p-2 text-white">
+                                                    <ion-icon name="trash-outline"></ion-icon>
                                                 </button>
                                             </form>
                                         @endcan

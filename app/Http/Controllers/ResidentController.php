@@ -27,11 +27,11 @@ class ResidentController extends Controller
             return redirect()->route('residents.edit')->with('error', 'No resident profile found. Please complete your profile information.');
         }
 
-        $announcements = Announcement::with('user')->latest()->take(10)->get();
-        $activities = Activity::latest()->take(10)->get();
+        $recent_announcements = Announcement::with('user')->latest()->take(10)->get();
+        $recent_activities = Activity::latest()->take(10)->get();
         $clearances = $resident->clearances()->latest()->take(5)->get();
 
-        return view('residents.dashboard', compact('resident', 'announcements', 'activities', 'clearances'));
+        return view('residents.dashboard', compact('resident', 'recent_announcements', 'recent_activities', 'clearances'));
     }
 
     public function edit()
