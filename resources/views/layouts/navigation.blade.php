@@ -35,7 +35,7 @@
         {{-- Sidebar content --}}
         <div class="flex flex-col flex-grow overflow-y-auto pt-2">
             {{-- Navigation Links --}}
-            <div class="flex-grow px-2 space-y-2">
+            <div class="flex-grow px-2 space-y-1">
                 @if ($user)
                     {{-- Dashboard --}}
                     <x-nav-link :href="route($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))" :active="request()->routeIs($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))">
