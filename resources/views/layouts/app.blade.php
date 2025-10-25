@@ -27,11 +27,15 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex bg-gray-100 dark:bg-gray-900">
+    <div class="flex h-screen bg-gray-100 dark:bg-gray-800 overflow-hidden">
+
+        {{-- Sidebar --}}
         @include('layouts.navigation')
 
+        {{-- Main content --}}
+        <div class="flex-1 flex flex-col min-h-0">
 
-        <div class="flex-1 flex flex-col">
+            {{-- Header --}}
             @isset($header)
                 <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-10">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -40,11 +44,14 @@
                 </header>
             @endisset
 
-            <main class="flex-1">
+            {{-- Scrollable main --}}
+            <main class="flex-1 overflow-auto">
                 {{ $slot }}
             </main>
         </div>
     </div>
+
+
 
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

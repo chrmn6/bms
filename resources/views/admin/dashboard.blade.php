@@ -35,7 +35,7 @@
                             <div class="welcome-text">
                                 <h3 class="welcome-greeting">
                                     Good {{ date('H') < 12 ? 'Morning' : (date('H') < 18 ? 'Afternoon' : 'Evening') }},
-                                    {{ auth()->user()->last_name }}!
+                                    {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}!
                                 </h3>
                                 <p class="welcome-subtitle">Welcome to the Barangay Matina Gravahan Management System.
                                 </p>
@@ -276,11 +276,11 @@
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span class="badge 
-                                                                        @if($activity->status === 'scheduled') bg-warning
-                                                                        @elseif($activity->status === 'completed') bg-success
-                                                                        @elseif($activity->status === 'canceled') bg-danger
-                                                                        @else bg-secondary
-                                                                        @endif">
+                                                                                @if($activity->status === 'scheduled') bg-warning
+                                                                                @elseif($activity->status === 'completed') bg-success
+                                                                                @elseif($activity->status === 'canceled') bg-danger
+                                                                                @else bg-secondary
+                                                                                @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>

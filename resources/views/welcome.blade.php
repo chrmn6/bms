@@ -1545,7 +1545,8 @@
                 @else
 
                     <!--LOGIN MODAL-->
-                    <div x-data="{ openLogin: false }" @keydown.escape.window="openLogin = false">
+                    <div x-data="{ openLogin: {{ $errors->has('email') || $errors->has('password') ? 'true' : 'false' }} }"
+                        @keydown.escape.window="openLogin = false">
                         <!-- Login Button -->
                         <button @click="openLogin = true"
                             class="inline-block px-5 py-1.5 text-[var(--text-color)] dark:text-[var(--neutral-color)] border border-transparent hover:border-[var(--primary-color)] rounded-sm text-base leading-normal">
@@ -1563,7 +1564,6 @@
                                 <button @click="openLogin = false"
                                     class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                                     aria-label="Close">
-                                    <!-- Heroicon X -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -1585,13 +1585,14 @@
                                     </p>
                                 </div>
 
+                                <!-- Session Status -->
                                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                                 <!-- Login Form -->
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
 
-                                    <!-- Email Address -->
+                                    <!-- Email -->
                                     <div>
                                         <x-input-label for="email" :value="__('Email')" />
                                         <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
@@ -1602,10 +1603,8 @@
                                     <!-- Password -->
                                     <div class="mt-4">
                                         <x-input-label for="password" :value="__('Password')" />
-
                                         <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
                                             required autocomplete="current-password" />
-
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
@@ -1620,6 +1619,7 @@
                                         </label>
                                     </div>
 
+                                    <!-- Actions -->
                                     <div class="flex items-center justify-end mt-4">
                                         @if (Route::has('password.request'))
                                             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"

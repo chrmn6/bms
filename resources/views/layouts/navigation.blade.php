@@ -1,12 +1,17 @@
-<nav x-data="{ open: false }"
-    class="bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 sticky top-0 h-screen w-64 flex flex-col">
-    <!-- Primary Navigation Menu -->
-    <div class="flex flex-col h-full">
-        <!-- Logo -->
-        <div class="shrink-0 flex items-center justify-center px-4 py-6">
-            @php
-                $user = Auth::user();
-            @endphp
+<div x-data="{ sidebarOpen: true }" class="flex h-screen bg-gray-100 dark:bg-gray-900">
+    {{-- Sidebar --}}
+    <nav class="flex flex-col h-screen bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 transition-all duration-300"
+        :class="sidebarOpen ? 'w-64' : 'w-16'">
+
+        {{-- Hamburger for small screens --}}
+        <div
+            class="md:hidden flex items-center justify-between py-2 px-4 border-b border-gray-200 dark:border-gray-700">
+            <button @click="sidebarOpen = !sidebarOpen" class="text-gray-500 dark:text-gray-300 focus:outline-none">
+                <ion-icon class="w-6 h-6" name="menu-outline"></ion-icon>
+            </button>
+
+            {{-- Logo --}}
+            @php $user = Auth::user(); @endphp
             @if ($user)
                 @if ($user->role === 'admin')
                     <a href="{{ route('admin.dashboard') }}">
@@ -28,117 +33,96 @@
             @endif
         </div>
 
-        <!-- Navigation Links -->
-        <div class="flex-grow px-4 space-y-1 overflow-y-auto">
-            <!-- ROLE BASED NAVIGATION FOR ALL USERS-->
-            @if ($user)
-                @if ($user->role === 'admin')
-                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+        {{-- Sidebar content --}}
+        <div class="flex flex-col flex-grow overflow-y-auto pt-2">
+            {{-- Navigation Links --}}
+            <div class="flex-grow px-2 space-y-2">
+                @if ($user)
+                    {{-- Dashboard --}}
+                    <x-nav-link :href="route($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))" :active="request()->routeIs($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))">
                         <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Dashboard</span>
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Dashboard</span>
                         </span>
                     </x-nav-link>
-                @elseif ($user->role === 'staff')
-                    <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
+
+                    {{-- Profile --}}
+                    @php
+                        $profileRoute = ($user->role === 'resident') ? 'residents.edit' : 'profile.edit';
+                    @endphp
+                    <x-nav-link :href="route($profileRoute)" :active="request()->routeIs($profileRoute)">
                         <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Dashboard</span>
+                            <ion-icon name="person-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Profile</span>
                         </span>
                     </x-nav-link>
-                @else
-                    <x-nav-link :href="route('residents.dashboard')" :active="request()->routeIs('residents.dashboard')">
+
+                    {{-- Manage Users and Residents List --}}
+                    @if($user->role === 'admin')
+                        <x-nav-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
+                            <span class="inline-flex items-center">
+                                <ion-icon name="people-circle-outline" class="w-5 h-5 mr-2"></ion-icon>
+                                <span x-show="sidebarOpen">Manage Users</span>
+                            </span>
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('admin.resident.index')" :active="request()->routeIs('admin.resident.index')">
+                            <span class="inline-flex items-center">
+                                <ion-icon name="people-outline" class="w-5 h-5 mr-2"></ion-icon>
+                                <span x-show="sidebarOpen">Resident List</span>
+                            </span>
+                        </x-nav-link>
+                    @endif
+
+                    {{-- Other links --}}
+                    <x-nav-link :href="route('announcements.index')" :active="request()->routeIs('announcements.index')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Dashboard</span>
+                            <ion-icon name="megaphone-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Announcements</span>
                         </span>
                     </x-nav-link>
+
+                    <x-nav-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="globe-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Activities</span>
+                        </span>
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearance.*')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="reader-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Clearance</span>
+                        </span>
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="newspaper-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Blotter Report</span>
+                        </span>
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
+                        <span class="inline-flex items-center">
+                            <ion-icon name="settings-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <span x-show="sidebarOpen">Settings</span>
+                        </span>
+                    </x-nav-link>
+
+                    {{-- Logout --}}
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-nav-link href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); this.closest('form').submit();">
+                            <span class="inline-flex items-center">
+                                <ion-icon name="log-out-outline" class="w-5 h-5 mr-2"></ion-icon>
+                                <span x-show="sidebarOpen">Sign Out</span>
+                            </span>
+                        </x-nav-link>
+                    </form>
                 @endif
-
-                {{-- PROFILE LINK BASED ON ROLES --}}
-                @if ($user->role === 'admin' || $user->role === 'staff')
-                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Profile</span>
-                        </span>
-                    </x-nav-link>
-                @else
-                    <x-nav-link :href="route('residents.edit')" :active="request()->routeIs('residents.edit')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="person-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Profile</span>
-                        </span>
-                    </x-nav-link>
-                @endif
-
-                <!-- ADMIN ROUTE FOR CREATING A STAFF ACCOUNT-->
-                @if($user->role === 'admin')
-                    <x-nav-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="people-circle-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Manage Users</span>
-                        </span>
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('admin.resident.index')" :active="request()->routeIs('admin.resident.index')">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="people-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Resident List</span>
-                        </span>
-                    </x-nav-link>
-                @endif
-
-                <!-- Other links -->
-
-                <x-nav-link :href="route('announcements.index')" :active="request()->routeIs('announcements.index')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="megaphone-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Announcement</span>
-                    </span>
-                </x-nav-link>
-
-                <x-nav-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="globe-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Activities</span>
-                    </span>
-                </x-nav-link>
-
-                <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearance.*')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="reader-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Clearance</span>
-                    </span>
-                </x-nav-link>
-
-                <x-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="newspaper-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Blotter Report</span>
-                    </span>
-                </x-nav-link>
-
-                {{-- SETTINGS LINK BASED ON ROLES --}}
-                <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
-                    <span class="inline-flex items-center">
-                        <ion-icon name="settings-outline" class="w-5 h-5 mr-6"></ion-icon>
-                        <span>Settings</span>
-                    </span>
-                </x-nav-link>
-
-                <!-- Logout Link -->
-                <form method="POST" action="{{ route('logout') }}" class="inline">
-                    @csrf
-                    <x-nav-link href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        <span class="inline-flex items-center">
-                            <ion-icon name="log-out-outline" class="w-5 h-5 mr-6"></ion-icon>
-                            <span>Sign Out</span>
-                        </span>
-                    </x-nav-link>
-                </form>
-            @endif
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
