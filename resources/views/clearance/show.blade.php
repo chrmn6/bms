@@ -20,7 +20,7 @@
                     <p><strong>Processed by: </strong> {{ $clearance->user?->first_name ?? 'N/A' }}</p>
 
                     <x-primary-button type="button" class="mt-6"
-                        onclick="window.location.href='{{ route('clearance.index') }}'">
+                        onclick="window.location.href='{{ route('clearances.index') }}'">
                         Back
                     </x-primary-button>
                 </div>
