@@ -19,12 +19,12 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    background: #6D0512;
     border: none;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    background: #8A0A1A;
 }
 
 .btn-outline-primary {

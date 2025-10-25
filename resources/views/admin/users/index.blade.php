@@ -53,7 +53,7 @@
                                     $isCurrentUser = Auth::check() && Auth::id() === $user->id;
                                 @endphp
                                 <tr>
-                                    <td><strong>{{ $user->first_name }} {{ $user->last_name }}</strong></td>
+                                    <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         <span class="badge bg-success">
@@ -149,9 +149,9 @@
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <x-primary-button>
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Create Staff') }}
-                                </x-primary-button>
+                                </button>
 
                                 @if(session('status') === 'staff-created')
                                     <p x-data="{ show: true }" x-show="show" x-transition
@@ -162,6 +162,57 @@
                                 @endif
                             </div>
                         </form>
+
+                        @push('scripts')
+                            <script>
+                                $(document).ready(function () {
+                                    $('#addUserForm').on('submit', function (e) {
+                                        e.preventDefault();
+
+                                        let form = $(this);
+                                        $.ajax({
+                                            url: form.attr('action'),
+                                            type: 'POST',
+                                            data: form.serialize(),
+                                            success: function (res) {
+                                                // Reset form and hide modal
+                                                form[0].reset();
+                                                $('#addUserModal').modal('hide');
+                                                alert('Staff account created successfully!');
+
+                                                // Append new user to table
+                                                let user = res.user;
+                                                let newRow = `
+                                                    <tr>
+                                                        <td>${user.first_name} ${user.last_name}</td>
+                                                        <td>${user.email}</td>
+                                                        <td><span class="badge bg-success">${user.role}</span></td>
+                                                        <td><span class="badge bg-success">Active</span></td>
+                                                        <td>{{ $user->created_at->format('M d, Y') }}</td>
+                                                        <td>
+                                                            <x-primary-button type="button" onclick="viewUser({{ $user->id }})"
+                                                                title="View Details"
+                                                                class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
+                                                                <ion-icon name="eye-outline" class="text-sm"></ion-icon>
+                                                            </x-primary-button>
+                                                        </td>
+                                                    </tr>
+                                                `;
+                                                $('.table tbody').append(newRow);
+                                            },
+                                            error: function (xhr) {
+                                                let errors = xhr.responseJSON.errors;
+                                                form.find('.text-red-600').remove();
+                                                $.each(errors, function (key, messages) {
+                                                    let input = form.find('[name="' + key + '"]');
+                                                    input.after('<p class="text-red-600 text-sm mt-1">' + messages[0] + '</p>');
+                                                });
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                        @endpush
                     </div>
                 </div>
             </div>

@@ -40,7 +40,7 @@ class UserController extends Controller
             'phone_number' => ['nullable', 'string', 'max:20'],
         ]);
 
-        User::create([
+        $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -49,7 +49,15 @@ class UserController extends Controller
             'role' => 'staff',
         ]);
 
-        return redirect()->route('admin.staff.index')->with('success', 'Staff account created successfully.');
+        if ($request->ajax()) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Staff account created successfully!',
+            'user' => $user
+        ]);
+    }
+
+    return redirect()->route('admin.staff.index')->with('success', 'Staff account created successfully.');
 
     }
 
