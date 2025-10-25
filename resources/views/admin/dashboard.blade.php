@@ -1,7 +1,9 @@
+@section('title') {{ 'Admin Dashboard' }} @endsection
+
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Dashboard
             </h2>
 
@@ -274,11 +276,11 @@
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span class="badge 
-                                                        @if($activity->status === 'scheduled') bg-warning
-                                                        @elseif($activity->status === 'completed') bg-success
-                                                        @elseif($activity->status === 'canceled') bg-danger
-                                                        @else bg-secondary
-                                                        @endif">
+                                                                        @if($activity->status === 'scheduled') bg-warning
+                                                                        @elseif($activity->status === 'completed') bg-success
+                                                                        @elseif($activity->status === 'canceled') bg-danger
+                                                                        @else bg-secondary
+                                                                        @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>

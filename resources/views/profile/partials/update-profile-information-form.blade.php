@@ -1,3 +1,5 @@
+@section('title') {{ 'Profile' }} @endsection
+
 <section>
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
     <script src="{{ asset('js/dashboard-scripts.js') }}"></script>

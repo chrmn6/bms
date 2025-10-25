@@ -1,3 +1,5 @@
+@section('title') {{ 'Clearance' }} @endsection
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -45,10 +47,10 @@
                             </td>
                             <td
                                 class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                            {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                            {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
-                                                            {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                            {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                                                    {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                                                    {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
+                                                                    {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                                                    {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                 {{ ucfirst($clearance->status) }}
                             </td>
                             <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">

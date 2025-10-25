@@ -8,10 +8,12 @@
     <script src="{{ asset('js/users-scripts.js') }}"></script>
 @endpush
 
+@section('title') {{ 'Residents List' }} @endsection
+
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Residents List') }}
         </h2>
     </x-slot>
@@ -88,10 +90,10 @@
                                     @foreach($residents as $resident)
                                         <tr>
                                             <td>{{ $resident->resident_id }}</td>
-                                            <td><strong>{{ $resident->user->last_name }}</strong></td>
-                                            <td><strong>{{ $resident->user->first_name }}</strong></td>
-                                            <td><strong>{{ $resident->household->household_number }}</strong></td>
-                                            <td><strong>{{ $resident->user->phone_number }}</strong></td>
+                                            <td>{{ $resident->user->last_name }}</td>
+                                            <td>{{ $resident->user->first_name }}</td>
+                                            <td>{{ $resident->household->household_number }}</td>
+                                            <td>{{ $resident->user->phone_number }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a href="{{ route('admin.resident.show', $resident->resident_id) }}">

@@ -1,17 +1,18 @@
+@section('title') {{ 'Announcements' }} @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
+    <script src="{{ asset('js/users-scripts.js') }}"></script>
+@endpush
+
 <x-app-layout>
-
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
-        <script src="{{ asset('js/users-scripts.js') }}"></script>
-    @endpush
-
     <x-slot name="header">
-        <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             Announcements
         </h2>
     </x-slot>
@@ -19,12 +20,8 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
             {{-- Main Content List --}}
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">
-                    <i class="bi bi-megaphone"></i>
-                    List of Announcements
-                </h1>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+                <h3>List of Announcements</h3>
                 @can('create', App\Models\Announcement::class)
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <x-primary-button type="button" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"

@@ -8,6 +8,8 @@
     <script src="{{ asset('js/users-scripts.js') }}"></script>
 @endpush
 
+@section('title') {{ 'Residents Information' }} @endsection
+
 
 <x-app-layout>
     <x-slot name="header">

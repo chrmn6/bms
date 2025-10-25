@@ -1,3 +1,5 @@
+@section('title') {{ 'Blotter Report' }} @endsection
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -39,10 +41,10 @@
                                 {{ $blotter->location }}
                             </td>
                             <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                        {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                        {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
-                                        {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                        {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                                {{ $blotter->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                                {{ $blotter->status == 'processing' ? 'text-orange-600 font-semibold' : '' }}
+                                                {{ $blotter->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                                {{ $blotter->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                 {{ ucfirst($blotter->status) }}
                             </td>
 

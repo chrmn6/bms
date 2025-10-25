@@ -1,15 +1,16 @@
+@section('title') {{ 'Edit Announcement' }} @
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
+    <script src="{{ asset('js/users-scripts.js') }}"></script>
+@endpush
+
 <x-app-layout>
-
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
-        <script src="{{ asset('js/users-scripts.js') }}"></script>
-    @endpush
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Edit Announcement') }}

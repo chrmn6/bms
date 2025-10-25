@@ -1,3 +1,5 @@
+@section('title') {{ 'Activities' }} @endsection
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -32,7 +34,7 @@
                 },
                 events: [
                     @foreach($activities as $activity)
-                                {
+                                    {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
