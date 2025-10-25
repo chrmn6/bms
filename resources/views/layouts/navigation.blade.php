@@ -4,8 +4,7 @@
         :class="sidebarOpen ? 'w-64' : 'w-16'">
 
         {{-- Hamburger for small screens --}}
-        <div
-            class="md:hidden flex items-center justify-between py-2 px-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between py-2 px-4 border-b border-gray-200 dark:border-gray-700">
             <button @click="sidebarOpen = !sidebarOpen" class="text-gray-500 dark:text-gray-300 focus:outline-none">
                 <ion-icon class="w-6 h-6" name="menu-outline"></ion-icon>
             </button>
