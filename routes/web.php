@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
 //FOR ADMIN AND STAFF
 Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,11 +27,13 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 
 // All Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('staff', UserController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
+    // Dashboard
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-});
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Staff
+    Route::resource('staff', UserController::class)->only(['index','create','store','show','destroy']);
+
+    // Residents
     Route::get('/residents', [AdminResidentController::class, 'index'])->name('resident.index');
     Route::get('/residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
 });
@@ -94,10 +92,7 @@ Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group
 // BLOTTER ROUTE
 Route::resource('blotters', BlotterController::class)->except(['destroy']);
 
-// BLOTTER ROUTE
-Route::resource('clearance', ClearanceController::class)->except(['destroy']);
-
-// Clearances
+//CLEARANCE ROUTE
 Route::resource('clearances', ClearanceController::class);
 
 //Settings

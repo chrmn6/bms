@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resident_profiles', function (Blueprint $table) {
-            $table->id('resident_profile_id');
+        Schema::create('resident_details', function (Blueprint $table) {
+            $table->id('resident_detail_id');
             $table->unsignedBigInteger('resident_id')->unique();
             $table->foreign('resident_id')->references('resident_id')->on('residents')->onDelete('cascade');
 
-            $table->string('place_of_birth')->nullable();
-            $table->string('date_of_birth')->nullable();
-            $table->enum('gender', ['Male', 'Female'])->nullable();
-            $table->string('image')->nullable();
+            $table->enum('civil_status', ['Single', 'In A Relationship', 'Married', 'Widowed', 'Divorced'])->nullable();
+            $table->string('citizenship')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('education')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('residents_profile');
+        Schema::dropIfExists('resident_details');
     }
 };

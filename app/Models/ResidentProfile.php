@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResidentProfile extends Model
 {
-    protected $table = 'residents_profile';
+    protected $table = 'resident_profiles';
     protected $primaryKey = 'resident_profile_id';
 
     protected $fillable = [
         'resident_id',
-        'civil_status',
-        'citizenship',
-        'occupation',
-        'education',
+        'place_of_birth',
+        'date_of_birth',
+        'gender',
+        'image',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
     public function resident()

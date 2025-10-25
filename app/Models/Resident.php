@@ -9,24 +9,12 @@ class Resident extends Model
     protected $primaryKey = 'resident_id';
 
     protected $fillable = [
-        'household_id',
         'user_id',
+        'household_id',
         'middle_name',
         'suffix',
-        'place_of_birth',
-        'date_of_birth',
-        'gender',
         'address',
     ];
-
-    protected $casts = [
-    'date_of_birth' => 'date',
-    ];
-
-    public function household()
-    {
-        return $this->belongsTo(Household::class, 'household_id', 'household_id');
-    }
 
     public function user()
     {
@@ -38,6 +26,16 @@ class Resident extends Model
         return $this->hasOne(ResidentProfile::class, 'resident_id', 'resident_id');
     }
 
+    public function details()
+    {
+        return $this->hasOne(ResidentDetails::class, 'resident_id', 'resident_id');
+    }
+
+    public function household()
+    {
+        return $this->belongsTo(Household::class, 'household_id', 'household_id');
+    }
+
     public function clearances()
     {
         return $this->hasMany(Clearance::class, 'resident_id', 'resident_id');
@@ -45,6 +43,9 @@ class Resident extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->user->first_name . ' ' . $this->user->last_name;
+        if ($this->user) {
+            return $this->user->first_name . ' ' . $this->user->last_name;
+        }
+        return 'Unknown Name';
     }
 }

@@ -19,11 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('middle_name')->nullable();
             $table->string('suffix')->nullable();
-            $table->string('place_of_birth')->nullable();
-            $table->string('date_of_birth')->nullable();
-            $table->enum('gender', ['Male', 'Female'])->nullable();
             $table->string('address')->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

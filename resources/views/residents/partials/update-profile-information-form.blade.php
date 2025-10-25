@@ -1,14 +1,14 @@
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
+    <script src="{{ asset('js/users-scripts.js') }}"></script>
+@endpush
+
 <section>
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
-        <script src="{{ asset('js/users-scripts.js') }}"></script>
-    @endpush
-
     <!-- Details Card -->
     <div class="col-lg-12">
         <div class="card">
@@ -25,16 +25,20 @@
                     <div class="mx-auto row">
                         <!-- Profile Picture -->
                         <div class="col-md-3">
-                            <label for="image" class="relative cursor-pointer group d-block">
-                                @if ($resident->image)
-                                    <img id="profilePreview" src="{{ asset('uploads/residents/' . $resident->image) }}"
+                            <label for="image" class="relative cursor-pointer group d-block text-center">
+                                @if ($resident->profile?->image)
+                                    <img id="profilePreview"
+                                        src="{{ asset('uploads/residents/' . $resident->profile->image) }}"
                                         class="rounded-circle mb-2" alt="Profile Photo"
                                         style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #6D0512;">
                                     <span id="uploadText" class="hidden text-gray-500 text-sm">Upload Photo</span>
                                 @else
-                                    <img id="profilePreview" class="hidden w-full h-full object-cover" alt="Profile Photo">
+                                    <img id="profilePreview" src="{{ asset('images/default-avatar.png') }}"
+                                        class="rounded-circle mb-2" alt="Default Profile Photo"
+                                        style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #6D0512;">
                                     <span id="uploadText" class="text-gray-500 text-sm">Upload Photo</span>
                                 @endif
+
                                 <input type="file" name="image" id="image" class="d-none">
                             </label>
                         </div>
@@ -95,8 +99,8 @@
                                     <select id="gender" name="gender"
                                         class="mt-1 block w-full border-gray-300 rounded-md">
                                         <option value="">Select Gender</option>
-                                        <option value="Male" {{ old('gender', $resident->gender ?? '') == 'Male' ? 'selected' : ''}}>Male</option>
-                                        <option value="Female" {{ old('gender', $resident->gender ?? '') == 'Female' ? 'selected' : '' }}>Female</option>
+                                        <option value="Male" {{ old('gender', $resident->profile->gender ?? '') == 'Male' ? 'selected' : ''}}>Male</option>
+                                        <option value="Female" {{ old('gender', $resident->profile->gender ?? '') == 'Female' ? 'selected' : '' }}>Female</option>
                                     </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('gender')" />
                                 </div>
@@ -105,7 +109,7 @@
                                 <div class="col-md-4">
                                     <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
                                     <x-text-input id="date_of_birth" name="date_of_birth" type="date"
-                                        class="mt-1 block w-full" :value="old('date_of_birth', $resident->date_of_birth ? $resident->date_of_birth->format('Y-m-d') : '')" />
+                                        class="mt-1 block w-full" :value="old('date_of_birth', $resident->profile->date_of_birth ? $resident->profile->date_of_birth->format('Y-m-d') : '')" />
                                     <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
                                 </div>
 
@@ -113,7 +117,8 @@
                                 <div class="col-md-4">
                                     <x-input-label for="place_of_birth" :value="__('Place of Birth')" />
                                     <x-text-input id="place_of_birth" name="place_of_birth" type="text"
-                                        class="mt-1 block w-full" :value="old('place_of_birth', $resident->place_of_birth ?? '')" placeholder="Provide your place of birth" />
+                                        class="mt-1 block w-full" :value="old('place_of_birth', $resident->profile->place_of_birth ?? '')"
+                                        placeholder="Provide your place of birth" />
                                     <x-input-error class="mt-2" :messages="$errors->get('place_of_birth')" />
                                 </div>
 
@@ -146,10 +151,10 @@
                                 <!--EMAIL-->
                                 <div class="col-md-4">
                                     <x-input-label for="email" :value="__('Email')" />
-                                    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)"
-                                        required autocomplete="username" />
+                                    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
+                                        :value="old('email', $user->email)" required autocomplete="username" />
                                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
-                                
+
                                     @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                                         <div>
                                             <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
@@ -173,27 +178,39 @@
                                 <!--Civil Status-->
                                 <div class="col-md-4">
                                     <x-input-label for="civil_status" :value="__('Civil Status')" />
-                                    <select id="civil_status" name="civil_status" class="mt-1 block w-full border-gray-300 rounded-md">
+                                    <select id="civil_status" name="civil_status"
+                                        class="mt-1 block w-full border-gray-300 rounded-md">
                                         <option value="">Select Civil Status</option>
-                                        <option value="Single" {{ old('civil_status', $profile->civil_status ?? '') == 'Single' ? 'selected' : '' }}>Single</option>
-                                        <option value="In A Relationship" {{ old('civil_status', $profile->civil_status ?? '') == 'In A Relationship' ? 'selected' : '' }}>In A Relationship</option>
-                                        <option value="Married" {{ old('civil_status', $profile->civil_status ?? '') == 'Married' ? 'selected' : '' }}>Married</option>
-                                        <option value="Widowed" {{ old('civil_status', $profile->civil_status ?? '') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
-                                        <option value="Divorced" {{ old('civil_status', $profile->civil_status ?? '') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                                        <option value="Single" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Single' ? 'selected' : '' }}>Single</option>
+                                        <option value="In A Relationship" {{ old('civil_status', $resident->details->civil_status ?? '') == 'In A Relationship' ? 'selected' : '' }}>In A Relationship</option>
+                                        <option value="Married" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Married' ? 'selected' : '' }}>Married</option>
+                                        <option value="Widowed" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
+                                        <option value="Divorced" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
                                     </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('civil_status')" />
+                                </div>
+
+                                <!--Citizenship-->
+                                <div class="col-md-4">
+                                    <x-input-label for="citizenship" :value="__('Citizenship')" />
+                                    <x-text-input id="citizenship" name="citizenship" type="text"
+                                        class="mt-1 block w-full" :value="old('citizenship', $resident->details->citizenship ?? '')"
+                                        placeholder="Provide your citizenship" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('citizenship')" />
                                 </div>
 
                                 <!--Education-->
                                 <div class="col-md-4">
                                     <x-input-label for="education" :value="__('Education')" />
-                                    <select id="education" name="education" class="mt-1 block w-full border-gray-300 rounded-md">
+                                    <select id="education" name="education"
+                                        class="mt-1 block w-full border-gray-300 rounded-md">
                                         <option value="">Select Education Level</option>
-                                        <option value="Elementary" {{ old('education', $profile->education ?? '') == 'Elementary' ? 'selected' : '' }}>
+                                        <option value="Elementary" {{ old('education', $resident->details->education ?? '') == 'Elementary' ? 'selected' : '' }}>
                                             Elementary</option>
-                                        <option value="High School" {{ old('education', $profile->education ?? '') == 'High School' ? 'selected' : '' }}>High School</option>
-                                        <option value="Vocational/Technical" {{ old('education', $profile->education ?? '') == 'Vocational/Technical' ? 'selected' : '' }}>Vocational/Technical</option>
-                                        <option value="College" {{ old('education', $profile->education ?? '') == 'College' ? 'selected' : '' }}>College</option>
+                                        <option value="High School" {{ old('education', $resident->details->education ?? '') == 'High School' ? 'selected' : '' }}>High School</option>
+                                        <option value="Vocational/Technical" {{ old('education', $resident->details->education ?? '') == 'Vocational/Technical' ? 'selected' : '' }}>Vocational/Technical
+                                        </option>
+                                        <option value="College" {{ old('education', $resident->details->education ?? '') == 'College' ? 'selected' : '' }}>College</option>
                                     </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('education')" />
                                 </div>
@@ -201,7 +218,8 @@
                                 <!--Occupation-->
                                 <div class="col-md-4">
                                     <x-input-label for="occupation" :value="__('Occupation')" />
-                                    <x-text-input id="occupation" name="occupation" type="text" class="mt-1 block w-full" :value="old('occupation', $profile->occupation ?? '')" placeholder="Provide your occupation" />
+                                    <x-text-input id="occupation" name="occupation" type="text"
+                                        class="mt-1 block w-full" :value="old('occupation', $resident->details->occupation ?? '')" placeholder="Provide your occupation" />
                                     <x-input-error class="mt-2" :messages="$errors->get('occupation')" />
                                 </div>
 

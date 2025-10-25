@@ -9,7 +9,7 @@
         <div class="py-3">
 
             @can('create', App\Models\Clearance::class)
-                <form action="{{ route('clearance.create') }}" method="GET">
+                <form action="{{ route('clearances.create') }}" method="GET">
                     <x-primary-button class="mt-2 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
                         Request A Clearance
                     </x-primary-button>
@@ -45,10 +45,10 @@
                             </td>
                             <td
                                 class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                        {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                        {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
-                                                        {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                        {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                                            {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                                            {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
+                                                            {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                                            {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                 {{ ucfirst($clearance->status) }}
                             </td>
                             <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">

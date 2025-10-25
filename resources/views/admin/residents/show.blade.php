@@ -1,15 +1,15 @@
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
+    <script src="{{ asset('js/users-scripts.js') }}"></script>
+@endpush
+
+
 <x-app-layout>
-
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
-        <script src="{{ asset('js/users-scripts.js') }}"></script>
-    @endpush
-
     <x-slot name="header">
         <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Residents List') }}
@@ -38,12 +38,13 @@
                             <!-- Profile Picture -->
                             <div class="col-auto mx-3">
                                 @php
-                                    $hasImage = $resident->image && !empty($resident->image) && file_exists(public_path('uploads/residents/' . $resident->image));
+                                    $hasImage = $resident->profile->image && !empty($resident->profile->image) &&
+                                        file_exists(public_path('uploads/residents/' . $resident->image));
                                 @endphp
 
                                 @if($hasImage)
-                                    <img src="{{ asset('uploads/residents/' . $resident->image) }}" alt="Profile Photo"
-                                        class="rounded-circle"
+                                    <img src="{{ asset('uploads/residents/' . $resident->profile->image) }}"
+                                        alt="Profile Photo" class="rounded-circle"
                                         style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #6D0512;">
                                 @else
                                     <div class="rounded-circle d-flex align-items-center justify-content-center shadow"
@@ -81,21 +82,24 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Age</label>
-                                        <p class="fw-bold">{{ $resident->date_of_birth->age }} years old</p>
+                                        <p class="fw-bold">{{ $resident->profile->date_of_birth->age }} years old</p>
                                     </div>
+
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Gender</label>
-                                        <p class="fw-bold">{{ $resident->gender }}</p>
+                                        <p class="fw-bold">{{ $resident->profile->gender }}</p>
                                     </div>
 
                                     <!-- Date of Birth and Place of Birth -->
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Date of Birth</label>
-                                        <p class="fw-bold">{{ $resident->date_of_birth?->format('F d, Y') }}</p>
+                                        <p class="fw-bold">{{ $resident->profile->date_of_birth?->format('F d, Y') }}
+                                        </p>
                                     </div>
+
                                     <div class="col-md-8">
                                         <label class="form-label text-muted">Place of Birth</label>
-                                        <p class="fw-bold">{{ $resident->place_of_birth }}</p>
+                                        <p class="fw-bold">{{ $resident->profile->place_of_birth }}</p>
                                     </div>
 
                                     <!-- Household Number, Street Address-->
@@ -103,6 +107,7 @@
                                         <label class="form-label text-muted">Household Number</label>
                                         <p class="fw-bold">{{ $resident->household->household_number }}</p>
                                     </div>
+
                                     <div class="col-md-8">
                                         <label class="form-label text-muted">Street Address</label>
                                         <p class="fw-bold">{{ $resident->address }}</p>
@@ -116,22 +121,25 @@
                                     <!-- Civil Status, Education, Citizenship-->
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Civil Status</label>
-                                        <p class="fw-bold">{{ $resident->profile->civil_status }}</p>
+                                        <p class="fw-bold">{{ $resident->details->civil_status }}</p>
                                     </div>
+
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Education</label>
-                                        <p class="fw-bold">{{ $resident->profile->education}}</p>
+                                        <p class="fw-bold">{{ $resident->details->education}}</p>
                                     </div>
+
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Citizenship</label>
-                                        <p class="fw-bold">{{ $resident->profile->citizenship }}</p>
+                                        <p class="fw-bold">{{ $resident->details->citizenship }}</p>
                                     </div>
 
                                     <!-- Occupation and Email Address-->
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Occupation</label>
-                                        <p class="fw-bold">{{ $resident->profile->occupation }}</p>
+                                        <p class="fw-bold">{{ $resident->details->occupation }}</p>
                                     </div>
+
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Email Address</label>
                                         <p class="fw-bold">{{ $resident->user->email }}</p>
@@ -152,7 +160,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </x-app-layout>

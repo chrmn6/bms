@@ -1,15 +1,14 @@
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
+    <script src="{{ asset('js/users-scripts.js') }}"></script>
+@endpush
+
 <x-app-layout>
-
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
-        <script src="{{ asset('js/users-scripts.js') }}"></script>
-    @endpush
-
     <x-slot name="header">
         <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Staff Accounts') }}
@@ -38,8 +37,8 @@
                     <table class="table table-hover text-center">
                         <thead class="table-light">
                             <tr>
-                                <th>User ID</th>
                                 <th>Full Name</th>
+                                <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Account Created</th>
@@ -52,16 +51,8 @@
                                     $isCurrentUser = Auth::check() && Auth::id() === $user->id;
                                 @endphp
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>
-                                        <div>
-                                            <div>
-                                                <strong>{{ $user->first_name }}
-                                                    {{ $user->last_name }}</strong><br>
-                                                <small class="text-muted">{{ $user->email }}</small>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td><strong>{{ $user->first_name }} {{ $user->last_name }}</strong></td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
                                         <span class="badge bg-success">
                                             {{ ucfirst($user->role) }}
@@ -74,10 +65,7 @@
                                             <span class="badge bg-success">Active</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <span class="text-muted">{{ $user->created_at->format('M d, Y') }}</span><br>
-                                        <small class="text-muted">{{ $user->created_at->diffForHumans() }}</small>
-                                    </td>
+                                    <td>{{ $user->created_at->format('M d, Y') }}</td>
                                     <td>
                                         <x-primary-button type="button" onclick="viewUser({{ $user->id }})"
                                             title="View Details"
@@ -181,7 +169,7 @@
         <div class="modal fade" id="viewUserModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header bg-info text-white">
+                    <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title">
                             <i class="bi bi-eye"></i>
                             User Details
@@ -194,10 +182,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="bi bi-x-circle"></i>
+                        <x-primary-button type="button" data-bs-dismiss="modal">
                             Close
-                        </button>
+                        </x-primary-button>
                     </div>
                 </div>
             </div>

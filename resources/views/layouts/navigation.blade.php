@@ -105,7 +105,7 @@
                     </span>
                 </x-nav-link>
 
-                <x-nav-link :href="route('clearance.index')" :active="request()->routeIs('clearance.*')">
+                <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearance.*')">
                     <span class="inline-flex items-center">
                         <ion-icon name="reader-outline" class="w-5 h-5 mr-6"></ion-icon>
                         <span>Clearance</span>

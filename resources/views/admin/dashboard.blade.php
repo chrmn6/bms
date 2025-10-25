@@ -157,7 +157,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
-                    <a href="{{ route('clearance.index') }}" class="text-decoration-none">
+                    <a href="{{ route('clearances.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card clearances-card">
                             <div class="stat-icon">
                                 <i class="bi bi-file-earmark-check"></i>
@@ -274,11 +274,11 @@
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span class="badge 
-                                                @if($activity->status === 'scheduled') bg-warning
-                                                @elseif($activity->status === 'completed') bg-success
-                                                @elseif($activity->status === 'canceled') bg-danger
-                                                @else bg-secondary
-                                                @endif">
+                                                        @if($activity->status === 'scheduled') bg-warning
+                                                        @elseif($activity->status === 'completed') bg-success
+                                                        @elseif($activity->status === 'canceled') bg-danger
+                                                        @else bg-secondary
+                                                        @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>
