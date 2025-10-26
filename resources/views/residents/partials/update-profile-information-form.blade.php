@@ -33,7 +33,7 @@
                                         style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #6D0512;">
                                     <span id="uploadText" class="hidden text-gray-500 text-sm">Upload Photo</span>
                                 @else
-                                    <img id="profilePreview" src="{{ asset('images/default-avatar.png') }}"
+                                    <img id="profilePreview" src="{{ asset('images/default-avatar.jpg') }}"
                                         class="rounded-circle mb-2" alt="Default Profile Photo"
                                         style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #6D0512;">
                                     <span id="uploadText" class="text-gray-500 text-sm">Upload Photo</span>
