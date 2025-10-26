@@ -143,8 +143,7 @@
         @endcan
 
         <!-- Show Announcement Modal -->
-        <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content border-0 shadow-lg">
 

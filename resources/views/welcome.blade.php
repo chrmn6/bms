@@ -1517,6 +1517,8 @@
                 inherits: false;
                 initial-value: ""
             }
+
+            [x-cloak] { display: none !important; }
         </style>
     @endif
 </head>
@@ -1529,23 +1531,23 @@
                 @auth
                     @php $user = Auth::user(); @endphp
                     <a href="
-                            @if ($user->role === 'admin')
-                                {{ route('admin.dashboard') }}
-                            @elseif ($user->role === 'staff')
-                                {{ route('staff.dashboard') }}
-                            @elseif ($user->role === 'resident')
-                                {{ route('residents.dashboard') }}
-                            @else
-                                {{ route('dashboard') }}
-                            @endif
-                            "
+                                @if ($user->role === 'admin')
+                                    {{ route('admin.dashboard') }}
+                                @elseif ($user->role === 'staff')
+                                    {{ route('staff.dashboard') }}
+                                @elseif ($user->role === 'resident')
+                                    {{ route('residents.dashboard') }}
+                                @else
+                                    {{ route('dashboard') }}
+                                @endif
+                                "
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                         Dashboard
                     </a>
                 @else
 
                     <!--LOGIN MODAL-->
-                    <div x-data="{ openLogin: {{ $errors->has('email') || $errors->has('password') ? 'true' : 'false' }} }"
+                    <div x-data="{ openLogin: @json($errors->has('email') || $errors->has('password')) }"
                         @keydown.escape.window="openLogin = false">
                         <!-- Login Button -->
                         <button @click="openLogin = true"
@@ -1554,7 +1556,7 @@
                         </button>
 
                         <!-- Modal Background -->
-                        <div x-show="openLogin" x-transition.opacity
+                        <div x-show="openLogin" x-transition.opacity x-cloak style="display: none"
                             class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
                             @click.self="openLogin = false">
                             <!-- Modal Box -->
@@ -1564,10 +1566,6 @@
                                 <button @click="openLogin = false"
                                     class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                                     aria-label="Close">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
                                 </button>
 
                                 <!-- Logo -->

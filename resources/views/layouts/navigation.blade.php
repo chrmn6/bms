@@ -5,8 +5,9 @@
 
         {{-- Hamburger for small screens --}}
         <div class="flex items-center justify-between py-2 px-4 border-b border-gray-200 dark:border-gray-700">
-            <button @click="sidebarOpen = !sidebarOpen" class="text-gray-500 dark:text-gray-300 focus:outline-none">
-                <ion-icon class="w-6 h-6" name="menu-outline"></ion-icon>
+            <button @click="sidebarOpen = !sidebarOpen" aria-label="Toggle sidebar"
+                class="text-gray-500 dark:text-gray-300 focus:outline-none">
+                <ion-icon class="w-6 h-6" name="menu-outline" aria-label="Menu"></ion-icon>
             </button>
 
             {{-- Logo --}}
@@ -40,7 +41,7 @@
                     {{-- Dashboard --}}
                     <x-nav-link :href="route($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))" :active="request()->routeIs($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))">
                         <span class="inline-flex items-center">
-                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="stats-chart-outline" class="w-5 h-5 mr-2" aria-label="Stats Chart"></ion-icon>
                             <span x-show="sidebarOpen">Dashboard</span>
                         </span>
                     </x-nav-link>
@@ -51,7 +52,7 @@
                     @endphp
                     <x-nav-link :href="route($profileRoute)" :active="request()->routeIs($profileRoute)">
                         <span class="inline-flex items-center">
-                            <ion-icon name="person-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="person-outline" class="w-5 h-5 mr-2" aria-label="Person"></ion-icon>
                             <span x-show="sidebarOpen">Profile</span>
                         </span>
                     </x-nav-link>
@@ -60,14 +61,15 @@
                     @if($user->role === 'admin')
                         <x-nav-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
                             <span class="inline-flex items-center">
-                                <ion-icon name="people-circle-outline" class="w-5 h-5 mr-2"></ion-icon>
+                                <ion-icon name="people-circle-outline" class="w-5 h-5 mr-2"
+                                    aria-label="People Circle"></ion-icon>
                                 <span x-show="sidebarOpen">Manage Users</span>
                             </span>
                         </x-nav-link>
 
                         <x-nav-link :href="route('admin.resident.index')" :active="request()->routeIs('admin.resident.index')">
                             <span class="inline-flex items-center">
-                                <ion-icon name="people-outline" class="w-5 h-5 mr-2"></ion-icon>
+                                <ion-icon name="people-outline" class="w-5 h-5 mr-2" aria-label="People"></ion-icon>
                                 <span x-show="sidebarOpen">Resident List</span>
                             </span>
                         </x-nav-link>
@@ -76,35 +78,35 @@
                     {{-- Other links --}}
                     <x-nav-link :href="route('announcements.index')" :active="request()->routeIs('announcements.index')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="megaphone-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="megaphone-outline" class="w-5 h-5 mr-2" aria-label="Megaphone"></ion-icon>
                             <span x-show="sidebarOpen">Announcements</span>
                         </span>
                     </x-nav-link>
 
                     <x-nav-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="globe-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="globe-outline" class="w-5 h-5 mr-2" aria-label="Globe"></ion-icon>
                             <span x-show="sidebarOpen">Activities</span>
                         </span>
                     </x-nav-link>
 
                     <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearance.*')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="reader-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="reader-outline" class="w-5 h-5 mr-2" aria-label="Reader"></ion-icon>
                             <span x-show="sidebarOpen">Clearance</span>
                         </span>
                     </x-nav-link>
 
                     <x-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="newspaper-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="newspaper-outline" class="w-5 h-5 mr-2" aria-label="Newspaper"></ion-icon>
                             <span x-show="sidebarOpen">Blotter Report</span>
                         </span>
                     </x-nav-link>
 
                     <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
                         <span class="inline-flex items-center">
-                            <ion-icon name="settings-outline" class="w-5 h-5 mr-2"></ion-icon>
+                            <ion-icon name="settings-outline" class="w-5 h-5 mr-2" aria-label="Settings"></ion-icon>
                             <span x-show="sidebarOpen">Settings</span>
                         </span>
                     </x-nav-link>
@@ -115,7 +117,7 @@
                         <x-nav-link href="{{ route('logout') }}"
                             onclick="event.preventDefault(); this.closest('form').submit();">
                             <span class="inline-flex items-center">
-                                <ion-icon name="log-out-outline" class="w-5 h-5 mr-2"></ion-icon>
+                                <ion-icon name="log-out-outline" class="w-5 h-5 mr-2" aria-label="Log out"></ion-icon>
                                 <span x-show="sidebarOpen">Sign Out</span>
                             </span>
                         </x-nav-link>

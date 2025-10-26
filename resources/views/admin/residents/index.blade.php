@@ -45,7 +45,7 @@
                             <div class="col-md-2 d-flex align-items-end">
                                 <x-primary-button type="submit"
                                     class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D] w-100 text-sm py-1.5">
-                                    <ion-icon name="search-outline" class="text-sm me-1"></ion-icon>
+                                    <ion-icon name="search-outline" class="text-sm me-1" aria-label="Search"></ion-icon>
                                     Search
                                 </x-primary-button>
                             </div>
