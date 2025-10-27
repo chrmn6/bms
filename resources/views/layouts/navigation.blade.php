@@ -88,7 +88,7 @@
                         </span>
                     </x-nav-link>
 
-                    <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearance.*')">
+                    <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearances.*')">
                         <span class="inline-flex items-center">
                             <i class="bi bi-files mr-2"></i>
                             <span x-show="sidebarOpen">Clearance</span>
