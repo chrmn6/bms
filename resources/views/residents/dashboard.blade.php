@@ -2,9 +2,11 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Dashboard
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                Dashboard
+            </h2>
+        </div>
     </x-slot>
 
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
@@ -55,7 +57,7 @@
                         <div class="card-body">
                             <i class="bi bi-file-earmark-text text-primary"></i>
                             <h6 class="card-title">Request Clearance</h6>
-                            <p class="card-text text-muted">Apply for clearance online.</p>
+                            <p class="card-text text-muted">Apply for barangay clearances online.</p>
                             <a href="{{ route('clearances.index') }}">
                                 <x-primary-button type="button"
                                     class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
@@ -179,11 +181,11 @@
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span
                                                     class="badge 
-                                                                                                                                                                                                                @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                                @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                                @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                                @else bg-secondary
-                                                                                                                                                                                                                @endif">
+                                                                                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                                                                                        @else bg-secondary
+                                                                                                                                                                                                                                        @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>

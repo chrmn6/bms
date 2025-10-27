@@ -2,9 +2,11 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Activities
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                Activities
+            </h2>
+        </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -34,7 +36,7 @@
                 },
                 events: [
                     @foreach($activities as $activity)
-                                    {
+                                        {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',

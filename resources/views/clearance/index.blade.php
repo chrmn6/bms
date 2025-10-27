@@ -2,9 +2,11 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Clearance Request') }}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                Clearance
+            </h2>
+        </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -47,10 +49,10 @@
                             </td>
                             <td
                                 class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                                    {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                                    {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
-                                                                    {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                                    {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
+                                                                        {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
+                                                                        {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
+                                                                        {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
+                                                                        {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
                                 {{ ucfirst($clearance->status) }}
                             </td>
                             <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">

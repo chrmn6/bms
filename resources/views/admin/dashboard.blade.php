@@ -3,17 +3,9 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
                 Dashboard
             </h2>
-
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group me-2">
-                    <span class="badge bg-primary fs-6">
-                        {{ auth()->user()->role === 'admin' ? 'Administrator' : 'Staff Member' }}
-                    </span>
-                </div>
-            </div>
         </div>
     </x-slot>
 
@@ -276,33 +268,32 @@
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span class="badge 
-                                                                                @if($activity->status === 'scheduled') bg-warning
-                                                                                @elseif($activity->status === 'completed') bg-success
-                                                                                @elseif($activity->status === 'canceled') bg-danger
-                                                                                @else bg-secondary
-                                                                                @endif">
+                                                                                                    @if($activity->status === 'scheduled') bg-warning
+                                                                                                    @elseif($activity->status === 'completed') bg-success
+                                                                                                    @elseif($activity->status === 'canceled') bg-danger
+                                                                                                    @else bg-secondary
+                                                                                                    @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>
                                         </div>
-                                    </div>
                                 @endforeach
-                                <div class="text-center">
-                                    <a href="{{ route('activities.index') }}"
-                                        class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
-                                        View All
-                                    </a>
-                                </div>
+                                    <div class=" text-center">
+                                        <a href="{{ route('activities.index') }}"
+                                            class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                            View All
+                                        </a>
+                                    </div>
                             @else
-                                <div class="text-center text-muted py-4">
-                                    <i class="bi bi-calendar-event-fill fa-3x mb-3"></i>
-                                    <p>No activities scheduled.</p>
-                                </div>
-                            @endif
+                                    <div class="text-center text-muted py-4">
+                                        <i class="bi bi-calendar-event-fill fa-3x mb-3"></i>
+                                        <p>No activities scheduled.</p>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </x-app-layout>

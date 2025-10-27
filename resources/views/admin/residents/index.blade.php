@@ -13,54 +13,66 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Residents List') }}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                Residents List
+            </h2>
+        </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
             <!-- Search and Filter Section -->
-            <div class="card mb-3 shadow-sm border-0" style="background-color:#6D0512;">
-                <div class="card-body py-3">
-                    <form method="GET" action="{{ route('admin.resident.index') }}">
-                        <div class="row g-2 align-items-end">
-                            <!-- Search by Name -->
-                            <div class="col-md-4">
-                                <label for="search" class="form-label mb-1 font-xs text-white">Name</label>
-                                <input type="text" class="form-control form-control-sm" id="search" name="search"
-                                    value="{{ request('search') }}" placeholder="Search by first or last name">
-                            </div>
 
-                            <!-- Search by Household Number -->
-                            <div class="col-md-4">
-                                <label for="household_number" class="form-label mb-1 text-white font-xs">Household
-                                    No.</label>
-                                <input type="text" class="form-control form-control-sm" id="household_number"
-                                    name="household_number" value="{{ request('household_number') }}"
-                                    placeholder="Enter household number">
-                            </div>
 
-                            <!-- Search Button -->
-                            <div class="col-md-2 d-flex align-items-end">
-                                <x-primary-button type="submit"
-                                    class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D] w-100 text-sm py-1.5">
-                                    <ion-icon name="search-outline" class="text-sm me-1" aria-label="Search"></ion-icon>
-                                    Search
-                                </x-primary-button>
-                            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-8">
+                    <div class="card mb-3 shadow-sm border-0" style="background-color:#6D0512;">
+                        <div class="card-body py-3">
+                            <form method="GET" action="{{ route('admin.resident.index') }}">
+                                <div class="row g-2 align-items-end">
+                                    <!-- Search by Name -->
+                                    <div class="col-md-4">
+                                        <label for="search" class="form-label mb-1 font-xs text-white">Name</label>
+                                        <input type="text" class="form-control form-control-sm" id="search"
+                                            name="search" value="{{ request('search') }}"
+                                            placeholder="Search by first or last name">
+                                    </div>
 
-                            <!-- Clear Filters Button -->
-                            @if(request()->hasAny(['search', 'household_number']))
-                                <div class="col-md-2 d-flex align-items-end text-white">
-                                    <a href="{{ route('admin.resident.index') }}"
-                                        class="btn btn-outline-light btn-sm w-100">
-                                        <i class="bi bi-x-circle me-1"></i> Clear
-                                    </a>
+                                    <!-- Search by Household Number -->
+                                    <div class="col-md-4">
+                                        <label for="household_number"
+                                            class="form-label mb-1 text-white font-xs">Household
+                                            No.</label>
+                                        <input type="text" class="form-control form-control-sm" id="household_number"
+                                            name="household_number" value="{{ request('household_number') }}"
+                                            placeholder="Enter household number">
+                                    </div>
+
+                                    <!-- Search Button -->
+                                    <div class="col-md-2 d-flex align-items-end">
+                                        <x-secondary-button type="submit"
+                                            class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D]">
+                                            <span class="inline-flex items-center space-x-1">
+                                                <i class="bi bi-search text-base"></i>
+                                                <span>Search</span>
+                                            </span>
+                                        </x-secondary-button>
+                                    </div>
+
+                                    <!-- Clear Filters Button -->
+                                    @if(request()->hasAny(['search', 'household_number']))
+                                        <div class="col-md-2 d-flex align-items-end text-white">
+                                            <a href="{{ route('admin.resident.index') }}"
+                                                class="btn btn-outline-light btn-sm w-100">
+                                                <i class="bi bi-x-circle me-1"></i> Clear
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
-                            @endif
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -99,7 +111,7 @@
                                                     <a href="{{ route('admin.resident.show', $resident->resident_id) }}">
                                                         <x-primary-button type="button"
                                                             class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
-                                                            <ion-icon name="eye-outline" class="text-sm"></ion-icon>
+                                                            <i class="bi bi-eye text-xs"></i>
                                                         </x-primary-button>
                                                     </a>
                                                 </div>

@@ -7,9 +7,11 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Staff Accounts') }}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                Staff List
+            </h2>
+        </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -17,7 +19,7 @@
             <x-primary-button type="button" hx-get="{{ route('admin.staff.create') }}" hx-target="#userModalBody"
                 hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#userModal"
                 class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-2">
-                <ion-icon name="add-circle-outline" class="text-base"></ion-icon>Add New User
+                <i class="bi bi-plus-circle text-base"></i>Add New User
             </x-primary-button>
         </div>
 
@@ -67,7 +69,7 @@
                                                 hx-target="#viewUserModalBody" hx-swap="innerHTML" hx-trigger="click"
                                                 data-bs-toggle="modal" data-bs-target="#viewUserModal"
                                                 class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                                                <ion-icon name="eye-outline" class="text-sm"></ion-icon>
+                                                <i class="bi bi-eye text-xs"></i>
                                             </x-primary-button>
                                         </td>
                                     </tr>
