@@ -1,66 +1,55 @@
-@section('title') {{ 'File Report' }} @endsection
+<form hx-post="{{ route('blotters.store') }}" hx-swap="none" hx-on::after-request="
+        if (event.detail.xhr.status === 200) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addBlotterModal'));
+            modal.hide();
+            htmx.trigger(document.body, 'refreshTable');
+        }" enctype="multipart/form-data">
+    @csrf
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('File a Blotter Report') }}
-        </h2>
-    </x-slot>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="block text-gray-700 dark:text-gray-300">Incident Type</label>
+            <input type="text" name="incident_type"
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                required>
+        </div>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
-
-                <form action="{{ route('blotters.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300">Incident Type</label>
-                        <input type="text" name="incident_type"
-                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300">Date</label>
-                        <input type="date" name="incident_date"
-                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300">Time</label>
-                        <input type="time" name="incident_time"
-                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300">Location</label>
-                        <input type="text" name="location"
-                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300">Description</label>
-                        <textarea name="description"
-                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                            required></textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
-                        <input type="file" name="image" id="image"
-                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
-                    </div>
-
-                    <x-primary-button type="button" class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        File Report
-                    </x-primary-button>
-                </form>
-            </div>
+        <div class="col-md-6 mb-3">
+            <label class="block text-gray-700 dark:text-gray-300">Date</label>
+            <input type="date" name="incident_date"
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                required>
         </div>
     </div>
-</x-app-layout>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="block text-gray-700 dark:text-gray-300">Time</label>
+            <input type="time" name="incident_time"
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="block text-gray-700 dark:text-gray-300">Location</label>
+            <input type="text" name="location"
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                required>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="block text-gray-700 dark:text-gray-300">Description</label>
+        <textarea name="description"
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+            rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
+        <input type="file" name="image" id="image"
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+    </div>
+
+    <div class="mt-3 d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">File Report</button>
+    </div>
+</form>

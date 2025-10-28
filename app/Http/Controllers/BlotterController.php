@@ -11,27 +11,33 @@ class BlotterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-    $user = Auth::user();
+        $user = Auth::user();
+        if ($user->role === 'resident') {
+            $blotters = Blotter::where('resident_id', $user->resident->resident_id)->latest()->paginate(5);
+        } else {
+            $blotters = Blotter::paginate(5);
+        }
 
-    if ($user->role === 'resident') {
-        $blotters = Blotter::where('resident_id', $user->resident->resident_id)->paginate(3);
-    } else {
-        $blotters = Blotter::paginate(3);
+        if ($request->header('HX-Request')) {
+            return view('blotters.table', compact('blotters'));
+        }
+
+        return view('blotters.index', compact('blotters'));
     }
-
-    return view('blotters.index', compact('blotters'));
-    }
-
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $this->authorize('create', Blotter::class);
-        return view('blotters.create');
+        if ($request->header('HX-Request')) {
+            return view('blotters.create');
+        }
+
+        return redirect()->route('blotters.index');
     }
 
     /**
@@ -52,13 +58,22 @@ class BlotterController extends Controller
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/blotters'), $fileName);
+            $data['image'] = $fileName;
         }
 
         $data['resident_id'] = Auth::user()->resident->resident_id;
         $data['user_id'] = null;
-        $data['image'] = $fileName ?? null;
 
         Blotter::create($data);
+
+        if ($request->header('HX-Request')) {
+            $user = Auth::user();
+            $blotters = $user->role === 'resident'
+                ? Blotter::where('resident_id', $user->resident->resident_id)->paginate(3)
+                : Blotter::paginate(3);
+
+            return view('blotters.table', compact('blotters'));
+        }
 
         return redirect()->route('blotters.index')->with('success', 'Blotter report filed successfully!');
     }

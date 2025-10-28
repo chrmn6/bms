@@ -47,7 +47,7 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="announcementModalLabel">
                             <i class="bi bi-megaphone me-2"></i> Announcement
                         </h5>

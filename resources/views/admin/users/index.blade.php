@@ -85,7 +85,7 @@
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="userModalLabel">
                             <i class="bi bi-person-circle me-2"></i> User Management
                         </h5>
@@ -107,7 +107,7 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="viewUserModalLabel">
                             <i class="bi bi-person-circle me-2"></i> User Details
                         </h5>
