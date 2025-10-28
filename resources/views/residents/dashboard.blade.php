@@ -16,12 +16,20 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
 
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+                @if (session('success'))
+                    <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                        aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body text-center">
+                                {{ session('success') }}
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                @endif
+            </div>
 
             <!-- Welcome Card -->
             <div class="row mb-4">
@@ -181,11 +189,11 @@
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
                                                 <span
                                                     class="badge 
-                                                                                                                                                                                                                                        @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                                                        @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                                                        @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                                                        @else bg-secondary
-                                                                                                                                                                                                                                        @endif">
+                                                                                                                                                                                                                                                                                                                                @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                                                                                                                                                                                @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                                                                                                                                                                                @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                                                                                                                                                                                @else bg-secondary
+                                                                                                                                                                                                                                                                                                                                @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>
@@ -269,6 +277,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastEl = document.querySelector('.toast');
+            if (toastEl) {
+                const toast = new bootstrap.Toast(toastEl, {
+                    delay: 2000,
+                    autohide: true
+                });
+                toast.show();
+            }
+        });
+    </script>
 
     {{-- <a href="{{ route('resident.barangay-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
         Barangay Clearance</a>

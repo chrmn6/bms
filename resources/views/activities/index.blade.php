@@ -19,7 +19,7 @@
                 </form>
             @endcan
 
-            <div id='calendar' class="bg-white rounded-lg shadow-md p-4"></div>
+            <div id='calendar' class="bg-white rounded-lg shadow-md p-4 mx-auto" style="max-width: 900px;"></div>
         </div>
     </div>
 
@@ -34,9 +34,10 @@
                     center: 'title',
                     right: 'dayGridMonth'
                 },
+                height: 600,
                 events: [
                     @foreach($activities as $activity)
-                                        {
+                                {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
@@ -44,6 +45,18 @@
                         },
                     @endforeach
                 ],
+                dayCellDidMount: function (info) {
+                    if (info.date.getDay() === 0) {
+                        info.el.style.backgroundColor = '#f3f3f3';
+                        info.el.style.color = '#999';
+                        info.el.title = 'No operation on Sundays';
+                    }
+                },
+                dateClick: function (info) {
+                    if (info.date.getDay() === 0) {
+                        alert('No operation on Sundays!');
+                    }
+                }
             });
 
             calendar.render();
