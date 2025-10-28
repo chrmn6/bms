@@ -107,9 +107,9 @@
             </div>
 
             <!-- Second Row -->
-            <div class="row mb-2 g-3">
+            <div class="row mb-4 g-3">
                 <!-- Announcements -->
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
                     <a href="{{ route('announcements.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card announcements-card">
                             <div class="stat-icon">
@@ -130,7 +130,7 @@
                 </div>
 
                 <!-- Pending Reports -->
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                <div class="col-lg-3 col-md-4col-sm-6 mb-2">
                     <a href="{{ route('blotters.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card reports-card">
                             <div class="stat-icon">
@@ -150,7 +150,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
                     <a href="{{ route('clearances.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card clearances-card">
                             <div class="stat-icon">
@@ -169,12 +169,9 @@
                         </div>
                     </a>
                 </div>
-            </div>
 
-            <!--THIRD ROW-->
-            <div class="row mb-2 g-3">
-                <!-- Announcements -->
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                <!-- Activities-->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
                     <a href="{{ route('activities.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card announcements-card">
                             <div class="stat-icon">
@@ -267,12 +264,13 @@
                                             <small class="text-muted">
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
-                                                <span class="badge 
-                                                                                                    @if($activity->status === 'scheduled') bg-warning
-                                                                                                    @elseif($activity->status === 'completed') bg-success
-                                                                                                    @elseif($activity->status === 'canceled') bg-danger
-                                                                                                    @else bg-secondary
-                                                                                                    @endif">
+                                                <span
+                                                    class="badge 
+                                                                                                                                                                                                    @if($activity->status === 'scheduled') bg-warning
+                                                                                                                                                                                                    @elseif($activity->status === 'completed') bg-success
+                                                                                                                                                                                                    @elseif($activity->status === 'canceled') bg-danger
+                                                                                                                                                                                                    @else bg-secondary
+                                                                                                                                                                                                    @endif">
                                                     {{ ucfirst($activity->status) }}
                                                 </span>
                                             </small>

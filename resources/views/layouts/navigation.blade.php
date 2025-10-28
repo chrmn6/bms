@@ -1,17 +1,16 @@
 <div x-data="{ sidebarOpen: true }" class="flex h-screen bg-gray-100 dark:bg-gray-900">
-    <nav class="flex flex-col h-screen bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 transition-all duration-300"
+    <nav class="flex flex-col h-screen bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700"
         :class="sidebarOpen ? 'open-class' : 'closed-class'">
 
         {{-- Hamburger for small screens --}}
-        <div class="flex items-center justify-between py-2 px-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between py-2 px-3 border-b border-gray-200 dark:border-gray-700">
             <button @click="sidebarOpen = !sidebarOpen" aria-label="Toggle sidebar"
                 class="text-gray-500 dark:text-gray-300 focus:outline-none">
                 <i class="bi bi-list text-xl"></i>
             </button>
 
             @php $user = Auth::user(); @endphp
-            <div class="overflow-hidden transition-all duration-300"
-                :class="sidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0'">
+            <div class="overflow-hidden" :class="sidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0'">
                 @if ($user)
                     @if ($user->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}">

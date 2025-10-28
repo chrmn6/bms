@@ -33,7 +33,7 @@
 
         {{-- Announcements List --}}
         <div id="announcementsList" hx-get="{{ route('staff.announcements.index') }}"
-            hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
+            hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
             @include('announcements.list', ['announcements' => $announcements])
         </div>
 

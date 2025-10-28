@@ -36,15 +36,15 @@
 
             {{-- Header --}}
             @isset($header)
-                <header class="bg-white dark:bg-gray-800 sticky top-0 z-10">
+                <header class="bg-white dark:bg-gray-800">
                     <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
 
-            {{-- Scrollable main --}}
-            <main class="flex-1 overflow-auto">
+            <!-- Page Content -->
+            <main class="overflow-y-auto">
                 {{ $slot }}
             </main>
         </div>
