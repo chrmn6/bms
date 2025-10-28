@@ -32,26 +32,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Staff
     Route::resource('staff', UserController::class)->only(['index','create','store','show','destroy']);
+});
 
-    // Residents
-    Route::get('/residents', [AdminResidentController::class, 'index'])->name('resident.index');
+//Residents List accessed by admin and staff
+Route::middleware(['auth', 'role:admin|staff'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('residents', [AdminResidentController::class, 'index'])->name('resident.index');
     Route::get('/residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
 });
 
 // All Staff Routes
-
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
     Route::get('/dashboard', [StaffController::class, 'dashboard'])->name('dashboard');
 });
 
-Route::prefix('staff')->as('staff.')->middleware(['auth','role:staff'])->group(function () {
-    Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
-    Route::resource('activities', ActivityController::class);
-});
-
 
 // All Residents Routes
-
 Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
     Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
 });
@@ -67,27 +62,22 @@ Route::prefix('resident')->name('resident.')->group(function () {
     Route::get('/{id}/residency-clearance', [CertificateController::class, 'residencyClearance'])->name('residency-clearance');
 });
 
-//ANNOUNCEMENT ROUTES
+// ANNOUNCEMENTS
+// Authenticated users (view only)
 Route::middleware(['auth'])->group(function () {
     Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
     Route::get('announcements/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');
-});
 
-// Staff only
-Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
-    Route::resource('announcements', AnnouncementController::class);
-});
-
-// ACTIVITIES ROUTES
-Route::middleware(['auth'])->group(function () {
     Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
     Route::get('activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
 });
 
-// Staff only
+// STAFF ONLY
 Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
-    Route::resource('activities', ActivityController::class)->except(['index','show']);
+    Route::resource('announcements', AnnouncementController::class);
+    Route::resource('activities', ActivityController::class);
 });
+
 
 // BLOTTER ROUTE
 Route::resource('blotters', BlotterController::class)->except(['destroy']);

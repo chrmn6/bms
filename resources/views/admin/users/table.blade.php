@@ -31,7 +31,7 @@
                     <x-primary-button hx-get="{{ route('admin.staff.show', $user->id) }}" hx-target="#viewUserModalBody"
                         hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#viewUserModal"
                         class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                        <ion-icon name="eye-outline" class="text-sm"></ion-icon>
+                        <i class="bi bi-eye text-xs"></i>
                     </x-primary-button>
                 </td>
             </tr>

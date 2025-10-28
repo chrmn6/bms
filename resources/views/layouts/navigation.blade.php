@@ -63,7 +63,9 @@
                                 <span x-show="sidebarOpen">Manage Users</span>
                             </span>
                         </x-nav-link>
+                    @endif
 
+                    @if(in_array($user->role, ['admin', 'staff']))
                         <x-nav-link :href="route('admin.resident.index')" :active="request()->routeIs('admin.resident.index')">
                             <span class="inline-flex items-center">
                                 <i class="bi bi-people mr-2"></i>
