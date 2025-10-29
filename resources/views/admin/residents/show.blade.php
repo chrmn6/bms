@@ -56,6 +56,9 @@
                                         <i class="bi bi-person text-white" style="font-size: 4rem; line-height: 1;"></i>
                                     </div>
                                 @endif
+                                <p class="text-center text-muted mt-2 mb-0">Member since<br>
+                                    <span class="fw-semibold">{{ $resident->created_at->format('F d, Y') }}</span>
+                                </p>
                             </div>
 
                             <!-- Profile Info -->
@@ -147,16 +150,6 @@
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Email Address</label>
                                         <p class="fw-bold">{{ $resident->user->email }}</p>
-                                    </div>
-
-                                    <!-- Date of Membership-->
-                                    <div class="col-md-6">
-                                        <label class="form-label text-muted">Record Created</label>
-                                        <p class="fw-bold">{{ $resident->created_at->format('F d, Y - g:i A') }}</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label text-muted">Last Updated</label>
-                                        <p class="fw-bold">{{ $resident->updated_at->format('F d, Y - g:i A') }}</p>
                                     </div>
                                 </div>
                             </div>

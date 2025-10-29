@@ -268,8 +268,8 @@
                     --color-stone-800: oklch(.268 .007 34.298);
                     --color-stone-900: oklch(.216 .006 56.043);
                     --color-stone-950: oklch(.147 .004 49.25);
-                    --color-black: #000;
-                    --color-white: #fff;
+                    --color-black: #605050;
+                    --color-white: #FAFAFA;
                     --spacing: .25rem;
                     --breakpoint-sm: 40rem;
                     --breakpoint-md: 48rem;
@@ -1518,7 +1518,9 @@
                 initial-value: ""
             }
 
-            [x-cloak] { display: none !important; }
+            [x-cloak] {
+                display: none !important;
+            }
         </style>
     @endif
 </head>
@@ -1531,16 +1533,16 @@
                 @auth
                     @php $user = Auth::user(); @endphp
                     <a href="
-                                @if ($user->role === 'admin')
-                                    {{ route('admin.dashboard') }}
-                                @elseif ($user->role === 'staff')
-                                    {{ route('staff.dashboard') }}
-                                @elseif ($user->role === 'resident')
-                                    {{ route('residents.dashboard') }}
-                                @else
-                                    {{ route('dashboard') }}
-                                @endif
-                                "
+                                                @if ($user->role === 'admin')
+                                                    {{ route('admin.dashboard') }}
+                                                @elseif ($user->role === 'staff')
+                                                    {{ route('staff.dashboard') }}
+                                                @elseif ($user->role === 'resident')
+                                                    {{ route('residents.dashboard') }}
+                                                @else
+                                                    {{ route('dashboard') }}
+                                                @endif
+                                                "
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                         Dashboard
                     </a>

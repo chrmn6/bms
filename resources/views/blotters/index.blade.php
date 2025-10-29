@@ -16,7 +16,6 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
-
             <!-- Success Message -->
             <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer">
                 <div class="toast align-items-center text-bg-success border-0 d-none" id="successToast" role="alert"
@@ -106,6 +105,7 @@
                 </div>
             </div>
 
+            <!-- FILE REPORT BUTTON-->
             <div class="py-3 flex justify-end">
                 @can('create', App\Models\Blotter::class)
                     <x-primary-button type="button" hx-get="{{ route('blotters.create') }}" hx-target="#blotterModalBody"
@@ -151,6 +151,27 @@
                             <div class="text-center py-5 text-muted">
                                 <div class="spinner-border text-primary mb-3" role="status"></div>
                                 <p>Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Blotter Modal -->
+            <div class="modal fade" id="viewBlotterModal" tabindex="-1" aria-labelledby="viewBlotterModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="viewBlotterModalLabel">
+                                <i class="bi bi-file-earmark me-2"></i>Blotter Report Transcript
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="viewBlotterModalBody">
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary mb-3" role="status"></div>
+                                <p>Loading transcript details...</p>
                             </div>
                         </div>
                     </div>

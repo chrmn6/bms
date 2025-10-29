@@ -3,7 +3,7 @@
         :class="sidebarOpen ? 'open-class' : 'closed-class'">
 
         {{-- Hamburger for small screens --}}
-        <div class="flex items-center justify-between py-2 px-3 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between py-1 px-3 border-gray-200 dark:border-gray-700">
             <button @click="sidebarOpen = !sidebarOpen" aria-label="Toggle sidebar"
                 class="text-gray-500 dark:text-gray-300 focus:outline-none">
                 <i class="bi bi-list text-xl"></i>
@@ -14,20 +14,20 @@
                 @if ($user)
                     @if ($user->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}">
-                            <x-application-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
                         </a>
                     @elseif ($user->role === 'staff')
                         <a href="{{ route('staff.dashboard') }}">
-                            <x-application-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
                         </a>
                     @else
                         <a href="{{ route('residents.dashboard') }}">
-                            <x-application-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
                         </a>
                     @endif
                 @else
                     <a href="{{ route('login') }}">
-                        <x-application-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 @endif
             </div>

@@ -17,6 +17,7 @@ class Blotter extends Model
         'location',
         'description',
         'status',
+        'image',
     ];
 
     public function resident()

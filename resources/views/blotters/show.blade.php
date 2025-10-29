@@ -1,4 +1,4 @@
-@section('title') {{ 'Blotter Report' }} @endsection
+{{-- @section('title') {{ 'Blotter Report' }} @endsection
 
 <x-app-layout>
     <x-slot name="header">
@@ -29,4 +29,60 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}
+
+<div class="p-4">
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Blotter ID:</div>
+        <div class="col-8">{{ $blotter->blotter_id }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Complainant Full Name:</div>
+        <div class="col-8">{{ $blotter->resident->full_name }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Complainant Address:</div>
+        <div class="col-8">{{ $blotter->resident->address }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Type of Incident:</div>
+        <div class="col-8">{{ $blotter->incident_type }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Date of Incident:</div>
+        <div class="col-8">{{ $blotter->incident_date }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Time of Incident:</div>
+        <div class="col-8">{{ $blotter->incident_time }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Place of Incident:</div>
+        <div class="col-8">{{ $blotter->location }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Description:</div>
+        <div class="col-8">{{ $blotter->description }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Proof of Evidence:</div>
+        <div class="col-8">
+            @if($blotter->image && file_exists(public_path('uploads/blotters/' . $blotter->image)))
+                <img src="{{ asset('uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence"
+                    class="img-fluid rounded border" style="max-width: 200px;">
+            @else
+                <span class="text-muted">No image uploaded</span>
+            @endif
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Mediated by:</div>
+        <div class="col-8">{{ $blotter->user?->first_name ?? 'N/A' }}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-4 fw-semibold text-secondary">Status:</div>
+        <div class="col-8">
+            <span class="badge bg-success">{{ ucfirst($blotter->status) }}</span>
+        </div>
+    </div>
+</div>

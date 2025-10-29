@@ -1,4 +1,4 @@
-<form hx-post="{{ route('blotters.store') }}" hx-swap="none" hx-on::after-request="
+<form hx-post="{{ route('blotters.store') }}" hx-swap="none" hx-encoding="multipart/form-data" hx-on::after-request="
         if (event.detail.xhr.status === 200) {
             const modal = bootstrap.Modal.getInstance(document.getElementById('addBlotterModal'));
             modal.hide();

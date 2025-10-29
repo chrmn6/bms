@@ -29,10 +29,10 @@
                     <span class="badge {{ $statusClass }}">{{ ucfirst($blotter->status) }}</span>
                 </td>
                 <td>
-
-                    <x-primary-button type="button"
-                        class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 rounded flex items-center justify-center text-black"
-                        onclick="window.location.href='{{ route('blotters.show', $blotter->blotter_id) }}'">
+                    <x-primary-button hx-get="{{ route('blotters.show', $blotter->blotter_id) }}"
+                        hx-target="#viewBlotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
+                        data-bs-target="#viewBlotterModal"
+                        class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
                         <i class="bi bi-eye text-xs"></i>
                     </x-primary-button>
                     @can('update', $blotter)

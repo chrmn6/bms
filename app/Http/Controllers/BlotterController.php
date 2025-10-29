@@ -17,7 +17,7 @@ class BlotterController extends Controller
         if ($user->role === 'resident') {
             $blotters = Blotter::where('resident_id', $user->resident->resident_id)->latest()->paginate(5);
         } else {
-            $blotters = Blotter::paginate(5);
+            $blotters = Blotter::latest()->paginate(5);
         }
 
         if ($request->header('HX-Request')) {
