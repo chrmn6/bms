@@ -1,88 +1,55 @@
-{{-- @section('title') {{ 'Blotter Report' }} @endsection
-
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ $blotter->incident_type }}
-        </h2>
-    </x-slot>
-
-    <div class="py-6">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-
-                    <h1 class="text-2xl font-bold mb-4">{{ $blotter->incident_type }}</h1>
-                    <p><strong>Date: </strong>{{ $blotter->incident_date }}</p>
-                    <p><strong>Time: </strong>{{ $blotter->incident_time }}</p>
-                    <p><strong>Description: </strong>{{ $blotter->description }}</p>
-                    <p><strong>Location: </strong> {{ $blotter->location ?? 'N/A' }}</p>
-                    <p><strong>Status: </strong> {{ ucfirst($blotter->status) }}</p>
-                    <p><strong>Complainant: </strong> {{ $blotter->resident->full_name }}</p>
-                    <p><strong>Mediated by: </strong> {{ $blotter->user?->first_name ?? 'N/A' }}</p>
-
-                    <x-primary-button type="button" class="mt-6"
-                        onclick="window.location.href='{{ route('blotters.index') }}'">
-                        Back
-                    </x-primary-button>
-                </div>
-            </div>
+<div class="container">
+    <div class="row">
+        <p class="col-5 fw-bold text-lg">BLOTTER ENTRY # {{ $blotter->blotter_id }}</p>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <p class="fw-bold text-sm mb-0">COMPLAINANT</p>
+            <p class="text-sm mb-0">{{ $blotter->resident->full_name }}</p>
+        </div>
+        <div class="col-5">
+            <p class="fw-bold text-sm mb-0">FULL ADDRESS</p>
+            <p class="text-sm mb-0">{{ $blotter->resident->address }}</p>
+        </div>
+        <div class="col-3">
+            <p class="fw-bold text-sm mb-0">CONTACT</p>
+            <p class="text-sm mb-0">{{ $blotter->resident->user->phone_number }}</p>
         </div>
     </div>
-</x-app-layout> --}}
+    <div class="row mb-3">
+        <div class="col-6">
+            <p class="fw-bold text-sm mb-0">TYPE OF INCIDENT</p>
+            <p class="text-sm mb-0">{{ $blotter->incident_type }}</p>
+        </div>
+        <div class="col-6">
+            <p class="fw-bold text-sm mb-0">DATE AND TIME</p>
+            <p class="text-sm mb-0">{{ $blotter->incident_date}}, {{ $blotter->incident_time }}</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+            <p class="fw-bold text-sm mb-0">PLACE OF INCIDENT</p>
+            <p class="text-sm mb-0">{{ $blotter->location }}</p>
+        </div>
+        <div class="col-6">
+            <p class="fw-bold text-sm mb-0">STATUS</p>
+            <span class="badge bg-success">{{ ucfirst($blotter->status) }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p class="fw-bold text-sm mb-0">DESCRIPTION</p>
+            <p class="text-sm mb-0">{{ $blotter->description}}</p>
+        </div>
 
-<div class="p-4">
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Blotter ID:</div>
-        <div class="col-8">{{ $blotter->blotter_id }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Complainant Full Name:</div>
-        <div class="col-8">{{ $blotter->resident->full_name }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Complainant Address:</div>
-        <div class="col-8">{{ $blotter->resident->address }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Type of Incident:</div>
-        <div class="col-8">{{ $blotter->incident_type }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Date of Incident:</div>
-        <div class="col-8">{{ $blotter->incident_date }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Time of Incident:</div>
-        <div class="col-8">{{ $blotter->incident_time }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Place of Incident:</div>
-        <div class="col-8">{{ $blotter->location }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Description:</div>
-        <div class="col-8">{{ $blotter->description }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Proof of Evidence:</div>
-        <div class="col-8">
+        <div class="col-6">
+            <p class="fw-bold text-sm mb-0">PROOF OF EVIDENCE</p>
             @if($blotter->image && file_exists(public_path('uploads/blotters/' . $blotter->image)))
-                <img src="{{ asset('uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence"
-                    class="img-fluid rounded border" style="max-width: 200px;">
+                <img src="{{ asset('uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence" class="img-fluid"
+                    style="max-width: 200px;">
             @else
                 <span class="text-muted">No image uploaded</span>
             @endif
-        </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Mediated by:</div>
-        <div class="col-8">{{ $blotter->user?->first_name ?? 'N/A' }}</div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-4 fw-semibold text-secondary">Status:</div>
-        <div class="col-8">
-            <span class="badge bg-success">{{ ucfirst($blotter->status) }}</span>
         </div>
     </div>
 </div>

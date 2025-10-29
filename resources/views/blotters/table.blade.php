@@ -7,6 +7,7 @@
             <th>Incident Type</th>
             <th>Date Reported</th>
             <th>Status</th>
+            <th>Mediated By</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -28,6 +29,7 @@
                     @endphp
                     <span class="badge {{ $statusClass }}">{{ ucfirst($blotter->status) }}</span>
                 </td>
+                <td>{{ $blotter->user?->first_name ?? 'N/A' }} {{ $blotter->user?->last_name ?? 'N/A' }}</td>
                 <td>
                     <x-primary-button hx-get="{{ route('blotters.show', $blotter->blotter_id) }}"
                         hx-target="#viewBlotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
