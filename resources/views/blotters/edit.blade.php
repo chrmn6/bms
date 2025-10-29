@@ -1,51 +1,27 @@
-@section('title') {{ 'Edit Report' }} @endsection
+<form hx-put="{{ route('blotters.update', $blotter->blotter_id) }}" hx-target="#editStatusModalBody" hx-swap="none"
+    hx-on::after-request="
+        if (event.detail.xhr.status === 200) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editStatusModal'));
+            if (modal) { modal.hide(); }
+            htmx.trigger(document.body, 'refreshTable');
+        }">
+    @csrf
+    @method('PUT')
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update Blotter Status') }}
-        </h2>
-    </x-slot>
-
-    @if ($errors->any())
-        <div class="mb-3 text-red-600">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <div class="py-3">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('blotters.update', $blotter->blotter_id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="mb-3">
-                            <label for="status">Status</label>
-                            <select name="status" id="status" class="w-full border rounded p-2">
-                                <option value="pending" {{ old('status', $blotter->status) === 'pending' ? 'selected' : '' }}>
-                                    Pending</option>
-                                <option value="processing" {{ old('status', $blotter->status) === 'processing' ? 'selected' : '' }}>
-                                    Processing</option>
-                                <option value="approved" {{ old('status', $blotter->status) === 'approved' ? 'selected' : '' }}>Approved
-                                </option>
-                                <option value="rejected" {{ old('status', $blotter->status) === 'rejected' ? 'selected' : '' }}>Rejected
-                                </option>
-                            </select>
-                        </div>
-                        <x-primary-button type="button"
-                            class="mt-4 !bg-green-500 hover:!bg-green-600 active:!bg-green-700"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
-                            Update
-                        </x-primary-button>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div>
+        <label for="status">Status</label>
+        <select name="status" id="status" class="w-full border rounded p-2">
+            <option value="pending" {{ old('status', $blotter->status) === 'pending' ? 'selected' : '' }}>
+                Pending</option>
+            <option value="processing" {{ old('status', $blotter->status) === 'processing' ? 'selected' : '' }}>
+                Processing</option>
+            <option value="approved" {{ old('status', $blotter->status) === 'approved' ? 'selected' : '' }}>Approved
+            </option>
+            <option value="rejected" {{ old('status', $blotter->status) === 'rejected' ? 'selected' : '' }}>Rejected
+            </option>
+        </select>
     </div>
-</x-app-layout>
+    <x-primary-button type="submit" class="mt-4 !bg-green-500 hover:!bg-green-600 active:!bg-green-700">
+        Update
+    </x-primary-button>
+</form>

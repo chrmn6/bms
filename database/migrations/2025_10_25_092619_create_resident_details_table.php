@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->enum('civil_status', ['Single', 'In A Relationship', 'Married', 'Widowed', 'Divorced'])->nullable();
             $table->string('citizenship')->nullable();
-            $table->string('occupation')->nullable();
+            $table->enum('occupation', ['Self-Employed', 'Unemployed', 'Employed'])->nullable();
             $table->string('education')->nullable();
             $table->timestamps();
         });

@@ -1,6 +1,15 @@
 <div class="container">
-    <div class="row">
-        <p class="col-5 fw-bold text-lg">BLOTTER ENTRY # {{ $blotter->blotter_id }}</p>
+    <div class="row align-items-center mb-3">
+        <p class="col fw-bold text-lg mb-0">BLOTTER ENTRY # {{ $blotter->blotter_id }}</p>
+        <div class="col-auto">
+            @auth
+                @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
+                    <button class="btn btn-outline-info btn-sm" onclick="window.print()">
+                        <i class="bi bi-printer"></i> Print
+                    </button>
+                @endif
+            @endauth
+        </div>
     </div>
     <div class="row mb-3">
         <div class="col-4">
@@ -23,7 +32,8 @@
         </div>
         <div class="col-6">
             <p class="fw-bold text-sm mb-0">DATE AND TIME</p>
-            <p class="text-sm mb-0">{{ $blotter->incident_date}}, {{ $blotter->incident_time }}</p>
+            <p class="text-sm mb-0">{{ $blotter->formatted_incident_date }} – {{ $blotter->formatted_incident_time }}
+            </p>
         </div>
     </div>
     <div class="row mb-3">

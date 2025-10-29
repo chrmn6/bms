@@ -13,6 +13,6 @@
 
     <small class="text-muted">
         <i class="bi bi-person-fill me-1"></i>
-        By <span class="fw-medium">{{ $announcement->user->first_name }} {{ $announcement->user->last_name }}</span>
+        By <span class="fw-medium">{{ $announcement->user->full_name }}</span>
     </small>
 </div>

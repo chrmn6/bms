@@ -113,6 +113,13 @@ class BlotterController extends Controller
             'user_id' => Auth::id(),
         ]);
 
+        if ($request->header('HX-Request')) {
+            return header('HX-Trigger', json_encode([
+                'refreshTable' => true,
+                'closeModal' => true, 
+            ]));
+        }
+
         return redirect()->route('blotters.index')->with('success', 'Blotter updated successfully.');
     }
 

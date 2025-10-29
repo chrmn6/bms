@@ -1,5 +1,5 @@
 <table id="usersTable" class="table table-hover text-center" hx-get="{{ route('admin.staff.index') }}"
-    hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
+    hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
     <thead class="table-light">
         <tr>
             <th>Full Name</th>

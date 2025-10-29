@@ -23,8 +23,6 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
             <!-- Search and Filter Section -->
-
-
             <div class="row justify-content-end">
                 <div class="col-md-8">
                     <div class="card mb-3 shadow-sm border-0" style="background-color:#6D0512;">
@@ -107,14 +105,13 @@
                                             <td>{{ $resident->household->household_number }}</td>
                                             <td>{{ $resident->user->phone_number }}</td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <a href="{{ route('admin.resident.show', $resident->resident_id) }}">
-                                                        <x-primary-button type="button"
-                                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
-                                                            <i class="bi bi-eye text-xs"></i>
-                                                        </x-primary-button>
-                                                    </a>
-                                                </div>
+                                                <x-primary-button
+                                                    hx-get="{{ route('admin.resident.show', $resident->resident_id) }}"
+                                                    hx-target="#viewResidentModalBody" hx-swap="innerHTML" hx-trigger="click"
+                                                    data-bs-toggle="modal" data-bs-target="#viewResidentModal"
+                                                    class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
+                                                    <i class="bi bi-eye text-xs"></i>
+                                                </x-primary-button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -139,6 +136,27 @@
                             </p>
                         </div>
                     @endif
+                </div>
+            </div>
+
+            <!-- View Resident Modal -->
+            <div class="modal fade" id="viewResidentModal" tabindex="-1" aria-labelledby="viewResidentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="viewResidentModalLabel">
+                                <i class="bi bi-person-circle me-2"></i> Resident Details
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="viewResidentModalBody">
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary mb-3" role="status"></div>
+                                <p>Loading resident details...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

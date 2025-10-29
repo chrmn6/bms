@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($blotters as $blotter)
+        @forelse($blotters as $blotter)
             <tr>
                 <td>{{ $blotter->blotter_id }}</td>
                 <td>{{ $blotter->resident->full_name }}</td>
@@ -29,7 +29,7 @@
                     @endphp
                     <span class="badge {{ $statusClass }}">{{ ucfirst($blotter->status) }}</span>
                 </td>
-                <td>{{ $blotter->user?->first_name ?? 'N/A' }} {{ $blotter->user?->last_name ?? 'N/A' }}</td>
+                <td>{{ $blotter->user?->full_name ?? 'N/A' }}</td>
                 <td>
                     <x-primary-button hx-get="{{ route('blotters.show', $blotter->blotter_id) }}"
                         hx-target="#viewBlotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
@@ -38,14 +38,22 @@
                         <i class="bi bi-eye text-xs"></i>
                     </x-primary-button>
                     @can('update', $blotter)
-                        <x-primary-button type="button"
-                            class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 rounded flex items-center justify-center"
-                            onclick="window.location.href='{{ route('blotters.edit', $blotter->blotter_id) }}'">
+                        <x-primary-button hx-get="{{ route('blotters.edit', $blotter->blotter_id) }}"
+                            hx-target="#editStatusModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
+                            data-bs-target="#editStatusModal"
+                            class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center">
                             <i class="bi bi-pencil text-xs"></i>
                         </x-primary-button>
                     @endcan
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="7" class="text-center py-4 text-muted">
+                    <i class="bi bi-file-earmark"></i>
+                    <p class="mb-0">No blotter reports found.</p>
+                </td>
+            </tr>
+        @endforelse
     </tbody>
 </table>

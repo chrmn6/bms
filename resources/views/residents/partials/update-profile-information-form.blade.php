@@ -218,8 +218,15 @@
                                 <!--Occupation-->
                                 <div class="col-md-4">
                                     <x-input-label for="occupation" :value="__('Occupation')" />
-                                    <x-text-input id="occupation" name="occupation" type="text"
-                                        class="mt-1 block w-full" :value="old('occupation', $resident->details->occupation ?? '')" placeholder="Provide your occupation" />
+                                    <select id="occupation" name="occupation"
+                                        class="mt-1 block w-full border-gray-300 rounded-md">
+                                        <option value="">Select Employment Status</option>
+                                        <option value="Self-Employed" {{ old('occupation', $resident->details->occupation ?? '') == 'Self-Employed' ? 'selected' : '' }}>
+                                            Self-Employed</option>
+                                        <option value="Unemployed" {{ old('occupation', $resident->details->occupation ?? '') == 'Unemployed' ? 'selected' : '' }}>Unemployed</option>
+                                        <option value="Employed" {{ old('occupation', $resident->details->occupation ?? '') == 'Employed' ? 'selected' : '' }}>Employed
+                                        </option>
+                                    </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('occupation')" />
                                 </div>
 

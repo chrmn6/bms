@@ -19,7 +19,7 @@
                     <p><strong>Status: </strong> {{ ucfirst($clearance->status) }}</p>
                     <p><strong>Remarks: </strong>{{ $clearance->remarks }}</p>
                     <p><strong>Requested by: </strong> {{ $clearance->resident->full_name }}</p>
-                    <p><strong>Processed by: </strong> {{ $clearance->user?->first_name ?? 'N/A' }}</p>
+                    <p><strong>Processed by: </strong> {{ $clearance->user?->full_name ?? 'N/A' }}</p>
 
                     <x-primary-button type="button" class="mt-6"
                         onclick="window.location.href='{{ route('clearances.index') }}'">

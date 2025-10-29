@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Blotter extends Model
 {
@@ -28,5 +29,15 @@ class Blotter extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getFormattedIncidentDateAttribute()
+    {
+        return Carbon::parse($this->incident_date)->format('F j, Y');
+    }
+
+    public function getFormattedIncidentTimeAttribute()
+    {
+        return Carbon::parse($this->incident_time)->format('h:i A');
     }
 }

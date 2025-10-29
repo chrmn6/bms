@@ -34,11 +34,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table id="usersTable" class="table table-hover text-center"
-                            hx-get="{{ route('admin.staff.index') }}" hx-trigger="refreshTable from:body"
-                            hx-target="this" hx-swap="outerHTML">
-                            @include('admin.users.table', ['users' => $users])
-                        </table>
+                        @include('admin.users.table', ['users' => $users])
                     </div>
                 </div>
             </div>
