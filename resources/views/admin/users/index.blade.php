@@ -27,15 +27,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <i class="bi bi-table"></i>
-                    System Users
+                    <i class="bi bi-table"></i> System Users
                 </h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <div class="table-responsive">
-                        @include('admin.users.table', ['users' => $users])
-                    </div>
+                    @include('admin.users.table', ['users' => $users])
                 </div>
             </div>
         </div>

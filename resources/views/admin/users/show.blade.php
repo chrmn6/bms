@@ -5,7 +5,7 @@
     </div>
     <div class="row mb-2">
         <div class="col-4 fw-semibold text-secondary">Full Name:</div>
-        <div class="col-8">{{ $staff->first_name }} {{ $staff->last_name }}</div>
+        <div class="col-8">{{ $staff->full_name }}</div>
     </div>
     <div class="row mb-2">
         <div class="col-4 fw-semibold text-secondary">Email:</div>
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4 fw-semibold text-secondary">Created:</div>
+        <div class="col-4 fw-semibold text-secondary">Created At:</div>
         <div class="col-8">{{ $staff->created_at->format('M d, Y') }}</div>
     </div>
 </div>

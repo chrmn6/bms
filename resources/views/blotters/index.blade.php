@@ -35,11 +35,11 @@
                 @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
                     <div class="row mb-2">
                         @php
-        $blotter = \App\Models\Blotter::all();
-        $pending = $blotter->where('status', 'pending')->count();
-        $processing = $blotter->where('status', 'processing')->count();
-        $approved = $blotter->where('status', 'approved')->count();
-        $rejected = $blotter->where('status', 'rejected')->count();
+                            $blotter = \App\Models\Blotter::all();
+                            $pending = $blotter->where('status', 'pending')->count();
+                            $processing = $blotter->where('status', 'processing')->count();
+                            $approved = $blotter->where('status', 'approved')->count();
+                            $rejected = $blotter->where('status', 'rejected')->count();
                         @endphp
 
                         <div class="col-md-3 mb-3">
@@ -130,11 +130,9 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div class="table-responsive">
-                            <div id="blotterList" hx-get="{{ route('blotters.index') }}"
-                                hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
-                                @include('blotters.table', ['blotters' => $blotters])
-                            </div>
+                        <div id="blotterList" hx-get="{{ route('blotters.index') }}" hx-trigger="refreshTable from:body"
+                            hx-target="this" hx-swap="outerHTML">
+                            @include('blotters.table', ['blotters' => $blotters])
                         </div>
                     </div>
                 </div>
@@ -183,14 +181,15 @@
             </div>
 
             <!-- Edit Modal-->
-            <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusModalLabel" aria-hidden="true">
+            <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm">
                     <div class="modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h6 class="modal-title" id="editStatusModalLabel">Edit Status</h6>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
-            
+
                         <div class="modal-body p-3" id="editStatusModalBody">
                             <div class="text-center text-muted">
                                 <div class="spinner-border text-primary" role="status"></div>

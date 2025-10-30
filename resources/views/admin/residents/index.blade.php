@@ -24,13 +24,13 @@
         <div class="py-3">
             <!-- Search and Filter Section -->
             <div class="row justify-content-end">
-                <div class="col-md-8">
+                <div class="col-12 col-sm-10 col-md-8">
                     <div class="card mb-3 shadow-sm border-0" style="background-color:#6D0512;">
-                        <div class="card-body py-3">
+                        <div class="card-body py-3 px-3">
                             <form method="GET" action="{{ route('admin.resident.index') }}">
                                 <div class="row g-2 align-items-end">
                                     <!-- Search by Name -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <label for="search" class="form-label mb-1 font-xs text-white">Name</label>
                                         <input type="text" class="form-control form-control-sm" id="search"
                                             name="search" value="{{ request('search') }}"
@@ -38,7 +38,7 @@
                                     </div>
 
                                     <!-- Search by Household Number -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <label for="household_number"
                                             class="form-label mb-1 text-white font-xs">Household
                                             No.</label>
@@ -57,16 +57,6 @@
                                             </span>
                                         </x-secondary-button>
                                     </div>
-
-                                    <!-- Clear Filters Button -->
-                                    @if(request()->hasAny(['search', 'household_number']))
-                                        <div class="col-md-2 d-flex align-items-end text-white">
-                                            <a href="{{ route('admin.resident.index') }}"
-                                                class="btn btn-outline-light btn-sm w-100">
-                                                <i class="bi bi-x-circle me-1"></i> Clear
-                                            </a>
-                                        </div>
-                                    @endif
                                 </div>
                             </form>
                         </div>
@@ -75,67 +65,53 @@
             </div>
 
             <!-- Residents Table -->
-            <div class="card">
-                <div class="card-header">
+            <div class="card shadow-sm border-0">
+                <div class="card-header py-2 px-3 border-bottom-0">
                     <h5 class="mb-0">
                         <i class="bi bi-table"></i>
-                        Residents ({{ $residents->total() }} total)
+                        Residents
                     </h5>
                 </div>
-                <div class="card-body text-center">
-                    @if($residents->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
+                <div class="card-body p-3 text-center">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Household Number</th>
+                                    <th>Phone Number</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($residents as $resident)
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Household Number</th>
-                                        <th>Mobile Number</th>
-                                        <th>Actions</th>
+                                        <td>{{ $resident->resident_id }}</td>
+                                        <td>{{ $resident->user->last_name }}</td>
+                                        <td>{{ $resident->user->first_name }}</td>
+                                        <td>{{ $resident->household->household_number }}</td>
+                                        <td>{{ $resident->user->phone_number }}</td>
+                                        <td>
+                                            <x-primary-button
+                                                hx-get="{{ route('admin.resident.show', $resident->resident_id) }}"
+                                                hx-target="#viewResidentModalBody" hx-swap="innerHTML" hx-trigger="click"
+                                                data-bs-toggle="modal" data-bs-target="#viewResidentModal"
+                                                class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
+                                                <i class="bi bi-eye text-xs"></i>
+                                            </x-primary-button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($residents as $resident)
-                                        <tr>
-                                            <td>{{ $resident->resident_id }}</td>
-                                            <td>{{ $resident->user->last_name }}</td>
-                                            <td>{{ $resident->user->first_name }}</td>
-                                            <td>{{ $resident->household->household_number }}</td>
-                                            <td>{{ $resident->user->phone_number }}</td>
-                                            <td>
-                                                <x-primary-button
-                                                    hx-get="{{ route('admin.resident.show', $resident->resident_id) }}"
-                                                    hx-target="#viewResidentModalBody" hx-swap="innerHTML" hx-trigger="click"
-                                                    data-bs-toggle="modal" data-bs-target="#viewResidentModal"
-                                                    class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                                                    <i class="bi bi-eye text-xs"></i>
-                                                </x-primary-button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
-                        <!-- Pagination -->
-                        <div class="d-flex justify-content-center">
-                            {{ $residents->withQueryString()->links() }}
-                        </div>
-                    @else
-                        <div class="text-center py-5">
-                            <i class="bi bi-person-x fa-3x text-muted mb-3"></i>
-                            <h4>No Residents Found</h4>
-                            <p class="text-muted">
-                                @if(request()->hasAny(['search', 'gender', 'civil_status']))
-                                    No residents match your search criteria.
-                                @else
-                                    No residents have been added yet.
-                                @endif
-                            </p>
-                        </div>
-                    @endif
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center">
+                        {{ $residents->links() }}
+                    </div>
                 </div>
             </div>
 

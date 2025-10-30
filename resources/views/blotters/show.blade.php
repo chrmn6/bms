@@ -1,65 +1,60 @@
-<div class="container">
-    <div class="row align-items-center mb-3">
-        <p class="col fw-bold text-lg mb-0">BLOTTER ENTRY # {{ $blotter->blotter_id }}</p>
-        <div class="col-auto">
-            @auth
-                @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
-                    <button class="btn btn-outline-info btn-sm" onclick="window.print()">
-                        <i class="bi bi-printer"></i> Print
-                    </button>
-                @endif
-            @endauth
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-4">
-            <p class="fw-bold text-sm mb-0">COMPLAINANT</p>
-            <p class="text-sm mb-0">{{ $blotter->resident->full_name }}</p>
-        </div>
-        <div class="col-5">
-            <p class="fw-bold text-sm mb-0">FULL ADDRESS</p>
-            <p class="text-sm mb-0">{{ $blotter->resident->address }}</p>
-        </div>
-        <div class="col-3">
-            <p class="fw-bold text-sm mb-0">CONTACT</p>
-            <p class="text-sm mb-0">{{ $blotter->resident->user->phone_number }}</p>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-6">
-            <p class="fw-bold text-sm mb-0">TYPE OF INCIDENT</p>
-            <p class="text-sm mb-0">{{ $blotter->incident_type }}</p>
-        </div>
-        <div class="col-6">
-            <p class="fw-bold text-sm mb-0">DATE AND TIME</p>
-            <p class="text-sm mb-0">{{ $blotter->formatted_incident_date }} – {{ $blotter->formatted_incident_time }}
-            </p>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-6">
-            <p class="fw-bold text-sm mb-0">PLACE OF INCIDENT</p>
-            <p class="text-sm mb-0">{{ $blotter->location }}</p>
-        </div>
-        <div class="col-6">
-            <p class="fw-bold text-sm mb-0">STATUS</p>
-            <span class="badge bg-success">{{ ucfirst($blotter->status) }}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <p class="fw-bold text-sm mb-0">DESCRIPTION</p>
-            <p class="text-sm mb-0">{{ $blotter->description}}</p>
-        </div>
-
-        <div class="col-6">
-            <p class="fw-bold text-sm mb-0">PROOF OF EVIDENCE</p>
-            @if($blotter->image && file_exists(public_path('uploads/blotters/' . $blotter->image)))
-                <img src="{{ asset('uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence" class="img-fluid"
-                    style="max-width: 200px;">
-            @else
-                <span class="text-muted">No image uploaded</span>
+<div class="row align-items-center mb-3">
+    <p class="col fw-bold text-lg mb-0">BLOTTER ENTRY # {{ $blotter->blotter_id }}</p>
+    <div class="col-auto">
+        @auth
+            @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
+                <button class="btn btn-outline-info btn-sm" onclick="window.print()">
+                    <i class="bi bi-printer"></i> Print
+                </button>
             @endif
-        </div>
+        @endauth
     </div>
+</div>
+<div>
+    <table class="w-full border border-black text-sm">
+        <tbody>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">COMPLAINANT</th>
+                <td>{{ $blotter->resident->full_name }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">FULL ADDRESS</th>
+                <td>{{ $blotter->resident->address }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">CONTACT</th>
+                <td>{{ $blotter->resident->user->phone_number }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">TYPE OF INCIDENT</th>
+                <td>{{ $blotter->incident_type }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">DATE AND TIME</th>
+                <td>{{ $blotter->formatted_incident_date }} at {{ $blotter->formatted_incident_time }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">LOCATION</th>
+                <td>{{ $blotter->location }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">STATUS</th>
+                <td><span class="badge bg-success">{{ ucfirst($blotter->status) }}</span></td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">DESCRIPTION</th>
+                <td>{{ $blotter->description}}</td>
+            </tr>
+            <tr class="border-b border-gray-500 align-top">
+                <th class="text-left font-semibold p-2">PROOF OF EVIDENCE</th>
+                <td>@if($blotter->image && file_exists(public_path('uploads/blotters/' . $blotter->image)))
+                    <img src="{{ asset('uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence"
+                        class="img-fluid" style="max-width: 200px;">
+                @else
+                        <span class="text-muted">No image uploaded</span>
+                    @endif
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
