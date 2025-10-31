@@ -82,6 +82,11 @@ Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group
 // BLOTTER ROUTE
 Route::resource('blotters', BlotterController::class)->except(['destroy']);
 
+Route::middleware(['auth', 'role:admin|staff'])->group(function () {
+    Route::get('/blotters/{id}/pdf', [CertificateController::class, 'blotterTranscript'])
+        ->name('blotter.pdf');
+});
+
 //CLEARANCE ROUTE
 Route::resource('clearances', ClearanceController::class);
 

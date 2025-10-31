@@ -88,7 +88,7 @@
                             <tbody>
                                 @foreach($residents as $resident)
                                     <tr>
-                                        <td>{{ $resident->resident_id }}</td>
+                                        <td>{{ $resident->display_id }}</td>
                                         <td>{{ $resident->user->last_name }}</td>
                                         <td>{{ $resident->user->first_name }}</td>
                                         <td>{{ $resident->household->household_number }}</td>

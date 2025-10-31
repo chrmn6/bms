@@ -1,10 +1,9 @@
-<table id="blotterTable" class="table table-hover table-sm align-middle mb-0" hx-get="{{ route('blotters.index') }}"
+<table id="blotterTable" class="table table-hover table-sm text-center mb-0" hx-get="{{ route('blotters.index') }}"
     hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
     <thead class="table-light">
         <tr>
             <th>Case #</th>
             <th>Complainant</th>
-            <th>Incident Type</th>
             <th>Date Reported</th>
             <th>Status</th>
             <th>Mediated By</th>
@@ -14,9 +13,8 @@
     <tbody>
         @forelse($blotters as $blotter)
             <tr>
-                <td>{{ $blotter->blotter_id }}</td>
+                <td>{{ $blotter->display_id }}</td>
                 <td>{{ $blotter->resident->full_name }}</td>
-                <td>{{ $blotter->incident_type }}</td>
                 <td>{{ $blotter->incident_date }}</td>
                 <td>
                     @php

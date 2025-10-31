@@ -1,11 +1,11 @@
 <div class="row align-items-center mb-3">
-    <p class="col fw-bold text-lg mb-0">BLOTTER ENTRY # {{ $blotter->blotter_id }}</p>
+    <p class="col fw-bold text-lg mb-0">BLOTTER ENTRY # {{ $blotter->display_id }}</p>
     <div class="col-auto">
         @auth
             @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
-                <button class="btn btn-outline-info btn-sm" onclick="window.print()">
-                    <i class="bi bi-printer"></i> Print
-                </button>
+                <a href="{{ route('blotter.pdf', $blotter->blotter_id) }}" class="btn btn-outline-info btn-sm">
+                    <i class="bi bi-printer"></i> Print PDF
+                </a>
             @endif
         @endauth
     </div>
@@ -36,10 +36,6 @@
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">LOCATION</th>
                 <td>{{ $blotter->location }}</td>
-            </tr>
-            <tr class="border-b border-gray-500">
-                <th class="text-left font-semibold p-2">STATUS</th>
-                <td><span class="badge bg-success">{{ ucfirst($blotter->status) }}</span></td>
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">DESCRIPTION</th>

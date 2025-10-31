@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Resident;
 use App\Models\Activity;
 use App\Models\Announcement;
-use App\Models\ResidentDetails;
 use App\Models\Clearance;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;

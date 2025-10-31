@@ -40,4 +40,9 @@ class Blotter extends Model
     {
         return Carbon::parse($this->incident_time)->format('h:i A');
     }
+
+    public function getDisplayIdAttribute()
+    {
+        return 'BLR-' . str_pad($this->resident_id, 4, '0', STR_PAD_LEFT);
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\Resident;
 use App\Models\ResidentProfile;
 use App\Models\Clearance;
 use App\Models\Household;
+use App\Models\Blotter;
 
 class CertificateController extends Controller
 {
@@ -78,5 +79,20 @@ class CertificateController extends Controller
         $pdf = Pdf::loadView('pdf.residency_clearance', $data)->setPaper('A4', 'portrait');
 
         return $pdf->download("ResidencyClearance_{$resident->full_name}.pdf");
+    }
+
+    public function blotterTranscript($blotter)
+    {
+        $blotter = Blotter::with(['resident.user'])->findOrFail($blotter);
+
+        $data = [
+        'blotter' => $blotter,
+        'barangay_name' => 'Barangay Matina Gravahan',
+        'city_name' => 'Davao City',
+        'barangay_captain' => 'John Doe',
+        ];
+
+        $pdf = Pdf::loadView('pdf.blotter_transcript', $data)->setPaper('A4', 'portrait');
+        return $pdf->download("BlotterReport_{$blotter->resident->full_name}.pdf");
     }
 }

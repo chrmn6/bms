@@ -48,4 +48,17 @@ class Resident extends Model
         }
         return 'Unknown Name';
     }
+
+    public function getFullAddressAttribute()
+    {
+        if ($this->household) {
+            return $this->household->household_number . ', ' . $this->address;
+        }
+        return $this->address ?? 'Unknown Address';
+    }
+
+    public function getDisplayIdAttribute()
+    {
+        return 'RES-' . str_pad($this->resident_id, 4, '0', STR_PAD_LEFT);
+    }
 }
