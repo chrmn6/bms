@@ -90,6 +90,10 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 //CLEARANCE ROUTE
 Route::resource('clearances', ClearanceController::class);
 
+Route::middleware(['auth', 'role:resident|staff'])->group(function(){
+    Route::get('/clearances/{id}/pdf', [CertificateController::class, 'clearancePDF'])->name('clearances.pdf');
+});
+
 //Settings
 Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');

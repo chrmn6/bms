@@ -19,9 +19,9 @@
                 <td>
                     @php
                         $statusClass = match ($blotter->status) {
-                            'approved' => 'bg-success',
-                            'processing' => 'bg-info',
-                            'rejected' => 'bg-danger',
+                            'resolved' => 'bg-success',
+                            'investigating' => 'bg-info',
+                            'dismissed' => 'bg-danger',
                             default => 'bg-warning'
                         };
                     @endphp
@@ -47,7 +47,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="7" class="text-center py-4 text-muted">
+                <td colspan="6" class="text-center py-4 text-muted">
                     <i class="bi bi-file-earmark"></i>
                     <p class="mb-0">No blotter reports found.</p>
                 </td>

@@ -37,9 +37,9 @@
                         @php
                             $blotter = \App\Models\Blotter::all();
                             $pending = $blotter->where('status', 'pending')->count();
-                            $processing = $blotter->where('status', 'processing')->count();
-                            $approved = $blotter->where('status', 'approved')->count();
-                            $rejected = $blotter->where('status', 'rejected')->count();
+                            $investigating = $blotter->where('status', 'investigating')->count();
+                            $resolved = $blotter->where('status', 'resolved')->count();
+                            $dismissed = $blotter->where('status', 'dismissed')->count();
                         @endphp
 
                         <div class="col-md-3 mb-3">
@@ -63,8 +63,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h6 class="text-info">Processing</h6>
-                                            <h3 class="mb-0">{{ $processing }}</h3>
+                                            <h6 class="text-info">In-Progress</h6>
+                                            <h3 class="mb-0">{{ $investigating }}</h3>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="bi bi-search fa-2x text-info"></i>
@@ -79,8 +79,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h6 class="text-success">Approved</h6>
-                                            <h3 class="mb-0">{{ $approved }}</h3>
+                                            <h6 class="text-success">Resolved</h6>
+                                            <h3 class="mb-0">{{ $resolved }}</h3>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="bi bi-check-circle fa-2x text-success"></i>
@@ -95,8 +95,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h6 class="text-secondary">Rejected</h6>
-                                            <h3 class="mb-0">{{ $rejected }}</h3>
+                                            <h6 class="text-secondary">Dismissed</h6>
+                                            <h3 class="mb-0">{{ $dismissed }}</h3>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="bi bi-x-circle fa-2x text-secondary"></i>
@@ -114,7 +114,7 @@
                 @can('create', App\Models\Blotter::class)
                     <x-primary-button type="button" hx-get="{{ route('blotters.create') }}" hx-target="#blotterModalBody"
                         hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#addBlotterModal"
-                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-2">
+                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
                         <i class="bi bi-plus-square text-base"></i>File A Report
                     </x-primary-button>
                 @endcan
@@ -145,7 +145,7 @@
                     <div class="modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white">
                             <h5 class="modal-title" id="announcementModalLabel">
-                                <i class="bi bi-megaphone me-2"></i> File Blotter Report
+                                <i class="bi bi-file-earmark me-2"></i> File Blotter Report
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>

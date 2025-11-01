@@ -1,32 +1,49 @@
-@section('title') {{ 'Clearance' }} @endsection
-
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ $clearance->clearance_type }}
-        </h2>
-    </x-slot>
-
-    <div class="py-6">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-
-                    <h1 class="text-2xl font-bold mb-4">{{ $clearance->clearance_type }}</h1>
-                    <p><strong>Purpose: </strong>{{ $clearance->purpose }}</p>
-                    <p><strong>Issued Date: </strong>{{ $clearance->issued_date ?? '-' }}</p>
-                    <p><strong>Valid Until: </strong>{{ $clearance->valid_until ?? '-' }}</p>
-                    <p><strong>Status: </strong> {{ ucfirst($clearance->status) }}</p>
-                    <p><strong>Remarks: </strong>{{ $clearance->remarks }}</p>
-                    <p><strong>Requested by: </strong> {{ $clearance->resident->full_name }}</p>
-                    <p><strong>Processed by: </strong> {{ $clearance->user?->full_name ?? 'N/A' }}</p>
-
-                    <x-primary-button type="button" class="mt-6"
-                        onclick="window.location.href='{{ route('clearances.index') }}'">
-                        Back
+<div class="row align-items-center mb-3">
+    <p class="col fw-bold text-lg mb-0">CLEARANCE # {{ $clearance->display_id }}</p>
+    <div class="col-auto">
+        @auth
+            @if (auth()->user()->role === 'resident' || auth()->user()->role === 'staff')
+                @if($clearance->status === 'released')
+                    <x-primary-button href="{{ route('clearances.pdf', $clearance->clearance_id) }}"
+                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
+                        <i class="bi bi-printer"></i>Print PDF
                     </x-primary-button>
-                </div>
-            </div>
-        </div>
+                @endif
+            @endif
+        @endauth
     </div>
-</x-app-layout>
+</div>
+<div>
+    <table class="w-full border border-black text-sm">
+        <tbody>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">REQUESTED BY</th>
+                <td>{{ $clearance->resident->full_name }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">CLEARANCE TYPE</th>
+                <td>{{ $clearance->clearance_type }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">PURPOSE</th>
+                <td>{{ $clearance->purpose }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">ISSUED DATE</th>
+                <td>{{ $clearance->issued_date ?? '-' }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">VALID UNTIL</th>
+                <td>{{ $clearance->valid_until ?? '-' }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">REMARKS</th>
+                <td>{{ $clearance->remarks }}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">PROCESSED BY</th>
+                <td>{{ $clearance->user?->full_name ?? 'N/A' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

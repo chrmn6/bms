@@ -86,7 +86,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($residents as $resident)
+                                @forelse($residents as $resident)
                                     <tr>
                                         <td>{{ $resident->display_id }}</td>
                                         <td>{{ $resident->user->last_name }}</td>
@@ -103,7 +103,14 @@
                                             </x-primary-button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-muted">
+                                            <i class="bi bi-people"></i>
+                                            <p class="mb-0">No residents found.</p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

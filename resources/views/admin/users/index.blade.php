@@ -18,7 +18,7 @@
         <div class="py-3 flex justify-end">
             <x-primary-button type="button" hx-get="{{ route('admin.staff.create') }}" hx-target="#userModalBody"
                 hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#userModal"
-                class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-2">
+                class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
                 <i class="bi bi-plus-circle text-base"></i>Add New User
             </x-primary-button>
         </div>

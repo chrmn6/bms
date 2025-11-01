@@ -1,5 +1,10 @@
 @section('title') {{ 'Clearance' }} @endsection
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
@@ -11,78 +16,176 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
+            <!-- ONLY ADMIN AND STAFF CAN SEE THE Statistics Cards -->
+            @auth
+                @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
+                    <div class="row mb-2">
+                        @php
+                            $clearance = \App\Models\Clearance::all();
+                            $pending = $clearances->where('status', 'pending')->count();
+                            $approved = $clearances->where('status', 'approved')->count();
+                            $released = $clearances->where('status', 'released')->count();
+                            $rejected = $clearances->where('status', 'rejected')->count();
+                        @endphp
 
-            @can('create', App\Models\Clearance::class)
-                <form action="{{ route('clearances.create') }}" method="GET">
-                    <x-primary-button class="mt-2 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
-                        Request A Clearance
-                    </x-primary-button>
-                </form>
-            @endcan
-
-            <table class="table-auto mt-3 w-full border border-gray-300 dark:border-gray-600">
-                <thead>
-                    <tr class="bg-gray-100 dark:bg-gray-700">
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Clearance Type</th>
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Purpose</th>
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Issued Date</th>
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Valid Date</th>
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Status</th>
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Remarks</th>
-                        <th class="px-4 py-2 border border-gray-300 dark:border-gray-600">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($clearances as $clearance)
-                        <tr class="border-b border-gray-200 dark:border-gray-600">
-                            <td class="px-4 py-2 border border-gray-300 dark:border-gray-600">
-                                {{ $clearance->clearance_type }}
-                            </td>
-                            <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
-                                {{ $clearance->purpose }}
-                            </td>
-                            <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
-                                {{ $clearance->issued_date }}
-                            </td>
-                            <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
-                                {{ $clearance->valid_until }}
-                            </td>
-                            <td
-                                class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center
-                                                                        {{ $clearance->status == 'pending' ? 'text-yellow-600 font-semibold' : '' }}
-                                                                        {{ $clearance->status == 'released' ? 'text-orange-600 font-semibold' : '' }}
-                                                                        {{ $clearance->status == 'approved' ? 'text-green-600 font-semibold' : '' }}
-                                                                        {{ $clearance->status == 'rejected' ? 'text-red-600 font-semibold' : '' }}">
-                                {{ ucfirst($clearance->status) }}
-                            </td>
-                            <td class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-center">
-                                {{ $clearance->remarks }}
-                            </td>
-                            <td class="px-2 py-2 border border-gray-300 dark:border-gray-600 align-middle">
-                                <div class="flex gap-2 justify-center">
-                                    <x-primary-button type="button"
-                                        class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 rounded flex items-center justify-center"
-                                        onclick="window.location.href='{{ route('clearance.show', $clearance->clearance_id) }}'">
-                                        <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                                    </x-primary-button>
-
-                                    @can('update', $clearance)
-                                        <x-primary-button type="button"
-                                            class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 rounded flex items-center justify-center"
-                                            onclick="window.location.href='{{ route('clearance.edit', $clearance->clearance_id) }}'">
-                                            <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                                        </x-primary-button>
-                                    @endcan
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-warning">Pending</h6>
+                                            <h3 class="mb-0">{{ $pending }}</h3>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="bi bi-clock fa-2x text-warning"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="text-center p-4 text-gray-500">No clearance requests found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-info">Released</h6>
+                                            <h3 class="mb-0">{{ $released }}</h3>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="bi bi-arrow-up-square fa-2x text-info"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-success">Approved</h6>
+                                            <h3 class="mb-0">{{ $approved }}</h3>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="bi bi-check-circle fa-2x text-success"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-secondary">Rejected</h6>
+                                            <h3 class="mb-0">{{ $rejected }}</h3>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="bi bi-x-circle fa-2x text-secondary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endauth
+
+            <!-- REQUEST A CLEARANCE BUTTON-->
+            <div class="py-3 flex justify-end">
+                @can('create', App\Models\Clearance::class)
+                    <x-primary-button type="button" hx-get="{{ route('clearances.create') }}"
+                        hx-target="#clearanceModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
+                        data-bs-target="#addClearanceModal"
+                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
+                        <i class="bi bi-plus-square text-base"></i>Request A Clearance
+                    </x-primary-button>
+                @endcan
+            </div>
+
+            <!-- Clearance Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-table"></i>
+                        Clearance Request
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="clearanceList" hx-get="{{ route('clearances.index') }}"
+                            hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
+                            @include('clearance.table', ['clearances' => $clearances])
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clearance Request Modal -->
+            <div class="modal fade" id="addClearanceModal" tabindex="-1" aria-labelledby="clearanceModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="clearanceModalLabel">
+                                <i class="bi bi-file-earmark me-2"></i>Request Clearance
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="clearanceModalBody">
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary mb-3" role="status"></div>
+                                <p>Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Clearance Modal -->
+            <div class="modal fade" id="viewClearanceModal" tabindex="-1" aria-labelledby="viewClearanceModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-m modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="viewClearanceModalLabel">
+                                <i class="bi bi-file-earmark me-2"></i>Clearance Request Transcript
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="viewClearanceModalBody">
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary mb-3" role="status"></div>
+                                <p>Loading transcript details...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal-->
+            <div class="modal fade" id="editClearanceStatusModal" tabindex="-1"
+                aria-labelledby="editClearanceStatusModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-m">
+                    <div class="modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
+                            <h6 class="modal-title" id="editClearanceStatusModalLabel">Clearance Form</h6>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body p-3" id="editClearanceStatusModalBody">
+                            <div class="text-center text-muted">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p>Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Pagination -->
             <div class="mt-6">
@@ -90,4 +193,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 </x-app-layout>

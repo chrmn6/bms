@@ -28,4 +28,9 @@ class Clearance extends Model
     {
         return $this->belongsTo(Resident::class, 'resident_id', 'resident_id');
     }
+
+    public function getDisplayIdAttribute()
+    {
+        return 'CLR-' . str_pad($this->resident_id, 4, '0', STR_PAD_LEFT);
+    }
 }
