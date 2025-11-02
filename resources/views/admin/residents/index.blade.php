@@ -3,11 +3,6 @@
     <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
 @endpush
 
-@push('scripts')
-    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
-    <script src="{{ asset('js/users-scripts.js') }}"></script>
-@endpush
-
 @section('title') {{ 'Residents List' }} @endsection
 
 
@@ -23,47 +18,40 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
             <!-- Search and Filter Section -->
-            <div class="row justify-content-end">
-                <div class="col-12 col-sm-10 col-md-8">
-                    <div class="card mb-3 shadow-sm border-0" style="background-color:#6D0512;">
-                        <div class="card-body py-3 px-3">
-                            <form method="GET" action="{{ route('admin.resident.index') }}">
-                                <div class="row g-2 align-items-end">
-                                    <!-- Search by Name -->
-                                    <div class="col-md-5">
-                                        <label for="search" class="form-label mb-1 font-xs text-white">Name</label>
-                                        <input type="text" class="form-control form-control-sm" id="search"
-                                            name="search" value="{{ request('search') }}"
-                                            placeholder="Search by first or last name">
-                                    </div>
-
-                                    <!-- Search by Household Number -->
-                                    <div class="col-md-5">
-                                        <label for="household_number"
-                                            class="form-label mb-1 text-white font-xs">Household
-                                            No.</label>
-                                        <input type="text" class="form-control form-control-sm" id="household_number"
-                                            name="household_number" value="{{ request('household_number') }}"
-                                            placeholder="Enter household number">
-                                    </div>
-
-                                    <!-- Search Button -->
-                                    <div class="col-md-2 d-flex align-items-end">
-                                        <x-secondary-button type="submit"
-                                            class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D]">
-                                            <span class="inline-flex items-center space-x-1">
-                                                <i class="bi bi-search text-base"></i>
-                                                <span>Search</span>
-                                            </span>
-                                        </x-secondary-button>
-                                    </div>
+            <div class="col-lg-8">
+                <div class="card mb-3" style="background-color:#6D0512;">
+                    <div class="card-body">
+                        <form method="GET" action="{{ route('admin.resident.index') }}">
+                            <div class="row g-1 align-items-end">
+                                <!-- Search by Name -->
+                                <div class="col-md-5">
+                                    <label for="search" class="form-label mb-1 font-xs text-white">Name</label>
+                                    <input type="text" class="form-control form-control-sm" id="search" name="search"
+                                        value="{{ request('search') }}" placeholder="Search by first or last name">
                                 </div>
-                            </form>
-                        </div>
+                                <!-- Search by Household Number -->
+                                <div class="col-md-5">
+                                    <label for="household_number" class="form-label mb-1 text-white font-xs">Household
+                                        No.</label>
+                                    <input type="text" class="form-control form-control-sm" id="household_number"
+                                        name="household_number" value="{{ request('household_number') }}"
+                                        placeholder="Enter household number">
+                                </div>
+                                <!-- Search Button -->
+                                <div class="col-md-2">
+                                    <x-secondary-button type="submit"
+                                        class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D]">
+                                        <span class="inline-flex items-center space-x-1">
+                                            <i class="bi bi-search text-base"></i>
+                                            <span>Search</span>
+                                        </span>
+                                    </x-secondary-button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
             <!-- Residents Table -->
             <div class="card shadow-sm border-0">
                 <div class="card-header py-2 px-3 border-bottom-0">
@@ -98,6 +86,7 @@
                                                 hx-get="{{ route('admin.resident.show', $resident->resident_id) }}"
                                                 hx-target="#viewResidentModalBody" hx-swap="innerHTML" hx-trigger="click"
                                                 data-bs-toggle="modal" data-bs-target="#viewResidentModal"
+                                                aria-label="View resident details"
                                                 class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
                                                 <i class="bi bi-eye text-xs"></i>
                                             </x-primary-button>

@@ -28,7 +28,8 @@
             </div>
 
             {{-- Toggle button --}}
-            <button @click="sidebarOpen = !sidebarOpen" class="text-black border-0 bg-transparent">
+            <button @click="sidebarOpen = !sidebarOpen" class="text-black border-0 bg-transparent"
+                aria-label="Toggle sidebar">
                 <i class="bi bi-layout-sidebar"></i>
             </button>
         </div>
