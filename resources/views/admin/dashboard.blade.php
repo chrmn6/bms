@@ -43,29 +43,25 @@
             </div>
 
             <!-- Statistics Cards -->
-            <div class="row mb-2 g-3">
+            <div class="row mb-4 g-3">
                 @if(auth()->user()->role === 'admin')
                     <!-- Total Users -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                    <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
                         <div class="enhanced-stat-card users-card admin-card">
                             <div class="stat-icon">
                                 <i class="bi bi-person-gear"></i>
                             </div>
                             <div class="stat-content">
                                 <h3 class="stat-number" data-count="{{ $stats['users_count'] }}">0</h3>
-                                <p class="stat-label">Total Users</p>
+                                <p class="stat-label">Users</p>
                             </div>
                             <div class="stat-trend">
                                 <i class="bi bi-shield-check"></i>
                             </div>
-                            <div class="stat-progress">
-                                <div class="stat-progress-bar"></div>
-                            </div>
                         </div>
                     </div>
-
                     <!-- Staff Members -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                    <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
                         <a href="{{ route('admin.staff.index') }}" class="text-decoration-none">
                             <div class="enhanced-stat-card staff-card admin-card">
                                 <div class="stat-icon">
@@ -73,105 +69,31 @@
                                 </div>
                                 <div class="stat-content">
                                     <h3 class="stat-number" data-count="{{ $stats['staff_count'] }}">0</h3>
-                                    <p class="stat-label">Staff Members</p>
+                                    <p class="stat-label">Staff</p>
                                 </div>
                                 <div class="stat-trend">
                                     <i class="bi bi-person-plus"></i>
                                 </div>
-                                <div class="stat-progress">
-                                    <div class="stat-progress-bar"></div>
-                                </div>
                             </div>
                         </a>
                     </div>
-
                 @endif
-
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-2">
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
                     <div class="enhanced-stat-card residents-card">
                         <div class="stat-icon">
                             <i class="bi bi-people"></i>
                         </div>
                         <div class="stat-content">
                             <h3 class="stat-number" data-count="{{ $stats['residents_count'] }}">0</h3>
-                            <p class="stat-label">Total Residents</p>
+                            <p class="stat-label">Residents</p>
                         </div>
                         <div class="stat-trend">
                             <i class="bi bi-graph-up"></i>
                         </div>
-                        <div class="stat-progress">
-                            <div class="stat-progress-bar"></div>
-                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Second Row -->
-            <div class="row mb-4 g-3">
-                <!-- Announcements -->
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
-                    <a href="{{ route('announcements.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card announcements-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-megaphone"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['announcements_count'] }}">0</h3>
-                                <p class="stat-label">Announcements</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-plus-circle"></i>
-                            </div>
-                            <div class="stat-progress">
-                                <div class="stat-progress-bar"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Pending Reports -->
-                <div class="col-lg-3 col-md-4col-sm-6 mb-2">
-                    <a href="{{ route('blotters.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card reports-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-file-earmark-text"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['blotter_reports_pending'] }}">0</h3>
-                                <p class="stat-label">Pending Reports</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-exclamation-triangle"></i>
-                            </div>
-                            <div class="stat-progress">
-                                <div class="stat-progress-bar"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
-                    <a href="{{ route('clearances.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card clearances-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-file-earmark-check"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['clearances_pending'] }}">0</h3>
-                                <p class="stat-label">Pending Clearances</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-clock"></i>
-                            </div>
-                            <div class="stat-progress">
-                                <div class="stat-progress-bar"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
                 <!-- Activities-->
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
                     <a href="{{ route('activities.index') }}" class="text-decoration-none">
                         <div class="enhanced-stat-card announcements-card">
                             <div class="stat-icon">
@@ -184,8 +106,56 @@
                             <div class="stat-trend">
                                 <i class="bi bi-calendar-plus"></i>
                             </div>
-                            <div class="stat-progress">
-                                <div class="stat-progress-bar"></div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Announcements -->
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
+                    <a href="{{ route('announcements.index') }}" class="text-decoration-none">
+                        <div class="enhanced-stat-card announcements-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-megaphone"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" data-count="{{ $stats['announcements_count'] }}">0</h3>
+                                <p class="stat-label">Announcements</p>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="bi bi-plus-circle"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Pending Reports -->
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
+                    <a href="{{ route('blotters.index') }}" class="text-decoration-none">
+                        <div class="enhanced-stat-card reports-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" data-count="{{ $stats['blotter_reports_pending'] }}">0</h3>
+                                <p class="stat-label">Blotter Reports</p>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--CLEARANCE-->
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
+                    <a href="{{ route('clearances.index') }}" class="text-decoration-none">
+                        <div class="enhanced-stat-card clearances-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-file-earmark-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" data-count="{{ $stats['clearances_pending'] }}">0</h3>
+                                <p class="stat-label">Clearances</p>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="bi bi-clock"></i>
                             </div>
                         </div>
                     </a>
@@ -260,35 +230,39 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h6 class="mb-1">{{ $activity->title }}</h6>
-                                            <p class="mb-1 text-muted small">{{ Str::limit($activity->description, 80) }}</p>
+                                            <p class="mb-1 text-muted small">{{ Str::limit($activity->description, 100) }}</p>
                                             <small class="text-muted">
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
-                                                <span
-                                                    class="badge 
-                                                                                                                                                                                                            @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                            @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                            @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                            @else bg-secondary
-                                                                                                                                                                                                            @endif">
-                                                    {{ ucfirst($activity->status) }}
+                                                @php
+                                                    $statusColors = [
+                                                        'scheduled' => 'bg-warning',
+                                                        'completed' => 'bg-success',
+                                                        'canceled' => 'bg-danger',
+                                                    ];
+                                                @endphp
+
+                                                <span class="badge {{ $statusColors[$activity->status] ?? 'bg-secondary' }}">
+                                                    {{ $activity->status === 'scheduled' ? 'Schedule' : ucfirst($activity->status) }}
                                                 </span>
                                             </small>
                                         </div>
+                                    </div>
                                 @endforeach
-                                    <div class=" text-center">
+                                <div class="text-center">
+                                    <div class="text-center">
                                         <a href="{{ route('activities.index') }}"
                                             class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
                                             View All
                                         </a>
                                     </div>
+                                </div>
                             @else
-                                    <div class="text-center text-muted py-4">
-                                        <i class="bi bi-calendar-event-fill fa-3x mb-3"></i>
-                                        <p>No activities scheduled.</p>
-                                    </div>
-                                @endif
-                            </div>
+                                <div class="text-center text-muted py-4">
+                                    <i class="bi bi-megaphone-fill fa-3x mb-3"></i>
+                                    <p>No activities yet.</p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

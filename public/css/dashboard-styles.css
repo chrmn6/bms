@@ -126,18 +126,14 @@
     transition: opacity 0.4s ease;
 }
 
-.enhanced-stat-card p {
-    line-height: 1.2;
-}
-
 .stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 10px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
@@ -168,8 +164,8 @@
 }
 
 .stat-content h3 {
-    font-size: 1.4rem;
-    font-weight: 800;
+    font-size: 1.2rem;
+    font-weight: 900;
     background: linear-gradient(135deg, var(--card-color), var(--card-color-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -182,7 +178,6 @@
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
     margin: 0;
 }
 
@@ -200,28 +195,17 @@
 .stat-trend {
     position: absolute;
     top: 15px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     opacity: 0.6;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     backdrop-filter: blur(10px);
-}
-
-.stat-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    border-radius: 0 0 20px 20px;
 }
 
 .stat-progress-bar {
