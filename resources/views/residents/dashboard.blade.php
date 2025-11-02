@@ -187,14 +187,16 @@
                                             <small class="text-muted">
                                                 <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
                                                 <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
-                                                <span
-                                                    class="badge 
-                                                                                                                                                                                                                                                                                                                                @if($activity->status === 'scheduled') bg-warning
-                                                                                                                                                                                                                                                                                                                                @elseif($activity->status === 'completed') bg-success
-                                                                                                                                                                                                                                                                                                                                @elseif($activity->status === 'canceled') bg-danger
-                                                                                                                                                                                                                                                                                                                                @else bg-secondary
-                                                                                                                                                                                                                                                                                                                                @endif">
-                                                    {{ ucfirst($activity->status) }}
+                                                @php
+                                                    $statusColors = [
+                                                        'scheduled' => 'bg-warning',
+                                                        'completed' => 'bg-success',
+                                                        'canceled' => 'bg-danger',
+                                                    ];
+                                                @endphp
+
+                                                <span class="badge {{ $statusColors[$activity->status] ?? 'bg-secondary' }}">
+                                                    {{ $activity->status === 'scheduled' ? 'Schedule' : ucfirst($activity->status) }}
                                                 </span>
                                             </small>
                                         </div>
