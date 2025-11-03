@@ -3,8 +3,10 @@
     <div class="col-auto">
         @auth
             @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
-                <a href="{{ route('blotter.pdf', $blotter->blotter_id) }}" class="btn btn-outline-info btn-sm">
-                    <i class="bi bi-printer"></i> Print PDF
+                <a href="{{ route('blotter.pdf', $blotter->blotter_id) }}" target="_blank">
+                    <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
+                        <i class="bi bi-printer"></i>Print PDF
+                    </x-primary-button>
                 </a>
             @endif
         @endauth
