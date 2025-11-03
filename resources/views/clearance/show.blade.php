@@ -4,10 +4,11 @@
         @auth
             @if (auth()->user()->role === 'resident' || auth()->user()->role === 'staff')
                 @if($clearance->status === 'released')
-                    <x-primary-button href="{{ route('clearances.pdf', $clearance->clearance_id) }}"
-                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
-                        <i class="bi bi-printer"></i>Print PDF
-                    </x-primary-button>
+                    <a href="{{ route('clearances.pdf', $clearance->clearance_id) }}">
+                        <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
+                            <i class="bi bi-printer"></i>Print PDF
+                        </x-primary-button>
+                    </a>
                 @endif
             @endif
         @endauth

@@ -43,6 +43,6 @@ class Blotter extends Model
 
     public function getDisplayIdAttribute()
     {
-        return 'BLR-' . str_pad($this->resident_id, 4, '0', STR_PAD_LEFT);
+        return 'BLR-' . str_pad($this->blotter_id, 6, '20250', STR_PAD_LEFT);
     }
 }

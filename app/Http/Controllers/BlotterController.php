@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blotter;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BlotterController extends Controller
 {
@@ -129,5 +130,20 @@ class BlotterController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function blotterTranscript($blotter)
+    {
+        $blotter = Blotter::with(['resident.user'])->findOrFail($blotter);
+
+        $data = [
+        'blotter' => $blotter,
+        'barangay_name' => 'Barangay Matina Gravahan',
+        'city_name' => 'Davao City',
+        'barangay_captain' => 'John Doe',
+        ];
+
+        $pdf = Pdf::loadView('pdf.blotter_transcript', $data)->setPaper('A4', 'portrait');
+        return $pdf->download("BlotterReport_{$blotter->resident->full_name}.pdf");
     }
 }

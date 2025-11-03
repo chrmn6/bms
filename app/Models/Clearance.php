@@ -31,6 +31,6 @@ class Clearance extends Model
 
     public function getDisplayIdAttribute()
     {
-        return 'CLR-' . str_pad($this->resident_id, 4, '0', STR_PAD_LEFT);
+        return 'CLR-' . str_pad($this->clearance_id, 6, '20250', STR_PAD_LEFT);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clearance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Clearance;
+use App\Models\Household;
 
 class ClearanceController extends Controller
 {
@@ -127,5 +129,52 @@ class ClearanceController extends Controller
     public function destroy(Clearance $clearance)
     {
         //
+    }
+
+    public function clearancePDF($clearance_id)
+    {
+        $clearance = Clearance::with(['resident.user'])->findOrFail($clearance_id);
+        $resident = $clearance->resident;
+        $household = Household::find($resident->household_number);
+
+        
+        $type = strtolower($clearance->clearance_type);
+
+        $data = [
+            'resident' => $resident,
+            'resident_profile' => $resident->profile,
+            'resident_address' => $resident->address,
+            'clearance' => $clearance,
+            'issued_date' => $clearance->issued_date ?? now(),
+            'valid_until' => $clearance->valid_until,
+            'household_number' => $resident->household_number,
+            'household' => $household,
+            'barangay_name' => 'Barangay Matina Gravahan',
+            'city_name' => 'Davao City',
+            'barangay_captain' => 'John Doe',
+        ];
+
+        switch ($type) {
+            case 'barangay clearance':
+                $view = 'pdf.barangay_clearance';
+                $filename = "BarangayClearance_{$resident->full_name}.pdf";
+                break;
+
+            case 'business clearance':
+                $view = 'pdf.business_clearance';
+                $filename = "BusinessClearance_{$resident->full_name}.pdf";
+                break;
+
+            case 'residency clearance':
+                $view = 'pdf.residency_clearance';
+                $filename = "ResidencyClearance_{$resident->full_name}.pdf";
+                break;
+
+            default:
+                return back()->with('error', 'Invalid clearance type found.');
+        }
+
+        $pdf = Pdf::loadView($view, $data)->setPaper('A4', 'portrait');
+        return $pdf->download($filename);
     }
 }

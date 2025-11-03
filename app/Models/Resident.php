@@ -59,6 +59,6 @@ class Resident extends Model
 
     public function getDisplayIdAttribute()
     {
-        return 'RES-' . str_pad($this->resident_id, 4, '0', STR_PAD_LEFT);
+        return 'RES-' . str_pad($this->resident_id, 6, '20250', STR_PAD_LEFT);
     }
 }
