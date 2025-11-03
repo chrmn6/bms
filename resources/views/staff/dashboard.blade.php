@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Dashboard
             </h2>
         </div>
@@ -144,6 +144,7 @@
                     </a>
                 </div>
             </div>
+
             <!-- Recent Announcements & Upcoming Activities -->
             <div class="row">
                 <div class="col-lg-6 mb-4">
@@ -157,18 +158,20 @@
                         <div class="card-body">
                             @if($recent_announcements->count() > 0)
                                 @foreach($recent_announcements as $announcement)
-                                    <div class="d-flex mb-3 pb-3 border-bottom">
+                                    <div class="d-flex mb-3 pb-3 border-bottom text-sm">
                                         <div class="flex-shrink-0">
-                                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                                            <div class="bg-primary text-sm rounded-circle d-flex align-items-center justify-content-center"
                                                 style="width: 40px; height: 40px;">
                                                 <i class="bi bi-megaphone text-white"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1">{{ $announcement->title }}</h6>
-                                            <p class="mb-1 text-muted small">{{ Str::limit($announcement->content, 100) }}</p>
+                                            <h6 class="mb-1 text-sm">{{ $announcement->title }}</h6>
+                                            <p class="mb-1 text-muted small">
+                                                {{ Str::limit($announcement->content, 100) }}
+                                            </p>
                                             <small class="text-muted">
-                                                By {{ $announcement->user->first_name }} {{ $announcement->user->last_name }} •
+                                                By {{ $announcement->user->full_name }} •
                                                 {{ $announcement->created_at->diffForHumans() }}
                                             </small>
                                         </div>
@@ -177,7 +180,7 @@
                                 <div class="text-center">
                                     <div class="text-center">
                                         <a href="{{ route('announcements.index') }}"
-                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                            class="text-sm !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
                                             View All
                                         </a>
                                     </div>
@@ -205,17 +208,20 @@
                                 @foreach($recent_activities as $activity)
                                     <div class="d-flex mb-3 pb-3 border-bottom">
                                         <div class="flex-shrink-0">
-                                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                                            <div class="bg-success text-sm rounded-circle d-flex align-items-center justify-content-center"
                                                 style="width: 40px; height: 40px;">
                                                 <i class="bi bi-calendar-event text-white"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1">{{ $activity->title }}</h6>
-                                            <p class="mb-1 text-muted small">{{ Str::limit($activity->description, 100) }}</p>
+                                            <h6 class="mb-1 text-sm">{{ $activity->title }}</h6>
+                                            <p class="mb-1 text-muted small text-sm">
+                                                {{ Str::limit($activity->description, 100) }}
+                                            </p>
                                             <small class="text-muted">
-                                                <i class="bi bi-geo-alt"></i> {{ $activity->location }} •
-                                                <i class="bi bi-calendar"></i> {{ $activity->date_time->format('M d, Y') }}
+                                                <i class="bi bi-geo-alt text-sm"></i> {{ $activity->location }} •
+                                                <i class="bi bi-calendar text-sm"></i>
+                                                {{ $activity->date_time->format('M d, Y') }}
                                                 @php
                                                     $statusColors = [
                                                         'scheduled' => 'bg-warning',
@@ -224,8 +230,8 @@
                                                     ];
                                                 @endphp
 
-
-                                                <span class="badge {{ $statusColors[$activity->status] ?? 'bg-secondary' }}">
+                                                <span
+                                                    class="text-sm badge {{ $statusColors[$activity->status] ?? 'bg-secondary' }}">
                                                     {{ $activity->status === 'scheduled' ? 'Schedule' : ucfirst($activity->status) }}
                                                 </span>
                                             </small>
@@ -235,7 +241,7 @@
                                 <div class="text-center">
                                     <div class="text-center">
                                         <a href="{{ route('activities.index') }}"
-                                            class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                            class="text-sm !bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
                                             View All
                                         </a>
                                     </div>

@@ -10,11 +10,26 @@
 
 <body class="font-inter text-gray-900 p-8">
 
-    <div class="text-center mb-4">
-        <h1 class="text-medium">Republic of the Philippines</h1>
-        <h2 class="text-xl font-semibold">BARANGAY MATINA GRAVAHAN</h2>
-        <h3 class="text-base">City of Davao</h3>
-        <h2 class="text-2xl font-bold mb-8 mt-8">BARANGAY BUSINESS CLEARANCE</h2>
+    <div class="header mb-4">
+        <table class="w-full border-collapse">
+            <tr>
+                <td class="w-[100px] text-center">
+                    <img src="{{ public_path('images/bms-logo.png') }}" alt="Barangay Logo" width="60">
+                </td>
+                <td class="text-center">
+                    <h1 class="m-0 text-base font-normal">Republic of the Philippines</h1>
+                    <h1 class="m-0 text-base font-normal">Region XI</h1>
+                    <h2 class="m-0 text-base font-normal">BARANGAY MATINA GRAVAHAN</h2>
+                    <h3 class="m-0 text-base font-normal">City of Davao</h3>
+                </td>
+                <td style="width: 100px;"></td>
+            </tr>
+        </table>
+        <div class="mt-3 text-center">
+            <h3 class="mb-2 text-sm font-semibold">OFFICE OF THE PUNONG BARANGAY</h3>
+            <hr class="mb-3 border-t-6 border-black shadow-lg">
+            <h2 class="mt-3 mb-3 text-xl font-bold">BARANGAY BUSINESS CLEARANCE</h2>
+        </div>
     </div>
 
     <p class="font-bold mb-4">TO WHOM IT MAY CONCERN:</p>

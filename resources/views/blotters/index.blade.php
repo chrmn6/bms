@@ -8,7 +8,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Blotter Report
             </h2>
         </div>
@@ -129,7 +129,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive text-sm">
                         <div id="blotterList" hx-get="{{ route('blotters.index') }}" hx-trigger="refreshTable from:body"
                             hx-target="this" hx-swap="outerHTML">
                             @include('blotters.table', ['blotters' => $blotters])

@@ -2,7 +2,6 @@
 
 <section>
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-    <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
@@ -10,7 +9,7 @@
 
 
     <div class="col-lg-12">
-        <div class="card">
+        <div class="card text-sm">
             <div class="card-header">
                 <h5 class="mb-0">
                     <i class="bi bi-person-gear"></i>

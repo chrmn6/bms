@@ -9,7 +9,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Residents List
             </h2>
         </div>
@@ -53,16 +53,15 @@
                 </div>
             </div>
             <!-- Residents Table -->
-            <div class="card shadow-sm border-0">
-                <div class="card-header py-2 px-3 border-bottom-0">
+            <div class="card">
+                <div class="card-header">
                     <h5 class="mb-0">
-                        <i class="bi bi-table"></i>
-                        Residents
+                        <i class="bi bi-table"></i> Residents
                     </h5>
                 </div>
-                <div class="card-body p-3 text-center">
+                <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-sm align-middle mb-0">
+                        <table id="residentsTable" class="table table-hover text-sm text-center">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -103,11 +102,11 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
 
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-center">
-                        {{ $residents->links() }}
-                    </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center">
+                    {{ $residents->links() }}
                 </div>
             </div>
 

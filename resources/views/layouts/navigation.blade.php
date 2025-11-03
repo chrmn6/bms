@@ -36,7 +36,7 @@
 
         {{-- Sidebar Links --}}
         @php $user = Auth::user(); @endphp
-        <ul class="nav flex-column">
+        <ul class="nav flex-column text-sm">
             {{-- Dashboard --}}
             <li>
                 <x-nav-link :href="route($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))" :active="request()->routeIs($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))">

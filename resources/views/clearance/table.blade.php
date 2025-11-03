@@ -1,6 +1,6 @@
-<table id="clearanceTable" class="table table-hover table-sm text-center mb-0" hx-get="{{ route('clearances.index') }}"
+<table id="clearanceTable" class="table table-hover text-center" hx-get="{{ route('clearances.index') }}"
     hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
-    <thead class="table-light">
+    <thead>
         <tr>
             <th>Clearance #</th>
             <th>Requested By</th>
