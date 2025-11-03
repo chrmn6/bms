@@ -42,7 +42,7 @@
                                     <x-secondary-button type="submit"
                                         class="![background-color:#6D0512] hover:![background-color:#8A0A1A] active:![background-color:#50040D]">
                                         <span class="inline-flex items-center space-x-1">
-                                            <i class="bi bi-search text-base"></i>
+                                            <i class="bi bi-search text-sm"></i>
                                             <span>Search</span>
                                         </span>
                                     </x-secondary-button>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="residentsTable" class="table table-hover text-sm text-center">
+                        <table id="residentsTable" class="table table-hover text-sm text-center mb-0">
                             <thead>
                                 <tr>
                                     <th>ID</th>

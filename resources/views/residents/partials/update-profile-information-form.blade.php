@@ -86,7 +86,7 @@
                                             </th>
                                             <td>
                                                 <select id="suffix" name="suffix"
-                                                    class="mt-2 block w-full">
+                                                    class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                                     <option value="">N/A</option>
                                                     <option value="Jr." {{ old('suffix', $resident->suffix ?? '') == 'Jr.' ? 'selected' : '' }}>
                                                         Jr.
@@ -108,7 +108,7 @@
                                             </th>
                                             <td>
                                                 <select id="gender" name="gender"
-                                                    class="mt-2 block w-full">
+                                                    class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                                     <option value="">Select Gender</option>
                                                     <option value="Male" {{ old('gender', $resident->profile->gender ?? '') == 'Male' ? 'selected' : ''}}>Male</option>
                                                     <option value="Female" {{ old('gender', $resident->profile->gender ?? '') == 'Female' ? 'selected' : '' }}>Female
@@ -183,7 +183,7 @@
                                                 <x-input-label for="civil_status" :value="__('Civil Status')" />
                                             </th>
                                             <td>
-                                                <select id="civil_status" name="civil_status" class="mt-2 block w-full">
+                                                <select id="civil_status" name="civil_status" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                                     <option value="">Select Civil Status</option>
                                                     <option value="Single" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Single' ? 'selected' : '' }}>Single</option>
                                                     <option value="In A Relationship" {{ old('civil_status', $resident->details->civil_status ?? '') == 'In A Relationship' ? 'selected' : '' }}>In A Relationship</option>
@@ -200,7 +200,7 @@
                                                 <x-input-label for="education" :value="__('Education')" />
                                             </th>
                                             <td>
-                                                <select id="education" name="education" class="mt-2 block w-full">
+                                                <select id="education" name="education" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                                     <option value="">Select Education Level</option>
                                                     <option value="Elementary" {{ old('education', $resident->details->education ?? '') == 'Elementary' ? 'selected' : '' }}>
                                                         Elementary</option>
@@ -231,7 +231,7 @@
                                                 <x-input-label for="occupation" :value="__('Employment')" />
                                             </th>
                                             <td>
-                                                <select id="occupation" name="occupation" class="mt-2 block w-full">
+                                                <select id="occupation" name="occupation" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                                     <option value="">Select Employment Status</option>
                                                     <option value="Self-Employed" {{ old('occupation', $resident->details->occupation ?? '') == 'Self-Employed' ? 'selected' : '' }}>
                                                         Self-Employed</option>
@@ -274,7 +274,7 @@
                                                 <x-input-label for="household_id" :value="__('Household')" />
                                             </th>
                                             <td>
-                                                <select id="household_id" name="household_id" class="mt-2 block w-full">
+                                                <select id="household_id" name="household_id" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                                     <option value="">Select Household</option>
                                                     @foreach($households as $household)
                                                         <option value="{{ $household->household_id }}" {{ $resident->household_id == $household->household_id ? 'selected' : '' }}>

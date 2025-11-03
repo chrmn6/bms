@@ -102,7 +102,7 @@
                         hx-target="#clearanceModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                         data-bs-target="#addClearanceModal"
                         class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                        <i class="bi bi-plus-square text-base"></i>Request A Clearance
+                        <i class="bi bi-plus-square text-sm"></i>Request A Clearance
                     </x-primary-button>
                 @endcan
             </div>

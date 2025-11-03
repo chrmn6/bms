@@ -1,4 +1,4 @@
-<table id="blotterTable" class="table table-hover text-center" hx-get="{{ route('blotters.index') }}"
+<table id="blotterTable" class="table table-hover text-cente mb-0" hx-get="{{ route('blotters.index') }}"
     hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
     <thead class="table-light">
         <tr>

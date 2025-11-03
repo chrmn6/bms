@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table id="usersTable" class="table table-hover text-sm text-center" hx-get="{{ route('admin.staff.index') }}"
+    <table id="usersTable" class="table table-hover text-sm text-center mb-0" hx-get="{{ route('admin.staff.index') }}"
         hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
         <thead>
             <tr>

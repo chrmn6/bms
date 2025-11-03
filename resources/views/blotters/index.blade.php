@@ -115,7 +115,7 @@
                     <x-primary-button type="button" hx-get="{{ route('blotters.create') }}" hx-target="#blotterModalBody"
                         hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#addBlotterModal"
                         class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                        <i class="bi bi-plus-square text-base"></i>File A Report
+                        <i class="bi bi-plus-square text-sm"></i>File A Report
                     </x-primary-button>
                 @endcan
             </div>
@@ -129,7 +129,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive text-sm">
+                    <div class="table-responsive text-sm text-center">
                         <div id="blotterList" hx-get="{{ route('blotters.index') }}" hx-trigger="refreshTable from:body"
                             hx-target="this" hx-swap="outerHTML">
                             @include('blotters.table', ['blotters' => $blotters])

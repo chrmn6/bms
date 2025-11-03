@@ -22,7 +22,7 @@
                     hx-target="#announcementModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                     data-bs-target="#announcementModal"
                     class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                    <i class="bi bi-plus-square text-base"></i>Post
+                    <i class="bi bi-plus-square text-sm"></i>Post
                 </x-primary-button>
             @endcan
         </div>
