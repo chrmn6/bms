@@ -42,7 +42,7 @@
 
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">
         Based on records of this office, he/she has been residing at
-        <strong>{{ $resident->household->household_number }}, {{ $resident->address }}</strong>.
+        <strong>{{ $resident->full_address }}</strong>.
     </p>
 
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">

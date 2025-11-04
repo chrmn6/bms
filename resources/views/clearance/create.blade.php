@@ -13,7 +13,7 @@
             <option value="">Select type</option>
             <option value="Barangay Clearance">Barangay Clearance</option>
             <option value="Business Clearance">Business Clearance</option>
-            <option value="Residency Certificate">Residency Certificate</option>
+            <option value="Residency Clearance">Residency Clearance</option>
         </select>
     </div>
 
