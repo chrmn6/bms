@@ -87,10 +87,10 @@
                     center: 'title',
                     right: 'dayGridMonth'
                 },
-                height: 600,
+                contentHeight: 350,
                 events: [
                     @foreach($activities as $activity)
-                                {
+                                        {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
@@ -99,15 +99,20 @@
                     @endforeach
                 ],
                 dayCellDidMount: function (info) {
-                    if (info.date.getDay() === 0) {
-                        info.el.style.backgroundColor = '#f3f3f3';
-                        info.el.style.color = '#999';
-                        info.el.title = 'No operation on Sundays';
+                    const date = info.date;
+                    const day = date.getUTCDay();
+                    if (day === 6) {
+                        info.el.style.backgroundColor = '#e5e7eb';
+                        info.el.style.pointerEvents = 'auto';
                     }
                 },
                 dateClick: function (info) {
-                    if (info.date.getDay() === 0) {
-                        alert('No operation on Sundays!');
+                    const clickedDate = info.date;
+                    const day = clickedDate.getUTCDay();
+
+                    if (day === 6) {
+                        alert('No operation on Sundays');
+                        return;
                     }
 
                     htmx.ajax('GET', '{{ route('staff.activities.create') }}', {
