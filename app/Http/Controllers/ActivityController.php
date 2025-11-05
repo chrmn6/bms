@@ -29,11 +29,16 @@ class ActivityController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
 
         $this->authorize('create', Activity::class);
-        return view('activities.create');
+
+        if ($request->header('HX-Request')) {
+            return view('activities.create');
+        }
+
+        return view('activities.index');
     }
 
     /**

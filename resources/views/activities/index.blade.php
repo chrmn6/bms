@@ -11,15 +11,68 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
-            @can('create', App\Models\Activity::class)
-                <form action="{{ route('staff.activities.create') }}" method="GET">
-                    <x-primary-button class="mb-4 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700">
-                        Create Activity
-                    </x-primary-button>
-                </form>
-            @endcan
-
             <div id='calendar' class="bg-white rounded-lg shadow-md p-4 mx-auto" style="max-width: 900px;"></div>
+        </div>
+    </div>
+
+    <!-- Add Activity Modal -->
+    <div class="modal fade" id="addActivityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header !bg-[#6D0512] text-white">
+                    <h5 class="modal-title" id="activityModalLabel">
+                        <i class="bi bi-file-earmark me-2"></i> Create Activity
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="activityModalBody">
+                    <div class="text-center py-5 text-muted">
+                        <div class="spinner-border text-primary mb-3" role="status"></div>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Activity Modal -->
+    <div class="modal fade" id="viewActivityModal" tabindex="-1" aria-labelledby="viewActivityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-m modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header !bg-[#6D0512] text-white">
+                    <h5 class="modal-title" id="viewActivityModalLabel">
+                        <i class="bi bi-file-earmark me-2"></i>Activity
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="viewActivityModalBody">
+                    <div class="text-center py-5 text-muted">
+                        <div class="spinner-border text-primary mb-3" role="status"></div>
+                        <p>Loading transcript details...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal-->
+    <div class="modal fade" id="editActivityModal" tabindex="-1" aria-labelledby="editActivityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-m">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header !bg-[#6D0512] text-white py-2">
+                    <h6 class="modal-title" id="editActivityModalLabel">Edit Activity</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body p-3" id="editActivityModalBody">
+                    <div class="text-center text-muted">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -37,11 +90,11 @@
                 height: 600,
                 events: [
                     @foreach($activities as $activity)
-                                    {
+                                {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
-                            url: '{{ route('activities.show', $activity->activity_id) }}'
+                            id: '{{ $activity->activity_id }}',
                         },
                     @endforeach
                 ],
@@ -56,9 +109,29 @@
                     if (info.date.getDay() === 0) {
                         alert('No operation on Sundays!');
                     }
+
+                    htmx.ajax('GET', '{{ route('staff.activities.create') }}', {
+                        target: '#activityModalBody',
+                        swap: 'innerHTML'
+                    });
+
+                    const modalElement = document.getElementById('addActivityModal');
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                },
+                eventClick: function (info) {
+                    info.jsEvent.preventDefault();
+                    const activityId = info.event.id;
+
+                    htmx.ajax('GET', `/staff/activities/${activityId}`, {
+                        target: '#viewActivityModalBody',
+                        swap: 'innerHTML'
+                    });
+                    const modalElement = document.getElementById('viewActivityModal');
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
                 }
             });
-
             calendar.render();
         });
     </script>
