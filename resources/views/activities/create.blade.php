@@ -1,4 +1,4 @@
-<form hx-post="{{ route('staff.activities.store') }}" hx-swap="none" hx-on::after-request="
+<form hx-post="{{ route('activities.store') }}" hx-swap="none" hx-on::after-request="
     if (event.detail.xhr.status === 200) {
         const modal = bootstrap.Modal.getInstance(document.getElementById('ActivityModal'));
         modal.hide();

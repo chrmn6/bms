@@ -35,10 +35,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Dashboard
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     // Staff
-    Route::resource('staff', UserController::class)->only(['index','create','store','show','destroy']);
+    Route::resource('staff', UserController::class);
 });
 
-// All Staff Routes
+// STAFF DASHBOARD
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
     Route::get('/dashboard', [StaffController::class, 'dashboard'])->name('dashboard');
 });
@@ -54,18 +54,8 @@ Route::middleware(['auth', 'role:resident'])->group(function () {
     Route::put('/residents/profile', [ResidentController::class, 'update'])->name('residents.update');
 });
 
-// ANNOUNCEMENTS
-// Authenticated users (view only)
-Route::middleware(['auth'])->group(function () {
-    Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
-    Route::get('announcements/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');
-
-    Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
-    Route::get('activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
-});
-
-// STAFF ONLY
-Route::prefix('staff')->middleware(['auth','role:staff'])->name('staff.')->group(function () {
+// ANNOUNCEMENTS AND ACTIVITIES
+Route::middleware('auth')->group(function () {
     Route::resource('announcements', AnnouncementController::class);
     Route::resource('activities', ActivityController::class);
 });

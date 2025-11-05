@@ -11,7 +11,7 @@ class ActivityController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only(['index', 'show']);
+        $this->middleware('role:staff')->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
 
     /**
@@ -59,7 +59,7 @@ class ActivityController extends Controller
         $data['user_id'] = Auth::id();
         Activity::create($data);
 
-        return redirect()->route('staff.activities.index')->with('success', 'Activity created successfully.');
+        return redirect()->route('activities.index')->with('success', 'Activity created successfully.');
     }
 
     /**
@@ -98,7 +98,7 @@ class ActivityController extends Controller
 
         $activity->update($data);
 
-        return redirect()->route('staff.activities.index')->with('success', 'Activity updated successfully.');
+        return redirect()->route('activities.index')->with('success', 'Activity updated successfully.');
     }
 
     /**
@@ -110,6 +110,6 @@ class ActivityController extends Controller
         $this->authorize('delete', $activity);
         $activity->delete();
 
-        return redirect()->route('staff.activities.index')->with('success', 'Activity deleted successfully.');
+        return redirect()->route('activities.index')->with('success', 'Activity deleted successfully.');
     }
 }

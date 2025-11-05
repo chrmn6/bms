@@ -22,16 +22,16 @@
                 <div class="card-body d-flex flex-column py-1 px-3">
                     <div class="d-flex gap-1 justify-content-end mb-2">
                         @can('update', $announcement)
-                            <button hx-get="{{ route('staff.announcements.edit', $announcement) }}"
-                                hx-target="#announcementModalBody" hx-swap="innerHTML" data-bs-toggle="modal"
-                                data-bs-target="#announcementModal" onclick="event.stopPropagation();"
+                            <button hx-get="{{ route('announcements.edit', $announcement) }}" hx-target="#announcementModalBody"
+                                hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#announcementModal"
+                                onclick="event.stopPropagation();"
                                 class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center p-1 text-white">
                                 <i class="bi bi-pencil-square text-xs"></i>
                             </button>
                         @endcan
 
                         @can('delete', $announcement)
-                            <form method="POST" hx-delete="{{ route('staff.announcements.destroy', $announcement) }}"
+                            <form method="POST" hx-delete="{{ route('announcements.destroy', $announcement) }}"
                                 hx-target="#announcement-{{ $announcement->id }}" hx-swap="innerHTML"
                                 onsubmit="event.stopPropagation(); return confirm('Are you sure you want to delete this announcement?');">
                                 @csrf

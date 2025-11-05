@@ -11,8 +11,7 @@ class AnnouncementController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:staff'])->except(['index', 'show']);
-        $this->middleware('auth')->only(['index', 'show']);
+        $this->middleware('role:staff')->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
 
     /**
@@ -24,7 +23,6 @@ class AnnouncementController extends Controller
 
         $announcements = Announcement::with('user')->latest()->paginate(6);
 
-        // If HTMX request, return only the cards list partial
         if ($request->header('HX-Request')) {
             return view('announcements.list', compact('announcements'));
         }
@@ -40,7 +38,7 @@ class AnnouncementController extends Controller
         $this->authorize('create', Announcement::class);
 
         if ($request->header('HX-Request')) {
-            return view('announcements.create'); // HTMX modal form
+            return view('announcements.create');
         }
 
         return redirect()->route('announcements.index');
@@ -120,7 +118,7 @@ class AnnouncementController extends Controller
             return view('announcements.list', compact('announcements'));
         }
 
-        return redirect()->route('staff.announcements.index')->with('success', 'Announcement updated successfully.');
+        return redirect()->route('announcements.index')->with('success', 'Announcement updated successfully.');
     }
 
     /**
@@ -138,6 +136,6 @@ class AnnouncementController extends Controller
             return view('announcements.list', compact('announcements'));
         }
 
-        return redirect()->route('staff.announcements.index')->with('success', 'Announcement deleted successfully.');
+        return redirect()->route('announcements.index')->with('success', 'Announcement deleted successfully.');
     }
 }

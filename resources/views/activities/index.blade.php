@@ -49,7 +49,7 @@
                 <div class="modal-body" id="viewActivityModalBody">
                     <div class="text-center py-5 text-muted">
                         <div class="spinner-border text-primary mb-3" role="status"></div>
-                        <p>Loading transcript details...</p>
+                        <p>Loading activity details...</p>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 contentHeight: 350,
                 events: [
                     @foreach($activities as $activity)
-                                        {
+                                                    {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
@@ -115,7 +115,7 @@
                         return;
                     }
 
-                    htmx.ajax('GET', '{{ route('staff.activities.create') }}', {
+                    htmx.ajax('GET', '{{ route('activities.create') }}', {
                         target: '#activityModalBody',
                         swap: 'innerHTML'
                     });
@@ -128,7 +128,7 @@
                     info.jsEvent.preventDefault();
                     const activityId = info.event.id;
 
-                    htmx.ajax('GET', `/staff/activities/${activityId}`, {
+                    htmx.ajax('GET', `/activities/${activityId}`, {
                         target: '#viewActivityModalBody',
                         swap: 'innerHTML'
                     });

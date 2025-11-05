@@ -9,9 +9,8 @@
 <div class="mt-6 flex flex-wrap gap-2">
     <!-- Edit button -->
     @can('update', $activity)
-        <x-primary-button hx-get="{{ route('staff.activities.edit', $activity->activity_id) }}"
-            hx-target="#editActivityModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
-            data-bs-target="#editActivityModal"
+        <x-primary-button hx-get="{{ route('activities.edit', $activity->activity_id) }}" hx-target="#editActivityModalBody"
+            hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#editActivityModal"
             class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center">
             <i class="bi bi-pencil text-xs"></i>
         </x-primary-button>
@@ -19,7 +18,7 @@
 
     <!-- Delete button -->
     @can('delete', $activity)
-        <form action="{{ route('staff.activities.destroy', $activity->activity_id) }}" method="POST"
+        <form action="{{ route('activities.destroy', $activity->activity_id) }}" method="POST"
             onsubmit="return confirm('Delete this activity?')">
             @csrf
             @method('DELETE')

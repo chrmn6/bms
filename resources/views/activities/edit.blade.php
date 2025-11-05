@@ -1,4 +1,4 @@
-<form hx-put="{{ route('staff.activities.update', $activity->activity_id) }}" hx-target="#editActivityModalBody"
+<form hx-put="{{ route('activities.update', $activity->activity_id) }}" hx-target="#editActivityModalBody"
     hx-swap="none" hx-on::after-request="
         if (event.detail.xhr.status === 200) {
             const modal = bootstrap.Modal.getInstance(document.getElementById('editActivityModal'));

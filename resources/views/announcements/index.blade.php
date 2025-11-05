@@ -18,7 +18,7 @@
         {{-- Add Announcement Button --}}
         <div class="py-3 flex justify-end">
             @can('create', App\Models\Announcement::class)
-                <x-primary-button type="button" hx-get="{{ route('staff.announcements.create') }}"
+                <x-primary-button type="button" hx-get="{{ route('announcements.create') }}"
                     hx-target="#announcementModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                     data-bs-target="#announcementModal"
                     class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
@@ -32,8 +32,8 @@
         </div>
 
         {{-- Announcements List --}}
-        <div id="announcementsList" hx-get="{{ route('staff.announcements.index') }}"
-            hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
+        <div id="announcementsList" hx-get="{{ route('announcements.index') }}" hx-trigger="refreshTable from:body"
+            hx-target="this" hx-swap="innerHTML">
             @include('announcements.list', ['announcements' => $announcements])
         </div>
 
@@ -45,7 +45,7 @@
         {{-- Announcement Modal --}}
         <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-m">
                 <div class="modal-content border-0 shadow-lg">
                     <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="announcementModalLabel">
@@ -62,6 +62,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </x-app-layout>

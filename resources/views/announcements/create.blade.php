@@ -1,4 +1,4 @@
-<form hx-post="{{ route('staff.announcements.store') }}" hx-target="#announcementModalBody" hx-swap="none"
+<form hx-post="{{ route('announcements.store') }}" hx-target="#announcementModalBody" hx-swap="none"
     hx-on::after-request="
         if (event.detail.xhr.status === 200) {
             const modal = bootstrap.Modal.getInstance(document.getElementById('announcementModal'));
