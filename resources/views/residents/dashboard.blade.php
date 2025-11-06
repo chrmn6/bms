@@ -15,20 +15,6 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
-            <div class="toast-container position-fixed top-0 end-0 p-3">
-                @if (session('success'))
-                    <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
-                        aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body text-center">
-                                {{ session('success') }}
-                            </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                                aria-label="Close"></button>
-                        </div>
-                    </div>
-                @endif
-            </div>
 
             <!-- Welcome Card -->
             <div class="row mb-4">
@@ -185,11 +171,11 @@
                                                 <i class="bi bi-calendar text-sm"></i>
                                                 {{ $activity->date_time->format('M d, Y') }}
                                                 @php
-                                                    $statusColors = [
-                                                        'scheduled' => 'bg-warning',
-                                                        'completed' => 'bg-success',
-                                                        'canceled' => 'bg-danger',
-                                                    ];
+        $statusColors = [
+            'scheduled' => 'bg-warning',
+            'completed' => 'bg-success',
+            'canceled' => 'bg-danger',
+        ];
                                                 @endphp
 
                                                 <span
@@ -272,16 +258,15 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const toastEl = document.querySelector('.toast');
-            if (toastEl) {
-                const toast = new bootstrap.Toast(toastEl, {
-                    delay: 2000,
-                    autohide: true
-                });
-                toast.show();
-            }
-        });
-    </script>
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session("success") }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+    @endif
 </x-app-layout>

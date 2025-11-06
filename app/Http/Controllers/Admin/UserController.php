@@ -60,15 +60,10 @@ class UserController extends Controller
 
         
         if ($request->header('HX-Request')) {
-            $users = User::whereIn('role', ['admin', 'staff'])
-                        ->latest()
-                        ->paginate(5);
+            $users = User::whereIn('role', ['admin', 'staff'])->latest()->paginate(5);
 
-            
             return view('admin.users.table', compact('users'));
         }
-
-        // Fallback for normal requests
         return redirect()->route('admin.staff.index')->with('success', 'Staff added successfully!');
     }
 

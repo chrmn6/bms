@@ -193,12 +193,34 @@
         </div>
     </div>
 
-    <!-- Success Message -->
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle"></i>
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+    <!-- SweetAlert Messages -->
+    <script>
+        document.body.addEventListener('clearanceCreated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('clearanceUpdated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('closeModal', function () {
+            const modalEl = document.querySelector('.modal.show');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                modal.hide();
+            }
+        });
+    </script>
 </x-app-layout>

@@ -96,16 +96,7 @@
                 validRange: function (nowDate) {
                     return { start: nowDate };
                 },
-                events: [
-                    @foreach ($activities as $activity)
-                                        {
-                            title: '{{ $activity->title }}',
-                            start: '{{ $activity->date_time }}',
-                            classNames: ['{{ $activity->status }}'],
-                            id: '{{ $activity->activity_id }}'
-                        }
-                    @endforeach
-                ],
+                events: '{{ route('activities.events') }}',
                 dayCellDidMount: function (info) {
                     if (info.date.getDay() === 0) {
                         info.el.style.backgroundColor = '#f5f5f5';
@@ -136,6 +127,41 @@
                 }
             });
             calendar.render();
+
+            document.body.addEventListener('refreshTable', function () {
+                calendar.refetchEvents();
+            });
+        });
+    </script>
+
+    <!-- SweetAlert Messages -->
+    <script>
+        document.body.addEventListener('activityCreated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('activityUpdated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('closeModal', function () {
+            const modalEl = document.querySelector('.modal.show');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                modal.hide();
+            }
         });
     </script>
 </x-app-layout>

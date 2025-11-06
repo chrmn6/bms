@@ -59,10 +59,11 @@ class AnnouncementController extends Controller
         $data['user_id'] = Auth::id();
         Announcement::create($data);
 
-        // If HTMX request, return the updated cards list partial
         if ($request->header('HX-Request')) {
             $announcements = Announcement::with('user')->latest()->paginate(6);
-            return view('announcements.list', compact('announcements'));
+            return response()->view('announcements.list', compact('announcements'))->header('HX-Trigger', json_encode([
+                'announcementCreated' => 'Announcement created successfully!'
+            ]));
         }
 
         return redirect()->route('announcements.index')->with('success', 'Announcement created successfully.');
@@ -112,10 +113,11 @@ class AnnouncementController extends Controller
 
         $announcement->update($data);
 
-        // HTMX response: return updated cards
         if ($request->header('HX-Request')) {
             $announcements = Announcement::with('user')->latest()->paginate(6);
-            return view('announcements.list', compact('announcements'));
+            return response()->view('announcements.list', compact('announcements'))->header('HX-Trigger', json_encode([
+                'announcementCreated' => 'Announcement updated successfully!'
+            ]));
         }
 
         return redirect()->route('announcements.index')->with('success', 'Announcement updated successfully.');

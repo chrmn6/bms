@@ -44,7 +44,7 @@ class ActivityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(Request $request)
+    public function store(Request $request)
     {
 
         $this->authorize('create', Activity::class);
@@ -59,15 +59,22 @@ class ActivityController extends Controller
         $data['user_id'] = Auth::id();
         Activity::create($data);
 
+        if ($request->header('HX-Request')) {
+        return response()->view('activities.create')->header('HX-Trigger', json_encode([
+                'activityCreated' => 'Activity created successfully!'
+            ]));
+        }
+
         return redirect()->route('activities.index')->with('success', 'Activity created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Activity $activity)
+    public function show(Activity $activity, Request $request)
     {
         $this->authorize('view', $activity);
+
         return view('activities.show', compact('activity'));
     }
 
@@ -98,6 +105,12 @@ class ActivityController extends Controller
 
         $activity->update($data);
 
+        if ($request->header('HX-Request')) {
+        return response('', 200)
+            ->header('HX-Trigger', json_encode([
+                'activityUpdated' => 'Activity updated successfully!'
+            ]));
+        }
         return redirect()->route('activities.index')->with('success', 'Activity updated successfully.');
     }
 
@@ -111,5 +124,21 @@ class ActivityController extends Controller
         $activity->delete();
 
         return redirect()->route('activities.index')->with('success', 'Activity deleted successfully.');
+    }
+
+    public function events()
+    {
+        $activities = Activity::all();
+
+        $events = $activities->map(function ($activity) {
+            return [
+                'id' => $activity->activity_id,
+                'title' => $activity->title,
+                'start' => $activity->date_time,
+                'classNames' => [$activity->status],
+            ];
+        });
+
+        return response()->json($events);
     }
 }

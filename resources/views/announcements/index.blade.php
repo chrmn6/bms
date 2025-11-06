@@ -63,4 +63,27 @@
             </div>
         </div>
     </div>
+
+    <!-- SweetAlert Messages -->
+    <script>
+        document.body.addEventListener('announcementCreated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('announcementUpdated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.announcementUpdated,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+    </script>
 </x-app-layout>

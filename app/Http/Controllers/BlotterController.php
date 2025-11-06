@@ -73,7 +73,9 @@ class BlotterController extends Controller
                 ? Blotter::where('resident_id', $user->resident->resident_id)->paginate(3)
                 : Blotter::paginate(3);
 
-            return view('blotters.table', compact('blotters'));
+            return response()->view('blotters.table', compact('blotters'))->header('HX-Trigger', json_encode([
+                'blotterCreated' => 'Blotter created successfully!'
+            ]));
         }
 
         return redirect()->route('blotters.index')->with('success', 'Blotter report filed successfully!');
@@ -115,9 +117,10 @@ class BlotterController extends Controller
         ]);
 
         if ($request->header('HX-Request')) {
-            return header('HX-Trigger', json_encode([
+            return response()->noContent()->header('HX-Trigger', json_encode([
                 'refreshTable' => true,
-                'closeModal' => true, 
+                'closeModal' => true,
+                'blotterUpdated' => 'Blotter updated successfully!'
             ]));
         }
 

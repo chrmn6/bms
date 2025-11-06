@@ -66,7 +66,9 @@ class ClearanceController extends Controller
                 ? Clearance::where('resident_id', $user->resident->resident_id)->paginate(3)
                 : Clearance::paginate(3);
 
-            return view('clearance.table', compact('clearances'));
+            return response()->view('clearance.table', compact('clearances'))->header('HX-Trigger', json_encode([
+                'clearanceCreated' => 'Clearance created successfully!'
+            ]));
         }
 
         return redirect()->route('clearances.index')->with('success', 'Clearance created successfully.');
@@ -114,9 +116,10 @@ class ClearanceController extends Controller
         ]);
 
         if ($request->header('HX-Request')) {
-            return header('HX-Trigger', json_encode([
+            return response()->noContent()->header('HX-Trigger', json_encode([
                 'refreshTable' => true,
                 'closeModal' => true, 
+                'clearanceUpdated' => 'Clearance updated successfully!'
             ]));
         }
 

@@ -57,6 +57,8 @@ Route::middleware(['auth', 'role:resident'])->group(function () {
 // ANNOUNCEMENTS AND ACTIVITIES
 Route::middleware('auth')->group(function () {
     Route::resource('announcements', AnnouncementController::class);
+    Route::get('/activities/events', [ActivityController::class, 'events'])->name('activities.events');
+
     Route::resource('activities', ActivityController::class);
 });
 

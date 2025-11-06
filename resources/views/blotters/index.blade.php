@@ -16,19 +16,6 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
-            <!-- Success Message -->
-            <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer">
-                <div class="toast align-items-center text-bg-success border-0 d-none" id="successToast" role="alert"
-                    aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body text-center" id="toastMessage">
-                            {{ session('success') }}
-                        </div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                            aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
 
             <!-- ONLY ADMIN AND STAFF CAN SEE THE Statistics Cards -->
             @auth
@@ -207,15 +194,33 @@
         </div>
     </div>
 
+    <!-- SweetAlert Messages -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const showToast = document.querySelector('.toast');
-            if (showToast) {
-                const toast = new bootstrap.Toast(showToast, {
-                    delay: 2000,
-                    autohide: true
-                });
-                toast.show();
+        document.body.addEventListener('blotterCreated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('blotterUpdated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('closeModal', function () {
+            const modalEl = document.querySelector('.modal.show');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                modal.hide();
             }
         });
     </script>

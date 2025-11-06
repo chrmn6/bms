@@ -241,11 +241,11 @@
                                                 <i class="bi bi-calendar text-sm"></i>
                                                 {{ $activity->date_time->format('M d, Y') }}
                                                 @php
-                                                    $statusColors = [
-                                                        'scheduled' => 'bg-warning',
-                                                        'completed' => 'bg-success',
-                                                        'canceled' => 'bg-danger',
-                                                    ];
+        $statusColors = [
+            'scheduled' => 'bg-warning',
+            'completed' => 'bg-success',
+            'canceled' => 'bg-danger',
+        ];
                                                 @endphp
                                                 <span
                                                     class="text-sm badge {{ $statusColors[$activity->status] ?? 'bg-secondary' }}">
@@ -275,4 +275,17 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session("success") }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+    @endif
 </x-app-layout>

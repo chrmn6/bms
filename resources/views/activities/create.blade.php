@@ -1,6 +1,6 @@
 <form hx-post="{{ route('activities.store') }}" hx-target="#activityModalBody" hx-swap="none" hx-on::after-request="
     if (event.detail.xhr.status === 200) {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('activityModal'));
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addActivityModal'));
         modal.hide();
         htmx.trigger(document.body, 'refreshTable');
     }">
