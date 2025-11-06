@@ -24,8 +24,9 @@
             placeholder="Explain why you need this clearance"></textarea>
     </div>
 
-    <div class="mt-3 d-flex justify-content-end gap-2">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit Request</button>
+    <div class="d-flex justify-content-end gap-2">
+        <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
+            Submit
+        </x-primary-button>
     </div>
 </form>

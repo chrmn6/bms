@@ -21,7 +21,9 @@
             </option>
         </select>
     </div>
-    <x-primary-button type="submit" class="mt-4 !bg-green-500 hover:!bg-green-600 active:!bg-green-700">
-        Update
-    </x-primary-button>
+    <div class="mt-3 d-flex justify-content-end gap-2">
+        <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
+            Update
+        </x-primary-button>
+    </div>
 </form>

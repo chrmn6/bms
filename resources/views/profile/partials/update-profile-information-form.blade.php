@@ -90,7 +90,9 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <x-primary-button>Save Changes</x-primary-button>
+                        <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
+                            Save Changes
+                        </x-primary-button>
                     </div>
                 </form>
             </div>

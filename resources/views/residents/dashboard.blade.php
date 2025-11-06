@@ -140,10 +140,11 @@
                                 @endforeach
                                 <div class="text-center">
                                     <div class="text-center">
-                                        <a href="{{ route('announcements.index') }}"
-                                            class="text-sm !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                        <x-primary-button type="button"
+                                            class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700"
+                                            onclick="window.location='{{ route('announcements.index') }}'">
                                             View All
-                                        </a>
+                                        </x-primary-button>
                                     </div>
                                 </div>
                             @else
@@ -201,10 +202,11 @@
                                 @endforeach
                                 <div class="text-center">
                                     <div class="text-center">
-                                        <a href="{{ route('activities.index') }}"
-                                            class="text-sm !bg-green-500 hover:!bg-green-600 active:!bg-green-700 border-[#dc2626] p-1 text-white !no-underline rounded px-3 py-1 inline-block">
+                                        <x-primary-button type="button"
+                                            class="!bg-green-500 hover:!bg-green-600 active:!bg-green-700"
+                                            onclick="window.location='{{ route('activities.index') }}'">
                                             View All
-                                        </a>
+                                        </x-primary-button>
                                     </div>
                                 </div>
                             @else
@@ -282,11 +284,4 @@
             }
         });
     </script>
-
-    {{-- <a href="{{ route('resident.barangay-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
-        Barangay Clearance</a>
-    <a href="{{ route('resident.business-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
-        Business Clearance</a>
-    <a href="{{ route('resident.residency-clearance', $resident->resident_id) }}" class="btn btn-primary">Download
-        Residency Clearance</a> --}}
 </x-app-layout>

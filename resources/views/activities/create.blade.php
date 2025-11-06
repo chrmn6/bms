@@ -1,6 +1,6 @@
-<form hx-post="{{ route('activities.store') }}" hx-swap="none" hx-on::after-request="
+<form hx-post="{{ route('activities.store') }}" hx-target="#activityModalBody" hx-swap="none" hx-on::after-request="
     if (event.detail.xhr.status === 200) {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('ActivityModal'));
+        const modal = bootstrap.Modal.getInstance(document.getElementById('activityModal'));
         modal.hide();
         htmx.trigger(document.body, 'refreshTable');
     }">
@@ -34,7 +34,8 @@
     </div>
 
     <div class="mt-3 d-flex justify-content-end gap-2">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Create Activity</button>
+        <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
+            Create
+        </x-primary-button>
     </div>
 </form>

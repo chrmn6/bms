@@ -1,5 +1,10 @@
 @section('title') {{ 'Activities' }} @endsection
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
+@endpush
+
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
@@ -11,7 +16,10 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
-            <div id='calendar' class="bg-white rounded-lg shadow-md p-4 mx-auto" style="max-width: 900px;"></div>
+
+            <body>
+                <div id='calendar' class="bg-white rounded-lg shadow-md p-4 mx-auto"></div>
+            </body>
         </div>
     </div>
 
@@ -21,7 +29,7 @@
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header !bg-[#6D0512] text-white">
                     <h5 class="modal-title" id="activityModalLabel">
-                        <i class="bi bi-file-earmark me-2"></i> Create Activity
+                        <i class="bi bi-globe me-2"></i>Request Clearance
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -42,7 +50,7 @@
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header !bg-[#6D0512] text-white">
                     <h5 class="modal-title" id="viewActivityModalLabel">
-                        <i class="bi bi-file-earmark me-2"></i>Activity
+                        <i class="bi bi-globe me-2"></i>Activity
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -78,19 +86,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const calendarEl = document.getElementById('calendar');
-
-            const calendar = new FullCalendar.Calendar(calendarEl, {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
-                    left: 'today',
+                    start: 'today',
                     center: 'title',
                     right: 'dayGridMonth'
                 },
                 contentHeight: 350,
                 events: [
-                    @foreach($activities as $activity)
-                                                    {
+                    @foreach ($activities as $activity)
+                                                                                            {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
                             color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
@@ -98,28 +105,14 @@
                         },
                     @endforeach
                 ],
-                dayCellDidMount: function (info) {
-                    const date = info.date;
-                    const day = date.getUTCDay();
-                    if (day === 6) {
-                        info.el.style.backgroundColor = '#e5e7eb';
-                        info.el.style.pointerEvents = 'auto';
-                    }
-                },
                 dateClick: function (info) {
                     const clickedDate = info.date;
                     const day = clickedDate.getUTCDay();
-
-                    if (day === 6) {
-                        alert('No operation on Sundays');
-                        return;
-                    }
 
                     htmx.ajax('GET', '{{ route('activities.create') }}', {
                         target: '#activityModalBody',
                         swap: 'innerHTML'
                     });
-
                     const modalElement = document.getElementById('addActivityModal');
                     const modal = new bootstrap.Modal(modalElement);
                     modal.show();
