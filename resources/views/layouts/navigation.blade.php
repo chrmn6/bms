@@ -1,5 +1,5 @@
 <div x-data="{ sidebarOpen: true }" class="flex">
-    <div class="bg-white text-black p-3 flex-shrink-0" style="height: 100vh; top: 0; left: 0;">
+    <div class="bg-[#FAFAFA] text-black p-3 flex-shrink-0" style="height: 100vh; top: 0; left: 0;">
         {{-- Header with Logo --}}
         <div class="flex items-center justify-between px-2">
             <div class="flex-shrink-0 transition-all duration-300"

@@ -35,11 +35,11 @@
                 @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
                     <div class="row mb-2">
                         @php
-                            $blotter = \App\Models\Blotter::all();
-                            $pending = $blotter->where('status', 'pending')->count();
-                            $investigating = $blotter->where('status', 'investigating')->count();
-                            $resolved = $blotter->where('status', 'resolved')->count();
-                            $dismissed = $blotter->where('status', 'dismissed')->count();
+        $blotter = \App\Models\Blotter::all();
+        $pending = $blotter->where('status', 'pending')->count();
+        $investigating = $blotter->where('status', 'investigating')->count();
+        $resolved = $blotter->where('status', 'resolved')->count();
+        $dismissed = $blotter->where('status', 'dismissed')->count();
                         @endphp
 
                         <div class="col-md-3 mb-3">
@@ -128,7 +128,7 @@
                         Blotter Reports
                     </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-[#FAFAFA]">
                     <div class="table-responsive text-sm text-center">
                         <div id="blotterList" hx-get="{{ route('blotters.index') }}" hx-trigger="refreshTable from:body"
                             hx-target="this" hx-swap="outerHTML">
@@ -142,7 +142,7 @@
             <div class="modal fade" id="addBlotterModal" tabindex="-1" aria-labelledby="blotterModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content border-0 shadow-lg">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white">
                             <h5 class="modal-title" id="announcementModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i> File Blotter Report
@@ -163,7 +163,7 @@
             <div class="modal fade" id="viewBlotterModal" tabindex="-1" aria-labelledby="viewBlotterModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-m modal-dialog-centered">
-                    <div class="modal-content border-0 shadow-lg">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white">
                             <h5 class="modal-title" id="viewBlotterModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i>Blotter Report Transcript
@@ -184,7 +184,7 @@
             <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-sm">
-                    <div class="modal-content border-0 shadow-lg">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h6 class="modal-title" id="editStatusModalLabel">Edit Status</h6>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>

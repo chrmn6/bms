@@ -12,7 +12,7 @@
                     <i class="bi bi-info-circle"></i> Personal Information
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-[#FAFAFA]">
                 <form method="POST" action="{{ route('residents.update') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')

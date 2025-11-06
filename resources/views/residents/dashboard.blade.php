@@ -95,7 +95,7 @@
                             <i class="bi bi-person-circle text-info"></i>
                             <h6 class="card-title">My Profile</h6>
                             <p class="card-text text-muted">View and update your information</p>
-                            <a href="{{ route('clearances.index') }}">
+                            <a href="{{ route('residents.edit') }}">
                                 <x-primary-button type="button"
                                     class="!bg-black-500 hover:!bg-black-600 active:!bg-black-700">
                                     Edit Profile

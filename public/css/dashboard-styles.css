@@ -607,6 +607,39 @@
     border: none;
 }
 
+
+.fc-toolbar-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #6D0512;
+}
+
+.fc-event.completed {
+    background-color: #16a34a !important;
+    border-color: #16a34a !important;
+}
+
+.fc-event.pending {
+    background-color: #facc15 !important;
+    border-color: #facc15 !important;
+    color: black !important;
+}
+
+.fc-event.canceled {
+    background-color: #dc2626 !important;
+    border-color: #dc2626 !important;
+}
+
+#calendar a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.fc-event:hover {
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .welcome-content {

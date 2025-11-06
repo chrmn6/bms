@@ -46,7 +46,7 @@
         <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-m">
-                <div class="modal-content border-0 shadow-lg">
+                <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                     <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="announcementModalLabel">
                             <i class="bi bi-megaphone me-2"></i> Announcement

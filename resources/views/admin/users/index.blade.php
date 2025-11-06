@@ -30,7 +30,7 @@
                     <i class="bi bi-table"></i> System Users
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-[#FAFAFA]">
                 <div class="table-responsive">
                     @include('admin.users.table', ['users' => $users])
                 </div>

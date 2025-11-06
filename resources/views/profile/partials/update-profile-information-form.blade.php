@@ -16,7 +16,7 @@
                     Profile Information
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-[#FAFAFA]">
                 <form method="POST" action="{{ route('profile.update')  }}" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')

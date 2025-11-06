@@ -59,7 +59,7 @@
                         <i class="bi bi-table"></i> Residents
                     </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-[#FAFAFA]">
                     <div class="table-responsive">
                         <table id="residentsTable" class="table table-hover text-sm text-center mb-0">
                             <thead>

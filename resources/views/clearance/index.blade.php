@@ -21,11 +21,11 @@
                 @if (auth()->user()->role === 'admin' || auth()->user()->role === 'staff')
                     <div class="row mb-2">
                         @php
-                            $clearance = \App\Models\Clearance::all();
-                            $pending = $clearances->where('status', 'pending')->count();
-                            $approved = $clearances->where('status', 'approved')->count();
-                            $released = $clearances->where('status', 'released')->count();
-                            $rejected = $clearances->where('status', 'rejected')->count();
+        $clearance = \App\Models\Clearance::all();
+        $pending = $clearances->where('status', 'pending')->count();
+        $approved = $clearances->where('status', 'approved')->count();
+        $released = $clearances->where('status', 'released')->count();
+        $rejected = $clearances->where('status', 'rejected')->count();
                         @endphp
 
                         <div class="col-md-3 mb-3">
@@ -114,7 +114,7 @@
                         <i class="bi bi-table"></i> Clearance Request
                     </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-[#FAFAFA]">
                     <div class="table-responsive text-sm">
                         <div id="clearanceList" hx-get="{{ route('clearances.index') }}"
                             hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
@@ -128,7 +128,7 @@
             <div class="modal fade" id="addClearanceModal" tabindex="-1" aria-labelledby="clearanceModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content border-0 shadow-lg">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white">
                             <h5 class="modal-title" id="clearanceModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i>Request Clearance
@@ -149,7 +149,7 @@
             <div class="modal fade" id="viewClearanceModal" tabindex="-1" aria-labelledby="viewClearanceModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-m modal-dialog-centered">
-                    <div class="modal-content border-0 shadow-lg">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white">
                             <h5 class="modal-title" id="viewClearanceModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i>Clearance Request Transcript
@@ -170,7 +170,7 @@
             <div class="modal fade" id="editClearanceStatusModal" tabindex="-1"
                 aria-labelledby="editClearanceStatusModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-m">
-                    <div class="modal-content border-0 shadow-lg">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h6 class="modal-title" id="editClearanceStatusModalLabel">Clearance Form</h6>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>

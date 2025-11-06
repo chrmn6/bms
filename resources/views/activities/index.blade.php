@@ -16,10 +16,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
-
-            <body>
-                <div id='calendar' class="bg-white rounded-lg shadow-md p-4 mx-auto"></div>
-            </body>
+            <div id='calendar' class="bg-[#FAFAFA] rounded-lg shadow-md p-4 mx-auto"></div>
         </div>
     </div>
 
@@ -47,7 +44,7 @@
     <div class="modal fade" id="viewActivityModal" tabindex="-1" aria-labelledby="viewActivityModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-m modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg">
+            <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                 <div class="modal-header !bg-[#6D0512] text-white">
                     <h5 class="modal-title" id="viewActivityModalLabel">
                         <i class="bi bi-globe me-2"></i>Activity
@@ -68,7 +65,7 @@
     <div class="modal fade" id="editActivityModal" tabindex="-1" aria-labelledby="editActivityModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-m">
-            <div class="modal-content border-0 shadow-lg">
+            <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                 <div class="modal-header !bg-[#6D0512] text-white py-2">
                     <h6 class="modal-title" id="editActivityModalLabel">Edit Activity</h6>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -87,47 +84,55 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
                     start: 'today',
                     center: 'title',
-                    right: 'dayGridMonth'
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
                 },
                 contentHeight: 350,
+                validRange: function (nowDate) {
+                    return { start: nowDate };
+                },
                 events: [
                     @foreach ($activities as $activity)
-                                                                                            {
+                                        {
                             title: '{{ $activity->title }}',
                             start: '{{ $activity->date_time }}',
-                            color: '{{ $activity->status === 'completed' ? '#16a34a' : ($activity->status === 'canceled' ? '#dc2626' : '#facc15') }}',
-                            id: '{{ $activity->activity_id }}',
-                        },
+                            classNames: ['{{ $activity->status }}'],
+                            id: '{{ $activity->activity_id }}'
+                        }
                     @endforeach
                 ],
+                dayCellDidMount: function (info) {
+                    if (info.date.getDay() === 0) {
+                        info.el.style.backgroundColor = '#f5f5f5';
+                        info.el.style.color = '#999';
+                        info.el.style.pointerEvents = 'none';
+                        info.el.title = "No operations on Sundays";
+                    }
+                },
                 dateClick: function (info) {
-                    const clickedDate = info.date;
-                    const day = clickedDate.getUTCDay();
+                    if (info.date.getDay() === 0) {
+                        alert("No operations on Sundays.");
+                        return;
+                    }
 
                     htmx.ajax('GET', '{{ route('activities.create') }}', {
                         target: '#activityModalBody',
                         swap: 'innerHTML'
                     });
-                    const modalElement = document.getElementById('addActivityModal');
-                    const modal = new bootstrap.Modal(modalElement);
-                    modal.show();
+                    new bootstrap.Modal(document.getElementById('addActivityModal')).show();
                 },
                 eventClick: function (info) {
                     info.jsEvent.preventDefault();
-                    const activityId = info.event.id;
-
-                    htmx.ajax('GET', `/activities/${activityId}`, {
+                    htmx.ajax('GET', `/activities/${info.event.id}`, {
                         target: '#viewActivityModalBody',
                         swap: 'innerHTML'
                     });
-                    const modalElement = document.getElementById('viewActivityModal');
-                    const modal = new bootstrap.Modal(modalElement);
-                    modal.show();
+                    new bootstrap.Modal(document.getElementById('viewActivityModal')).show();
                 }
             });
             calendar.render();
