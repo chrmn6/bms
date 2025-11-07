@@ -22,28 +22,13 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="flex h-screen bg-gray-100 dark:bg-gray-800 overflow-hidden">
+    <div class="min-h-screen bg-gray-100">
+        @include('layouts.navigation')
 
-        {{-- Sidebar --}}
-        @include('layouts.sidebar')
-
-        {{-- Main content --}}
-        <div class="flex-1 flex flex-col min-h-0">
-
-            {{-- Header --}}
-            @isset($header)
-                <header class="bg-[#FAFAFA] dark:bg-gray-800 shadow-md">
-                    <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main class="overflow-y-auto">
-                {{ $slot }}
-            </main>
-        </div>
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.js"

@@ -5,7 +5,13 @@
     <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
 @endpush
 
-<x-app-layout>
+@php
+    $componentName = auth()?->user()?->role === 'resident'
+        ? 'resident-layout'
+        : 'app-layout';
+@endphp
+
+<x-dynamic-component :component="$componentName">
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -26,7 +32,7 @@
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header !bg-[#6D0512] text-white">
                     <h5 class="modal-title" id="activityModalLabel">
-                        <i class="bi bi-globe me-2"></i>Request Clearance
+                        <i class="bi bi-globe me-2"></i>Create Activity
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -164,4 +170,4 @@
             }
         });
     </script>
-</x-app-layout>
+</x-dynamic-component>

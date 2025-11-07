@@ -1,146 +1,145 @@
-<div x-data="{ sidebarOpen: true }" class="flex">
-    <div class="bg-[#FAFAFA] text-black p-3 flex-shrink-0" style="height: 100vh; top: 0; left: 0;">
-        {{-- Header with Logo --}}
-        <div class="flex items-center justify-between px-2">
-            <div class="flex-shrink-0 transition-all duration-300"
-                :class="sidebarOpen ? 'w-auto opacity-100' : 'w-0 opacity-0 overflow-hidden'">
-                {{-- Logo image --}}
-                @php $user = Auth::user(); @endphp
-                @if ($user)
-                    @if ($user->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}">
-                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    @elseif ($user->role === 'staff')
-                        <a href="{{ route('staff.dashboard') }}">
-                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    @else
-                        <a href="{{ route('residents.dashboard') }}">
-                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    @endif
-                @else
-                    <a href="{{ route('login') }}">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+    <!-- Primary Navigation Menu -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <!-- Logo -->
+                <div class="shrink-0 flex items-center">
+                    <a href="{{ route('residents.dashboard') }}">
                         <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
-                @endif
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden sm:-my-px sm:ms-10 sm:flex space-x-8">
+                    <x-resident-nav-link :href="route('residents.dashboard')"
+                        :active="request()->routeIs('residents.dashboard')">
+                        <span>Dashboard</span>
+                    </x-resident-nav-link>
+
+                    <x-resident-nav-link :href="route('announcements.index')"
+                        :active="request()->routeIs('announcements.index')">
+                        <span>Announcements</span>
+                    </x-resident-nav-link>
+
+                    <x-resident-nav-link :href="route('activities.index')"
+                        :active="request()->routeIs('activities.index')">
+                        <span>Activities</span>
+                    </x-resident-nav-link>
+
+                    <x-resident-nav-link :href="route('clearances.index')"
+                        :active="request()->routeIs('clearances.index')">
+                        <span>Clearance</span>
+                    </x-resident-nav-link>
+
+                    <x-resident-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.index')">
+                        <span>Blotter Report</span>
+                    </x-resident-nav-link>
+                </div>
             </div>
 
-            {{-- Toggle button --}}
-            <button @click="sidebarOpen = !sidebarOpen" class="text-black border-0 bg-transparent"
-                aria-label="Toggle sidebar">
-                <i class="bi bi-layout-sidebar"></i>
-            </button>
+            <!-- Settings Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            <div>{{ Auth::user()->full_name }}</div>
+
+                            <div class="ms-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <x-dropdown-link :href="route('residents.edit')">
+                            <span>Profile</span>
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('settings.edit')">
+                            <span>Settings</span>
+                        </x-dropdown-link>
+
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                <span>Sign Out</span>
+                            </x-dropdown-link>
+                        </form>
+                    </x-slot>
+                </x-dropdown>
+            </div>
+
+            <!-- Hamburger -->
+            <div class="-me-2 flex items-center sm:hidden">
+                <button @click="open = ! open"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Responsive Navigation Menu -->
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('residents.dashboard')"
+                :active="request()->routeIs('residents.dashboard')">
+                <span>Dashboard</span>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('announcements.index')"
+                :active="request()->routeIs('announcements.index')">
+                <span>Announcements</span>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
+                <span>Activities</span>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearances.index')">
+                <span>Clearance</span>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.index')">
+                <span>Blotter Report</span>
+            </x-responsive-nav-link>
         </div>
 
-        {{-- Sidebar Links --}}
-        @php $user = Auth::user(); @endphp
-        <ul class="nav flex-column text-sm">
-            {{-- Dashboard --}}
-            <li>
-                <x-nav-link :href="route($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))" :active="request()->routeIs($user->role === 'admin' ? 'admin.dashboard' : ($user->role === 'staff' ? 'staff.dashboard' : 'residents.dashboard'))">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-bar-chart-line mr-2"></i>
-                        <span x-show="sidebarOpen">Dashboard</span>
-                    </span>
-                </x-nav-link>
-            </li>
+        <!-- Responsive Settings Options -->
+        <div class="pb-1 border-gray-200">
+            <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('residents.edit')">
+                    <span>Profile</span>
+                </x-responsive-nav-link>
 
-            {{-- Profile --}}
-            <li>
-                @php $profileRoute = ($user->role === 'resident') ? 'residents.edit' : 'profile.edit'; @endphp
-                <x-nav-link :href="route($profileRoute)" :active="request()->routeIs($profileRoute)">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-person mr-2"></i>
-                        <span x-show="sidebarOpen">Profile</span>
-                    </span>
-                </x-nav-link>
-            </li>
+                <x-responsive-nav-link :href="route('settings.edit')">
+                    <span>Settings</span>
+                </x-responsive-nav-link>
 
-            {{-- Manage Users (Admin only) --}}
-            @if($user->role === 'admin')
-                <li>
-                    <x-nav-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
-                        <span class="inline-flex items-center">
-                            <i class="bi bi-person-add mr-2"></i>
-                            <span x-show="sidebarOpen">Manage Users</span>
-                        </span>
-                    </x-nav-link>
-                </li>
-            @endif
-
-            {{-- Resident List (Admin + Staff) --}}
-            @if(in_array($user->role, ['admin', 'staff']))
-                <li>
-                    <x-nav-link :href="route('admin.resident.index')" :active="request()->routeIs('admin.resident.index')">
-                        <span class="inline-flex items-center">
-                            <i class="bi bi-people mr-2"></i>
-                            <span x-show="sidebarOpen">Resident List</span>
-                        </span>
-                    </x-nav-link>
-                </li>
-            @endif
-
-            {{-- Other links --}}
-            <li>
-                <x-nav-link :href="route('announcements.index')" :active="request()->routeIs('announcements.index')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-megaphone mr-2"></i>
-                        <span x-show="sidebarOpen">Announcement</span>
-                    </span>
-                </x-nav-link>
-            </li>
-            <li>
-                <x-nav-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-globe mr-2"></i>
-                        <span x-show="sidebarOpen">Activities</span>
-                    </span>
-                </x-nav-link>
-            </li>
-            <li>
-                <x-nav-link :href="route('clearances.index')" :active="request()->routeIs('clearances.*')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-files mr-2"></i>
-                        <span x-show="sidebarOpen">Clearance</span>
-                    </span>
-                </x-nav-link>
-            </li>
-            <li>
-                <x-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-folder mr-2"></i>
-                        <span x-show="sidebarOpen">Blotter Report</span>
-                    </span>
-                </x-nav-link>
-            </li>
-            <li>
-                <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-gear mr-2"></i>
-                        <span x-show="sidebarOpen">Settings</span>
-                    </span>
-                </x-nav-link>
-            </li>
-
-            {{-- Logout --}}
-            <li>
+                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-nav-link href="{{ route('logout') }}"
+                    <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault(); this.closest('form').submit();">
-                        <span class="inline-flex items-center">
-                            <i class="bi bi-box-arrow-right mr-2"></i>
-                            <span x-show="sidebarOpen">Sign Out</span>
-                        </span>
-                    </x-nav-link>
+                        <span>Sign Out</span>
+                    </x-responsive-nav-link>
                 </form>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
-
-    <div :class="sidebarOpen ? 'ml-0' : 'ml-0'">
-        @yield('content')
-    </div>
-</div>
+</nav>
