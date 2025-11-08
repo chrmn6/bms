@@ -21,7 +21,7 @@
 
                     <!-- Residents Table -->
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-3 py-2">Resident ID</th>
                                 <th scope="col" class="px-3 py-2">Full Name</th>
@@ -36,11 +36,9 @@
                         <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
                             @forelse($residents as $resident)
                                 <tr
-                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
+                                    class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
                                     <td class="px-3 py-2">
-                                        <div class="flex items-center">
-                                            {{ $resident->display_id }}
-                                        </div>
+                                        {{ $resident->display_id }}
                                     </td>
                                     <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
                                         <img class="w-8 h-8 rounded-full"
@@ -54,7 +52,7 @@
                                     <td class="px-3 py-2">{{ $resident->details->civil_status }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->phone_number }}</td>
-                                    <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y h:i A') }}</td>
+                                    <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
                                     <td class="px-3 py-2">
                                         <x-primary-button
                                             hx-get="{{ route('admin.resident.show', $resident->resident_id) }}"
@@ -62,7 +60,7 @@
                                             data-bs-toggle="modal" data-bs-target="#viewResidentModal"
                                             aria-label="View resident details"
                                             class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                                            <svg class="w-[18px] h-[18px] text-white dark:text-white" aria-hidden="true"
+                                            <svg class="w-[15px] h-[15px] text-whitedark:text-white" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                                 viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-width="2"
@@ -70,7 +68,6 @@
                                                 <path stroke="currentColor" stroke-width="2"
                                                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                             </svg>
-
                                         </x-primary-button>
                                     </td>
                                 </tr>

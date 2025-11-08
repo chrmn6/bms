@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden sm:-my-px sm:ms-10 sm:flex space-x-8">
+                <div class="hidden sm:-my-px sm:ms-10 sm:flex gap-x-4">
                     <x-resident-nav-link :href="route('residents.dashboard')"
                         :active="request()->routeIs('residents.dashboard')">
                         <span>Dashboard</span>
@@ -33,7 +33,7 @@
                     </x-resident-nav-link>
 
                     <x-resident-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.index')">
-                        <span>Blotter Report</span>
+                        <span>Blotter</span>
                     </x-resident-nav-link>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            class="inline-flex items-center px-2 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->full_name }}</div>
 
                             <div class="ms-1">
@@ -116,13 +116,13 @@
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('blotters.index')" :active="request()->routeIs('blotters.index')">
-                <span>Blotter Report</span>
+                <span>Blotter</span>
             </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pb-1 border-gray-200">
-            <div class="mt-3 space-y-1">
+            <div class="space-y-1">
                 <x-responsive-nav-link :href="route('residents.edit')">
                     <span>Profile</span>
                 </x-responsive-nav-link>
