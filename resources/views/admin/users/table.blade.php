@@ -1,6 +1,6 @@
 <table id="usersTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('admin.staff.index') }}" hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
-    <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-center text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-3 py-2">Staff ID</th>
             <th scope="col" class="px-3 py-2">Full Name</th>
@@ -10,7 +10,7 @@
             <th scope="col" class="px-3 py-2">Actions</th>
         </tr>
     </thead>
-    <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
+    <tbody class="text-center border border-gray-200 dark:border-gray-700 rounded-lg">
         @foreach($users as $user)
             @php $isCurrentUser = Auth::check() && Auth::id() === $user->id; @endphp
             <tr

@@ -18,21 +18,28 @@
         </div>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto sm:px-8 lg:px-8">
         {{-- Add Announcement Button --}}
-        <div class="py-3 flex justify-end">
-            @can('create', App\Models\Announcement::class)
-                <x-primary-button type="button" hx-get="{{ route('announcements.create') }}"
-                    hx-target="#announcementModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
-                    data-bs-target="#announcementModal"
-                    class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                    <i class="bi bi-plus-square text-sm"></i>Post
-                </x-primary-button>
-            @endcan
-        </div>
+        <div class="py-3">
+            <div class="flex items-center justify-between p-2">
+                <h5 class="text-base font-semibold text-gray-500 dark:text-gray-100">
+                    Announcements
+                </h5>
 
-        <div class="d-flex align-items-center mb-2">
-            <h3 class="fw-semibold mb-0">Announcements</h3>
+                @can('create', App\Models\Announcement::class)
+                    <x-primary-button type="button" hx-get="{{ route('announcements.create') }}"
+                        hx-target="#announcementModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
+                        data-bs-target="#announcementModal"
+                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
+                        <svg class="w-[15px] h-[15px] me-1 text-white dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14m-7 7V5" />
+                        </svg>
+                        Post
+                    </x-primary-button>
+                @endcan
+            </div>
         </div>
 
         {{-- Announcements List --}}

@@ -64,9 +64,15 @@
             </tr>
         @empty
             <tr>
-                <td colspan="6" class="text-center py-4 text-muted">
-                    <i class="bi bi-file-earmark"></i>
-                    <p class="mb-0">No blotter reports found.</p>
+                <td colspan="6" class="py-6 text-gray-500">
+                    <div class="flex flex-col items-center justify-center">
+                        <svg class="w-6 h-6 mb-1 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z" />
+                        </svg>
+                        <p class="text-sm text-center mb-0">No blotter reports found.</p>
+                    </div>
                 </td>
             </tr>
         @endforelse
