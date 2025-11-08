@@ -51,7 +51,15 @@ class UserController extends Controller
             'email'      => 'required|email|unique:users,email',
             'password'   => 'required|confirmed|min:6',
             'phone_number' => 'nullable|string|max:20',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/users'), $fileName);
+            $validated['image'] = $fileName;
+        }
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['role'] = 'staff';
@@ -62,7 +70,9 @@ class UserController extends Controller
         if ($request->header('HX-Request')) {
             $users = User::whereIn('role', ['admin', 'staff'])->latest()->paginate(5);
 
-            return view('admin.users.table', compact('users'));
+            return response()->view('admin.users.table', compact('users'))->header('HX-Trigger', json_encode([
+                'staffCreated' => 'Staff account created successfully!'
+            ]));
         }
         return redirect()->route('admin.staff.index')->with('success', 'Staff added successfully!');
     }

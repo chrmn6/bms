@@ -12,43 +12,49 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
+            <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Residents</h5>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div
-                    class="flex items-center justify-between flex-column flex-wrap md:flex-row gap-4 py-4 pb-4 p-4 bg-[#FAFAFA] dark:bg-gray-900">
+                    class="flex items-center justify-between flex-column flex-wrap md:flex-row gap-4 py-4 pb-4 bg-white p-3 dark:bg-gray-900">
                     <!--SEARCH BAR-->
                     <h4>search bar</h4>
 
                     <!-- Residents Table -->
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-600 dark:text-gray-400">
-                        <thead class="text-xs text-white uppercase bg-[#6D0512] dark:bg-gray-700 dark:text-gray-400">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-3 py-2">Resident ID</th>
-                                <th scope="col" class="px-6 py-2">Full Name</th>
-                                <th scope="col" class="px-2 py-2">Household Number</th>
-                                <th scope="col" class="px-2 py-2">Phone Number</th>
-                                <th scope="col" class="px-2 py-2">Actions</th>
+                                <th scope="col" class="px-3 py-2">Full Name</th>
+                                <th scope="col" class="px-3 py-2">Gender</th>
+                                <th scope="col" class="px-3 py-2">Civil Status</th>
+                                <th scope="col" class="px-3 py-2">Household Number</th>
+                                <th scope="col" class="px-3 py-2">Contact Number</th>
+                                <th scope="col" class="px-3 py-2">Date Registered</th>
+                                <th scope="col" class="px-3 py-2">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
                             @forelse($residents as $resident)
                                 <tr
-                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
                                     <td class="px-3 py-2">
                                         <div class="flex items-center">
                                             {{ $resident->display_id }}
                                         </div>
                                     </td>
-                                    <td class="flex items-center px-3 py-2 text-gray-900 dark:text-white">
-                                        <img class="w-10 h-10 rounded-full"
+                                    <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
+                                        <img class="w-8 h-8 rounded-full"
                                             src="{{ asset('uploads/residents/' . $resident->profile->image) }}"
                                             alt="{{ $resident->full_name }}">
-                                        <div class="ps-3">
+                                        <div class="ps-2">
                                             <div class="text-sm font-semibold">{{ $resident->full_name }}</div>
-                                            <div class="font-normal text-gray-500">{{ $resident->user->email }}</div>
                                         </div>
-                                    </td>
+                                    </th>
+                                    <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
+                                    <td class="px-3 py-2">{{ $resident->details->civil_status }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->phone_number }}</td>
+                                    <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y h:i A') }}</td>
                                     <td class="px-3 py-2">
                                         <x-primary-button
                                             hx-get="{{ route('admin.resident.show', $resident->resident_id) }}"
@@ -56,7 +62,7 @@
                                             data-bs-toggle="modal" data-bs-target="#viewResidentModal"
                                             aria-label="View resident details"
                                             class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                                            <svg class="w-[20px] h-[20px] text-white dark:text-white" aria-hidden="true"
+                                            <svg class="w-[18px] h-[18px] text-white dark:text-white" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                                 viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-width="2"
@@ -64,12 +70,13 @@
                                                 <path stroke="currentColor" stroke-width="2"
                                                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                             </svg>
+
                                         </x-primary-button>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center py-4 text-muted">
+                                    <td colspan="8" class="text-center py-4 text-muted">
                                         <i class="bi bi-people"></i>
                                         <p class="mb-0">No residents found.</p>
                                     </td>

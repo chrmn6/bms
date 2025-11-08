@@ -1,4 +1,5 @@
-<form hx-post="{{ route('admin.staff.store') }}" hx-target="#userModalBody" hx-swap="none" hx-on::after-request="
+<form hx-post="{{ route('admin.staff.store') }}" enctype="multipart/form-data" hx-target="#userModalBody" hx-swap="none"
+    hx-on::after-request="
         if (event.detail.xhr.status === 200) { 
             const modal = bootstrap.Modal.getInstance(document.getElementById('userModal')); 
             if (modal) { modal.hide(); } 
@@ -39,10 +40,17 @@
             <x-text-input id="password_confirmation" name="password_confirmation" type="password"
                 class="mt-1 block w-full" required />
         </div>
+
+        <div class="mb-3">
+            <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
+            <input type="file" name="image" id="image"
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+        </div>
     </div>
 
-    <div class="mt-3 d-flex justify-content-end gap-2">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Create Staff</button>
+    <div class="d-flex justify-content-end gap-2">
+        <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
+            Create
+        </x-primary-button>
     </div>
 </form>

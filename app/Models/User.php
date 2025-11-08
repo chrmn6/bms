@@ -24,6 +24,7 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
+        'image',
     ];
 
     /**
@@ -72,5 +73,10 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getDisplayIdAttribute()
+    {
+        return 'STF-' . str_pad($this->id, 6, '20250', STR_PAD_LEFT);
     }
 }

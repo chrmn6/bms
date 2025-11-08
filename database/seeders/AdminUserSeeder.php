@@ -20,6 +20,7 @@ class AdminUserSeeder extends Seeder
             'password' => Hash::make('admin123'),
             'phone_number' => '09123456789',
             'role' => 'admin',
+            'image' => 'admin.jpg',
         ]);
     }
 }
