@@ -10,7 +10,7 @@
         </div>
     </x-slot>
 
-    <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Residents</h5>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -26,9 +26,7 @@
                                 <th scope="col" class="px-3 py-2">Resident ID</th>
                                 <th scope="col" class="px-3 py-2">Full Name</th>
                                 <th scope="col" class="px-3 py-2">Gender</th>
-                                <th scope="col" class="px-3 py-2">Civil Status</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
-                                <th scope="col" class="px-3 py-2">Contact Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
                                 <th scope="col" class="px-3 py-2">Action</th>
                             </tr>
@@ -49,9 +47,7 @@
                                         </div>
                                     </th>
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
-                                    <td class="px-3 py-2">{{ $resident->details->civil_status }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
-                                    <td class="px-3 py-2">{{ $resident->user->phone_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
                                     <td class="px-3 py-2">
                                         <x-primary-button
@@ -73,7 +69,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center py-4 text-muted">
+                                    <td colspan="6" class="text-center py-4 text-muted">
                                         <i class="bi bi-people"></i>
                                         <p class="mb-0">No residents found.</p>
                                     </td>

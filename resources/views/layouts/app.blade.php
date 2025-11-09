@@ -29,14 +29,13 @@
         {{-- Main content --}}
         <div class="flex-1 flex flex-col min-h-0">
 
-            {{-- Header --}}
-            @isset($header)
-                <header class="bg-[#FAFAFA] dark:bg-gray-800 shadow-md">
-                    <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+            {{-- Navbar --}}
+            <nav class="bg-neutral-50 dark:bg-gray-800 shadow-md">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16 items-center">
                     </div>
-                </header>
-            @endisset
+                </div>
+            </nav>
 
             <!-- Page Content -->
             <main class="overflow-y-auto">
@@ -52,6 +51,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
     @stack('scripts')
 </body>
 

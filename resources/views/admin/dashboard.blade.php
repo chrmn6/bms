@@ -13,153 +13,67 @@
     <script src="{{ asset('js/dashboard-scripts.js') }}"></script>
 
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="py-3">
-            <!-- Welcome Card -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="welcome-card">
-                        <div class="welcome-content">
-                            <div class="welcome-icon">
-                                <i
-                                    class="bi bi-{{ date('H') < 12 ? 'sun' : (date('H') < 18 ? 'sun' : 'moon-stars') }}"></i>
-                            </div>
-                            <div class="welcome-text">
-                                <h3 class="welcome-greeting">
-                                    Good {{ date('H') < 12 ? 'Morning' : (date('H') < 18 ? 'Afternoon' : 'Evening') }},
-                                    {{ auth()->user()->full_name }}!
-                                </h3>
-                                <p class="welcome-subtitle">Welcome to the Barangay Matina Gravahan Management System.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="welcome-decoration">
-                            <div class="decoration-circle"></div>
-                            <div class="decoration-circle"></div>
-                            <div class="decoration-circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Statistics Cards -->
-            <div class="row mb-4 g-3">
+            <div class="flex flex-wrap gap-2.5 mb-4">
                 @if(auth()->user()->role === 'admin')
                     <!-- Total Users -->
-                    <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                        <div class="enhanced-stat-card users-card admin-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-person-gear"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['users_count'] }}">0</h3>
-                                <p class="stat-label">Users</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-shield-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Staff Members -->
-                    <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                        <a href="{{ route('admin.staff.index') }}" class="text-decoration-none">
-                            <div class="enhanced-stat-card staff-card admin-card">
-                                <div class="stat-icon">
-                                    <i class="bi bi-people-fill"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <h3 class="stat-number" data-count="{{ $stats['staff_count'] }}">0</h3>
-                                    <p class="stat-label">Staff</p>
-                                </div>
-                                <div class="stat-trend">
-                                    <i class="bi bi-person-plus"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <x-stat-card bgColor="bg-blue-500"
+                        :count="$stats['users_count']" label="Total Users">
+                        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.3"
+                                d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                        </svg>
+                    </x-stat-card>
+
+                    <a href="{{ route('admin.staff.index') }}" style="text-decoration: none;">
+                        <x-stat-card bgColor="bg-green-500"
+                            :count="$stats['staff_count']" label="Staff">
+                            <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="1.3"
+                                    d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </x-stat-card>
+                    </a>
                 @endif
-                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                    <div class="enhanced-stat-card residents-card">
-                        <div class="stat-icon">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 class="stat-number" data-count="{{ $stats['residents_count'] }}">0</h3>
-                            <p class="stat-label">Residents</p>
-                        </div>
-                        <div class="stat-trend">
-                            <i class="bi bi-graph-up"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Activities-->
-                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                    <a href="{{ route('activities.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card announcements-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-calendar-event"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['activities_count'] }}">0</h3>
-                                <p class="stat-label">Activities</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-calendar-plus"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Announcements -->
-                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                    <a href="{{ route('announcements.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card announcements-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-megaphone"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['announcements_count'] }}">0</h3>
-                                <p class="stat-label">Announcements</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-plus-circle"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Pending Reports -->
-                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                    <a href="{{ route('blotters.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card reports-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-file-earmark-text"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['blotter_reports_pending'] }}">0</h3>
-                                <p class="stat-label">Blotter Reports</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-exclamation-triangle"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!--CLEARANCE-->
-                <div class="col-lg-3 col-md-4 col-sm-4 mb-2">
-                    <a href="{{ route('clearances.index') }}" class="text-decoration-none">
-                        <div class="enhanced-stat-card clearances-card">
-                            <div class="stat-icon">
-                                <i class="bi bi-file-earmark-check"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number" data-count="{{ $stats['clearances_pending'] }}">0</h3>
-                                <p class="stat-label">Clearances</p>
-                            </div>
-                            <div class="stat-trend">
-                                <i class="bi bi-clock"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+
+                <!-- Residents -->
+                <a href="{{ route('admin.resident.index') }}" style="text-decoration: none;">
+                    <x-stat-card bgColor="bg-yellow-500"
+                        :count="$stats['residents_count']" label="Residents">
+                        <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7 6H5m2 3H5m2 3H5m2 3H5m2 3H5m11-1a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2M7 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+                        </svg>
+                    </x-stat-card>
+                </a>
+
+                <a href="{{ route('blotters.index') }}" style="text-decoration: none;">
+                    <x-stat-card bgColor="bg-red-500"
+                        :count="$stats['blotter_reports_pending']" label="Blotter">
+                        <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5"
+                                d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Zm-4 1h.01v.01H15V5Zm-2 2h.01v.01H13V7Zm2 2h.01v.01H15V9Zm-2 2h.01v.01H13V11Zm2 2h.01v.01H15V13Zm-2 2h.01v.01H13V15Zm2 2h.01v.01H15V17Zm-2 2h.01v.01H13V19Z" />
+                        </svg>
+                    </x-stat-card>
+                </a>
+
+                <a href="{{ route('clearances.index') }}" style="text-decoration: none;">
+                    <x-stat-card bgColor="bg-indigo-500"
+                        :count="$stats['clearances_pending']" label="Clearances">
+                        <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M10 3v4a1 1 0 0 1-1 1H5m4 6 2 2 4-4m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z" />
+                        </svg>
+                    </x-stat-card>
+                </a>
             </div>
 
             <!-- Recent Announcements & Upcoming Activities -->
