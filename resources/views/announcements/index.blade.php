@@ -18,10 +18,10 @@
         </div>
     </x-slot>
 
-    <div class="max-w-5xl mx-auto sm:px-8 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-8">
         {{-- Add Announcement Button --}}
         <div class="py-3">
-            <div class="flex items-center justify-between p-2">
+            <div class="flex items-center justify-between">
                 <h5 class="text-base font-semibold text-gray-500 dark:text-gray-100">
                     Announcements
                 </h5>

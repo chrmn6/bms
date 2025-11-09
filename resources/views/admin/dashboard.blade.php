@@ -16,7 +16,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="py-3">
             <!-- Statistics Cards -->
-            <div class="flex flex-wrap gap-2.5 mb-4">
+            <div class="flex flex-wrap gap-2 mb-4">
                 @if(auth()->user()->role === 'admin')
                     <!-- Total Users -->
                     <x-stat-card bgColor="bg-blue-500"
@@ -29,7 +29,7 @@
 
                     <a href="{{ route('admin.staff.index') }}" style="text-decoration: none;">
                         <x-stat-card bgColor="bg-green-500"
-                            :count="$stats['staff_count']" label="Staff">
+                            :count="$stats['staff_count']" label="Staff Members">
                             <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-width="1.3"
@@ -54,7 +54,7 @@
 
                 <a href="{{ route('blotters.index') }}" style="text-decoration: none;">
                     <x-stat-card bgColor="bg-red-500"
-                        :count="$stats['blotter_reports_pending']" label="Blotter">
+                        :count="$stats['blotter_reports_pending']" label="Blotter Reports">
                         <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5"

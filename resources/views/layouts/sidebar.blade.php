@@ -1,6 +1,5 @@
 <div x-data="{ sidebarOpen: true }" class="flex">
-    <div class="bg-neutral-50 text-black border-r-[8px] border-gray-400 shadow-md p-3 flex-shrink-0"
-        style="height: 100vh; top: 0; left: 0;">
+    <div class="bg-neutral-50 text-black border-r shadow-md p-3 flex-shrink-0" style="height: 100vh; top: 0; left: 0;">
         {{-- Header with Logo --}}
         <div class="flex items-center justify-between px-2">
             <div class="flex-shrink-0 transition-all duration-300"
@@ -140,7 +139,7 @@
         {{-- Profile Image --}}
         <div class="relative border-t border-gray-300 mt-auto pt-3" x-data="{ openMenu: false }">
             <div x-show="sidebarOpen" x-transition
-                class="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA] transition hover:bg-gray-50 hover:shadow-md"
+                class="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA]"
                 @click="openMenu = !openMenu">
                 {{-- Profile Image --}}
                 <div class="w-7 h-7 flex-shrink-0">

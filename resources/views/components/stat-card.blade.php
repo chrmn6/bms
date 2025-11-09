@@ -1,5 +1,5 @@
 <div class="bg-neutral-50 shadow rounded-md relative cursor-pointer transition-all duration-200 ease-in-out"
-    style="width: 160px; height: 80px; padding: 10px;">
+    style="width: 185px; height: 80px; padding: 10px;">
 
     <div class="flex items-center gap-4">
         <!-- Icon on the left -->
