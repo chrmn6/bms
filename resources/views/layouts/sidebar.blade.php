@@ -22,7 +22,6 @@
                     </a>
                 @endif
             </div>
-
             {{-- Toggle button --}}
             <button @click="sidebarOpen = !sidebarOpen" class="text-black border-0 bg-transparent"
                 aria-label="Toggle sidebar">
@@ -48,16 +47,6 @@
                                 d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667" />
                         </svg>
                         <span x-show="sidebarOpen">Dashboard</span>
-                    </span>
-                </x-sidebar-link>
-            </li>
-
-            {{-- Profile --}}
-            <li>
-                <x-sidebar-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-person mr-2"></i>
-                        <span x-show="sidebarOpen">Profile</span>
                     </span>
                 </x-sidebar-link>
             </li>
@@ -145,29 +134,44 @@
                     </span>
                 </x-sidebar-link>
             </li>
-            <li>
-                <x-sidebar-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
-                    <span class="inline-flex items-center">
-                        <i class="bi bi-gear mr-2"></i>
-                        <span x-show="sidebarOpen">Settings</span>
-                    </span>
-                </x-sidebar-link>
-            </li>
+        </ul>
 
-            {{-- Logout --}}
-            <li>
+        {{-- Profile Image --}}
+        <div class="relative border-t border-gray-300 mt-auto pt-3" x-data="{ openMenu: false }">
+            <div x-show="sidebarOpen" x-transition
+                class="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA] transition hover:bg-gray-50 hover:shadow-md"
+                @click="openMenu = !openMenu">
+                {{-- Profile Image --}}
+                <div class="w-7 h-7 flex-shrink-0">
+                    <img src="{{ asset('uploads/users/' . $user->image) }}" alt="{{ $user->full_name }}"
+                        class="w-full h-full rounded-full object-cover ring-1 ring-gray-300">
+                </div>
+                <div x-show="sidebarOpen" class="flex flex-col leading-tight">
+                    <span class="font-semibold text-sm text-gray-900">{{ Auth::user()->full_name }}</span>
+                    <span class="text-sm text-gray-500">{{ ucfirst(Auth::user()->role) }}</span>
+                </div>
+            </div>
+
+            <div x-show="openMenu" x-transition
+                class="absolute bottom-16 w-32 left-3 right-3 bg-white shadow-lg rounded-lg p-2 z-50 border border-gray-200"
+                @click.away="openMenu = false">
+                <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                    Profile
+                </x-dropdown-link>
+
+                <x-dropdown-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
+                    Settings
+                </x-dropdown-link>
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-sidebar-link href="{{ route('logout') }}"
+                    <x-dropdown-link href="{{ route('logout') }}"
                         onclick="event.preventDefault(); this.closest('form').submit();">
-                        <span class="inline-flex items-center">
-                            <i class="bi bi-box-arrow-right mr-2"></i>
-                            <span x-show="sidebarOpen">Sign Out</span>
-                        </span>
-                    </x-sidebar-link>
+                        Sign Out
+                    </x-dropdown-link>
                 </form>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 
     <div :class="sidebarOpen ? 'ml-0' : 'ml-0'">
