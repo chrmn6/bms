@@ -9,8 +9,10 @@ use App\Models\Announcement;
 use App\Models\Blotter;
 use App\Models\Clearance;
 use App\Models\Activity;
+use App\Models\Household;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -80,23 +82,76 @@ class UserController extends Controller
     /**
      * Display the dashboard with stats.
      */
+
     public function dashboard()
     {
-        $stats = [
-            'users_count'             => User::count(),
-            'staff_count'             => User::where('role', 'staff')->count(),
+        $stats = $this->getStats();
+        $populationData = $this->getPopulationData();
+        $blotter = $this->getBlotter();
+
+        return view('dashboard', [
+            'stats' => $stats,
+            'male' => $populationData['male'],
+            'female' => $populationData['female'],
+            'locations' => $blotter['locations'],
+            'series' => $blotter['series'],
+        ]);
+    }
+
+    // === Stats Section ===
+    protected function getStats()
+    {
+        return [
+            'households_count'        => Household::count(),
             'residents_count'         => Resident::count(),
-            'announcements_count'     => Announcement::count(),
-            'activities_count'        => Activity::count(),
             'clearances_pending'      => Clearance::where('status', 'pending')->count(),
             'blotter_reports_pending' => Blotter::where('status', 'pending')->count(),
         ];
-
-        $recent_announcements = Announcement::with('user')->latest()->take(5)->get();
-        $recent_activities = Activity::latest()->take(5)->get();
-
-        return view('admin.dashboard', compact('stats', 'recent_announcements', 'recent_activities'));
     }
+
+    // === Population Section ===
+    protected function getPopulationData()
+    {
+        $residents = DB::table('residents')
+            ->join('resident_profiles', 'residents.resident_id', '=', 'resident_profiles.resident_id')
+            ->select('resident_profiles.gender')
+            ->get();
+
+        $male = $residents->where('gender', 'Male')->count();
+        $female = $residents->where('gender', 'Female')->count();
+
+        return compact('male', 'female');
+    }
+
+    // === Blotter Section ===
+    public function getBlotter()
+    {
+        $blotters = DB::table('blotters')
+        ->select('location', 'incident_type', DB::raw('COUNT(*) as total'))
+        ->groupBy('location', 'incident_type')
+        ->get();
+
+        $locations = $blotters->pluck('location')->unique()->values();
+        $types = $blotters->pluck('incident_type')->unique()->values();
+
+        $series = [];
+        foreach ($types as $type) {
+            $data = [];
+            foreach ($locations as $location) {
+                $record = $blotters->where('location', $location)
+                ->where('incident_type', $type)
+                ->first();
+                $data[] = $record ? $record->total : 0;
+            }
+            $series[] = [
+                'name' => $type,
+                'data' => $data
+            ];
+        }
+
+        return compact('locations', 'series');
+    }
+
 
     /**
      * Display the specified user details (used for HTMX modal).

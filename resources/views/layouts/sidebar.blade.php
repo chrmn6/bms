@@ -7,15 +7,9 @@
                 {{-- Logo image --}}
                 @php $user = Auth::user(); @endphp
                 @if ($user)
-                    @if ($user->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}">
-                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    @else ($user->role === 'staff')
-                        <a href="{{ route('staff.dashboard') }}">
-                            <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    @endif
+                    <a href="{{ route('dashboard') }}">
+                        <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
                 @else
                     <a href="{{ route('login') }}">
                         <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
@@ -38,8 +32,7 @@
         <ul class="nav flex-column text-sm">
             {{-- Dashboard --}}
             <li>
-                <x-sidebar-link :href="route($user->role === 'admin' ? 'admin.dashboard' : 'staff.dashboard')"
-                    :active="request()->routeIs($user->role === 'admin' ? 'admin.dashboard' : 'staff.dashboard')">
+                <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     <span class="inline-flex items-center">
                         <svg class="w-[20px] h-[20px] mr-2 text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

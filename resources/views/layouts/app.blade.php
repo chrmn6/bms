@@ -21,7 +21,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="flex h-screen bg-gray-100 dark:bg-gray-800 overflow-hidden">
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-800 overflow-hidden">
 
         {{-- Sidebar --}}
         @include('layouts.sidebar')
@@ -51,7 +51,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @stack('scripts')
 </body>
 

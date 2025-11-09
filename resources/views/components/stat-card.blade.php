@@ -1,18 +1,16 @@
-<div class="bg-neutral-50 shadow rounded-md relative cursor-pointer transition-all duration-200 ease-in-out"
-    style="width: 185px; height: 80px; padding: 10px;">
+<div class="{{ $cardBg }} rounded-md border-0 cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md"
+    style="width: 180px; height: 85px; padding: 15px;">
 
-    <div class="flex items-center gap-4">
-        <!-- Icon on the left -->
-        <div class="w-9 h-9 flex items-center justify-center rounded-md {{ $bgColor }}">
+    <div class="flex items-start gap-3 h-full">
+        <div class="w-9 h-9 flex items-center justify-center rounded-xl {{ $iconColor }}">
             {{ $slot }}
         </div>
 
-        <!-- Label and Count stacked vertically on the right -->
-        <div class="flex flex-col">
-            <span class="text-sm font-bold text-black">
+        <div class="flex flex-col justify-center">
+            <span class="text-base font-bold {{ $textColor }} mb-1">
                 {{ $label }}
             </span>
-            <div class="text-xl text-center font-semibold text-slate-500 stat-number" data-count="{{ $count }}">
+            <div class="text-xl text-center font-bold {{ $textColor }} stat-number" data-count="{{ $count }}">
                 0
             </div>
         </div>

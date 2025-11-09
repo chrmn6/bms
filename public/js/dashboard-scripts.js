@@ -96,3 +96,68 @@ style.textContent = `
     }
     `;
 document.head.appendChild(style);
+
+//POPULATION
+document.addEventListener('DOMContentLoaded', function() {
+    var chartEl = document.getElementById('population-donut-chart');
+    var male = JSON.parse(chartEl.dataset.male);
+    var female = JSON.parse(chartEl.dataset.female);
+
+    const options = {
+        series: [male, female],
+        chart: {
+            type: 'donut',
+            height: 350
+        },
+        labels: ['Male', 'Female'],
+        legend: { position: 'right' },
+        responsive: [{
+            breakpoint: 480,
+            options: { legend: { position: 'bottom' } }
+        }],
+        dataLabels: { enabled: true }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#population-donut-chart"), options);
+    chart.render();
+});
+
+// BLOTTER INCIDENTS PER LOCATION
+document.addEventListener('DOMContentLoaded', function () {
+    var chartEl = document.getElementById('blotter-report-stacked-chart');
+    var locations = JSON.parse(chartEl.dataset.locations);
+    var series = JSON.parse(chartEl.dataset.series);
+
+    var options = {
+        series: series,
+        chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true,
+            toolbar: {
+                show: true
+            }
+        },
+        xaxis: {
+            categories: locations,
+            title: {
+                text: 'Locations'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Total Incidents'
+            }
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'left'
+        },
+        fill: {
+            opacity: 1
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#blotter-report-stacked-chart"), options);
+    chart.render();
+});
