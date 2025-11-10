@@ -38,7 +38,7 @@
             </nav>
 
             <!-- Page Content -->
-            <main class="overflow-y-auto">
+            <main class="flex-1 overflow-auto">
                 {{ $slot }}
             </main>
         </div>

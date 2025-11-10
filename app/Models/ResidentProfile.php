@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ResidentProfile extends Model
 {
+    use HasFactory;
     protected $table = 'resident_profiles';
     protected $primaryKey = 'resident_profile_id';
 

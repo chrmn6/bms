@@ -25,21 +25,6 @@ function animateNumbers() {
     });
 }
 
-// Animate action cards
-function animateActionCards() {
-    const actionCards = document.querySelectorAll('.action-card');
-    actionCards.forEach(function (card, index) {
-        card.style.opacity = '0';
-        card.style.transform = 'translateX(-30px)';
-
-        setTimeout(function () {
-            card.style.transition = 'all 0.6s ease-out';
-            card.style.opacity = '1';
-            card.style.transform = 'translateX(0)';
-        }, 1000 + (index * 150));
-    });
-}
-
 // Add parallax effect to trend icons (DISABLED - too much movement)
 function addParallaxEffect() {
     // Parallax effect disabled per user preference
@@ -47,7 +32,6 @@ function addParallaxEffect() {
 }
 
 setTimeout(animateNumbers, 800);
-addStatCardInteractions();
 addParallaxEffect();
 
 // Add click ripple effect

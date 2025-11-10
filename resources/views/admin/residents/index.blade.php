@@ -2,24 +2,17 @@
 
 
 <x-app-layout>
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Residents List
-            </h2>
-        </div>
-    </x-slot>
-
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Residents</h5>
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div
-                    class="flex items-center justify-between flex-column flex-wrap md:flex-row gap-4 py-4 pb-4 bg-white p-3 dark:bg-gray-900">
-                    <!--SEARCH BAR-->
+            <div class="items-center justify-between gap-4 pb-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg">
+                <!--SEARCH BAR-->
+                <div class="flex justify-end w-full p-3">
                     <h4>search bar</h4>
+                </div>
 
-                    <!-- Residents Table -->
+                <!-- Residents Table -->
+                <div class="overflow-y-auto overflow-x-auto h-64 border">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -77,30 +70,29 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
 
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-center">
-                        {{ $residents->links() }}
-                    </div>
+                <!-- Pagination -->
+                <div class="flex justify-center mt-3">
+                    {{ $residents->links() }}
+                </div>
+            </div>
 
-                    <!-- View Resident Modal -->
-                    <div class="modal fade" id="viewResidentModal" tabindex="-1"
-                        aria-labelledby="viewResidentModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content border-0 shadow-lg">
-                                <div class="modal-header !bg-[#6D0512] text-white">
-                                    <h5 class="modal-title" id="viewResidentModalLabel">
-                                        <i class="bi bi-person-circle me-2"></i> Resident Details
-                                    </h5>
-                                    <button type="button" class="btn-close btn-close-white"
-                                        data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body" id="viewResidentModalBody">
-                                    <div class="text-center py-5 text-muted">
-                                        <div class="spinner-border text-primary mb-3" role="status"></div>
-                                        <p>Loading resident details...</p>
-                                    </div>
-                                </div>
+            <!-- View Resident Modal -->
+            <div class="modal fade" id="viewResidentModal" tabindex="-1" aria-labelledby="viewResidentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="viewResidentModalLabel">
+                                <i class="bi bi-person-circle me-2"></i> Resident Details
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="viewResidentModalBody">
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary mb-3" role="status"></div>
+                                <p>Loading resident details...</p>
                             </div>
                         </div>
                     </div>

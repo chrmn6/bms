@@ -8,6 +8,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ClearanceController;
+use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Manage Staff Accounts
     Route::resource('staff', UserController::class);
+    Route::resource('admin/officials', OfficialController::class);
 });
 
 // STAFF + RESIDENT ROUTES

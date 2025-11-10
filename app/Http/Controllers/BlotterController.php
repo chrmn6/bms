@@ -16,9 +16,9 @@ class BlotterController extends Controller
     {
         $user = Auth::user();
         if ($user->role === 'resident') {
-            $blotters = Blotter::where('resident_id', $user->resident->resident_id)->latest()->paginate(5);
+            $blotters = Blotter::where('resident_id', $user->resident->resident_id)->latest()->paginate(perPage: 10);
         } else {
-            $blotters = Blotter::latest()->paginate(5);
+            $blotters = Blotter::latest()->paginate(10);
         }
 
         if ($request->header('HX-Request')) {
@@ -70,8 +70,8 @@ class BlotterController extends Controller
         if ($request->header('HX-Request')) {
             $user = Auth::user();
             $blotters = $user->role === 'resident'
-                ? Blotter::where('resident_id', $user->resident->resident_id)->paginate(3)
-                : Blotter::paginate(3);
+                ? Blotter::where('resident_id', $user->resident->resident_id)->paginate(10)
+                : Blotter::paginate(10);
 
             return response()->view('blotters.table', compact('blotters'))->header('HX-Trigger', json_encode([
                 'blotterCreated' => 'Blotter created successfully!'

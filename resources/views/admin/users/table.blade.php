@@ -16,9 +16,7 @@
             <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
                 <td class="px-3 py-2">
-                    <div class="flex items-center">
-                        {{ $user->display_id }}
-                    </div>
+                    {{ $user->display_id }}
                 </td>
                 <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
                     <img class="w-8 h-8 rounded-full" src="{{ asset('uploads/users/' . $user->image) }}"
@@ -29,7 +27,18 @@
                 </th>
                 <td class="px-3 py-2">{{ $user->email }}</td>
                 <td class="px-3 py-2">
-                    <span class="badge bg-success">{{ ucfirst($user->role) }}</span>
+                    @php
+                        $statusColors = match ($user->role) {
+                            'admin' => ['bg' => 'bg-green-100', 'text' => 'text-green-700'],
+                            'staff' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-700'],
+                            default => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700'],
+                        };
+                    @endphp
+
+                    <span
+                        class="px-1.5 py-1 rounded-md font-semibold text-xs {{ $statusColors['bg'] }} {{ $statusColors['text'] }}">
+                        {{ ucfirst($user->role) }}
+                    </span>
                 </td>
                 <td class="px-3 py-2">
                     @if ($isCurrentUser)

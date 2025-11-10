@@ -17,9 +17,9 @@ class ClearanceController extends Controller
     {
         $user = Auth::user();
         if ($user->role === 'resident') {
-            $clearances = Clearance::where('resident_id', $user->resident->resident_id)->latest()->paginate(5);
+            $clearances = Clearance::where('resident_id', $user->resident->resident_id)->latest()->paginate(10);
         } else {
-            $clearances = Clearance::latest()->paginate(5);
+            $clearances = Clearance::latest()->paginate(10);
         }
 
         if ($request->header('HX-Request')) {
@@ -63,8 +63,8 @@ class ClearanceController extends Controller
         if ($request->header('HX-Request')) {
             $user = Auth::user();
             $clearances = $user->role === 'resident'
-                ? Clearance::where('resident_id', $user->resident->resident_id)->paginate(3)
-                : Clearance::paginate(3);
+                ? Clearance::where('resident_id', $user->resident->resident_id)->paginate(10)
+                : Clearance::paginate(10);
 
             return response()->view('clearance.table', compact('clearances'))->header('HX-Trigger', json_encode([
                 'clearanceCreated' => 'Clearance created successfully!'
