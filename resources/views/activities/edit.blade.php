@@ -9,25 +9,25 @@
     @method('PUT')
 
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Title</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Title</x-input-label>
         <input type="text" name="title" value="{{ old('title', $activity->title) }}" class="form-control" required>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Description</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Description</x-input-label>
         <textarea name="description" class="form-control">{{ old('description', $activity->description) }}</textarea>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Date & Time</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Date & Time</x-input-label>
         <input type="datetime-local" name="date_time"
             value="{{ old('date_time', \Carbon\Carbon::parse($activity->date_time)->format('Y-m-d\TH:i')) }}"
             class="form-control" required>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Location</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Location</x-input-label>
         <input type="text" name="location" value="{{ old('location', $activity->location) }}" class="form-control">
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Status</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Status</x-input-label>
         <select name="status" class="form-control">
             <option value="scheduled" {{ old('status', $activity->status) === 'scheduled' ? 'selected' : '' }}>
                 Scheduled</option>

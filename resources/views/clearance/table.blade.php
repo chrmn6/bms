@@ -1,8 +1,8 @@
 <table id="clearanceTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('clearances.index') }}" hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
-    <thead class="text-base text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-base text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Clearance #</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Clearance No.</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Requested By</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Clearance Type</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Status</th>
@@ -22,16 +22,15 @@
                 <td class="px-2 py-2">
                     @php
                         $statusColors = match ($clearance->status) {
-                            'approved' => ['bg' => 'bg-green-100', 'text' => 'text-green-700'],
-                            'released' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700'],
-                            'rejected' => ['bg' => 'bg-red-100', 'text' => 'text-red-700'],
-                            'pending' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-700'],
-                            default => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700']
+                            'approved' => ['text' => 'text-green-500'],
+                            'released' => ['text' => 'text-blue-500'],
+                            'rejected' => ['text' => 'text-red-500'],
+                            'pending' => ['text' => 'text-yellow-500'],
+                            default => ['text' => 'text-gray-500']
                         };
                     @endphp
 
-                    <span
-                        class="px-1.5 py-1 rounded-md font-semibold text-xs {{ $statusColors['bg'] }} {{ $statusColors['text'] }}">
+                    <span class="px-1.5 py-1 rounded-md font-semibold text-sm {{ $statusColors['text'] }}">
                         {{ ucfirst($clearance->status) }}
                     </span>
                 </td>

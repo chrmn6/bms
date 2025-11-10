@@ -1,9 +1,9 @@
 <table id="officialsTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('admin.officials.index') }}" hx-trigger="refreshTable from:body" hx-target="this"
     hx-swap="innerHTML">
-    <thead class="text-center text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-sm text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <th scope="col" class="px-3 py-2">Officials ID</th>
+            <th scope="col" class="px-3 py-2">Official ID</th>
             <th scope="col" class="px-3 py-2">Full Name</th>
             <th scope="col" class="px-3 py-2">Position</th>
             <th scope="col" class="px-3 py-2">Term Start</th>
@@ -26,13 +26,12 @@
                 <td class="px-3 py-2">
                     @php
                         $statusColors = match ($official->status) {
-                            'Active' => ['bg' => 'bg-green-100', 'text' => 'text-green-700'],
-                            'Inactive' => ['bg' => 'bg-red-100', 'text' => 'text-red-700'],
+                            'Active' => ['text' => 'text-green-500'],
+                            'Inactive' => ['text' => 'text-red-500'],
                         };
                     @endphp
 
-                    <span
-                        class="px-1.5 py-1 rounded-md font-semibold text-xs {{ $statusColors['bg'] }} {{ $statusColors['text'] }}">
+                    <span class="px-1.5 py-1 font-semibold text-sm {{ $statusColors['text'] }}">
                         {{ ucfirst($official->status) }}
                     </span>
                 </td>

@@ -6,23 +6,23 @@
     }">
     @csrf
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Title</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Title</x-input-label>
         <input type="text" name="title" class="form-control" value="{{ old('title') }}" required>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Description</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Description</x-input-label>
         <textarea name="description" class="form-control">{{ old('description') }}</textarea>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Date & Time</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Date & Time</x-input-label>
         <input type="datetime-local" name="date_time" class="form-control" value="{{ old('date_time') }}" required>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Location</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Location</x-input-label>
         <input type="text" name="location" class="form-control" value="{{ old('location') }}">
     </div>
     <div class="mb-3">
-        <label class="block text-gray-900 dark:text-gray-300">Status</label>
+        <x-input-label class="block text-gray-900 dark:text-gray-300">Status</x-input-label>
         <select name="status" class="form-control">
             <option value="scheduled" {{ old('status') == 'scheduled' ? 'selected' : '' }}>Scheduled
             </option>

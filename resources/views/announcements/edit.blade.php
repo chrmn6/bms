@@ -1,16 +1,16 @@
 @can('update', $announcement)
     <form hx-put="{{ route('announcements.update', $announcement) }}" hx-target="#announcementModalBody" hx-swap="none"
         hx-on::after-request="
-                        if (event.detail.xhr.status === 200) {
-                            const modal = bootstrap.Modal.getInstance(document.getElementById('announcementModal'));
-                            if (modal) { modal.hide(); }
-                            htmx.trigger(document.body, 'refreshTable');
-                        }">
+                                if (event.detail.xhr.status === 200) {
+                                    const modal = bootstrap.Modal.getInstance(document.getElementById('announcementModal'));
+                                    if (modal) { modal.hide(); }
+                                    htmx.trigger(document.body, 'refreshTable');
+                                }">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
+            <x-input-label for="title" class="form-label">Title</x-input-label>
             <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $announcement->title) }}"
                 required>
         </div>

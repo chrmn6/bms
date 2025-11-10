@@ -2,19 +2,25 @@
 
 
 <x-app-layout>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Residents</h5>
-            <div class="items-center justify-between gap-4 pb-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg">
+            <div class="items-center justify-between gap-4 pb-4 bg-slate-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
                 <!--SEARCH BAR-->
-                <div class="flex justify-end w-full p-3">
-                    <h4>search bar</h4>
+                <div class="flex justify-end p-3">
+                    <x-input-label for="table-search" class="sr-only">Search</x-input-label>
+                    <div class="relative">
+                        <input type="text" id="table-search-users"
+                            class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-900 rounded-lg w-60 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search for users">
+                    </div>
                 </div>
 
                 <!-- Residents Table -->
                 <div class="overflow-y-auto overflow-x-auto h-64 border">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead
+                            class="text-sm text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-3 py-2">Resident ID</th>
                                 <th scope="col" class="px-3 py-2">Full Name</th>

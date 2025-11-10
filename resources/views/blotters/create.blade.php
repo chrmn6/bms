@@ -8,14 +8,14 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label class="block text-gray-700 dark:text-gray-300">Incident Type</label>
+            <x-input-label for="incident_type" :value="__('Incident Type')" />
             <input type="text" name="incident_type"
                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                 required>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label class="block text-gray-700 dark:text-gray-300">Date</label>
+            <x-input-label for="incident_date" :value="__('Incident Date')" />
             <input type="date" name="incident_date"
                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                 required>
@@ -23,27 +23,27 @@
     </div>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label class="block text-gray-700 dark:text-gray-300">Time</label>
+            <x-input-label for="incident_time" :value="__('Incident Time')" />
             <input type="time" name="incident_time"
                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                 required>
         </div>
 
         <div class="col-md-6 mb-3">
-            <label class="block text-gray-700 dark:text-gray-300">Location</label>
+            <x-input-label for="location" :value="__('Location')" />
             <input type="text" name="location"
                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                 required>
         </div>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-700 dark:text-gray-300">Description</label>
+        <x-input-label for="description" :value="__('Description')" />
         <textarea name="description"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
             rows="3" required></textarea>
     </div>
     <div class="mb-3">
-        <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
+        <x-input-label for="image" :value="__('Image')" />
         <input type="file" name="image" id="image"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
     </div>

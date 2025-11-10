@@ -9,7 +9,7 @@
         </div>
     </x-slot>
 
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Barangay Staff</h5>
             <div class="items-center justify-between gap-4 pb-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg">

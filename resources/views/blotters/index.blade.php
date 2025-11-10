@@ -11,59 +11,49 @@
 @endphp
 
 <x-dynamic-component :component="$layout">
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Blotter Report
-            </h2>
-        </div>
-    </x-slot>
-
-    <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div
+        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && Auth::user()->role === 'admin' || Auth::user()->role === 'staff') pt-16 @endif">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Blotter Report</h5>
-            <div class="items-center justify-between gap-4 pb-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg">
+            <div class="items-center justify-between gap-4 pb-4 bg-neutral-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
                 <!--SEARCH BAR-->
-                <div class="flex justify-between w-full p-3">
-                    <div class="flex gap-2 flex-wrap">
-                        <button
-                            class="px-1.5 py-1 text-xs rounded-md border-2 !border-gray-200 bg-gray-100 text-gray-700 font-semibold shadow-inner hover:bg-gray-200">
+                <div class="flex justify-between items-center p-3 flex-wrap sm:flex-nowrap">
+                    <!-- Texts on the left -->
+                    <div class="flex flex-wrap">
+                        <p class="px-1 py-1 text-sm text-gray-500 font-semibold">
                             All ({{ $blotters->count() }})
-                        </button>
-                        <button
-                            class="px-1.5 py-1 text-xs rounded-md border-2 !border-yellow-200 !bg-yellow-100 !text-yellow-700 font-semibold shadow-inner hover:bg-yellow-200">
+                        </p>
+                        <p class="px-1 py-1 text-sm !text-yellow-500 font-semibold">
                             Pending ({{ $pending }})
-                        </button>
-                        <button
-                            class="px-1.5 py-1 text-xs rounded-md border-2 !border-green-200 bg-green-100 text-green-700 font-semibold shadow-inner hover:bg-green-200">
-                            Resolved ({{ $resolved }})
-                        </button>
-                        <button
-                            class="px-1.5 py-1 text-xs rounded-md border-2 !border-blue-200 !bg-blue-100 !text-blue-700 font-semibold shadow-inner hover:bg-blue-200">
-                            Investigating ({{ $investigating }})
-                        </button>
-                        <button
-                            class="px-1.5 py-1 text-xs rounded-md border-2 !border-red-200 bg-red-100 text-red-700 font-semibold shadow-inner hover:bg-red-200">
+                        </p>
+                        <p class="px-1 py-1 text-sm text-green-500 font-semibold">
+                            Settled ({{ $resolved }})
+                        </p>
+                        <p class="px-1 py-1 text-sm !text-blue-500 font-semibold">
+                            In-progress ({{ $investigating }})
+                        </p>
+                        <p class="px-1 py-1 text-sm text-red-500 font-semibold">
                             Dismissed ({{ $dismissed }})
-                        </button>
+                        </p>
                     </div>
 
+                    <!-- Button on the right -->
                     @can('create', App\Models\Blotter::class)
                         <x-primary-button type="button" hx-get="{{ route('blotters.create') }}"
                             hx-target="#blotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                             data-bs-target="#addBlotterModal"
-                            class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center">
+                            class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center flex-shrink-0">
                             <svg class="w-[15px] h-[15px] me-1 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 12h14m-7 7V5" />
-                            </svg>File
+                            </svg>Request
                         </x-primary-button>
                     @endcan
                 </div>
 
                 <!--BLOTTER LIST-->
-                <div class="overflow-y-auto h-64 border">
+                <div class="overflow-y-auto overflow-x-auto h-64 border">
                     @include('blotters.table', ['blotters' => $blotters])
                 </div>
 

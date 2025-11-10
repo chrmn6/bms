@@ -1,8 +1,8 @@
 <table id="blotterTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('blotters.index') }}" hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
-    <thead class="text-base text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-base text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Case #</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Case No.</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Complainant</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Date Reported</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Status</th>
@@ -14,29 +14,28 @@
         @forelse($blotters as $blotter)
             <tr data-status="{{ $blotter->status }}"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
-                <td class="px-2 py-2 text-center">
+                <td class="px-4 py-2 text-center">
                     {{ $blotter->display_id }}
                 </td>
-                <td class="px-1 py-2">{{ $blotter->resident->full_name }}</td>
-                <td class="px-2 py-2">{{ $blotter->incident_date }}</td>
-                <td class="px-2 py-2">
+                <td class="px-4 py-2">{{ $blotter->resident->full_name }}</td>
+                <td class="px-4 py-2">{{ $blotter->incident_date }}</td>
+                <td class="px-4 py-2">
                     @php
                         $statusColors = match ($blotter->status) {
-                            'resolved' => ['bg' => 'bg-green-100', 'text' => 'text-green-700'],
-                            'investigating' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700'],
-                            'dismissed' => ['bg' => 'bg-red-100', 'text' => 'text-red-700'],
-                            'pending' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-700'],
-                            default => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700']
+                            'resolved' => ['text' => 'text-green-500'],
+                            'investigating' => ['text' => 'text-blue-500'],
+                            'dismissed' => ['text' => 'text-red-500'],
+                            'pending' => ['text' => 'text-yellow-500'],
+                            default => ['text' => 'text-gray-500']
                         };
                     @endphp
 
-                    <span
-                        class="px-1.5 py-1 rounded-md font-semibold text-xs {{ $statusColors['bg'] }} {{ $statusColors['text'] }}">
+                    <span class="px-1.5 py-1 rounded-md font-semibold text-sm {{ $statusColors['text'] }}">
                         {{ ucfirst($blotter->status) }}
                     </span>
                 </td>
-                <td class="px-2 py-2">{{ $blotter->user?->full_name ?? 'N/A' }}</td>
-                <td class="px-2 py-2">
+                <td class="px-4 py-2">{{ $blotter->user?->full_name ?? 'N/A' }}</td>
+                <td class="px-4 py-2">
                     <x-primary-button hx-get="{{ route('blotters.show', $blotter->blotter_id) }}"
                         hx-target="#viewBlotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                         data-bs-target="#viewBlotterModal"

@@ -9,7 +9,7 @@
     @method('PUT')
 
     <div>
-        <label for="status">Status</label>
+        <x-input-label for="status">Status</x-input-label>
         <select name="status" id="status" class="w-full border rounded p-2">
             <option value="pending" {{ old('status', $blotter->status) === 'pending' ? 'selected' : '' }}>
                 Pending</option>

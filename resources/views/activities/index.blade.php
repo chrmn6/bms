@@ -10,15 +10,8 @@
 @endphp
 
 <x-dynamic-component :component="$layout">
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Activities
-            </h2>
-        </div>
-    </x-slot>
-
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div
+        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) pt-16 @endif">
         <div class="py-3">
             <div id='calendar' class="bg-[#FAFAFA] rounded-lg shadow-md p-4 mx-auto"></div>
         </div>
@@ -94,7 +87,7 @@
                 headerToolbar: {
                     start: 'today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                    right: 'dayGridMonth,listWeek'
                 },
                 contentHeight: 350,
                 validRange: function (nowDate) {

@@ -8,12 +8,12 @@
     @csrf
 
     <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
+        <x-input-label for="title" class="form-label">Title</x-input-label>
         <input type="text" name="title" id="title" class="form-control" required>
     </div>
 
     <div class="mb-3">
-        <label for="content" class="form-label">Content</label>
+        <x-input-label for="content" class="form-label">Content</x-input-label>
         <textarea name="content" id="content" rows="4" class="form-control"></textarea>
     </div>
 

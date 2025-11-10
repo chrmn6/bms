@@ -9,7 +9,7 @@
     @method('PUT')
 
     <div>
-        <label for="status">Status</label>
+        <x-input-label for="status">Status</x-input-label>
         <select name="status" id="status"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md p-2">
             <option value="pending" {{ old('status', $clearance->status) === 'pending' ? 'selected' : '' }}>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="issued_date" class="form-label">Issued Date</label>
+        <x-input-label for="issued_date" class="form-label">Issued Date</x-input-label>
         <input type="date" name="issued_date" id="issued_date"
             value="{{ old('issued_date', optional($clearance->issued_date)->format('Y-m-d')) }}"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md p-2"
@@ -40,7 +40,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="valid_until" class="form-label">Valid Until</label>
+        <x-input-label for="valid_until" class="form-label">Valid Until</x-input-label>
         <input type="date" name="valid_until" id="valid_until"
             value="{{ old('valid_until', optional($clearance->valid_until)->format('Y-m-d')) }}"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md p-2"
@@ -52,7 +52,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="remarks">Remarks</label>
+        <x-input-label for="remarks">Remarks</x-input-label>
         <textarea name="remarks" id="remarks" rows="3" required
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md p-2"
             placeholder="Enter any notes here.">{{ old('remarks', $clearance->remarks) }}</textarea>

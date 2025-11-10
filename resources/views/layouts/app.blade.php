@@ -21,22 +21,13 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-800 overflow-hidden">
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-800">
 
         {{-- Sidebar --}}
         @include('layouts.sidebar')
 
         {{-- Main content --}}
-        <div class="flex-1 flex flex-col min-h-0">
-
-            {{-- Navbar --}}
-            <nav class="bg-neutral-50 dark:bg-gray-800 shadow-md">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16 items-center">
-                    </div>
-                </div>
-            </nav>
-
+        <div class="flex-1 sm:ml-52">
             <!-- Page Content -->
             <main class="flex-1 overflow-auto">
                 {{ $slot }}

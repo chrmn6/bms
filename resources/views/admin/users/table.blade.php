@@ -1,6 +1,6 @@
 <table id="usersTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('admin.staff.index') }}" hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
-    <thead class="text-center text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-sm text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-3 py-2">Staff ID</th>
             <th scope="col" class="px-3 py-2">Full Name</th>
@@ -29,22 +29,21 @@
                 <td class="px-3 py-2">
                     @php
                         $statusColors = match ($user->role) {
-                            'admin' => ['bg' => 'bg-green-100', 'text' => 'text-green-700'],
-                            'staff' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-700'],
-                            default => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700'],
+                            'admin' => ['text' => 'text-green-500'],
+                            'staff' => ['text' => 'text-yellow-500'],
+                            default => ['text' => 'text-gray-500'],
                         };
                     @endphp
 
-                    <span
-                        class="px-1.5 py-1 rounded-md font-semibold text-xs {{ $statusColors['bg'] }} {{ $statusColors['text'] }}">
+                    <span class="px-1.5 py-1 rounded-md font-semibold text-sm {{ $statusColors['text'] }}">
                         {{ ucfirst($user->role) }}
                     </span>
                 </td>
                 <td class="px-3 py-2">
                     @if ($isCurrentUser)
-                        <span class="badge bg-info">Current User</span>
+                        <span class="text-blue-500 text-sm font-semibold">Current User</span>
                     @else
-                        <span class="badge bg-success">Active</span>
+                        <span class="text-green-500 text-sm font-semibold">Active</span>
                     @endif
                 </td>
                 <td class="px-3 py-2">

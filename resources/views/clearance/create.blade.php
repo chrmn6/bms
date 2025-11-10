@@ -6,8 +6,7 @@
     }">
     @csrf
     <div class="mb-4">
-        <label for="clearance_type" class="block text-gray-700 dark:text-gray-300 font-medium">Clearance
-            Type</label>
+        <x-input-label for="clearance_type" :value="__('Clearance Type')" />
         <select id="clearance_type" name="clearance_type" required
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
             <option value="">Select type</option>
@@ -18,7 +17,7 @@
     </div>
 
     <div class="mb-4">
-        <label for="purpose" class="block text-gray-700 dark:text-gray-300 font-medium">Purpose</label>
+        <x-input-label for="purpose" :value="__('Purpose')" />
         <textarea id="purpose" name="purpose" rows="3" required
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
             placeholder="Explain why you need this clearance"></textarea>

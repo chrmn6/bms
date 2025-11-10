@@ -10,15 +10,8 @@
 @endphp
 
 <x-dynamic-component :component="$layout">
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Announcements
-            </h2>
-        </div>
-    </x-slot>
-
-    <div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-8">
+    <div
+        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) pt-16 @endif">
         {{-- Add Announcement Button --}}
         <div class="py-3">
             <div class="flex items-center justify-between">
@@ -40,34 +33,34 @@
                     </x-primary-button>
                 @endcan
             </div>
-        </div>
 
-        {{-- Announcements List --}}
-        <div id="announcementsList" hx-get="{{ route('announcements.index') }}" hx-trigger="refreshTable from:body"
-            hx-target="this" hx-swap="innerHTML">
-            @include('announcements.list', ['announcements' => $announcements])
-        </div>
+            {{-- Announcements List --}}
+            <div id="announcementsList" hx-get="{{ route('announcements.index') }}" hx-trigger="refreshTable from:body"
+                hx-target="this" hx-swap="innerHTML" class="pt-2">
+                @include('announcements.list', ['announcements' => $announcements])
+            </div>
 
-        {{-- Pagination --}}
-        <div class="mt-3">
-            {{ $announcements->links() }}
-        </div>
+            {{-- Pagination --}}
+            <div class="mt-3">
+                {{ $announcements->links() }}
+            </div>
 
-        {{-- Announcement Modal --}}
-        <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-m">
-                <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                    <div class="modal-header !bg-[#6D0512] text-white">
-                        <h5 class="modal-title" id="announcementModalLabel">
-                            <i class="bi bi-megaphone me-2"></i> Announcement
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body" id="announcementModalBody">
-                        <div class="text-center py-5 text-muted">
-                            <div class="spinner-border text-primary mb-3" role="status"></div>
-                            <p>Loading...</p>
+            {{-- Announcement Modal --}}
+            <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-m">
+                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
+                        <div class="modal-header !bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="announcementModalLabel">
+                                <i class="bi bi-megaphone me-2"></i> Announcement
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="announcementModalBody">
+                            <div class="text-center py-5 text-muted">
+                                <div class="spinner-border text-primary mb-3" role="status"></div>
+                                <p>Loading...</p>
+                            </div>
                         </div>
                     </div>
                 </div>

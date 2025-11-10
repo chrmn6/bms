@@ -1,36 +1,82 @@
-<div x-data="{ sidebarOpen: true }" class="flex">
-    <div class="bg-neutral-50 text-black border-r shadow-md p-3 flex-shrink-0" style="height: 100vh; top: 0; left: 0;">
-        {{-- Header with Logo --}}
-        <div class="flex items-center justify-between px-2">
-            <div class="flex-shrink-0 transition-all duration-300"
-                :class="sidebarOpen ? 'w-auto opacity-100' : 'w-0 opacity-0 overflow-hidden'">
-                {{-- Logo image --}}
-                @php $user = Auth::user(); @endphp
-                @if ($user)
-                    <a href="{{ route('dashboard') }}">
-                        <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                @else
-                    <a href="{{ route('login') }}">
-                        <x-dashboard-logo class="block h-7 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                @endif
+<!--NAVBAR-->
+<nav class="fixed top-0 z-50 w-full bg-neutral-50 border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <div class="px-3 py-2 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
+                    type="button"
+                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                        </path>
+                    </svg>
+                </button>
+                <!-- LOGO -->
+                <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24 !no-underline" style="color: #6D0512;">
+                    <x-dashboard-logo class="h-8 me-3" alt="BMS Logo" />
+                    <span
+                        class="self-center text-xl font-semibold sm:text-2xl !no-underline whitespace-nowrap dark:text-white">Barangay
+                        Matina Gravahan</span>
+                </a>
             </div>
-            {{-- Toggle button --}}
-            <button @click="sidebarOpen = !sidebarOpen" class="text-black border-0 bg-transparent"
-                aria-label="Toggle sidebar">
-                <svg class="w-[24px] h-[24px] text-gray-800 dark:text-white" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                        d="M7.99994 10 6 11.9999l1.99994 2M11 5v14m-7 0h16c.5523 0 1-.4477 1-1V6c0-.55228-.4477-1-1-1H4c-.55228 0-1 .44772-1 1v12c0 .5523.44772 1 1 1Z" />
-                </svg>
-            </button>
+            <!--PROFILE ADMIN AND STAFF--->
+            <div class="flex items-center">
+                <div class="flex items-center ms-3">
+                    <div>
+                        <button type="button"
+                            class="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA]"
+                            aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <span class="sr-only">Open user menu</span>
+                            <img src="{{ asset('uploads/users/' . Auth::user()->image) }}"
+                                alt="{{ Auth::user()->full_name }}" class="w-8 h-8 rounded-full">
+                            <div class="flex flex-col leading-tight">
+                                <span class="font-semibold text-sm text-gray-900">{{ Auth::user()->full_name }}</span>
+                                <span class="text-sm text-gray-500">{{ ucfirst(Auth::user()->role) }}</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="hidden text-base list-none" id="dropdown-user">
+                        <ul role="none"
+                            class="w-35 left-3 right-3 bg-white shadow-lg rounded-lg p-2 z-50 border border-gray-200">
+                            <li>
+                                <x-dropdown-link :href="route('profile.edit')"
+                                    :active="request()->routeIs('profile.edit')">
+                                    Profile
+                                </x-dropdown-link>
+                            </li>
+                            <li>
+                                <x-dropdown-link :href="route('settings.edit')"
+                                    :active="request()->routeIs('settings.*')">
+                                    Settings
+                                </x-dropdown-link>
+                            </li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                        Sign Out
+                                    </x-dropdown-link>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+</nav>
 
-        {{-- Sidebar Links --}}
-        @php $user = Auth::user(); @endphp
-        <ul class="nav flex-column text-sm">
-            {{-- Dashboard --}}
+<aside id="logo-sidebar"
+    class="fixed top-0 left-0 z-40 w-52 h-screen pt-20 transition-transform -translate-x-full bg-neutral-50 border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    aria-label="Sidebar">
+    <div class="h-full overflow-y-auto bg-neutral-50 dark:bg-gray-800">
+        <ul class="space-y-1 font-medium">
+            @php $user = Auth::user(); @endphp
+            <!--DASHBOARD-->
             <li>
                 <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     <span class="inline-flex items-center">
@@ -44,7 +90,7 @@
                 </x-sidebar-link>
             </li>
 
-            {{-- Manage Users (Admin only) --}}
+            <!--Manage Users (Admin only)-->
             @if($user->role === 'admin')
                 <li>
                     <x-sidebar-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
@@ -105,6 +151,7 @@
                     </span>
                 </x-sidebar-link>
             </li>
+
             <li>
                 <x-sidebar-link :href="route('activities.index')" :active="request()->routeIs('activities.index')">
                     <span class="inline-flex items-center">
@@ -117,6 +164,7 @@
                     </span>
                 </x-sidebar-link>
             </li>
+
             <li>
                 <x-sidebar-link :href="route('clearances.index')" :active="request()->routeIs('clearances.*')">
                     <span class="inline-flex items-center">
@@ -129,6 +177,7 @@
                     </span>
                 </x-sidebar-link>
             </li>
+
             <li>
                 <x-sidebar-link :href="route('blotters.index')" :active="request()->routeIs('blotters.*')">
                     <span class="inline-flex items-center">
@@ -142,49 +191,5 @@
                 </x-sidebar-link>
             </li>
         </ul>
-
-        {{-- Profile Image --}}
-        <div class="relative border-t border-gray-300 mt-auto pt-3" x-data="{ openMenu: false }">
-            <div x-show="sidebarOpen" x-transition
-                class="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA]"
-                @click="openMenu = !openMenu">
-                {{-- Profile Image --}}
-                <div class="w-7 h-7 flex-shrink-0">
-                    <img src="{{ asset('uploads/users/' . $user->image) }}" alt="{{ $user->full_name }}"
-                        class="w-full h-full rounded-full object-cover ring-1 ring-gray-300">
-                </div>
-                <div class="flex flex-col leading-tight">
-                    <span class="font-semibold text-sm text-gray-900">{{ Auth::user()->full_name }}</span>
-                    <span class="text-sm text-gray-500">{{ ucfirst(Auth::user()->role) }}</span>
-                </div>
-            </div>
-
-            <div x-show="openMenu" x-transition:enter="transition ease-out duration-100"
-                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95"
-                class="absolute bottom-20 w-32 left-3 right-3 bg-white shadow-lg rounded-lg p-2 z-50 border border-gray-200"
-                @click.away="openMenu = false" style="display: none;">
-                <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                    Profile
-                </x-dropdown-link>
-
-                <x-dropdown-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
-                    Settings
-                </x-dropdown-link>
-
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <x-dropdown-link href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        Sign Out
-                    </x-dropdown-link>
-                </form>
-            </div>
-        </div>
     </div>
-
-    <div :class="sidebarOpen ? 'ml-0' : 'ml-0'">
-        @yield('content')
-    </div>
-</div>
+</aside>

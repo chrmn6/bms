@@ -1,11 +1,10 @@
 @section('title') {{ 'Manage Users' }} @endsection
 
 <x-app-layout>
-
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Barangay Officials</h5>
-            <div class="items-center justify-between gap-4 pb-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg">
+            <div class="items-center justify-between gap-4 pb-4 bg-slate-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
                 <!--SEARCH BAR-->
                 <div class="flex justify-end w-full p-3">
                     <x-primary-button type="button" hx-get="{{ route('admin.officials.create') }}"
