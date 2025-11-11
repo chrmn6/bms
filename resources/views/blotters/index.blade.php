@@ -43,11 +43,7 @@
                             hx-target="#blotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                             data-bs-target="#addBlotterModal"
                             class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center flex-shrink-0">
-                            <svg class="w-[15px] h-[15px] me-1 text-white dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 12h14m-7 7V5" />
-                            </svg>Request
+                            File Report
                         </x-primary-button>
                     @endcan
                 </div>
@@ -156,10 +152,10 @@
         document.body.addEventListener('blotterCreated', function (event) {
             Swal.fire({
                 icon: 'success',
-                title: 'Success!',
-                text: event.detail.value,
-                showConfirmButton: false,
-                timer: 2000
+                title: 'File report submitted!',
+                html: event.detail.value,
+                timer: 3000,
+                showConfirmButton: false
             });
         });
 
@@ -169,7 +165,7 @@
                 title: 'Success!',
                 text: event.detail.value,
                 showConfirmButton: false,
-                timer: 2000
+                timer: 3000
             });
         });
 

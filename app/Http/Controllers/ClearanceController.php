@@ -67,7 +67,7 @@ class ClearanceController extends Controller
                 : Clearance::paginate(10);
 
             return response()->view('clearance.table', compact('clearances'))->header('HX-Trigger', json_encode([
-                'clearanceCreated' => 'Clearance created successfully!'
+                'clearanceCreated' => 'Please wait for the admin to process your request.'
             ]));
         }
 
@@ -119,7 +119,7 @@ class ClearanceController extends Controller
             return response()->noContent()->header('HX-Trigger', json_encode([
                 'refreshTable' => true,
                 'closeModal' => true, 
-                'clearanceUpdated' => 'Clearance updated successfully!'
+                'clearanceUpdated' => 'Notify the resident regarding the status update.'
             ]));
         }
 

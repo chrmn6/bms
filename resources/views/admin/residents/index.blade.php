@@ -10,7 +10,7 @@
                 <div class="flex justify-end p-3">
                     <x-input-label for="table-search" class="sr-only">Search</x-input-label>
                     <div class="relative">
-                        <input type="text" id="table-search-users"
+                        <input type="text" id="table-search-users" name="search"
                             class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-900 rounded-lg w-60 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Search for users">
                     </div>

@@ -13,6 +13,7 @@ use App\Models\Household;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\Ul;
 
 class UserController extends Controller
 {
@@ -159,5 +160,38 @@ class UserController extends Controller
     public function show(User $staff)
     {
         return view('admin.users.show', compact('staff'));
+    }
+
+    public function edit(User $staff, Request $request)
+    {
+        if ($request->header('HX-Request')) {
+            return view('admin.users.edit', compact('staff'));
+        }
+
+        return redirect()->route('admin.staff.index');
+    }
+
+    public function update(Request $request, User $staff)
+    {
+        $validated = $request->validate([
+            'phone_number' => 'nullable|string|max:20',
+            'status' => 'required|in:Active,Inactive',
+        ]);
+
+        
+        $staff->update([
+            'phone_number' => $validated['phone_number'] ?? $staff->phone_number,
+            'status' => $validated['status'],
+        ]);
+
+        if ($request->header('HX-Request')) {
+            $users = User::whereIn('role', ['admin', 'staff'])->latest()->paginate(5);
+            return response()->view('admin.users.table', compact('users'))->header('HX-Trigger', json_encode([
+                'staffUpdated' => 'Staff account updated successfully!',
+                'refreshTable' => true,
+            ]));
+        }
+
+        return redirect()->route('admin.staff.index')->with('success', 'Staff updated successfully!');
     }
 }

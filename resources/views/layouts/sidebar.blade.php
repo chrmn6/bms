@@ -18,7 +18,7 @@
                 <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24 !no-underline" style="color: #6D0512;">
                     <x-dashboard-logo class="h-8 me-3" alt="BMS Logo" />
                     <span
-                        class="self-center text-xl font-semibold sm:text-2xl !no-underline whitespace-nowrap dark:text-white">Barangay
+                        class="self-center text-lg font-semibold sm:text-lg !no-underline whitespace-nowrap dark:text-white">Barangay
                         Matina Gravahan</span>
                 </a>
             </div>
@@ -27,7 +27,7 @@
                 <div class="flex items-center ms-3">
                     <div>
                         <button type="button"
-                            class="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA]"
+                            class="flex items-center gap-2 px-2 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA]"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
                             <img src="{{ asset('uploads/users/' . Auth::user()->image) }}"
@@ -40,7 +40,7 @@
                     </div>
                     <div class="hidden text-base list-none" id="dropdown-user">
                         <ul role="none"
-                            class="w-35 left-3 right-3 bg-white shadow-lg rounded-lg p-2 z-50 border border-gray-200">
+                            class="w-35 left-3 right-3 bg-neutral-50 shadow-lg rounded-lg p-2 z-50 border border-gray-200">
                             <li>
                                 <x-dropdown-link :href="route('profile.edit')"
                                     :active="request()->routeIs('profile.edit')">

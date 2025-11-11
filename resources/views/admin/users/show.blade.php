@@ -36,7 +36,15 @@
             <div class="d-flex mb-2">
                 <div class="fw-semibold text-secondary me-2">Status:</div>
                 <div>
-                    <span class="badge bg-info">{{ $staff->status ?? 'Active' }}</span>
+                    @if ($staff->status === 'Active')
+                        <span class="text-green-500 text-sm font-semibold">
+                            Active
+                        </span>
+                    @else
+                        <span class="text-red-500 text-sm font-semibold">
+                            Inactive
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -50,7 +58,9 @@
             <div class="d-flex mb-2">
                 <div class="fw-semibold text-secondary me-2">Role:</div>
                 <div>
-                    <span class="badge bg-success text-uppercase">{{ $staff->role }}</span>
+                    <span class="text-gray-700 text-sm font-semibold">
+                        {{ ucfirst($staff->role) }}
+                    </span>
                 </div>
             </div>
             <div class="d-flex mb-2">

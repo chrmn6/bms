@@ -1,13 +1,6 @@
 @section('title') {{ 'Manage Users' }} @endsection
 
 <x-app-layout>
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Manage Users
-            </h2>
-        </div>
-    </x-slot>
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div class="py-3">
@@ -19,7 +12,7 @@
                         hx-target="#userModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
                         data-bs-target="#userModal"
                         class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                        <i class="bi bi-plus-circle text-sm"></i>Add Staff
+                        Add Staff
                     </x-primary-button>
                 </div>
 
@@ -38,10 +31,10 @@
         <!-- Add User Modal -->
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 shadow-lg">
+                <div class="bg-neutral-50 modal-content border-0 shadow-lg">
                     <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="userModalLabel">
-                            <i class="bi bi-person-circle me-2"></i> User Management
+                            Add New User
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
@@ -60,10 +53,10 @@
         <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 shadow-lg">
+                <div class="bg-neutral-50 modal-content border-0 shadow-lg">
                     <div class="modal-header !bg-[#6D0512] text-white">
                         <h5 class="modal-title" id="viewUserModalLabel">
-                            <i class="bi bi-person-circle me-2"></i> User Details
+                            User Details
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
@@ -76,11 +69,41 @@
                 </div>
             </div>
         </div>
+
+        <!--EDIT USER--->
+        <div class="modal fade" id="editStaffModal" tabindex="-1" aria-labelledby="editStaffModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="bg-neutral-50 modal-content border-0 shadow-lg">
+                    <div class="modal-header !bg-[#6D0512] text-white">
+                        <h5 class="modal-title" id="editStaffModalLabel">Edit User</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body p-3" id="editStaffModalBody">
+                        <div class="text-center text-muted">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <p>Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- SweetAlert Messages -->
     <script>
         document.body.addEventListener('staffCreated', function (event) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: event.detail.value,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+
+        document.body.addEventListener('staffUpdated', function (event) {
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',

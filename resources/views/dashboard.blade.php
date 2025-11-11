@@ -36,7 +36,7 @@
 
                 <!-- Blotter -->
                 <a href="{{ route('blotters.index') }}" style="text-decoration: none;">
-                    <x-stat-card cardBg="bg-red-100" textColor="text-red-500" iconColor="bg-red-500"
+                    <x-stat-card cardBg="bg-indigo-100" textColor="text-indigo-500" iconColor="bg-indigo-500"
                         :count="$stats['blotter_reports_pending']" label="BLOTTER">
                         <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">

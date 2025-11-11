@@ -74,7 +74,7 @@ class BlotterController extends Controller
                 : Blotter::paginate(10);
 
             return response()->view('blotters.table', compact('blotters'))->header('HX-Trigger', json_encode([
-                'blotterCreated' => 'Blotter created successfully!'
+                'blotterCreated' => 'Please wait for the admin to contact <br> you regarding your report.'
             ]));
         }
 
@@ -120,7 +120,7 @@ class BlotterController extends Controller
             return response()->noContent()->header('HX-Trigger', json_encode([
                 'refreshTable' => true,
                 'closeModal' => true,
-                'blotterUpdated' => 'Blotter updated successfully!'
+                'blotterUpdated' => 'Notify resident about the status update.'
             ]));
         }
 
