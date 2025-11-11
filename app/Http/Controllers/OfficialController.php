@@ -12,7 +12,7 @@ class OfficialController extends Controller
      */
     public function index(Request $request)
     {
-        $officials = Official::paginate(10);
+        $officials = Official::latest()->paginate(10);
 
         if ($request->headers->has('HX-Request')) {
             return view('admin.officials.table', compact('officials'));
@@ -38,37 +38,37 @@ class OfficialController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'full_name' => 'required|string|max:255',
             'position' => 'required|in:Barangay Captain,SK Kagawad,Barangay Council',
             'term_start' => 'required|date',
-            'term_end' => 'required|date|after:term_start',
+            'term_end' => 'nullable|date|after:term_start',
             'status' => 'required|in:Active,Inactive',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        try {
-            Official::create($data);
-
-            if ($request->header('HX-Request')) {
-                return response()
-                    ->view('admin.officials.table', ['officials' => Official::paginate(10)])
-                    ->header('HX-Trigger', 'officialCreated');
-            }
-
-            return redirect()->route('admin.officials.index')
-                ->with('success', 'Barangay Official created successfully.');
-                
-        } catch (\Exception $e) {
-            return back()
-                ->withInput()
-                ->with('error', 'Failed to create official. Please try again.');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/users'), $fileName);
+            $validated['image'] = $fileName;
         }
+
+        Official::create($validated);
+
+        if ($request->header('HX-Request')) {
+            return response()
+                ->view('admin.officials.table', ['officials' => Official::paginate(10)])
+                ->header('HX-Trigger', 'officialCreated');
+        }
+
+        return redirect()->route('admin.officials.index')->with('success', 'Barangay Official created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Official $official, Request $request)
+    public function show(Official $official)
     {
         return view('admin.officials.show', compact('official'));
     }
@@ -82,7 +82,7 @@ class OfficialController extends Controller
             return view('admin.officials.edit', compact('official'));
         }
 
-        return view('admin.officials.index', compact('official'));
+        return redirect()->route('admin.officials.index');
     }
 
     /**
@@ -90,30 +90,22 @@ class OfficialController extends Controller
      */
     public function update(Request $request, Official $official)
     {
-        $data = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'position' => 'required|in:Barangay Captain,SK Kagawad,Barangay Council',
-            'term_start' => 'required|date',
+        $validated = $request->validate([
             'term_end' => 'required|date|after:term_start',
             'status' => 'required|in:Active,Inactive',
         ]);
+        
+        $official->update($validated);
 
-        try {
-
-            $official->update($data);
-
-            if ($request->header('HX-Request')) {
-                return response()->view('admin.officials.index', compact('official'))
-                ->header('HX-Trigger', 'officialUpdated');
-            }
-
-            return redirect()->route('admin.officials.index')->with('success', 'Barangay Official updated successfully.');
-                
-        } catch (\Exception $e) {
-            return back()->withInput()->with('error', 'Failed to update official. Please try again.');
+        if ($request->header('HX-Request')) {
+            return response()->view('admin.officials.table', ['officials' => Official::paginate(10)])
+            ->header('HX-Trigger', json_encode([
+                'officialUpdated' => 'Barangay Official account updated successfully!',
+                'refreshTable' => true,
+            ]));
         }
 
-
+        return redirect()->route('admin.officials.index')->with('success', 'Barangay Official updated successfully.');
     }
 
     /**
