@@ -1,4 +1,14 @@
 <x-guest-layout>
+
+    @if(session('success'))
+        <div class="mb-4 flex items-center gap-2 px-4 py-3 text-green-700 bg-green-100 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 

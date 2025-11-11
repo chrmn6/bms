@@ -27,9 +27,9 @@
         @include('layouts.sidebar')
 
         {{-- Main content --}}
-        <div class="flex-1 sm:ml-52">
+        <div class="sm:ml-52 pt-[3.5rem] flex-1">
             <!-- Page Content -->
-            <main class="flex-1 overflow-auto">
+            <main class="p-3">
                 {{ $slot }}
             </main>
         </div>

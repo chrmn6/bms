@@ -1,6 +1,6 @@
 <table id="usersTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('admin.staff.index') }}" hx-trigger="refreshTable from:body" hx-target="this" hx-swap="innerHTML">
-    <thead class="text-sm text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-sm text-center text-gray-700 bg-slate-100 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-3 py-2">Staff ID</th>
             <th scope="col" class="px-3 py-2">Full Name</th>
@@ -14,9 +14,11 @@
         @foreach($users as $user)
             @php $isCurrentUser = Auth::check() && Auth::id() === $user->id; @endphp
             <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
+                class="bg-neutral-50 border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
                 <td class="px-3 py-2">
-                    {{ $user->display_id }}
+                    <a href="{{ route('admin.staff.show', $user->id) }}">
+                        {{ $user->display_id }}
+                    </a>
                 </td>
                 <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
                     <img class="w-8 h-8 rounded-full" src="{{ asset('uploads/users/' . $user->image) }}"
@@ -55,16 +57,6 @@
                     @endif
                 </td>
                 <td class="px-3 py-2">
-                    <x-primary-button hx-get="{{ route('admin.staff.show', $user->id) }}" hx-target="#viewUserModalBody"
-                        hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#viewUserModal"
-                        class="!bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                        <svg class="w-[15px] h-[15px] text-whitedark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
-                    </x-primary-button>
                     <x-primary-button hx-get="{{ route('admin.staff.edit', $user->id) }}" hx-target="#editStaffModalBody"
                         hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#editStaffModal"
                         class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center">

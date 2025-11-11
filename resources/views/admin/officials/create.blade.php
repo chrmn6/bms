@@ -1,4 +1,5 @@
-<form hx-post="{{ route('admin.officials.store') }}" hx-target="#officialModalBody" hx-swap="none" hx-on::after-request="
+<form hx-post="{{ route('admin.officials.store') }}" enctype="multipart/form-data" hx-target="#officialModalBody"
+    hx-swap="none" hx-on::after-request="
         if (event.detail.xhr.status === 200) { 
             const modal = bootstrap.Modal.getInstance(document.getElementById('officialModal')); 
             if (modal) { modal.hide(); } 
@@ -31,7 +32,7 @@
         </div>
         <div class="col-md-6">
             <x-input-label for="term_end" :value="__('Term End')" />
-            <x-text-input id="term_end" name="term_end" type="date" class="mt-1 block w-full" required />
+            <x-text-input id="term_end" name="term_end" type="date" class="mt-1 block w-full" />
         </div>
     </div>
 
@@ -45,6 +46,12 @@
                 <option value="Inactive">Inactive</option>
             </select>
         </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
+        <input type="file" name="image" id="image"
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
     </div>
 
     <div class="d-flex justify-content-end gap-2">

@@ -1,13 +1,6 @@
 @section('title') {{ 'Resident Dashboard' }} @endsection
 
 <x-resident-layout>
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Dashboard
-            </h2>
-        </div>
-    </x-slot>
 
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
     <script src="{{ asset('js/dashboard-scripts.js') }}"></script>

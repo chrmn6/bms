@@ -45,7 +45,7 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Manage Staff Accounts
     Route::resource('staff', UserController::class);
-    Route::resource('admin/officials', OfficialController::class);
+    Route::resource('officials', OfficialController::class);
 });
 
 // STAFF + RESIDENT ROUTES

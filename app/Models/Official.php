@@ -17,6 +17,7 @@ class Official extends Model
         'status',
         'term_start',
         'term_end',
+        'image',
     ];
 
     protected $casts = [

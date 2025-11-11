@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('full_name');
             $table->enum('position', ['Barangay Captain', 'SK Kagawad', 'Barangay Council']);
             $table->date('term_start');
-            $table->date('term_end');
+            $table->date('term_end')->nullable();
             $table->enum('status', ['Active', 'Inactive']);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

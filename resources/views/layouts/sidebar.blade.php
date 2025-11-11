@@ -2,27 +2,26 @@
 <nav class="fixed top-0 z-50 w-full bg-neutral-50 border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-2 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start rtl:justify-end">
+            <!-- Left: Menu Button + Logo -->
+            <div class="flex items-center">
                 <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
                     type="button"
-                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open sidebar</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
+                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path clip-rule="evenodd" fill-rule="evenodd"
                             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
                         </path>
                     </svg>
                 </button>
-                <!-- LOGO -->
-                <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24 !no-underline" style="color: #6D0512;">
-                    <x-dashboard-logo class="h-8 me-3" alt="BMS Logo" />
-                    <span
-                        class="self-center text-lg font-semibold sm:text-lg !no-underline whitespace-nowrap dark:text-white">Barangay
-                        Matina Gravahan</span>
+
+                <a href="{{ route('dashboard') }}" class="flex items-center ms-2 md:me-24 text-[#6D0512]">
+                    <x-dashboard-logo class="h-8 me-3" />
+                    <span class="self-center text-base font-semibold dark:text-white">
+                        Barangay Matina Gravahan
+                    </span>
                 </a>
             </div>
-            <!--PROFILE ADMIN AND STAFF--->
+
             <div class="flex items-center">
                 <div class="flex items-center ms-3">
                     <div>
@@ -92,18 +91,6 @@
 
             <!--Manage Users (Admin only)-->
             @if($user->role === 'admin')
-                <li>
-                    <x-sidebar-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
-                        <span class="inline-flex items-center">
-                            <svg class="w-[20px] h-[20px] mr-2 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="1"
-                                    d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-                            </svg>
-                            <span x-show="sidebarOpen">Manage Users</span>
-                        </span>
-                    </x-sidebar-link>
-                </li>
 
                 <li>
                     <x-sidebar-link :href="route('admin.officials.index')"
@@ -115,6 +102,19 @@
                                     d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
                             </svg>
                             <span x-show="sidebarOpen">Officials</span>
+                        </span>
+                    </x-sidebar-link>
+                </li>
+
+                <li>
+                    <x-sidebar-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.index')">
+                        <span class="inline-flex items-center">
+                            <svg class="w-[20px] h-[20px] mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="1"
+                                    d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                            </svg>
+                            <span x-show="sidebarOpen">Staff List</span>
                         </span>
                     </x-sidebar-link>
                 </li>

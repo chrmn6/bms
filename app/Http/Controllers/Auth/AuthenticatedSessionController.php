@@ -38,10 +38,10 @@ class AuthenticatedSessionController extends Controller
         }
 
         if (in_array($user->role, ['admin', 'staff'])) {
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', 'You are logged in successfully!');
         }
 
-        return redirect()->intended('/residents/dashboard');
+        return redirect()->intended('/residents/dashboard')->with('success', 'You are logged in successfully!');
     }
 
     /**

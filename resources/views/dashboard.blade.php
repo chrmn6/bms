@@ -5,7 +5,7 @@
 @endpush
 
 <x-app-layout>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
             <!-- Statistics Cards -->
             <div class="flex flex-wrap gap-2">
