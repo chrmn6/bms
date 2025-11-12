@@ -1,4 +1,3 @@
-
 <form method="POST" action="{{ route('residents.update') }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -35,8 +34,7 @@
     </div>
 
     <!--PERSONAL & ADDRESS INFO-->
-    <div
-        class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
         <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
             <div>
                 <p class="text-lg font-semibold mb-1">Basic Information</p>
@@ -52,8 +50,8 @@
                                 </th>
                                 <td>
                                     <x-text-input id="first_name" name="first_name" type="text"
-                                        class="mt-2 block w-full" :value="old('first_name', $user->first_name)"
-                                        required placeholder="Provide your first name" />
+                                        class="mt-2 block w-full" :value="old('first_name', $user->first_name)" required
+                                        placeholder="Provide your first name" />
                                     <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
                                 </td>
                             </tr>
@@ -64,9 +62,9 @@
                                     <x-input-label for="last_name" :value="__('Last Name')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="last_name" name="last_name" type="text"
-                                        class="mt-2 block w-full" :value="old('last_name', $user->last_name)"
-                                        required placeholder="Provide your last name" />
+                                    <x-text-input id="last_name" name="last_name" type="text" class="mt-2 block w-full"
+                                        :value="old('last_name', $user->last_name)" required
+                                        placeholder="Provide your last name" />
                                     <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
                                 </td>
                             </tr>
@@ -176,8 +174,7 @@
     </div>
 
     <!-- ADDRESS INFO-->
-    <div
-        class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
         <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
             <div>
                 <p class="text-lg font-semibold mb-1">Address Information</p>
@@ -242,8 +239,7 @@
     </div>
 
     <!-- ADDITIONAL INFO-->
-    <div
-        class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
         <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
             <div>
                 <p class="text-lg font-semibold mb-1">Additional Information</p>
@@ -342,9 +338,8 @@
                                     <x-input-label for="blood_type" :value="__('Blood Type')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="blood_type" name="blood_type" type="text" class="mt-2 block w-full"
-                                        :value="old('blood_type', $resident->attributes->blood_type ?? '')"
-                                        placeholder="e.g. A+, O-, B+" />
+                                    <x-text-input id="blood_type" name="blood_type" type="text"
+                                        class="mt-2 block w-full" :value="old('blood_type', $resident->attributes->blood_type ?? '')" placeholder="e.g. A+, O-, B+" />
                                     <x-input-error class="mt-2" :messages="$errors->get('blood_type')" />
                                 </td>
                             </tr>
@@ -356,8 +351,7 @@
     </div>
 
     <!-- ADDITIONAL INFO-->
-    <div
-        class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
         <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
             <div>
                 <p class="text-lg font-semibold mb-1">Government Information</p>

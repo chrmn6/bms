@@ -11,7 +11,7 @@
 
 <x-dynamic-component :component="$layout">
     <div
-        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) pt-16 @endif">
+        class="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) @endif">
         {{-- Add Announcement Button --}}
         <div class="py-3">
             <div class="flex items-center justify-between">

@@ -1,7 +1,7 @@
 @section('title') {{ 'Profile' }} @endsection
 
 
-<form method="POST" action="{{ route('residents.update') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <!--PROFILE HEADER-->

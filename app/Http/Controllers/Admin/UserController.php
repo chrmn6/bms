@@ -10,6 +10,7 @@ use App\Models\Blotter;
 use App\Models\Clearance;
 use App\Models\Activity;
 use App\Models\Household;
+use App\Models\ResidentAttributes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -107,6 +108,9 @@ class UserController extends Controller
             'residents_count'         => Resident::count(),
             'clearances_pending'      => Clearance::where('status', 'pending')->count(),
             'blotter_reports_pending' => Blotter::where('status', 'pending')->count(),
+            'pwd_count' => ResidentAttributes::where('pwd_status', 'yes')->count(),
+            'voter_count' => ResidentAttributes::where('voter_status', 'yes')->count(),
+            'senior_count' => ResidentAttributes::where('senior', 'yes')->count(),
         ];
     }
 

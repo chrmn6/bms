@@ -78,7 +78,7 @@ class ResidentController extends Controller
         $user = Auth::user();
         $resident = $user->resident;
 
-        $request->validate([
+        $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
@@ -99,8 +99,11 @@ class ResidentController extends Controller
             'household_id' => 'nullable|exists:households,household_id',
         ]);
 
-        // Update user info
-        $user->update($request->only(['first_name', 'last_name', 'email']));
+        // Update user info - use $validated array
+        $user->update([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+        ]);
 
         // Profile
         $profile = $resident->profile ?? $resident->profile()->create([]);
@@ -115,11 +118,20 @@ class ResidentController extends Controller
 
             $profile->image = $imageName;
         }
-        $profile->update($request->only(['place_of_birth', 'date_of_birth', 'gender']));
+        $profile->update([
+            'place_of_birth' => $validated['place_of_birth'] ?? null,
+            'date_of_birth' => $validated['date_of_birth'] ?? null,
+            'gender' => $validated['gender'] ?? null,
+        ]);
 
         // Details
         $details = $resident->details ?? $resident->details()->create([]);
-        $details->update($request->only(['civil_status', 'citizenship', 'occupation', 'education']));
+        $details->update([
+            'civil_status' => $validated['civil_status'] ?? null,
+            'citizenship' => $validated['citizenship'] ?? null,
+            'occupation' => $validated['occupation'] ?? null,
+            'education' => $validated['education'] ?? null,
+        ]);
 
         // Attributes
         $attributes = $resident->attributes ?? $resident->attributes()->create([
@@ -128,12 +140,21 @@ class ResidentController extends Controller
             'senior' => 'No',
             'blood_type' => null,
         ]);
-        $attributes->update($request->only(['voter_status', 'pwd_status', 'senior', 'blood_type']));
+        $attributes->update([
+            'voter_status' => $validated['voter_status'] ?? 'No',
+            'pwd_status' => $validated['pwd_status'] ?? 'No',
+            'senior' => $validated['senior'] ?? 'No',
+            'blood_type' => $validated['blood_type'] ?? null,
+        ]);
 
         // Resident
-        $resident->update($request->only(['middle_name', 'suffix', 'household_id', 'address']));
+        $resident->update([
+            'middle_name' => $validated['middle_name'] ?? null,
+            'suffix' => $validated['suffix'] ?? null,
+            'household_id' => $validated['household_id'] ?? null,
+            'address' => $validated['address'] ?? null,
+        ]);
 
         return redirect()->route('residents.dashboard')->with('success', 'Profile updated successfully.');
     }
-
 }

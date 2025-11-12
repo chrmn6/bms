@@ -12,7 +12,7 @@
 
 <x-dynamic-component :component="$layout">
     <div
-        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && Auth::user()->role === 'admin' || Auth::user()->role === 'staff') pt-16 @endif">
+        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && Auth::user()->role === 'admin' || Auth::user()->role === 'staff') @endif">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Blotter Report</h5>
             <div class="items-center justify-between gap-4 pb-4 bg-neutral-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
