@@ -11,7 +11,7 @@ class AdminResidentController extends Controller
     public function index()
     {
         $residents = Resident::with(['user', 'profile'])
-            ->orderBy('resident_id', 'asc')
+            ->orderBy('resident_id', 'desc')
             ->paginate(10);
         return view('admin.residents.index', compact('residents'));
     }

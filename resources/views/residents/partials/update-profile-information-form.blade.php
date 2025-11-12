@@ -377,9 +377,9 @@
                                             class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                             <option value="">Select</option>
                                             <option value="No" {{ old('voter_status', $resident->attributes->voter_status ?? '') == 'No' ? 'selected' : '' }}>
-                                                Yes</option>
-                                            <option value="Yes" {{ old('voter_status', $resident->attributes->voter_status ?? '') == 'Yes' ? 'selected' : '' }}>
                                                 No</option>
+                                            <option value="Yes" {{ old('voter_status', $resident->attributes->voter_status ?? '') == 'Yes' ? 'selected' : '' }}>
+                                                Yes</option>
                                         </select>
                                         <x-input-error class="mt-2" :messages="$errors->get('voter_status')" />
                                     </td>
@@ -394,8 +394,8 @@
                                         <select id="pwd_status" name="pwd_status"
                                             class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                             <option value="">Select</option>
-                                            <option value="No" {{ old('pwd_status', $resident->attributes->pwd_status ?? '') == 'No' ? 'selected' : '' }}>Yes</option>
-                                            <option value="Yes" {{ old('pwd_status', $resident->attributes->pwd_status ?? '') == 'Yes' ? 'selected' : '' }}>No</option>
+                                            <option value="No" {{ old('pwd_status', $resident->attributes->pwd_status ?? '') == 'No' ? 'selected' : '' }}>No</option>
+                                            <option value="Yes" {{ old('pwd_status', $resident->attributes->pwd_status ?? '') == 'Yes' ? 'selected' : '' }}>Yes</option>
                                         </select>
                                         <x-input-error class="mt-2" :messages="$errors->get('pwd_status')" />
                                     </td>

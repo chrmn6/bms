@@ -14,9 +14,9 @@
                     </svg>
                 </button>
 
-                <a href="{{ route('dashboard') }}" class="flex items-center ms-2 md:me-24 text-[#6D0512]">
+                <a href="{{ route('dashboard') }}" class="flex items-center ms-2 md:me-24 !no-underline">
                     <x-dashboard-logo class="h-8 me-3" />
-                    <span class="self-center text-base font-semibold dark:text-white">
+                    <span class="self-center text-base font-semibold dark:text-white text-[#6D0512]">
                         Barangay Matina Gravahan
                     </span>
                 </a>

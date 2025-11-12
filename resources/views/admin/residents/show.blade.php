@@ -116,9 +116,31 @@
                                     <th class="text-left font-semibold p-2">Citizenship</th>
                                     <td class="p-2">{{ $resident->details->citizenship }}</td>
                                 </tr>
-                                <tr>
+                                <tr class="border-b border-gray-300">
                                     <th class="text-left font-semibold p-2">Employment</th>
                                     <td class="p-2">{{ $resident->details->occupation }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left font-semibold p-2">Blood Type</th>
+                                    <td class="p-2">{{ $resident->attributes->blood_type }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="text-lg font-semibold mt-4">Government Information</p>
+                        <table class="w-full text-sm border border-gray-300">
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <th class="text-left font-semibold p-2">Registered Voter</th>
+                                    <td class="p-2">{{ $resident->attributes->voter_status }}</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <th class="text-left font-semibold p-2">Person with Disability (PWD)</th>
+                                    <td class="p-2">{{ $resident->attributes->pwd_status }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left font-semibold p-2">Senior</th>
+                                    <td class="p-2">{{ $resident->attributes->senior }}</td>
                                 </tr>
                             </tbody>
                         </table>
