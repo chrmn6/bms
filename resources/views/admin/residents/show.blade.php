@@ -24,7 +24,7 @@
                             </a>
                         </div>
                         <div class="flex items-center gap-2">
-                            <p class="text-slate-500 dark:text-zinc-200 m-0">{{ ucfirst($resident->profile->gender) }}
+                            <p class="text-slate-500 dark:text-zinc-200 m-0">{{ $resident->user->email }}
                             </p>
                         </div>
                     </div>

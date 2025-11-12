@@ -21,7 +21,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-800">
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-800 overflow-y-auto">
 
         {{-- Sidebar --}}
         @include('layouts.sidebar')
