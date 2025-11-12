@@ -99,7 +99,8 @@
                 title: 'Success!',
                 text: "Barangay Official created successfully.",
                 showConfirmButton: false,
-                timer: 2000
+                timer: 2000,
+                width: '400px',
             });
         });
 
@@ -109,7 +110,8 @@
                 title: 'Success!',
                 text: "Barangay Official updated successfully.",
                 showConfirmButton: false,
-                timer: 2000
+                timer: 2000,
+                width: '400px',
             });
         });
 

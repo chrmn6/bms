@@ -33,6 +33,11 @@ class Resident extends Model
         return $this->hasOne(ResidentDetails::class, 'resident_id', 'resident_id');
     }
 
+    public function attributes()
+    {
+        return $this->hasOne(ResidentAttributes::class, 'resident_id', 'resident_id');
+    }
+
     public function household()
     {
         return $this->belongsTo(Household::class, 'household_id', 'household_id');

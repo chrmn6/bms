@@ -155,7 +155,8 @@
                 title: 'File report submitted!',
                 html: event.detail.value,
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
+                width: '400px',
             });
         });
 
@@ -165,7 +166,8 @@
                 title: 'Success!',
                 text: event.detail.value,
                 showConfirmButton: false,
-                timer: 3000
+                timer: 3000,
+                width: '400px',
             });
         });
 

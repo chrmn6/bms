@@ -258,7 +258,8 @@
                 title: 'Success!',
                 text: '{{ session("success") }}',
                 showConfirmButton: false,
-                timer: 2000
+                timer: 2000,
+                width: '400px',
             });
         </script>
     @endif

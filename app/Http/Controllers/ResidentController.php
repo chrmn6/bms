@@ -34,31 +34,33 @@ class ResidentController extends Controller
         return view('residents.dashboard', compact('resident', 'recent_announcements', 'recent_activities', 'clearances'));
     }
 
-    public function edit()
+        public function edit()
     {
         $user = Auth::user();
 
-        if (!$user->resident) {
-            $resident = Resident::create([
-                'user_id' => $user->id,
-                'middle_name' => null,
-                'suffix' => null,
-            ]);
-            $user->load('resident');
-        }
+        // Ensure resident exists
+        $resident = $user->resident ?? $user->resident()->create([
+            'middle_name' => null,
+            'suffix' => null,
+        ]);
 
-        $resident = $user->resident;
+        // Ensure profile exists
+        $resident->profile ?? $resident->profile()->create([
+            'place_of_birth' => null,
+            'date_of_birth' => null,
+            'gender' => null,
+            'image' => null,
+        ]);
 
-        if (!$resident->profile) {
-            $resident->profile()->create([
-                'place_of_birth' => null,
-                'date_of_birth' => null,
-                'gender' => null,
-                'image' => null,
-            ]);
-        }
+        // Ensure attributes exist with defaults
+        $resident->attributes ?? $resident->attributes()->create([
+            'voter_status' => 'No',
+            'pwd_status' => 'No',
+            'senior' => 'No',
+            'blood_type' => null,
+        ]);
 
-        $resident->load(['details', 'profile', 'household']);
+        $resident->load(['details', 'profile', 'household', 'attributes']);
         $households = Household::all();
 
         return view('residents.edit', [
@@ -66,6 +68,7 @@ class ResidentController extends Controller
             'resident' => $resident,
             'details' => $resident->details,
             'profile' => $resident->profile,
+            'attributes' => $resident->attributes,
             'households' => $households,
         ]);
     }
@@ -83,21 +86,24 @@ class ResidentController extends Controller
             'place_of_birth' => 'nullable|string|max:255',
             'date_of_birth' => 'nullable|date',
             'gender' => 'nullable|in:Male,Female',
-            'household_id' => 'nullable|exists:households,household_id',
-
+            'address' => 'nullable|string|max:255',
             'civil_status' => 'nullable|string|max:50',
             'citizenship' => 'nullable|string|max:50',
             'occupation' => 'nullable|string|max:100',
             'education' => 'nullable|string|max:100',
-
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'voter_status' => 'nullable|in:Yes,No',
+            'pwd_status' => 'nullable|in:Yes,No',
+            'senior' => 'nullable|in:Yes,No',
+            'blood_type' => 'nullable|string|max:3',
+            'household_id' => 'nullable|exists:households,household_id',
         ]);
 
-        // Update user basic info
+        // Update user info
         $user->update($request->only(['first_name', 'last_name', 'email']));
-        $profile = $resident->profile ?? $resident->profile()->create([]);
 
-        // Handle image upload
+        // Profile
+        $profile = $resident->profile ?? $resident->profile()->create([]);
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
@@ -109,24 +115,23 @@ class ResidentController extends Controller
 
             $profile->image = $imageName;
         }
+        $profile->update($request->only(['place_of_birth', 'date_of_birth', 'gender']));
 
-        // Update resident basic info
-         $profile->update($request->only([
-            'place_of_birth',
-            'date_of_birth',
-            'gender',
-        ]));
-
-        // Ensure details record exists
+        // Details
         $details = $resident->details ?? $resident->details()->create([]);
-        $details->update($request->only([
-            'civil_status',
-            'citizenship',
-            'occupation',
-            'education',
-        ]));
+        $details->update($request->only(['civil_status', 'citizenship', 'occupation', 'education']));
 
-        $resident->update($request->only(['middle_name', 'suffix', 'address', 'household_id']));
+        // Attributes
+        $attributes = $resident->attributes ?? $resident->attributes()->create([
+            'voter_status' => 'No',
+            'pwd_status' => 'No',
+            'senior' => 'No',
+            'blood_type' => null,
+        ]);
+        $attributes->update($request->only(['voter_status', 'pwd_status', 'senior', 'blood_type']));
+
+        // Resident
+        $resident->update($request->only(['middle_name', 'suffix', 'household_id', 'address']));
 
         return redirect()->route('residents.dashboard')->with('success', 'Profile updated successfully.');
     }
