@@ -13,8 +13,6 @@
         <select name="status" id="status" class="w-full border rounded p-2">
             <option value="pending" {{ old('status', $blotter->status) === 'pending' ? 'selected' : '' }}>
                 Pending</option>
-            <option value="investigating" {{ old('status', $blotter->status) === 'investigating' ? 'selected' : '' }}>
-                Investigating</option>
             <option value="resolved" {{ old('status', $blotter->status) === 'resolved' ? 'selected' : '' }}>Resolved
             </option>
             <option value="dismissed" {{ old('status', $blotter->status) === 'dismissed' ? 'selected' : '' }}>Dismissed

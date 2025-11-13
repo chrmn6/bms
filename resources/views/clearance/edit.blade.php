@@ -16,7 +16,7 @@
                 Pending</option>
             <option value="approved" {{ old('status', $clearance->status) === 'approved' ? 'selected' : '' }}>
                 Approved</option>
-            <option value="released" {{ old('status', $clearance->status) === 'clearance' ? 'selected' : '' }}>Released
+            <option value="completed" {{ old('status', $clearance->status) === 'completed' ? 'selected' : '' }}>Completed
             </option>
             <option value="rejected" {{ old('status', $clearance->status) === 'rejected' ? 'selected' : '' }}>Rejected
             </option>

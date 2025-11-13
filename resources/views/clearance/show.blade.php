@@ -1,18 +1,5 @@
 <div class="row align-items-center mb-3">
     <p class="col fw-bold text-lg mb-0">CLEARANCE # {{ $clearance->display_id }}</p>
-    <div class="col-auto">
-        @auth
-            @if (auth()->user()->role === 'resident' || auth()->user()->role === 'staff')
-                @if($clearance->status === 'released')
-                    <a href="{{ route('clearances.pdf', $clearance->clearance_id) }}">
-                        <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
-                            <i class="bi bi-printer"></i>Print PDF
-                        </x-primary-button>
-                    </a>
-                @endif
-            @endif
-        @endauth
-    </div>
 </div>
 <div>
     <table class="w-full border border-black text-sm">

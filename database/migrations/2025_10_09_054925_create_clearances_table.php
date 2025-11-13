@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('purpose');
             $table->date('issued_date')->nullable();
             $table->date('valid_until')->nullable();
-            $table->enum('status', ['pending', 'approved', 'released', 'rejected']);
+            $table->enum('status', ['pending', 'approved', 'completed', 'rejected']);
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

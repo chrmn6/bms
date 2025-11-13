@@ -22,7 +22,7 @@ return new class extends Migration
             $table->time('incident_time');
             $table->string('location');
             $table->text('description');
-            $table->enum('status', ['pending', 'investigating', 'resolved', 'dismissed'])->default('pending');
+            $table->enum('status', ['pending', 'resolved', 'dismissed'])->default('pending');
             $table->string('image')->nullable();
             $table->timestamps();
         });

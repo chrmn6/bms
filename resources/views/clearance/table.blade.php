@@ -23,7 +23,7 @@
                     @php
                         $statusColors = match ($clearance->status) {
                             'approved' => ['text' => 'text-green-500'],
-                            'released' => ['text' => 'text-blue-500'],
+                            'completed' => ['text' => 'text-blue-500'],
                             'rejected' => ['text' => 'text-red-500'],
                             'pending' => ['text' => 'text-yellow-500'],
                             default => ['text' => 'text-gray-500']
@@ -59,6 +59,22 @@
                             </svg>
                         </x-primary-button>
                     @endcan
+                    <!--PRINT BUTTON-->
+                    @auth
+                        @if (auth()->user()->role === 'resident')
+                            @if($clearance->status === 'approved')
+                                <a href="{{ route('clearances.pdf', $clearance->clearance_id) }}">
+                                    <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
+                                        <svg class="w-[15px] h-[15px] text-white dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+                                                d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z" />
+                                        </svg>
+                                    </x-primary-button>
+                                </a>
+                            @endif
+                        @endif
+                    @endauth
                 </td>
             </tr>
         @empty

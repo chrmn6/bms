@@ -13,7 +13,7 @@ class BlotterPolicy
      */
     public function viewAny(User $user): bool
     {
-        return in_array($user->role, ['resident', 'staff', 'admin']);
+        return in_array($user->role, ['staff', 'admin']);
     }
 
     /**

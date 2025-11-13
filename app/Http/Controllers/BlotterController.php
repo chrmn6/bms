@@ -108,7 +108,7 @@ class BlotterController extends Controller
         $this->authorize('update', $blotter);
 
         $validated = $request->validate([
-            'status' => 'required|in:pending,investigating,resolved,dismissed'
+            'status' => 'required|in:pending,resolved,dismissed'
         ]);
 
         $blotter->update([

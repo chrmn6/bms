@@ -51,7 +51,8 @@
     <div class="mb-3">
         <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
         <input type="file" name="image" id="image"
-            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+            required>
     </div>
 
     <div class="d-flex justify-content-end gap-2">

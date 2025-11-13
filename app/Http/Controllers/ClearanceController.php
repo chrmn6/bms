@@ -22,6 +22,7 @@ class ClearanceController extends Controller
             $clearances = Clearance::latest()->paginate(10);
         }
 
+        
         if ($request->header('HX-Request')) {
         return view('clearance.table', compact('clearances'));
         }
@@ -101,7 +102,7 @@ class ClearanceController extends Controller
         $this->authorize('update', $clearance);
 
         $validated = $request->validate([
-            'status' => 'required|in:pending,released,rejected,approved',
+            'status' => 'required|in:pending,approved,rejected,completed',
             'remarks' => 'nullable|string',
             'issued_date' => 'nullable|date',
             'valid_until' => 'nullable|date',

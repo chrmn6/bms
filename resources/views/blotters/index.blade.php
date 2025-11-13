@@ -2,12 +2,6 @@
 
 @php
     $layout = auth()->user()->role === 'resident' ? 'resident-layout' : 'app-layout';
-
-    // STAFF COUNTS
-    $pending = $blotters->where('status', 'pending')->count();
-    $investigating = $blotters->where('status', 'investigating')->count();
-    $resolved = $blotters->where('status', 'resolved')->count();
-    $dismissed = $blotters->where('status', 'dismissed')->count();
 @endphp
 
 <x-dynamic-component :component="$layout">
@@ -19,22 +13,26 @@
                 <!--SEARCH BAR-->
                 <div class="flex justify-between items-center p-3 flex-wrap sm:flex-nowrap">
                     <!-- Texts on the left -->
-                    <div class="flex flex-wrap">
-                        <p class="px-1 py-1 text-sm text-gray-500 font-semibold">
-                            All ({{ $blotters->count() }})
-                        </p>
-                        <p class="px-1 py-1 text-sm !text-yellow-500 font-semibold">
-                            Pending ({{ $pending }})
-                        </p>
-                        <p class="px-1 py-1 text-sm text-green-500 font-semibold">
-                            Settled ({{ $resolved }})
-                        </p>
-                        <p class="px-1 py-1 text-sm !text-blue-500 font-semibold">
-                            In-progress ({{ $investigating }})
-                        </p>
-                        <p class="px-1 py-1 text-sm text-red-500 font-semibold">
-                            Dismissed ({{ $dismissed }})
-                        </p>
+                    <div class="flex flex-wrap gap-1 mb-1" id="statusFilters">
+                        <button class="filter-btn p-2 text-xs font-semibold border border-gray-700 rounded-md"
+                            data-status="all">
+                            All
+                        </button>
+
+                        <button class="filter-btn p-2 text-xs font-semibold border border-gray-700 rounded-md"
+                            data-status="pending">
+                            Pending
+                        </button>
+
+                        <button class="filter-btn p-2 text-xs font-semibold border border-gray-700 rounded-md"
+                            data-status="resolved">
+                            Resolved
+                        </button>
+
+                        <button class="filter-btn p-2 text-xs font-semibold border border-gray-700 rounded-md"
+                            data-status="dismissed">
+                            Dismissed
+                        </button>
                     </div>
 
                     <!-- Button on the right -->
@@ -58,8 +56,8 @@
                     <!-- Previous Button -->
                     <a href="{{ $blotters->onFirstPage() ? '#' : $blotters->previousPageUrl() }}"
                         class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium 
-                                  {{ $blotters->onFirstPage() ? 'text-blue-400 bg-blue-200 cursor-not-allowed' : 'text-blue-500 bg-white hover:bg-blue-100 hover:text-blue-700' }}
-                                  !no-underline border !border-blue-300 rounded-md dark:bg-blue-800 dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-700 dark:hover:text-white">
+                                  {{ $blotters->onFirstPage() ? 'text-gray-400 bg-gray-200 cursor-not-allowed' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' }}
+                                  !no-underline border !border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,8 +69,8 @@
                     <!-- Next Button -->
                     <a href="{{ $blotters->hasMorePages() ? $blotters->nextPageUrl() : '#' }}"
                         class="flex items-center justify-center px-3 h-8 text-sm font-medium 
-                                  {{ $blotters->hasMorePages() ? 'text-blue-500 bg-blue hover:bg-blue-100 hover:text-blue-700' : 'text-blue-400 bg-blue-200 cursor-not-allowed' }}
-                                  !no-underline border !border-blue-300 rounded-md dark:bg-blue-800 dark:blue-gray-700 dark:text-blue-400 dark:hover:bg-blue-700 dark:hover:text-white">
+                            {{ $blotters->hasMorePages() ? 'text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-700' : 'text-gray-400 bg-gray-200 cursor-not-allowed' }}
+                            !no-underline border !border-gray-300 rounded-md dark:bg-gray-800 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         Next
                         <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -177,6 +175,28 @@
                 const modal = bootstrap.Modal.getInstance(modalEl);
                 modal.hide();
             }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const rows = document.querySelectorAll('#blotterTable tbody tr');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const status = button.getAttribute('data-status');
+
+                    rows.forEach(row => {
+                        const rowStatus = row.getAttribute('data-status');
+                        if (status === 'all' || rowStatus === status) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
         });
     </script>
 </x-dynamic-component>
