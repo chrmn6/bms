@@ -21,6 +21,11 @@ class Clearance extends Model
         'remarks',
     ];
 
+    protected $casts = [
+        'issued_date' => 'date',
+        'valid_until' => 'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
