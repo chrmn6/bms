@@ -48,9 +48,9 @@ class Resident extends Model
         return $this->hasMany(Clearance::class, 'resident_id', 'resident_id');
     }
 
-    public function programs()
+    public function programApplications()
     {
-        return $this->belongsToMany(Program::class, 'program_resident', 'resident_id', 'program_id');
+        return $this->hasMany(ProgramApplication::class, 'resident_id');
     }
 
     public function getFullNameAttribute()

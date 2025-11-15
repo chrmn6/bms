@@ -108,9 +108,7 @@ class UserController extends Controller
             'residents_count'         => Resident::count(),
             'clearances_pending'      => Clearance::where('status', 'pending')->count(),
             'blotter_reports_pending' => Blotter::where('status', 'pending')->count(),
-            'pwd_count' => ResidentAttributes::where('pwd_status', 'yes')->count(),
             'voter_count' => ResidentAttributes::where('voter_status', 'yes')->count(),
-            'senior_count' => ResidentAttributes::where('senior', 'yes')->count(),
         ];
     }
 

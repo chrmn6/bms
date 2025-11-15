@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreign('resident_id')->references('resident_id')->on('residents')->onDelete('cascade');
 
             $table->enum('voter_status', ['Yes', 'No'])->default('No');
-            $table->enum('pwd_status', ['Yes', 'No'])->default('No');
-            $table->enum('senior', ['Yes', 'No'])->default('No');
             $table->string('blood_type', 3)->nullable();
             $table->timestamps();
         });

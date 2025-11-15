@@ -27,8 +27,6 @@
                                 <th scope="col" class="px-3 py-2">Gender</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Voter</th>
-                                <th scope="col" class="px-3 py-2">PWD</th>
-                                <th scope="col" class="px-3 py-2">Senior</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
                             </tr>
                         </thead>
@@ -52,13 +50,11 @@
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->attributes->voter_status }}</td>
-                                    <td class="px-3 py-2">{{ $resident->attributes->pwd_status }}</td>
-                                    <td class="px-3 py-2">{{ $resident->attributes->senior }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center py-4 text-muted">
+                                    <td colspan="6" class="text-center py-4 text-muted">
                                         <i class="bi bi-people"></i>
                                         <p class="mb-0">No residents found.</p>
                                     </td>

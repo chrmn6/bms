@@ -1,103 +1,128 @@
 @section('title', 'Programs')
 
-@php
-    $layout = auth()->user()->role === 'resident' ? 'resident-layout' : 'app-layout';
-@endphp
-
-<x-dynamic-component :component="$layout">
-    <div
-        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) @endif">
-        {{-- Add Program Button --}}
+<x-resident-layout>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div class="py-3">
-            <div class="flex items-center justify-between">
-                <h5 class="text-base font-semibold text-gray-500 dark:text-gray-100">
-                    Programs
-                </h5>
+            <h5 class="text-base font-semibold text-gray-500 dark:text-gray-100">
+                Programs
+            </h5>
+            <div class="flex flex-wrap gap-6 justify-start">
+                @foreach($programs as $program)
+                    <div
+                        class="program-card bg-slate-50 p-4 max-w-sm border rounded-md shadow-md hover:shadow-lg transition-shadow">
+                        <h5 class="mb-2 text-base font-bold tracking-tight text-heading">
+                            {{ $program->title }}
+                        </h5>
+                        <p class="mb-4 text-body text-sm">
+                            {{ $program->description }}
+                        </p>
+                        <div class="flex justify-between mb-1 text-xs text-body">
+                            <!-- Date -->
+                            <div class="flex items-center gap-1 text-sm">
+                                <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                                        d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                                </svg>
+                                {{ $program->application_start->format('m/d/y') }} -
+                                {{ $program->application_end->format('m/d/y') }}
+                            </div>
+                        </div>
 
-                @can('create', App\Models\Program::class)
-                    <x-primary-button type="button" hx-get="{{ route('programs.create') }}" hx-target="#programModalBody"
-                        hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#addProgramModal"
-                        class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                        <svg class="w-[15px] h-[15px] me-1 text-white dark:text-white" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
-                        </svg>
-                        Create
-                    </x-primary-button>
-                @endcan
+                        <div class="flex gap-27 mb-1 text-xs text-body">
+                            <!-- Attendees -->
+                            <div class="flex items-center gap-1 text-sm">
+                                <svg class="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="1.2"
+                                        d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                </svg>
+                                {{ $program->applicants()->count() }} /
+                                {{ $program->applicants_limit }} Applicants
+                            </div>
+                        </div>
+
+                        @php
+                            $hasApplied = $program->applicants->isNotEmpty();
+                            $application = $program->applicants->first();
+                        @endphp
+
+                        @if($hasApplied)
+                            <x-primary-button type="button" disabled
+                                class="mt-1 w-full !bg-[#6D0512] cursor-not-allowed flex justify-center items-center gap-1 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+                                APPLIED
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </x-primary-button>
+                        @else
+                            <form action="{{ route('programs.join', $program) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <x-primary-button type="button" data-bs-toggle="modal" data-bs-target="#applyModal"
+                                    onclick="document.getElementById('applyForm').action='{{ route('programs.join', $program) }}'"
+                                    class="w-full !bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex justify-center items-center gap-1">
+                                    APPLY
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                    </svg>
+                                </x-primary-button>
+                            </form>
+                        @endif
+
+                        @if($application)
+                            <div class="text-sm mt-1">
+                                <span class="font-semibold">Status:</span>
+
+                                @if($application->status === 'Approved')
+                                    <span class="text-green-600 font-bold">Approved</span>
+                                @elseif($application->status === 'Rejected')
+                                    <span class="text-red-600 font-bold">Rejected</span>
+                                @else
+                                    <span class="text-yellow-600 font-bold">Pending</span>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
             </div>
 
-            {{-- Programs Card --}}
-            <div id="programCard" hx-get="{{ route('programs.index') }}" hx-trigger="refreshTable from:body"
-                hx-target="this" hx-swap="innerHTML" class="pt-2 flex flex-wrap gap-4">
-                @include('programs.card', ['programs' => $programs])
-            </div>
-
-            <!-- Add Program Modal -->
-            <div class="modal fade" id="addProgramModal" tabindex="-1" aria-labelledby="programModalLabel"
-                aria-hidden="true">
+            <!-- Apply Modal -->
+            <div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
-                            <h5 class="modal-title" id="programModalLabel">
-                                <i class="bi bi-file-earmark me-2"></i>Create Program
-                            </h5>
+                    <div class="modal-content border-0 shadow-lg bg-slate-50">
+                        <div class="modal-header bg-[#6D0512] text-white">
+                            <h5 class="modal-title" id="applyModalLabel">Apply to Program</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
-                        <div class="modal-body" id="programModalBody">
-                            <div class="text-center py-5 text-muted">
-                                <div class="spinner-border text-primary mb-3" role="status"></div>
-                                <p>Loading...</p>
-                            </div>
+                        <div class="modal-body">
+                            <form id="applyForm" action="" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <x-input-label for="proof_file" :value="__('Choose proof file')" />
+                                    <input type="file" name="proof_file" id="proof_file"
+                                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <x-input-label for="note" :value="__('Optional Note')" />
+                                    <input type="text" name="note" id="note"
+                                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                                        placeholder="Optional note">
+                                </div>
+                                <x-primary-button type="submit"
+                                    class="w-full !bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex justify-center items-center gap-1">
+                                    APPLY
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                    </svg>
+                                </x-primary-button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- SweetAlert Messages -->
-
-    <script>
-        document.body.addEventListener('programCreated', function (event) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Program created successfully!',
-                showConfirmButton: false,
-                timer: 2000,
-                width: '400px',
-            });
-        });
-
-        document.body.addEventListener('programUpdated', function (event) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Program status updated successfully!',
-                showConfirmButton: false,
-                timer: 2000,
-                width: '400px',
-            });
-        });
-
-        document.body.addEventListener('programJoined', function (event) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'You have joined successfully!',
-                showConfirmButton: false,
-                timer: 2000,
-                width: '400px',
-            });
-        });
-
-        document.body.addEventListener('closeModal', function () {
-            const modalEl = document.querySelector('.modal.show');
-            if (modalEl) {
-                const modal = bootstrap.Modal.getInstance(modalEl);
-                modal.hide();
-            }
-        });
-    </script>
-</x-dynamic-component>
+</x-resident-layout>

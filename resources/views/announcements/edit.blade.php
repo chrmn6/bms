@@ -1,11 +1,11 @@
 @can('update', $announcement)
     <form hx-put="{{ route('announcements.update', $announcement) }}" hx-target="#announcementModalBody" hx-swap="none"
         hx-on::after-request="
-                                if (event.detail.xhr.status === 200) {
-                                    const modal = bootstrap.Modal.getInstance(document.getElementById('announcementModal'));
-                                    if (modal) { modal.hide(); }
-                                    htmx.trigger(document.body, 'refreshTable');
-                                }">
+            if (event.detail.xhr.status === 200) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('announcementModal'));
+                if (modal) { modal.hide(); }
+                htmx.trigger(document.body, 'refreshTable');
+            }">
         @csrf
         @method('PUT')
 

@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id('program_id');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->date('program_date')->nullable();
-            $table->time('time')->nullable();
-            $table->string('location')->nullable();
-            $table->unsignedInteger('attendees_count')->default(0);
-            $table->enum('status', ['Planned', 'Ongoing', 'Completed', 'Cancelled'])->default('Planned');
+            $table->integer('applicants_limit')->nullable();
+            $table->integer('applicants_count')->default(0);
+            $table->date('application_start');
+            $table->date('application_end');
             $table->timestamps();
         });
     }

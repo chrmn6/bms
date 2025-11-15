@@ -15,8 +15,6 @@ class ResidentAttributes extends Model
     protected $fillable = [
         'resident_id',
         'voter_status',
-        'pwd_status',
-        'senior',
         'blood_type',
     ];
 

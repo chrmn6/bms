@@ -343,24 +343,7 @@
                                     <x-input-error class="mt-2" :messages="$errors->get('blood_type')" />
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- ADDITIONAL INFO-->
-    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
-        <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
-            <div>
-                <p class="text-lg font-semibold mb-1">Government Information</p>
-                <p class="text-sm text-slate-500 mb-1">This section is for your government-related details.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
-                        <tbody>
                             <!-- VOTER STATUS -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -376,44 +359,6 @@
                                             Yes</option>
                                     </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('voter_status')" />
-                                </td>
-                            </tr>
-
-                            <!-- PWD STATUS -->
-                            <tr>
-                                <th class="text-left font-semibold p-2">
-                                    <x-input-label for="pwd_status" :value="__('Person with Disability (PWD)')" />
-                                </th>
-                                <td>
-                                    <select id="pwd_status" name="pwd_status"
-                                        class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
-                                        <option value="">Select</option>
-                                        <option value="No" {{ old('pwd_status', $resident->attributes->pwd_status ?? '') == 'No' ? 'selected' : '' }}>No</option>
-                                        <option value="Yes" {{ old('pwd_status', $resident->attributes->pwd_status ?? '') == 'Yes' ? 'selected' : '' }}>Yes</option>
-                                    </select>
-                                    <x-input-error class="mt-2" :messages="$errors->get('pwd_status')" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
-                        <tbody>
-                            <!-- SENIOR STATUS -->
-                            <tr>
-                                <th class="text-left font-semibold p-2">
-                                    <x-input-label for="senior" :value="__('Senior Citizen')" />
-                                </th>
-                                <td>
-                                    <select id="senior" name="senior"
-                                        class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
-                                        <option value="">Select</option>
-                                        <option value="No" {{ old('senior', $resident->attributes->senior ?? '') == 'No' ? 'selected' : '' }}>No</option>
-                                        <option value="Yes" {{ old('senior', $resident->attributes->senior ?? '') == 'Yes' ? 'selected' : '' }}>Yes</option>
-                                    </select>
-                                    <x-input-error class="mt-2" :messages="$errors->get('senior')" />
                                 </td>
                             </tr>
                         </tbody>

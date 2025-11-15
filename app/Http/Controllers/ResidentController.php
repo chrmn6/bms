@@ -93,8 +93,6 @@ class ResidentController extends Controller
             'education' => 'nullable|string|max:100',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'voter_status' => 'nullable|in:Yes,No',
-            'pwd_status' => 'nullable|in:Yes,No',
-            'senior' => 'nullable|in:Yes,No',
             'blood_type' => 'nullable|string|max:3',
             'household_id' => 'nullable|exists:households,household_id',
         ]);

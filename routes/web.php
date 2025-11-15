@@ -10,7 +10,9 @@ use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\ProgramController;
+use Database\Seeders\AdminUserSeeder;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -51,7 +53,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 // PROGRAMS ROUTES
-Route::resource('programs', ProgramController::class);
+Route::resource('programs', ProgramController::class)->only(['index', 'show']);
 Route::post('/programs/{program}/join', [ProgramController::class, 'join'])->name('programs.join');
 
 // STAFF + RESIDENT ROUTES
@@ -81,6 +83,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SettingsController::class, 'update'])->name('settings.updatePassword');
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('settings.destroy');
+});
+
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    
+    // Resource routes for programs (index, create, store, edit, update, destroy if needed)
+    Route::resource('programs', AdminProgramController::class);
+
+    // View applicants of a program
+    Route::get('programs/{program}/applicants', [AdminProgramController::class, 'applicants'])
+        ->name('programs.applicants');
+
+    // Approve or reject an application
+    Route::get('programs/application/{id}/approve', [AdminProgramController::class, 'approve'])
+        ->name('programs.approve');
+
+    Route::get('programs/application/{id}/reject', [AdminProgramController::class, 'reject'])
+        ->name('programs.reject');
 });
 
 require __DIR__ . '/auth.php';
