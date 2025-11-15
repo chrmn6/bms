@@ -9,6 +9,10 @@ use App\Models\Activity;
 use App\Policies\ActivityPolicy;
 use App\Models\Blotter;
 use App\Policies\BlotterPolicy;
+use App\Models\Program;
+use App\Policies\ProgramPolicy;
+use App\Models\Clearance;
+use App\Policies\ClearancePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
         Announcement::class => AnnouncementPolicy::class,
         Activity::class => ActivityPolicy::class,
         Blotter::class => BlotterPolicy::class,
+        Program::class => ProgramPolicy::class,
+        Clearance::class => ClearancePolicy::class,
     ];
 
     public function boot(): void

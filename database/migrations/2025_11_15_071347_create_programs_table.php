@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activities', function (Blueprint $table) {
-            $table->id('activity_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::create('programs', function (Blueprint $table) {
+            $table->id('program_id');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->dateTime('date_time');
+            $table->date('program_date')->nullable();
+            $table->time('time')->nullable();
             $table->string('location')->nullable();
-            $table->enum('status', ['scheduled', 'completed', 'canceled'])->default('scheduled');
+            $table->unsignedInteger('attendees_count')->default(0);
+            $table->enum('status', ['Planned', 'Ongoing', 'Completed', 'Cancelled'])->default('Planned');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('programs');
     }
 };

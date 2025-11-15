@@ -69,6 +69,7 @@
     </div>
 </nav>
 
+<!---SIDEBAR-->
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-52 h-screen pt-20 transition-transform -translate-x-full bg-neutral-50 border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar">
@@ -91,7 +92,6 @@
 
             <!--Manage Users (Admin only)-->
             @if($user->role === 'admin')
-
                 <li>
                     <x-sidebar-link :href="route('admin.officials.index')"
                         :active="request()->routeIs('admin.officials.index')">
@@ -138,6 +138,19 @@
             @endif
 
             {{-- Other links --}}
+            <li>
+                <x-sidebar-link :href="route('programs.index')" :active="request()->routeIs('admin.officials.index')">
+                    <span class="inline-flex items-center">
+                        <svg class="w-[20px] h-[20px] mr-2 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
+                        </svg>
+                        <span x-show="sidebarOpen">Programs</span>
+                    </span>
+                </x-sidebar-link>
+            </li>
+
             <li>
                 <x-sidebar-link :href="route('announcements.index')"
                     :active="request()->routeIs('announcements.index')">

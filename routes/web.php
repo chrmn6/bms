@@ -10,6 +10,7 @@ use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 
     // Blotter Reports (shared)
     Route::get('/blotters/{id}/pdf', [BlotterController::class, 'blotterTranscript'])->name('blotter.pdf');
+    Route::get('/blotters/blotter-reports', [BlotterController::class, 'blotterPrintAll'])->name('blotters.printAll');
     Route::resource('blotters', BlotterController::class)->except(['destroy']);
 });
 
@@ -47,6 +49,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('staff', UserController::class);
     Route::resource('officials', OfficialController::class);
 });
+
+// PROGRAMS ROUTES
+Route::resource('programs', ProgramController::class);
+Route::post('/programs/{program}/join', [ProgramController::class, 'join'])->name('programs.join');
 
 // STAFF + RESIDENT ROUTES
 

@@ -147,6 +147,23 @@ class BlotterController extends Controller
         ];
 
         $pdf = Pdf::loadView('pdf.blotter_transcript', $data)->setPaper('A4', 'portrait');
-        return $pdf->download("BlotterReport_{$blotter->resident->full_name}.pdf");
+        return $pdf->stream("BlotterReport_{$blotter->resident->full_name}.pdf");
     }
+
+    public function blotterPrintAll()
+    {
+        $blotters = Blotter::whereIn('status', ['resolved', 'dismissed'])->orderBy('created_at', 'desc')->get();
+
+        $data = [
+            'blotters' => $blotters,
+            'barangay_name' => 'Barangay Matina Gravahan',
+            'city_name' => 'Davao City',
+            'barangay_captain' => 'John Doe',
+        ];
+
+        $pdf = Pdf::loadView('pdf.blotters_list', $data)->setPaper('A4', 'portrait');
+
+        return $pdf->download('BlotterReports.pdf');
+    }
+
 }

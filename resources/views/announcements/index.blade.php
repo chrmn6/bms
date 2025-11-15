@@ -1,8 +1,3 @@
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
-@endpush
-
 @section('title', 'Announcements')
 
 @php

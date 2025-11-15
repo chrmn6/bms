@@ -27,5 +27,10 @@ class Activity extends Model
     protected $casts = [
         'date_time' => 'datetime',
     ];
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'program_id', 'program_id');
+    }
 }
 

@@ -22,6 +22,10 @@
                         <span>Announcements</span>
                     </x-resident-nav-link>
 
+                    <x-resident-nav-link :href="route('programs.index')" :active="request()->routeIs('programs.index')">
+                        <span>Programs</span>
+                    </x-resident-nav-link>
+
                     <x-resident-nav-link :href="route('activities.index')"
                         :active="request()->routeIs('activities.index')">
                         <span>Activities</span>

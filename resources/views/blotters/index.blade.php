@@ -36,14 +36,29 @@
                     </div>
 
                     <!-- Button on the right -->
-                    @can('create', App\Models\Blotter::class)
-                        <x-primary-button type="button" hx-get="{{ route('blotters.create') }}"
-                            hx-target="#blotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
-                            data-bs-target="#addBlotterModal"
-                            class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center flex-shrink-0">
-                            File Report
-                        </x-primary-button>
-                    @endcan
+                    <div class="flex items-center gap-2">
+                        @can('create', App\Models\Blotter::class)
+                            <x-primary-button type="button" hx-get="{{ route('blotters.create') }}"
+                                hx-target="#blotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
+                                data-bs-target="#addBlotterModal"
+                                class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center flex-shrink-0">
+                                File Report
+                            </x-primary-button>
+                        @endcan
+
+                        <!-- Print All Button -->
+                        @can('viewAny', App\Models\Blotter::class)
+                            <x-primary-button type="button" onclick="window.location='{{ route('blotters.printAll') }}'"
+                                class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 flex items-center flex-shrink-0">
+                                <svg class="w-[15px] h-[15px] text-white dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+                                        d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z" />
+                                </svg> Generate
+                            </x-primary-button>
+                        @endcan
+                    </div>
                 </div>
 
                 <!--BLOTTER LIST-->

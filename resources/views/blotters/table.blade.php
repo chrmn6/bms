@@ -14,8 +14,10 @@
         @forelse($blotters as $blotter)
             <tr data-status="{{ $blotter->status }}"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 divide-x divide-gray-100">
-                <td class="px-4 py-2 text-center">
-                    {{ $blotter->display_id }}
+                <td class="px-3 py-2">
+                    <a href="{{ route('blotter.pdf', $blotter->blotter_id) }}" target="_blank">
+                        {{ $blotter->display_id }}
+                    </a>
                 </td>
                 <td class="px-4 py-2">{{ $blotter->resident->full_name }}</td>
                 <td class="px-4 py-2">{{ $blotter->incident_date }}</td>
@@ -58,22 +60,6 @@
                             </svg>
                         </x-primary-button>
                     @endcan
-                    @auth
-                        @if (
-                                (auth()->user()->role === 'admin' || auth()->user()->role === 'staff') &&
-                                ($blotter->status === 'resolved' || $blotter->status === 'dismissed')
-                            )
-                            <a href="{{ route('blotter.pdf', $blotter->blotter_id) }}">
-                                <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] gap-1 text-base">
-                                    <svg class="w-[15px] h-[15px] text-white dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
-                                            d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z" />
-                                    </svg>
-                                </x-primary-button>
-                            </a>
-                        @endif
-                    @endauth
                 </td>
             </tr>
         @empty
