@@ -48,12 +48,13 @@
 
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">
         Clearance is valid up to {{ $clearance->valid_until }} unless revoked due to a valid cause.
-        Issued this {{ $clearance->issued_date }} at Barangay Matina Gravahan, Davao City, Philippines.
+        Issued this {{ $clearance->issued_date->format('F d, Y') }} at Barangay Matina Gravahan, Davao City,
+        Philippines.
     </p>
 
     <div class="mt-16 text-right">
-        <p class="font-bold text-lg">JOHN DOE</p>
-        <p class="text-base">Punong Barangay</p>
+        <p class="font-bold text-lg">HON. {{ $official->full_name }}</p>
+        <p class="text-base">Barangay Captain</p>
     </div>
 
     <p class="text-center mt-16 text-xs">

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('clearance_type');
             $table->text('purpose');
+            $table->enum('payment_method', ['Cash', 'GCash']);
+            $table->string('gcash_reference')->nullable();
             $table->date('issued_date')->nullable();
             $table->date('valid_until')->nullable();
             $table->enum('status', ['pending', 'approved', 'completed', 'rejected']);

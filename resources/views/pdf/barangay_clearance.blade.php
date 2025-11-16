@@ -54,12 +54,12 @@
     </p>
 
     <p class="font-bold text-justify leading-relaxed mb-8" style="text-indent: 2em;">
-        Given this {{ $clearance->issued_date }}.
+        Given this {{ $clearance->issued_date->format('F d, Y') }}.
     </p>
 
     <div class="mt-16 text-right">
-        <p class="font-bold text-lg">JOHN DOE</p>
-        <p class="text-base">Punong Barangay</p>
+        <p class="font-bold text-lg">HON. {{ $official->full_name }}</p>
+        <p class="text-base">Barangay Captain</p>
     </div>
 </body>
 

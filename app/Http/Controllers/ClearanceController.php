@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Clearance;
 use App\Models\Household;
+use App\Models\Official;
 
 class ClearanceController extends Controller
 {
@@ -50,6 +51,8 @@ class ClearanceController extends Controller
         $data = $request->validate([
             'clearance_type' => 'required|string|max:255',
             'purpose' => 'required|string',
+            'payment_method' => 'required|in:Cash,GCash',
+            'gcash_reference' => 'required_if:payment_method,GCash|nullable|string',
         ]);
 
         $data['resident_id'] = Auth::user()->resident->resident_id;
@@ -58,6 +61,8 @@ class ClearanceController extends Controller
         $data['valid_until'] = null;
         $data['remarks'] = null;
         $data['user_id'] = null;
+        $data['payment_method'] = $request->payment_method;
+        $data['gcash_reference'] = $request->gcash_reference;
 
         Clearance::create($data);
 
@@ -141,6 +146,8 @@ class ClearanceController extends Controller
         $resident = $clearance->resident;
         $household = Household::find($resident->household_number);
 
+        $official = Official::where('position', 'Barangay Captain')->where('status', 'Active')->first();
+
         
         $type = strtolower($clearance->clearance_type);
 
@@ -153,9 +160,9 @@ class ClearanceController extends Controller
             'valid_until' => $clearance->valid_until,
             'household_number' => $resident->household_number,
             'household' => $household,
+            'official' => $official,
             'barangay_name' => 'Barangay Matina Gravahan',
             'city_name' => 'Davao City',
-            'barangay_captain' => 'John Doe',
         ];
 
         switch ($type) {
@@ -172,6 +179,11 @@ class ClearanceController extends Controller
             case 'residency clearance':
                 $view = 'pdf.residency_clearance';
                 $filename = "ResidencyClearance_{$resident->full_name}.pdf";
+                break;
+
+            case 'barangay indigency':
+                $view = 'pdf.barangay_indigency';
+                $filename = "BarangayIndigency_{$resident->full_name}.pdf";
                 break;
 
             default:
