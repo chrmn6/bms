@@ -26,7 +26,6 @@
                                 <th scope="col" class="px-3 py-2">Full Name</th>
                                 <th scope="col" class="px-3 py-2">Gender</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
-                                <th scope="col" class="px-3 py-2">Voter</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
                             </tr>
                         </thead>
@@ -49,7 +48,6 @@
                                     </th>
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
-                                    <td class="px-3 py-2">{{ $resident->attributes->voter_status }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
                                 </tr>
                             @empty

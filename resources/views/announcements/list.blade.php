@@ -72,7 +72,9 @@
                             <h3 class="text-gray-900 text-lg font-bold leading-tight">
                                 {{ $announcement->title }}
                             </h3>
-                            <p class="text-gray-700 text-sm">{{ $announcement->content }}</p>
+                            <p class="text-gray-700 text-sm line-clamp-4 sm:line-clamp-6">
+                                {!! nl2br(e($announcement->content)) !!}
+                            </p>
                             {{-- Author --}}
                             <div class="text-gray-500 text-sm flex items-center gap-2 mt-1">
                                 <i class="bi bi-person-fill"></i>

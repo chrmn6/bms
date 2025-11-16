@@ -1,8 +1,7 @@
 <div class="p-2">
     <h4 class="fw-bold mb-2">{{ $announcement->title }}</h4>
-    <p class="mb-3">{{ $announcement->content }}</p>
+    <p class="mb-3">{!! nl2br(e($announcement->content)) !!}</p>
 
-    <!-- Metadata with icons -->
     <small class="text-muted d-block mb-2">
         <i class="bi bi-clock me-1"></i>
         Published {{ $announcement->created_at->diffForHumans() }}

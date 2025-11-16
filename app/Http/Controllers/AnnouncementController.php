@@ -20,7 +20,6 @@ class AnnouncementController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Announcement::class);
-
         $announcements = Announcement::with('user')->latest()->paginate(6);
 
         if ($request->header('HX-Request')) {
