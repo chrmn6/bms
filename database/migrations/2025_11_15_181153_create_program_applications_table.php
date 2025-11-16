@@ -21,9 +21,9 @@ return new class extends Migration
 
             $table->string('proof_file');
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
-            $table->text('note')->nullable();
 
             $table->unique(['program_id', 'resident_id']);
+            $table->text('note')->nullable();
 
             $table->timestamps();
         });

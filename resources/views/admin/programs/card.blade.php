@@ -38,8 +38,9 @@
             Edit
         </x-primary-button>
 
-        <x-primary-button onclick="window.location='{{ route('admin.programs.applicants', $program->program_id) }}'" class="mt-1 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
-                View Applicants
-            </x-primary-button>
-        </div>
+        <x-primary-button onclick="window.location='{{ route('admin.programs.applicants', $program->program_id) }}'"
+            class="mt-1 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">
+            View Applicants
+        </x-primary-button>
+    </div>
 @endforeach

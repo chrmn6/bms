@@ -59,9 +59,11 @@ class AdminProgramController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $a = ProgramApplication::with('resident')->findOrFail($id);
+        
+        return view('admin.programs.show', compact('a'));
     }
 
     /**
@@ -112,21 +114,30 @@ class AdminProgramController extends Controller
     public function applicants(Program $program)
     {
         $applicants = ProgramApplication::where('program_id', $program->program_id)
-            ->with('resident')
-            ->get();
+            ->with('resident')->latest()->get();
 
         return view('admin.programs.applicants', compact('program', 'applicants'));
     }
 
-    public function approve($id)
+    public function approve(Request $request, $id)
     {
-        ProgramApplication::where('id', $id)->update(['status' => 'Approved']);
-        return redirect()->route('admin.programs.index')->with('success', 'Applicant approved.');
+        $a = ProgramApplication::findOrFail($id);
+        $a->update([
+            'status' => 'Approved',
+            'note' => $request->note,
+        ]);
+
+        return redirect()->route('admin.programs.applicants', $a->program_id)->with('success', 'Applicant approved.');
     }
 
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
-        ProgramApplication::where('id', $id)->update(['status' => 'Rejected']);
-        return redirect()->route('admin.programs.index')->with('success', 'Applicant rejected.');
+        $a = ProgramApplication::findOrFail($id);
+        $a->update([
+            'status' => 'Rejected',
+            'note' => $request->note,
+        ]);
+
+        return redirect()->route('admin.programs.applicants', $a->program_id)->with('success', 'Applicant rejected.');
     }
 }

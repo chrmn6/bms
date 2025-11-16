@@ -92,23 +92,24 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content border-0 shadow-lg bg-slate-50">
                         <div class="modal-header bg-[#6D0512] text-white">
-                            <h5 class="modal-title" id="applyModalLabel">Apply to Program</h5>
+                            <h5 class="modal-title" id="applyModalLabel">Apply</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
                             <form id="applyForm" action="" method="POST" enctype="multipart/form-data">
                                 @csrf
+
                                 <div class="mb-3">
-                                    <x-input-label for="proof_file" :value="__('Choose proof file')" />
+                                    <x-input-label for="proof_file" :value="__('Sample Proof of Evidence')" />
+                                    <img src="{{ asset('uploads/applicants/sample-proof.png') }}" alt="Sample Proof"
+                                        class="mx-auto rounded border" style="max-width: 300px; opacity: 0.6;">
+                                </div>
+
+                                <div class="mb-3">
+                                    <x-input-label for="proof_file" :value="__('Choose Image')" />
                                     <input type="file" name="proof_file" id="proof_file"
                                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                                         required>
-                                </div>
-                                <div class="mb-3">
-                                    <x-input-label for="note" :value="__('Optional Note')" />
-                                    <input type="text" name="note" id="note"
-                                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                                        placeholder="Optional note">
                                 </div>
                                 <x-primary-button type="submit"
                                     class="w-full !bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex justify-center items-center gap-1">

@@ -86,19 +86,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
-    
-    // Resource routes for programs (index, create, store, edit, update, destroy if needed)
     Route::resource('programs', AdminProgramController::class);
-
-    // View applicants of a program
     Route::get('programs/{program}/applicants', [AdminProgramController::class, 'applicants'])
         ->name('programs.applicants');
-
-    // Approve or reject an application
-    Route::get('programs/application/{id}/approve', [AdminProgramController::class, 'approve'])
+    Route::post('programs/applications/{id}/approve', [AdminProgramController::class, 'approve'])
         ->name('programs.approve');
-
-    Route::get('programs/application/{id}/reject', [AdminProgramController::class, 'reject'])
+    Route::post('programs/applications/{id}/reject', [AdminProgramController::class, 'reject'])
         ->name('programs.reject');
 });
 
