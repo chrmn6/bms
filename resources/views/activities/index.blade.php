@@ -2,11 +2,10 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/dashboard-styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/users-styles.css') }}">
 @endpush
 
 @php
-    $layout = auth()->user()->role === 'resident' ? 'resident-layout' : 'app-layout';
+    $layout = Auth::user()->role === 'resident' ? 'resident-layout' : 'app-layout';
 @endphp
 
 <x-dynamic-component :component="$layout">
@@ -21,9 +20,9 @@
     <div class="modal fade" id="addActivityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg">
-                <div class="modal-header !bg-[#6D0512] text-white">
+                <div class="modal-header !bg-[#6D0512] text-white py-2">
                     <h5 class="modal-title" id="activityModalLabel">
-                        <i class="bi bi-globe me-2"></i>Create Activity
+                        Create Activity
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -42,9 +41,9 @@
         aria-hidden="true">
         <div class="modal-dialog modal-m modal-dialog-centered">
             <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                <div class="modal-header !bg-[#6D0512] text-white">
+                <div class="modal-header !bg-[#6D0512] text-white py-2">
                     <h5 class="modal-title" id="viewActivityModalLabel">
-                        <i class="bi bi-globe me-2"></i>Activity
+                        Activity
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -78,6 +77,7 @@
         </div>
     </div>
 
+    <!-- Calendar Functions -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
@@ -85,14 +85,10 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
-                    start: 'today',
-                    center: 'title',
+                    start: 'title',
                     right: 'dayGridMonth,listWeek'
                 },
                 contentHeight: 350,
-                validRange: function (nowDate) {
-                    return { start: nowDate };
-                },
                 events: '{{ route('activities.events') }}',
                 dayCellDidMount: function (info) {
                     if (info.date.getDay() === 0) {
@@ -103,17 +99,49 @@
                     }
                 },
                 dateClick: function (info) {
-                    if (info.date.getDay() === 0) {
-                        alert("No operations on Sundays.");
+                    const role = "{{ Auth::user()->role }}";
+                    const clickedDate = new Date(info.dateStr);
+                    const today = new Date();
+
+                    today.setHours(0, 0, 0, 0);
+                    clickedDate.setHours(0, 0, 0, 0);
+
+                    if (clickedDate.getDay() === 0) {
+                        Swal.fire({
+                            icon: 'warning',
+                            text: "No operations on Sundays.",
+                            width: '400px',
+                            confirmButtonColor: '#6D0512'
+                        });
                         return;
                     }
 
-                    htmx.ajax('GET', '{{ route('activities.create') }}', {
-                        target: '#activityModalBody',
-                        swap: 'innerHTML'
-                    });
-                    new bootstrap.Modal(document.getElementById('addActivityModal')).show();
+                    if (role === 'staff' && clickedDate < today) {
+                        Swal.fire({
+                            icon: 'error',
+                            text: "You cannot create an activity in the past.",
+                            confirmButtonColor: '#6D0512',
+                            width: '400px',
+                        });
+                        return;
+                    }
+
+                    if (role === 'staff') {
+                        htmx.ajax('GET', '{{ route('activities.create') }}?date=' + info.dateStr, {
+                            target: '#activityModalBody',
+                            swap: 'innerHTML'
+                        });
+                        new bootstrap.Modal(document.getElementById('addActivityModal')).show();
+                    } else {
+                        Swal.fire({
+                            icon: 'info',
+                            text: "You can only view activities.",
+                            confirmButtonColor: '#6D0512',
+                            width: '400px',
+                        });
+                    }
                 },
+
                 eventClick: function (info) {
                     info.jsEvent.preventDefault();
                     htmx.ajax('GET', `/activities/${info.event.id}`, {

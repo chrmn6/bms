@@ -1,7 +1,7 @@
 @section('title', 'Announcements')
 
 @php
-    $layout = auth()->user()->role === 'resident' ? 'resident-layout' : 'app-layout';
+    $layout = Auth::user()->role === 'resident' ? 'resident-layout' : 'app-layout';
 @endphp
 
 <x-dynamic-component :component="$layout">
@@ -43,9 +43,9 @@
             {{-- Announcement Modal --}}
             <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-dialog modal-dialog-centered modal-m">
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="announcementModalLabel">
                                 Announcement
                             </h5>

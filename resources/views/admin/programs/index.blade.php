@@ -33,7 +33,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="programModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i>Create Program
                             </h5>

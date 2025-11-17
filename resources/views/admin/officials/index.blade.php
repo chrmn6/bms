@@ -31,7 +31,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="officialModalLabel">
                                 Create Official
                             </h5>
@@ -53,7 +53,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="bg-neutral-50 modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="viewOfficialModalLabel">
                                 Official Details
                             </h5>
@@ -74,7 +74,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="bg-neutral-50 modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="editOfficialModalLabel">Edit Official</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>

@@ -15,10 +15,6 @@ return new class extends Migration
             $table->id('activity_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('program_id');
-            $table->foreign('program_id')->references('program_id')->on('programs')->onDelete('cascade');
-
-
             $table->string('title');
             $table->text('description')->nullable();
             $table->dateTime('date_time');

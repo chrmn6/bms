@@ -1,7 +1,7 @@
 @section('title') {{ 'Settings' }} @endsection
 
 @php
-    $layout = auth()->user()->role === 'resident' ? 'resident-layout' : 'app-layout';
+    $layout = Auth::user()->role === 'resident' ? 'resident-layout' : 'app-layout';
 @endphp
 
 <x-dynamic-component :component="$layout">

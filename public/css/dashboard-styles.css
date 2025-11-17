@@ -607,21 +607,26 @@
     border: none;
 }
 
-
 .fc-toolbar-title {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #6D0512;
 }
 
-.fc-event.completed {
-    background-color: #16a34a !important;
-    border-color: #16a34a !important;
+.fc-event.dot-planned {
+    background-color: #ADD8E6;
 }
 
-.fc-event.canceled {
-    background-color: #dc2626 !important;
-    border-color: #dc2626 !important;
+.fc-event.dot-completed {
+    background-color: #90EE90;
+}
+
+.fc-event.dot-cancelled {
+    background-color: #FF7F7F;
+}
+
+.fc-daygrid-event-dot {
+    display: none;
 }
 
 #calendar a {

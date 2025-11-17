@@ -1,6 +1,6 @@
 <h1 class="text-2xl font-bold mb-4">{{ $activity->title }}</h1>
 <p><strong>Date & Time: </strong>
-    {{ $activity->date_time }}</p>
+    {{ $activity->date_time->format('F j, Y, g:i A') }}</p>
 <p><strong>Status: </strong> {{ ucfirst($activity->status) }}</p>
 <p><strong>Location: </strong> {{ $activity->location ?? 'N/A' }}</p>
 <p><strong>Description: </strong>{{ $activity->description ?? 'No description provided.' }}</p>

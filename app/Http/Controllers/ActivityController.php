@@ -34,8 +34,10 @@ class ActivityController extends Controller
 
         $this->authorize('create', Activity::class);
 
+        $date = $request->query('date');
+
         if ($request->header('HX-Request')) {
-            return view('activities.create');
+            return view('activities.create', compact('date'));
         }
 
         return view('activities.index');
@@ -53,7 +55,7 @@ class ActivityController extends Controller
             'description' => 'nullable|string',
             'date_time' => 'required|date',
             'location' => 'nullable|string|max:255',
-            'status' => 'nullable|in:scheduled,completed,canceled',
+            'status' => 'nullable|in:Planned,Completed,Cancelled',
         ]);
 
         $data['user_id'] = Auth::id();
@@ -100,7 +102,7 @@ class ActivityController extends Controller
             'description' => 'nullable|string',
             'date_time' => 'required|date',
             'location' => 'nullable|string|max:255',
-            'status' => 'nullable|in:scheduled,completed,canceled',
+            'status' => 'nullable|in:Planned,Completed,Cancelled',
         ]);
 
         $activity->update($data);
@@ -135,7 +137,12 @@ class ActivityController extends Controller
                 'id' => $activity->activity_id,
                 'title' => $activity->title,
                 'start' => $activity->date_time,
-                'classNames' => [$activity->status],
+                'classNames' => match($activity->status) {
+                    'Planned' => 'dot-planned',
+                    'Completed' => 'dot-completed',
+                    'Cancelled' => 'dot-cancelled',
+                    default => 'dot-default',
+                },
             ];
         });
 

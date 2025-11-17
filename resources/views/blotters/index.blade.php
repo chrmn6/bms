@@ -1,7 +1,7 @@
 @section('title') {{ 'Blotter Report' }} @endsection
 
 @php
-    $layout = auth()->user()->role === 'resident' ? 'resident-layout' : 'app-layout';
+    $layout = Auth::user()->role === 'resident' ? 'resident-layout' : 'app-layout';
 @endphp
 
 <x-dynamic-component :component="$layout">
@@ -101,7 +101,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="announcementModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i> File Blotter Report
                             </h5>
@@ -122,7 +122,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-m modal-dialog-centered">
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
-                        <div class="modal-header !bg-[#6D0512] text-white">
+                        <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="viewBlotterModalLabel">
                                 <i class="bi bi-file-earmark me-2"></i>Blotter Report Transcript
                             </h5>

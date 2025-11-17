@@ -32,7 +32,7 @@
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="bg-neutral-50 modal-content border-0 shadow-lg">
-                    <div class="modal-header !bg-[#6D0512] text-white">
+                    <div class="modal-header !bg-[#6D0512] text-white py-2">
                         <h5 class="modal-title" id="userModalLabel">
                             Add New User
                         </h5>
@@ -54,7 +54,7 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="bg-neutral-50 modal-content border-0 shadow-lg">
-                    <div class="modal-header !bg-[#6D0512] text-white">
+                    <div class="modal-header !bg-[#6D0512] text-white py-2">
                         <h5 class="modal-title" id="viewUserModalLabel">
                             User Details
                         </h5>
@@ -75,7 +75,7 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="bg-neutral-50 modal-content border-0 shadow-lg">
-                    <div class="modal-header !bg-[#6D0512] text-white">
+                    <div class="modal-header !bg-[#6D0512] text-white py-2">
                         <h5 class="modal-title" id="editStaffModalLabel">Edit User</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
