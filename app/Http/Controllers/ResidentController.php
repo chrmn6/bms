@@ -30,8 +30,9 @@ class ResidentController extends Controller
         $recent_announcements = Announcement::with('user')->latest()->take(10)->get();
         $recent_activities = Activity::latest()->take(10)->get();
         $clearances = $resident->clearances()->latest()->take(5)->get();
+        $blotters = $resident->blotters()->latest()->take(5)->get();
 
-        return view('residents.dashboard', compact('resident', 'recent_announcements', 'recent_activities', 'clearances'));
+        return view('residents.dashboard', compact('resident', 'recent_announcements', 'recent_activities', 'clearances', 'blotters'));
     }
 
         public function edit()

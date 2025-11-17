@@ -5,7 +5,6 @@
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Clearance No.</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Requested By</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Clearance Type</th>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">GCash Reference No.</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Status</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Processed By</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Actions</th>
@@ -20,7 +19,6 @@
                 </td>
                 <td class="px-1 py-2">{{ $clearance->resident->full_name }}</td>
                 <td class="px-2 py-2">{{ $clearance->clearance_type }}</td>
-                <td class="px-2 py-2">{{ $clearance->gcash_reference }}</td>
                 <td class="px-2 py-2">
                     @php
                         $statusColors = match ($clearance->status) {

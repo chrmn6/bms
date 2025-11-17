@@ -48,6 +48,11 @@ class Resident extends Model
         return $this->hasMany(Clearance::class, 'resident_id', 'resident_id');
     }
 
+    public function blotters()
+    {
+        return $this->hasMany(Blotter::class, 'resident_id', 'resident_id');
+    }
+
     public function programApplications()
     {
         return $this->hasMany(ProgramApplication::class, 'resident_id');
