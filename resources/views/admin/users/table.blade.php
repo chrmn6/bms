@@ -21,7 +21,7 @@
                     </a>
                 </td>
                 <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('uploads/users/' . $user->image) }}"
+                    <img class="w-8 h-8 rounded-full" src="{{ asset('storage/uploads/users/' . $user->image) }}"
                         alt="{{ $user->full_name }}">
                     <div class="ps-2">
                         <div class="text-sm font-semibold">{{ $user->full_name }}</div>

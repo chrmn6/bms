@@ -11,8 +11,8 @@
             <tr class="align-top border-b border-gray-500">
                 <td colspan="2" class="p-2">
                     <div class="font-semibold mb-2">PROOF OF EVIDENCE</div>
-                    @if($a->proof_file && file_exists(public_path('uploads/applicants/' . $a->proof_file)))
-                        <img src="{{ asset('uploads/applicants/' . $a->proof_file) }}" alt="Proof of Evidence"
+                    @if($a->proof_file && file_exists(public_path('storage/uploads/applicants/' . $a->proof_file)))
+                        <img src="{{ asset('storage/uploads/applicants/' . $a->proof_file) }}" alt="Proof of Evidence"
                             class="img-fluid mx-auto" style="max-width: 300px; display: block;">
                     @else
                         <span class="text-muted">No image uploaded</span>
@@ -34,7 +34,7 @@
                             <input type="hidden" name="note" id="approve-note">
                             <button type="submit" class="btn btn-success btn-sm"
                                 onclick="document.getElementById('approve-note').value = document.getElementById('admin-note').value;
-                                                        return confirm('Are you sure you want to approve this application?');">
+                                                                return confirm('Are you sure you want to approve this application?');">
                                 Approve
                             </button>
                         </form>
@@ -45,7 +45,7 @@
                             <input type="hidden" name="note" id="reject-note">
                             <button type="submit" class="btn btn-danger btn-sm"
                                 onclick="document.getElementById('reject-note').value = document.getElementById('admin-note').value; 
-                                                        return confirm('Are you sure you want to reject this application?');">
+                                                                return confirm('Are you sure you want to reject this application?');">
                                 Reject
                             </button>
                         </form>

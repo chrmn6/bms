@@ -34,8 +34,8 @@
             </tr>
             <tr class="border-b border-gray-500 align-top">
                 <th class="text-left font-semibold p-2">PROOF OF EVIDENCE</th>
-                <td>@if($blotter->image && file_exists(public_path('uploads/blotters/' . $blotter->image)))
-                    <img src="{{ asset('uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence"
+                <td>@if($blotter->image && file_exists(public_path('storage/uploads/blotters/' . $blotter->image)))
+                    <img src="{{ asset('storage/uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence"
                         class="img-fluid" style="max-width: 200px;">
                 @else
                         <span class="text-muted">No image uploaded</span>

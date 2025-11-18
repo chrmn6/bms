@@ -44,7 +44,7 @@
 
     <div id="gcash_section" class="mb-2" style="display: none;">
         <x-input-label value="GCash Account" />
-        <img src="{{ asset('images/gcash-sample.jpg') }}" alt="GCash Sample" class="w-64 mb-3 rounded border">
+        <img src="{{ asset('storage/images/gcash-sample.jpg') }}" alt="GCash Sample" class="w-64 mb-3 rounded border">
 
         <x-input-label for="gcash_reference" :value="__('Reference Number')" />
         <input type="text" id="gcash_reference" name="gcash_reference"

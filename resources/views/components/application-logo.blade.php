@@ -1,1 +1,1 @@
-<img src="{{ asset('images/bms-logo.png') }}" class="w-auto h-16" alt="BMS LOGO" {{ $attributes }}>
+<img src="{{ asset('storage/images/bms-logo.png') }}" class="w-auto h-16" alt="BMS LOGO" {{ $attributes }}>

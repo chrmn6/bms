@@ -29,7 +29,7 @@
                             class="flex items-center gap-2 px-2 py-2 rounded-xl cursor-pointer border border-gray-300 bg-[#FAFAFA]"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                            <img src="{{ asset('uploads/users/' . Auth::user()->image) }}"
+                            <img src="{{ asset('/storage/uploads/users/' . Auth::user()->image) }}"
                                 alt="{{ Auth::user()->full_name }}" class="w-8 h-8 rounded-full">
                             <div class="flex flex-col leading-tight">
                                 <span class="font-semibold text-sm text-gray-900">{{ Auth::user()->full_name }}</span>

@@ -7,11 +7,11 @@
             <!-- Profile Picture -->
             <label for="image" class="relative cursor-pointer group d-block text-center">
                 @if ($resident->profile?->image)
-                    <img id="profilePreview" src="{{ asset('uploads/residents/' . $resident->profile->image) }}"
+                    <img id="profilePreview" src="{{ asset('storage/uploads/residents/' . $resident->profile->image) }}"
                         class="rounded-circle" alt="Profile Photo"
                         style="width: 110px; height: 110px; object-fit: cover; border: 2px solid #6D0512; margin-bottom: 4px;">
                 @else
-                    <img id="profilePreview" src="{{ asset('images/default-avatar.jpg') }}" class="rounded-circle"
+                    <img id="profilePreview" src="{{ asset('storage/images/default-avatar.jpg') }}" class="rounded-circle"
                         alt="Default Profile Photo"
                         style="width: 110px; height: 110px; object-fit: cover; border: 2px solid #6D0512; margin-bottom: 4px;">
                 @endif

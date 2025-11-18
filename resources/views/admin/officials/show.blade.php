@@ -10,8 +10,8 @@
                     <!-- Image -->
                     <div
                         class="relative w-20 h-20 xl:w-28 xl:h-28 flex-shrink-0 overflow-hidden rounded-full shadow-md bg-neutral-50">
-                        <img src="{{ asset('uploads/users/' . $official->image) }}" alt="{{ $official->full_name }}"
-                            class="w-full h-full object-cover">
+                        <img src="{{ asset('storage/uploads/users/' . $official->image) }}"
+                            alt="{{ $official->full_name }}" class="w-full h-full object-cover">
                     </div>
                     <!-- Name + Position + Status -->
                     <div class="flex flex-col justify-center mt-3">
@@ -107,7 +107,7 @@
                             <div class="card-body bg-white-50">
                                 <div class="flex">
                                     <div class="grow">
-                                        <img src="/images/bms-logo.png" alt="" class="h-11">
+                                        <img src="storage/images/bms-logo.png" alt="" class="h-11">
                                     </div>
                                 </div>
 
@@ -136,7 +136,7 @@
                             <div class="card-body bg-white-50">
                                 <div class="flex">
                                     <div class="grow">
-                                        <img src="/images/bms-logo.png" alt="" class="h-11">
+                                        <img src="storage/images/bms-logo.png" alt="" class="h-11">
                                     </div>
                                 </div>
                                 <div class="mt-4">

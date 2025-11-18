@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ asset('images/bms-logo.png')}}">
+    <link rel="shortcut icon" href="{{ asset('images/bms-logo.png') }}">
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -1533,12 +1533,12 @@
                 @auth
                     @php $user = Auth::user(); @endphp
                     <a href="
-                                @if ($user->role === 'resident')
-                                    {{ route('residents.dashboard') }}
-                                @else
-                                    {{ route('dashboard') }}
-                                @endif
-                                "
+                                                        @if ($user->role === 'resident')
+                                                            {{ route('residents.dashboard') }}
+                                                        @else
+                                                            {{ route('dashboard') }}
+                                                        @endif
+                                                        "
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                         Dashboard
                     </a>
@@ -1659,10 +1659,10 @@
 
             <div class="flex-1 flex items-center justify-center p-6 rounded-lg">
                 <!-- Light mode image -->
-                <img src="{{ asset('images/bms-home.png') }}" alt="BMS Header Light" class="w-full max-w-md lg:max-w-2xl h-auto object-contain/>
+                <img src="{{ asset('storage/images/bms-home.png') }}" alt="BMS Header Light" class="w-full max-w-md lg:max-w-2xl h-auto object-contain/>
 
                 <!-- Dark mode image -->
-                <img src=" {{ asset('images/bms-home.png') }}" alt="BMS Header Dark"
+                <img src=" {{ asset('storage/images/bms-home.png') }}" alt="BMS Header Dark"
                     class="w-full max-w-md lg:max-w-2xl h-auto object-contain hidden dark:block" />
             </div>
         </main>
