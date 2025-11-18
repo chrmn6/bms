@@ -13,10 +13,6 @@
                         hx-target="#programModalBody" hx-swap="innerHTML" data-bs-toggle="modal"
                         data-bs-target="#addProgramModal"
                         class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center gap-1">
-                        <svg class="w-[15px] h-[15px] me-1 text-white dark:text-white" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
-                        </svg>
                         Create
                     </x-primary-button>
                 @endcan

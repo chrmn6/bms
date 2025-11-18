@@ -18,11 +18,11 @@
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">ISSUED DATE</th>
-                <td>{{ $clearance->issued_date ?? '-' }}</td>
+                <td>{{ optional($clearance->issued_date)->format('F j, Y') ?? '-' }}</td>
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">VALID UNTIL</th>
-                <td>{{ $clearance->valid_until ?? '-' }}</td>
+                <td>{{ optional($clearance->valid_until)->format('F j, Y') ?? '-' }}</td>
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">REMARKS</th>

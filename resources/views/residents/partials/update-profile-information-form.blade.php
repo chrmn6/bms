@@ -3,7 +3,7 @@
     @method('PUT')
     <!--PROFILE HEADER-->
     <div class="py-3 mt-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
-        <div class="card-body !px-2.5 flex flex-col items-center text-center">
+        <div class="card-body !px-2.5 flex flex-col items-center text-center mb-3">
             <!-- Profile Picture -->
             <label for="image" class="relative cursor-pointer group d-block text-center">
                 @if ($resident->profile?->image)
@@ -31,11 +31,9 @@
                 Joined on {{ $resident->created_at->format('F d, Y') }}
             </p>
         </div>
-    </div>
 
-    <!--PERSONAL & ADDRESS INFO-->
-    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
-        <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
+        <!--PERSONAL & ADDRESS INFO-->
+        <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50 mb-3">
             <div>
                 <p class="text-lg font-semibold mb-1">Basic Information</p>
             </div>
@@ -49,13 +47,13 @@
                                     <x-input-label for="first_name" :value="__('First Name')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="first_name" name="first_name" type="text"
-                                        class="mt-2 block w-full" :value="old('first_name', $user->first_name)" required
+                                    <x-text-input id="first_name" name="first_name" type="text" class="mt-2 block w-full"
+                                        :value="old('first_name', $user->first_name)" required
                                         placeholder="Provide your first name" />
                                     <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
                                 </td>
                             </tr>
-
+        
                             <!-- LAST NAME -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -68,19 +66,20 @@
                                     <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
                                 </td>
                             </tr>
-
+        
                             <!-- MIDDLE NAME -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
                                     <x-input-label for="middle_name" :value="__('Middle Name (Optional)')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="middle_name" name="middle_name" type="text"
-                                        class="mt-2 block w-full" :value="old('middle_name', $resident->middle_name ?? '')" placeholder="Provide your middle name" />
+                                    <x-text-input id="middle_name" name="middle_name" type="text" class="mt-2 block w-full"
+                                        :value="old('middle_name', $resident->middle_name ?? '')"
+                                        placeholder="Provide your middle name" />
                                     <x-input-error class="mt-2" :messages="$errors->get('middle_name')" />
                                 </td>
                             </tr>
-
+        
                             <!-- SUFFIX -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -100,7 +99,7 @@
                         </tbody>
                     </table>
                 </div>
-
+        
                 <div>
                     <table class="table-auto border-collapse text-sm w-full m-0 p-0">
                         <tbody>
@@ -119,7 +118,7 @@
                                     <x-input-error class="mt-2" :messages="$errors->get('gender')" />
                                 </td>
                             </tr>
-
+        
                             <!--CIVIL STATUS-->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -131,7 +130,8 @@
                                         <option value="">Select Civil Status</option>
                                         <option value="Single" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Single' ? 'selected' : '' }}>
                                             Single</option>
-                                        <option value="In A Relationship" {{ old('civil_status', $resident->details->civil_status ?? '') == 'In A Relationship' ? 'selected' : '' }}>In A Relationship</option>
+                                        <option value="In A Relationship" {{ old('civil_status', $resident->details->civil_status ?? '') == 'In A Relationship' ? 'selected' : '' }}>In
+                                            A Relationship</option>
                                         <option value="Married" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Married' ? 'selected' : '' }}>
                                             Married</option>
                                         <option value="Widowed" {{ old('civil_status', $resident->details->civil_status ?? '') == 'Widowed' ? 'selected' : '' }}>
@@ -141,28 +141,28 @@
                                     <x-input-error class="mt-2" :messages="$errors->get('civil_status')" />
                                 </td>
                             </tr>
-
+        
                             <!-- DATE OF BIRTH -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
                                     <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="date_of_birth" name="date_of_birth" type="date"
-                                        class="mt-2 block w-full" :value="old('date_of_birth', $resident->profile->date_of_birth ? $resident->profile->date_of_birth->format('Y-m-d') : '')" />
+                                    <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-2 block w-full"
+                                        :value="old('date_of_birth', $resident->profile->date_of_birth ? $resident->profile->date_of_birth->format('Y-m-d') : '')" />
                                     <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
                                 </td>
                             </tr>
-
+        
                             <!-- PHONE NUMBER -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
                                     <x-input-label for="phone_number" :value="__('Phone Number')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="phone_number" name="phone_number" type="text"
-                                        class="mt-2 block w-full" :value="old('phone_number', $user->phone_number)"
-                                        required placeholder="Provide your number" />
+                                    <x-text-input id="phone_number" name="phone_number" type="text" class="mt-2 block w-full"
+                                        :value="old('phone_number', $user->phone_number)" required
+                                        placeholder="Provide your number" />
                                     <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
                                 </td>
                             </tr>
@@ -171,11 +171,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ADDRESS INFO-->
-    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
-        <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
+        <!-- ADDRESS INFO-->
+        <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50 mb-3">
             <div>
                 <p class="text-lg font-semibold mb-1">Address Information</p>
             </div>
@@ -208,8 +206,7 @@
                                 </th>
                                 <td>
                                     <x-text-input id="address" name="address" type="text" class="mt-2 block w-full"
-                                        :value="old('address', $resident->address ?? '')"
-                                        placeholder="Provide your address" />
+                                        :value="old('address', $resident->address ?? '')" placeholder="Provide your address" />
                                     <x-input-error class="mt-2" :messages="$errors->get('address')" />
                                 </td>
                             </tr>
@@ -226,8 +223,7 @@
                                 </th>
                                 <td>
                                     <x-text-input id="place_of_birth" name="place_of_birth" type="text"
-                                        class="mt-2 block w-full" :value="old('place_of_birth', $resident->profile->place_of_birth ?? '')"
-                                        placeholder="Provide your place of birth" />
+                                        class="mt-2 block w-full" :value="old('place_of_birth', $resident->profile->place_of_birth ?? '')" placeholder="Provide your place of birth" />
                                     <x-input-error class="mt-2" :messages="$errors->get('place_of_birth')" />
                                 </td>
                             </tr>
@@ -236,10 +232,8 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ADDITIONAL INFO-->
-    <div class="py-3 mt-2 mb-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+        <!-- ADDITIONAL INFO-->
         <div class="card-body !px-2.5 flex flex-col gap-2 bg-neutral-50">
             <div>
                 <p class="text-lg font-semibold mb-1">Additional Information</p>
@@ -257,7 +251,7 @@
                                     <x-text-input id="email" name="email" type="email" class="mt-2 block w-full"
                                         :value="old('email', $user->email)" required autocomplete="username" />
                                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
+        
                                     @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                                         <div class="mt-2 text-sm text-gray-800 dark:text-gray-200">
                                             {{ __('Your email address is unverified.') }}
@@ -325,25 +319,26 @@
                                     <x-input-label for="citizenship" :value="__('Nationality')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="citizenship" name="citizenship" type="text"
-                                        class="mt-2 block w-full" :value="old('citizenship', $resident->details->citizenship ?? '')"
+                                    <x-text-input id="citizenship" name="citizenship" type="text" class="mt-2 block w-full"
+                                        :value="old('citizenship', $resident->details->citizenship ?? '')"
                                         placeholder="Provide your citizenship" />
                                     <x-input-error class="mt-2" :messages="$errors->get('citizenship')" />
                                 </td>
                             </tr>
-
+        
                             <!-- BLOOD TYPE -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
                                     <x-input-label for="blood_type" :value="__('Blood Type')" />
                                 </th>
                                 <td>
-                                    <x-text-input id="blood_type" name="blood_type" type="text"
-                                        class="mt-2 block w-full" :value="old('blood_type', $resident->attributes->blood_type ?? '')" placeholder="e.g. A+, O-, B+" />
+                                    <x-text-input id="blood_type" name="blood_type" type="text" class="mt-2 block w-full"
+                                        :value="old('blood_type', $resident->attributes->blood_type ?? '')"
+                                        placeholder="e.g. A+, O-, B+" />
                                     <x-input-error class="mt-2" :messages="$errors->get('blood_type')" />
                                 </td>
                             </tr>
-
+        
                             <!-- VOTER STATUS -->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -366,13 +361,13 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!--SUBMIT BUTTON-->
-    <div class="mt-3 flex justify-end">
-        <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
-            Save Changes
-        </x-primary-button>
+        <!--SUBMIT BUTTON-->
+        <div class="mt-2 flex justify-end p-3">
+            <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
+                Save Changes
+            </x-primary-button>
+        </div>
     </div>
 </form>
 

@@ -9,7 +9,7 @@
             <div class="flex flex-wrap gap-6 justify-start">
                 @foreach($programs as $program)
                     <div
-                        class="program-card bg-slate-50 p-4 max-w-sm border rounded-md shadow-md hover:shadow-lg transition-shadow">
+                        class="program-card bg-white p-4 max-w-sm border rounded-md shadow-md hover:shadow-lg transition-shadow">
                         <h5 class="mb-2 text-base font-bold tracking-tight text-heading">
                             {{ $program->title }}
                         </h5>

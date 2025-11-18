@@ -15,7 +15,7 @@
                 <div class="h-3 w-3 rounded-full bg-[#6D0512]"></div>
             </div>
             {{-- Announcement Card --}}
-            <div class="relative bg-slate-50 border border-gray-200 py-3 px-6 rounded-2xl shadow-md flex flex-1 flex-col cursor-pointer hover:scale-[1.02] hover:shadow-lg transition-all duration-200 ease-in-out"
+            <div class="relative bg-white border border-gray-200 py-3 px-6 rounded-2xl shadow-md flex flex-1 flex-col cursor-pointer hover:scale-[1.02] hover:shadow-lg transition-all duration-200 ease-in-out"
                 hx-get="{{ route('announcements.show', $announcement) }}" hx-target="#announcementModalBody"
                 hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal" data-bs-target="#announcementModal"
                 id="announcement-{{ $announcement->announcement_id }}">

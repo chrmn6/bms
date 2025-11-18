@@ -97,14 +97,15 @@
             <!-- Request, Blotter, Program -->
             <!-- My Clearance Requests -->
             <div class="col-lg-12 mb-4">
-                <div class="bg-slate-50 dark:bg-gray-900 shadow-md sm:rounded-lg overflow-hidden">
-                    <div class="px-3 py-3 border-b border-gray-200 dark:border-gray-700">
+                <div class="dark:bg-gray-900 shadow-md sm:rounded-lg overflow-hidden">
+                    <div class="bg-white px-3 py-3 border-b border-gray-200 dark:border-gray-700">
                         <h5 class="text-base font-semibold text-gray-600 dark:text-gray-100">My Clearance Request</h5>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400 text-center">
+                            <thead
+                                class="bg-slate-50 dark:bg-gray-700 border border-gray-200 text-gray-700 dark:text-gray-400 text-center">
                                 <tr>
                                     <th class="px-3 py-2 text-sm">Clearance No.</th>
                                     <th class="px-3 py-2 text-sm">Clearance Type</th>
@@ -115,7 +116,8 @@
                             </thead>
                             <tbody class="text-center divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse($clearances as $clearance)
-                                    <tr class="bg-slate-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <tr
+                                        class="bg-white border-gray-200  dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <td class="px-3 py-2">{{ $clearance->display_id }}</td>
                                         <td class="px-3 py-2">{{ $clearance->clearance_type }}</td>
                                         <td class="px-3 py-2">
@@ -162,14 +164,15 @@
 
             <!-- My Clearance Requests -->
             <div class="col-lg-12 mb-4">
-                <div class="bg-slate-50 dark:bg-gray-900 shadow-md sm:rounded-lg overflow-hidden">
-                    <div class="px-3 py-3 border-b border-gray-200 dark:border-gray-700">
+                <div class="dark:bg-gray-900 shadow-md sm:rounded-lg overflow-hidden">
+                    <div class="bg-white px-3 py-3 border-b border-gray-200 dark:border-gray-700">
                         <h5 class="text-base font-semibold text-gray-600 dark:text-gray-100">My Blotter Report</h5>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400 text-center">
+                            <thead
+                                class="bg-slate-50 dark:bg-gray-700 border border-gray-200 text-gray-700 dark:text-gray-400 text-center">
                                 <tr>
                                     <th class="px-3 py-2 text-sm">Case No.</th>
                                     <th class="px-3 py-2 text-sm">Date Reported</th>
@@ -179,7 +182,7 @@
                             </thead>
                             <tbody class="text-center divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse($blotters as $blotter)
-                                    <tr class="bg-slate-50 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <td class="px-3 py-2">{{ $blotter->display_id }}</td>
                                         <td class="px-3 py-2">{{ $blotter->created_at->format('M d, Y') }}</td>
                                         <td class="px-3 py-2">
