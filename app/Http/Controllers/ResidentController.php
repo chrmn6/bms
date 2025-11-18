@@ -109,10 +109,10 @@ class ResidentController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/residents'), $imageName);
+            $file->move(public_path('storage/uploads/residents'), $imageName);
 
-            if ($profile->image && file_exists(public_path('uploads/residents/' . $profile->image))) {
-                unlink(public_path('uploads/residents/' . $profile->image));
+            if ($profile->image && file_exists(public_path('storage/uploads/residents/' . $profile->image))) {
+                unlink(public_path('storage/uploads/residents/' . $profile->image));
             }
 
             $profile->image = $imageName;

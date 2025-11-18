@@ -58,7 +58,7 @@ class BlotterController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/blotters'), $fileName);
+            $file->move(public_path('storage/uploads/blotters'), $fileName);
             $data['image'] = $fileName;
         }
 

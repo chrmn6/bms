@@ -89,7 +89,7 @@ class ProgramController extends Controller
         if ($request->hasFile('proof_file')) {
             $file = $request->file('proof_file');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/applicants'), $fileName);
+            $file->move(public_path('storage/uploads/applicants'), $fileName);
 
             $validated['proof_file'] = $fileName;
         }

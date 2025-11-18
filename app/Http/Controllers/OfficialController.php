@@ -50,7 +50,7 @@ class OfficialController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/users'), $fileName);
+            $file->move(public_path('storage/uploads/users'), $fileName);
             $validated['image'] = $fileName;
         }
 
