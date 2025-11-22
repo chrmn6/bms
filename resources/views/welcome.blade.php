@@ -1530,115 +1530,101 @@
     <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
         @if (Route::has('login'))
             <nav class="flex items-center justify-end gap-4">
-                @auth
-                    @php $user = Auth::user(); @endphp
-                    <a href="
-                                                        @if ($user->role === 'resident')
-                                                            {{ route('residents.dashboard') }}
-                                                        @else
-                                                            {{ route('dashboard') }}
-                                                        @endif
-                                                        "
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                        Dashboard
-                    </a>
-                @else
-                    <!--LOGIN MODAL-->
-                    <div x-data="{ openLogin: @json($errors->has('email') || $errors->has('password')) }"
-                        @keydown.escape.window="openLogin = false">
-                        <!-- Login Button -->
-                        <button @click="openLogin = true"
-                            class="inline-block px-5 py-1.5 text-[var(--text-color)] dark:text-[var(--neutral-color)] border border-transparent hover:border-[var(--primary-color)] rounded-sm text-base leading-normal">
-                            Log in
-                        </button>
+                <!--LOGIN MODAL-->
+                <div x-data="{ openLogin: @json($errors->has('email') || $errors->has('password')) }"
+                    @keydown.escape.window="openLogin = false">
+                    <!-- Login Button -->
+                    <button @click="openLogin = true"
+                        class="inline-block px-5 py-1.5 text-[var(--text-color)] dark:text-[var(--neutral-color)] border border-transparent hover:border-[var(--primary-color)] rounded-sm text-base leading-normal">
+                        Log in
+                    </button>
 
-                        <!-- Modal Background -->
-                        <div x-show="openLogin" x-transition.opacity x-cloak style="display: none"
-                            class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-                            @click.self="openLogin = false">
-                            <!-- Modal Box -->
-                            <div x-transition.scale
-                                class="relative bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-md">
-                                <!-- Close button -->
-                                <button @click="openLogin = false"
-                                    class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                    aria-label="Close">
-                                </button>
+                    <!-- Modal Background -->
+                    <div x-show="openLogin" x-transition.opacity x-cloak style="display: none"
+                        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                        @click.self="openLogin = false">
+                        <!-- Modal Box -->
+                        <div x-transition.scale
+                            class="relative bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-md">
+                            <!-- Close button -->
+                            <button @click="openLogin = false"
+                                class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                aria-label="Close">
+                            </button>
 
-                                <!-- Logo -->
-                                <div class="flex justify-center mt-2">
-                                    <a href="/">
-                                        <x-application-logo class="w-auto h-16" />
-                                    </a>
-                                </div>
-
-                                <!-- Modal Header -->
-                                <div class="mb-4 text-center">
-                                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Log in</h2>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                        Please sign in to continue.
-                                    </p>
-                                </div>
-
-                                <!-- Session Status -->
-                                <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                                <!-- Login Form -->
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-
-                                    <!-- Email -->
-                                    <div>
-                                        <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                            :value="old('email')" required autofocus autocomplete="username" />
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                    </div>
-
-                                    <!-- Password -->
-                                    <div class="mt-4">
-                                        <x-input-label for="password" :value="__('Password')" />
-                                        <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
-                                            required autocomplete="current-password" />
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                    </div>
-
-                                    <!-- Remember Me -->
-                                    <div class="block mt-4">
-                                        <label for="remember_me" class="inline-flex items-center">
-                                            <input id="remember_me" type="checkbox"
-                                                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                                                name="remember">
-                                            <span
-                                                class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                                        </label>
-                                    </div>
-
-                                    <!-- Actions -->
-                                    <div class="flex items-center justify-end mt-4">
-                                        @if (Route::has('password.request'))
-                                            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                                                href="{{ route('password.request') }}">
-                                                {{ __('Forgot your password?') }}
-                                            </a>
-                                        @endif
-
-                                        <x-primary-button class="ms-3">
-                                            {{ __('Log in') }}
-                                        </x-primary-button>
-                                    </div>
-                                </form>
+                            <!-- Logo -->
+                            <div class="flex justify-center mt-2">
+                                <a href="/">
+                                    <x-application-logo class="w-auto h-16" />
+                                </a>
                             </div>
+
+                            <!-- Modal Header -->
+                            <div class="mb-4 text-center">
+                                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Log in</h2>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                    Please sign in to continue.
+                                </p>
+                            </div>
+
+                            <!-- Session Status -->
+                            <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                            <!-- Login Form -->
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+
+                                <!-- Email -->
+                                <div>
+                                    <x-input-label for="email" :value="__('Email')" />
+                                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                        :value="old('email')" required autofocus autocomplete="username" />
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mt-4">
+                                    <x-input-label for="password" :value="__('Password')" />
+                                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                        required autocomplete="current-password" />
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                </div>
+
+                                <!-- Remember Me -->
+                                <div class="block mt-4">
+                                    <label for="remember_me" class="inline-flex items-center">
+                                        <input id="remember_me" type="checkbox"
+                                            class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                                            name="remember">
+                                        <span
+                                            class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                                    </label>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="flex items-center justify-end mt-4">
+                                    @if (Route::has('password.request'))
+                                        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                            href="{{ route('password.request') }}">
+                                            {{ __('Forgot your password?') }}
+                                        </a>
+                                    @endif
+
+                                    <x-primary-button class="ms-3">
+                                        {{ __('Log in') }}
+                                    </x-primary-button>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="inline-block px-5 py-1.5 text-[var(--secondary-color)] border border-[var(--primary-color)] hover:text-[var(--secondary-color)] dark:text-[var(--neutral-color)] bg-[var(--primary-color)] text-[var(--secondary-color)] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-base leading-normal">
-                            Register
-                        </a>
-                    @endif
-                @endauth
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}"
+                        class="inline-block px-5 py-1.5 text-[var(--secondary-color)] border border-[var(--primary-color)] hover:text-[var(--secondary-color)] dark:text-[var(--neutral-color)] bg-[var(--primary-color)] text-[var(--secondary-color)] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-base leading-normal">
+                        Register
+                    </a>
+                @endif
             </nav>
         @endif
     </header>

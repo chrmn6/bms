@@ -13,17 +13,23 @@ use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\NotificationController;
-use Database\Seeders\AdminUserSeeder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        $user = Auth::user();
+        if ($user->role === 'admin' || $user->role === 'staff') {
+            return redirect()->route('dashboard');
+        } elseif ($user->role === 'resident') {
+            return redirect()->route('residents.dashboard');
+        }
+    }
     return view('welcome');
 });
 
 // DASHBOARD (Shared by Admin + Staff)
-Route::middleware(['auth', 'verified', 'role:admin|staff'])
-    ->get('/dashboard', [UserController::class, 'dashboard'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified', 'role:admin|staff'])->get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
 // ADMIN + STAFF ROUTES
 Route::middleware(['auth', 'role:admin|staff'])->group(function () {
