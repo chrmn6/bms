@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Clearance;
 use App\Models\Household;
+use App\Models\User;
+use App\Notifications\GenericNotification;
 use App\Models\Official;
 
 class ClearanceController extends Controller
@@ -120,6 +122,27 @@ class ClearanceController extends Controller
             'valid_until' => $validated['valid_until'] ?? null,
             'remarks' => $validated['remarks'] ?? null,
         ]);
+
+        //SEND NOTIFICATIONS
+        $staff = Auth::user();
+        $residents = User::where('role', 'resident')->get();
+        
+        $statusMessages = [
+            'pending'   => 'Your clearance request is now pending.',
+            'approved'  => 'approved your clearance request.',
+            'rejected'  => 'rejected your clearance request.',
+            'completed' => 'marked your clearance request as completed.',
+        ];
+        $message = $statusMessages[$validated['status']];
+
+        foreach ($residents as $resident) {
+            $resident->notify(new GenericNotification(
+                $staff,
+                $message,
+                route('clearances.index'),
+                'clearance'
+            ));
+        }
 
         if ($request->header('HX-Request')) {
             return response()->noContent()->header('HX-Trigger', json_encode([

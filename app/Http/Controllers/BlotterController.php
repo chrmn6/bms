@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blotter;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Notifications\GenericNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class BlotterController extends Controller
@@ -115,6 +117,26 @@ class BlotterController extends Controller
             'status' => $validated['status'],
             'user_id' => Auth::id(),
         ]);
+
+        //SEND NOTIFICATIONS
+        $staff = Auth::user();
+        $residents = User::where('role', 'resident')->get();
+        
+        $statusMessages = [
+            'pending'   => 'Your blotter report is now pending.',
+            'resolved'  => 'Your blotter report has been resolved.',
+            'dismissed'  => 'Your blotter report has been dismissed.',
+        ];
+        $message = $statusMessages[$validated['status']];
+
+        foreach ($residents as $resident) {
+            $resident->notify(new GenericNotification(
+                $staff,
+                $message,
+                route('blotters.index'),
+                'blotter'
+            ));
+        }
 
         if ($request->header('HX-Request')) {
             return response()->noContent()->header('HX-Trigger', json_encode([

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
+use App\Models\User;
+use App\Notifications\GenericNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,7 +58,19 @@ class AnnouncementController extends Controller
         ]);
 
         $data['user_id'] = Auth::id();
-        Announcement::create($data);
+        $announcement = Announcement::create($data);
+
+        // Send notification
+        $staff = Auth::user();
+        $residents = User::where('role', 'resident')->get();
+        foreach ($residents as $resident) {
+            $resident->notify(new GenericNotification(
+                $staff,
+                'posted a new announcement.',
+                route('announcements.index'),
+                'announcement'
+            ));
+        }
 
         if ($request->header('HX-Request')) {
             $announcements = Announcement::with('user')->latest()->paginate(6);

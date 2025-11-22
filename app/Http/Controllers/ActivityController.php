@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Activity;
+use App\Models\User;
+use App\Notifications\GenericNotification;
 use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
@@ -59,7 +61,19 @@ class ActivityController extends Controller
         ]);
 
         $data['user_id'] = Auth::id();
-        Activity::create($data);
+        $activity = Activity::create($data);
+
+        // Send notification
+        $staff = Auth::user();
+        $residents = User::where('role', 'resident')->get();
+        foreach ($residents as $resident) {
+            $resident->notify(new GenericNotification(
+                $staff,
+                'posted a new activity.',
+                route('activities.index'),
+                'activity'
+            ));
+        }
 
         if ($request->header('HX-Request')) {
         return response()->view('activities.create')->header('HX-Trigger', json_encode([

@@ -12,6 +12,7 @@ use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\NotificationController;
 use Database\Seeders\AdminUserSeeder;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,7 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
     Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ResidentController::class, 'edit'])->name('edit');
     Route::put('/profile', [ResidentController::class, 'update'])->name('update');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 });
 
 // ANNOUNCEMENTS & ACTIVITIES (All Authenticated Users)
@@ -85,6 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('settings.destroy');
 });
 
+//PROGRAMS ROUTE
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('programs', AdminProgramController::class);
     Route::get('programs/{program}/applicants', [AdminProgramController::class, 'applicants'])
