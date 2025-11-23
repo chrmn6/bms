@@ -45,6 +45,7 @@
                         @php
                             $hasApplied = $program->applicants->isNotEmpty();
                             $application = $program->applicants->first();
+                            $isFull = $program->applicants()->count() >= $program->applicants_limit;
                         @endphp
 
                         @if($hasApplied)
@@ -55,19 +56,21 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
                             </x-primary-button>
+                        @elseif($isFull)
+                            <x-primary-button type="button" disabled
+                                class="mt-1 w-full !bg-[#6D0512] cursor-not-allowed flex justify-center items-center gap-1 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+                                FULL
+                            </x-primary-button>
                         @else
-                            <form action="{{ route('programs.join', $program) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <x-primary-button type="button" data-bs-toggle="modal" data-bs-target="#applyModal"
-                                    onclick="document.getElementById('applyForm').action='{{ route('programs.join', $program) }}'"
-                                    class="w-full !bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex justify-center items-center gap-1">
-                                    APPLY
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 12H5m14 0-4 4m4-4-4-4" />
-                                    </svg>
-                                </x-primary-button>
-                            </form>
+                            <x-primary-button type="button" data-bs-toggle="modal" data-bs-target="#applyModal"
+                                onclick="document.getElementById('applyForm').action='{{ route('programs.join', $program) }}'"
+                                class="mt-1 w-full !bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex justify-center items-center gap-1">
+                                APPLY
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                </svg>
+                            </x-primary-button>
                         @endif
 
                         @if($application)

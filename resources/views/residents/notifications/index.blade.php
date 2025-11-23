@@ -28,9 +28,6 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="mt-4">
-                    {{ $notifications->links() }}
-                </div>
             @else
                 <p class="text-gray-600">No notifications found.</p>
             @endif
