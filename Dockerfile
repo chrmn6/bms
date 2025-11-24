@@ -2,7 +2,9 @@
 FROM php:8.2-apache
 
 # Install required PHP extensions for Laravel
-RUN apt-get update && apt-get install -y \ git unzip libpq-dev libzip-dev zip \ && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
+RUN apt-get update && apt-get install -y \
+    git unzip libpq-dev libzip-dev zip \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
 
 # Enable Apache mod_rewrite (needed for Laravel routes)
 RUN a2enmod rewrite
