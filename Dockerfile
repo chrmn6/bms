@@ -29,6 +29,12 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Install Node + npm
+RUN apt-get update && apt-get install -y nodejs npm
+
+# Build frontend assets
+RUN npm install && npm run build
+
 # Set permissions for Laravel storage and cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
