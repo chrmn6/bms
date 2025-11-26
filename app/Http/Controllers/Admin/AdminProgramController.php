@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Program;
 use App\Models\ProgramApplication;
-use App\Models\Resident;
+use App\Notifications\GenericNotification;
 
 class AdminProgramController extends Controller
 {
@@ -127,6 +128,17 @@ class AdminProgramController extends Controller
             'note' => $request->note,
         ]);
 
+        $resident = $a->resident->user;
+        if ($resident) {
+            $resident->notify(new GenericNotification(
+                Auth::user(),
+                'Your application has been approved.',
+                route('programs.index'),
+                'program'
+            ));
+        }
+
+
         return redirect()->route('admin.programs.applicants', $a->program_id)->with('success', 'Applicant approved.');
     }
 
@@ -137,6 +149,16 @@ class AdminProgramController extends Controller
             'status' => 'Rejected',
             'note' => $request->note,
         ]);
+
+        $resident = $a->resident->user;
+        if ($resident) {
+            $resident->notify(new GenericNotification(
+                Auth::user(),
+                'Your application has been rejected.',
+                route('programs.index'),
+                'program'
+            ));
+        }
 
         return redirect()->route('admin.programs.applicants', $a->program_id)->with('success', 'Applicant rejected.');
     }

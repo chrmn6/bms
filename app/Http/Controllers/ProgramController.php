@@ -6,8 +6,6 @@ use App\Models\Program;
 use App\Models\ProgramApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Notifications\GenericNotification;
 
 class ProgramController extends Controller
 {
@@ -53,7 +51,7 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        //
+        return view('programs.show', compact('program'));
     }
 
     /**
@@ -69,25 +67,7 @@ class ProgramController extends Controller
      */
     public function update(Request $request, Program $program)
     {
-        //SEND NOTIFICATIONS
-        $staff = Auth::user();
-        $residents = User::where('role', 'resident')->get();
-        
-        $statusMessages = [
-            'pending'   => 'Your application is pending.',
-            'approved'  => 'Your application has been approved.',
-            'rejected'  => 'Your application has been rejected.',
-        ];
-        $message = $statusMessages;
-
-        foreach ($residents as $resident) {
-            $resident->notify(new GenericNotification(
-                $staff,
-                $message,
-                route('programs.index'),
-                'program'
-            ));
-        }
+        //
     }
 
     /**
