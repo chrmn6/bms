@@ -28,6 +28,7 @@
                                 <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
                                 <th scope="col" class="px-3 py-2">Actions</th>
+                                <th scope="col" class="px-3 py-2">Status</th>
                             </tr>
                         </thead>
                         <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -50,6 +51,15 @@
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
+                                    <td class="px-3 py-2">
+                                        @if($resident->is_approved)
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded">Verified</span>
+                                        @else
+                                            <span
+                                                class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded">Unverified</span>
+                                        @endif
+                                    </td>
                                     <td class="px-3 py-2">
                                         <div class="flex items-center justify-center gap-2">
                                             <!-- Approve Button -->
