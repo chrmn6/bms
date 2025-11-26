@@ -36,7 +36,7 @@
                                 stroke-width="1.5" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
 
-                        <h6 class="card-title text-base font-semibold">File Report</h6>
+                        <h6 class="card-title text-base font-semibold">File Blotter Report</h6>
                         <p class="card-text text-xs mt-0 text-gray-500 dark:text-gray-300">Report incidents to
                             barangay officials.</p>
                         <a href="{{ route('blotters.index') }}">
@@ -60,7 +60,7 @@
 
                         <h6 class="card-title text-base font-semibold">Join Programs</h6>
                         <p class="card-text text-xs mt-0 text-gray-500 dark:text-gray-300">Apply for available
-                            programs.</p>
+                            programs now.</p>
                         <a href="{{ route('programs.index') }}">
                             <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
                                 Apply Now
