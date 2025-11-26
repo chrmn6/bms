@@ -6,6 +6,8 @@ use App\Models\Program;
 use App\Models\ProgramApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Notifications\GenericNotification;
 
 class ProgramController extends Controller
 {
@@ -102,6 +104,19 @@ class ProgramController extends Controller
         ]);
 
         $program->increment('applicants_count');
+
+        // Notify admin/staff about the request
+        $staffs = User::whereIn('role', ['admin', 'staff'])->get();
+        $message = "has submitted an application.";
+
+        foreach ($staffs as $staff) {
+            $staff->notify(new GenericNotification(
+                Auth::user(),
+                $message,
+                route('programs.index'),
+                'program'
+            ));
+        }
 
         return redirect()->back()->with('success', 'You have successfully applied to this program!');
     }

@@ -13,6 +13,7 @@ use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AdminNotificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::get('/blotters/{id}/pdf', [BlotterController::class, 'blotterTranscript'])->name('blotter.pdf');
     Route::get('/blotters/blotter-reports', [BlotterController::class, 'blotterPrintAll'])->name('blotters.printAll');
     Route::resource('blotters', BlotterController::class)->except(['destroy']);
+
+    Route::get('/notifications', [AdminNotificationController::class, 'index'])->name('notifications.index');
 });
 
 // ADMIN-ONLY ROUTES
@@ -91,6 +94,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SettingsController::class, 'update'])->name('settings.updatePassword');
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('settings.destroy');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 });
 
 //PROGRAMS ROUTE

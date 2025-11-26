@@ -75,6 +75,19 @@ class ClearanceController extends Controller
 
         Clearance::create($data);
 
+        // Notify admin/staff about the request
+        $staffs = User::whereIn('role', ['admin', 'staff'])->get();
+        $message = "submitted a request for clearance.";
+
+        foreach ($staffs as $staff) {
+            $staff->notify(new GenericNotification(
+                Auth::user(),
+                $message,
+                route('clearances.index'),
+                'clearance'
+            ));
+        }
+
         if ($request->header('HX-Request')) {
             $user = Auth::user();
             $clearances = $user->role === 'resident'

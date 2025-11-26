@@ -69,6 +69,19 @@ class BlotterController extends Controller
 
         Blotter::create($data);
 
+        // Notify admin/staff about the request
+        $staffs = User::whereIn('role', ['admin', 'staff'])->get();
+        $message = "has filed a report.";
+
+        foreach ($staffs as $staff) {
+            $staff->notify(new GenericNotification(
+                Auth::user(),
+                $message,
+                route('blotters.index'),
+                'blotter'
+            ));
+        }
+
         if ($request->header('HX-Request')) {
             $user = Auth::user();
             $blotters = $user->role === 'resident'
