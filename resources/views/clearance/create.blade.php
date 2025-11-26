@@ -1,9 +1,9 @@
-<form hx-post="{{ route('clearances.store') }}" hx-swap="none" hx-on::after-request="
+<form hx-post="{{ route('clearances.store') }}" hx-swap="none" hx-encoding="multipart/form-data" hx-on::after-request="
     if (event.detail.xhr.status === 200) {
         const modal = bootstrap.Modal.getInstance(document.getElementById('addClearanceModal'));
         modal.hide();
         htmx.trigger(document.body, 'refreshTable');
-    }">
+    }" enctype="multipart/form-data">
     @csrf
     <div class="mb-2">
         <x-input-label for="clearance_type" :value="__('Clearance Type')" />

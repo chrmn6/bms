@@ -20,7 +20,7 @@ class Clearance extends Model
         'status',
         'remarks',
         'payment_method',
-        'gcash_reference',
+        'payment_proof',
     ];
 
     protected $casts = [
