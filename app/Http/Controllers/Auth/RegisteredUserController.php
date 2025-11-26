@@ -44,12 +44,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number,
             'role' => 'resident',
+            'is_approved' => false,
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect()->intended(route('residents.dashboard'));
+        return redirect()->route('login')->with('status', 'Registration successful! Please wait for admin approval.');
     }
 }

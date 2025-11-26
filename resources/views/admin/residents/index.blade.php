@@ -27,6 +27,7 @@
                                 <th scope="col" class="px-3 py-2">Gender</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
+                                <th scope="col" class="px-3 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -49,6 +50,20 @@
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
+                                    <td class="px-3 py-2">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <!-- Approve Button -->
+                                            <form action="{{ route('admin.resident.approve', $resident->resident_id) }}"
+                                                method="POST" class="inline"
+                                                onsubmit="return confirm('Are you sure you want to approve this resident?')">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="px-3 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-700 focus:ring-2 focus:ring-green-500">
+                                                    Approve
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->enum('voter_status', ['Yes', 'No'])->default('No');
             $table->string('blood_type', 3)->nullable();
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
     }
