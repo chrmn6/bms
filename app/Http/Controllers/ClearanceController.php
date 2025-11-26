@@ -70,7 +70,7 @@ class ClearanceController extends Controller
             $file = $request->file('payment_proof');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('storage/uploads/proofs'), $fileName);
-            $data['image'] = $fileName;
+            $data['payment_proof'] = $fileName;
         }
 
         Clearance::create($data);

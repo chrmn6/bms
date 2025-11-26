@@ -21,6 +21,7 @@ RUN mkdir -p /var/www/html/public/storage/uploads/users \
     && mkdir -p /var/www/html/public/storage/uploads/residents \
     && mkdir -p /var/www/html/public/storage/uploads/applicants \
     && mkdir -p /var/www/html/public/storage/uploads/blotters \
+    && mkdir -p /var/www/html/public/storage/uploads/proofs \
     && chown -R www-data:www-data /var/www/html/public/storage \
     && chmod -R 775 /var/www/html/public/storage
 
