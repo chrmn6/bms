@@ -45,11 +45,12 @@
     <div id="gcash_section" class="mb-2" style="display: none;">
         <x-input-label value="GCash Account" />
         <img src="{{ asset('storage/images/gcash-sample.jpg') }}" alt="GCash Sample" class="w-64 mb-3 rounded border">
+    </div>
 
-        <x-input-label for="gcash_reference" :value="__('Reference Number')" />
-        <input type="text" id="gcash_reference" name="gcash_reference"
-            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-            placeholder="Enter GCash reference number">
+    <div class="mb-2">
+        <x-input-label for="payment_proof" :value="__('Payment Proof')" />
+        <input type="file" name="payment_proof" id="payment_proof"
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
     </div>
 
     <div class="d-flex justify-content-end gap-2">

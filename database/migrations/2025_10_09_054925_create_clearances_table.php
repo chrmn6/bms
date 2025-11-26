@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('clearance_type');
             $table->text('purpose');
             $table->enum('payment_method', ['Cash', 'GCash']);
-            $table->string('gcash_reference')->nullable();
+            $table->string('payment_proof')->nullable();
             $table->date('issued_date')->nullable();
             $table->date('valid_until')->nullable();
             $table->enum('status', ['pending', 'approved', 'completed', 'rejected']);

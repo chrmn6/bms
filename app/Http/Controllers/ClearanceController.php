@@ -54,7 +54,7 @@ class ClearanceController extends Controller
             'clearance_type' => 'required|string|max:255',
             'purpose' => 'required|string',
             'payment_method' => 'required|in:Cash,GCash',
-            'gcash_reference' => 'required_if:payment_method,GCash|nullable|string',
+            'payment_proof' => 'required_if:payment_method,GCash|nullable|image|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
         $data['resident_id'] = Auth::user()->resident->resident_id;
@@ -64,7 +64,14 @@ class ClearanceController extends Controller
         $data['remarks'] = null;
         $data['user_id'] = null;
         $data['payment_method'] = $request->payment_method;
-        $data['gcash_reference'] = $request->gcash_reference;
+        
+        // for payment proof
+        if ($request->hasFile('payment_proof')) {
+            $file = $request->file('payment_proof');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/uploads/proofs'), $fileName);
+            $data['image'] = $fileName;
+        }
 
         Clearance::create($data);
 

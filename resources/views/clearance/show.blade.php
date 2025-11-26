@@ -16,6 +16,16 @@
                 <th class="text-left font-semibold p-2">PURPOSE</th>
                 <td>{{ $clearance->purpose }}</td>
             </tr>
+            <tr class="border-b border-gray-500 align-top">
+                <th class="text-left font-semibold p-2">PAYMENT PROOF (for gcash mode)</th>
+                <td>@if($clearance->payment_proof && file_exists(public_path('storage/uploads/proofs/' . $clearance->payment_proof)))
+                    <img src="{{ asset('storage/uploads/proofs/' . $payment_proof->image) }}" alt="Payment Proof"
+                        class="img-fluid" style="max-width: 200px;">
+                @else
+                        <span class="text-muted">No image uploaded</span>
+                    @endif
+                </td>
+            </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">ISSUED DATE</th>
                 <td>{{ optional($clearance->issued_date)->format('F j, Y') ?? '-' }}</td>
