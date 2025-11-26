@@ -30,7 +30,6 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        // inactive staff account
         if ($user->status === 'Inactive') {
         Auth::logout();
             return back()->withErrors([

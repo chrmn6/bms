@@ -17,7 +17,7 @@
                                 d="M10 3v4a1 1 0 0 1-1 1H5m4 6 2 2 4-4m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z" />
                         </svg>
                         <h6 class="card-title text-base font-semibold">Request Clearance</h6>
-                        <p class="card-text text-base mt-0 text-gray-500 dark:text-gray-300">Request barangay
+                        <p class="card-text text-xs mt-0 text-gray-500 dark:text-gray-300">Request barangay
                             clearances online.</p>
                         <a href="{{ route('clearances.index') }}">
                             <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
@@ -37,7 +37,7 @@
                         </svg>
 
                         <h6 class="card-title text-base font-semibold">File Blotter Report</h6>
-                        <p class="card-text text-base mt-0 text-gray-500 dark:text-gray-300">Report incidents to
+                        <p class="card-text text-xs mt-0 text-gray-500 dark:text-gray-300">Report incidents to
                             barangay officials.</p>
                         <a href="{{ route('blotters.index') }}">
                             <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
@@ -59,7 +59,7 @@
                         </svg>
 
                         <h6 class="card-title text-base font-semibold">Join Programs</h6>
-                        <p class="card-text text-base mt-0 text-gray-500 dark:text-gray-300">Apply for available
+                        <p class="card-text text-xs mt-0 text-gray-500 dark:text-gray-300">Apply for available
                             programs now.</p>
                         <a href="{{ route('programs.index') }}">
                             <x-primary-button class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
@@ -82,7 +82,7 @@
 
 
                         <h6 class="card-title text-base font-semibold">My Profile</h6>
-                        <p class="card-text text-base mt-0 text-gray-500 dark:text-gray-300">View and update your
+                        <p class="card-text text-xs mt-0 text-gray-500 dark:text-gray-300">View and update your
                             information.
                         </p>
                         <a href="{{ route('residents.edit') }}">

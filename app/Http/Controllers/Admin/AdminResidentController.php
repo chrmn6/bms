@@ -10,7 +10,7 @@ class AdminResidentController extends Controller
 {
     public function index()
     {
-        $residents = Resident::with(['user', 'profile', 'attributes'])
+        $residents = Resident::with(['user', 'profile'])
             ->orderBy('resident_id', 'desc')
             ->paginate(20);
         return view('admin.residents.index', compact('residents'));
@@ -20,18 +20,5 @@ class AdminResidentController extends Controller
     {
         $resident = Resident::with(['user', 'profile'])->findOrFail($id);
         return view('admin.residents.show', compact('resident'));
-    }
-
-    public function approve($id)
-    {
-        $resident = Resident::findOrFail($id);
-        
-        if ($resident->is_approved) {
-            return back()->with('info', 'This resident is already approved.');
-        }
-        
-        $resident->update(['is_approved' => true]);
-        
-        return back()->with('success', 'Resident approved successfully!');
     }
 }

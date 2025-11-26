@@ -16,7 +16,6 @@ class ResidentAttributes extends Model
         'resident_id',
         'voter_status',
         'blood_type',
-        'is_approved',
     ];
 
     public function resident()

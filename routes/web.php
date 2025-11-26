@@ -43,7 +43,6 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('residents', [AdminResidentController::class, 'index'])->name('resident.index');
         Route::get('residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
-        Route::post('residents/{id}/approve', [AdminResidentController::class, 'approve'])->name('resident.approve');
     });
 
     // Blotter Reports (shared)
