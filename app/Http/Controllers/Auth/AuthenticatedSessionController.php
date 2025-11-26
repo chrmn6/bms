@@ -30,20 +30,6 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        // approve first the resident account
-        if ($user->role === 'resident') {
-            if (!$user->resident || !$user->resident->is_approved) {
-                Auth::logout();
-                
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                
-                return back()->withErrors([
-                    'email' => 'Your account is pending admin verification. Please contact the administrator.',
-                ]);
-            }
-        }
-
         // inactive staff account
         if ($user->status === 'Inactive') {
         Auth::logout();
