@@ -46,7 +46,7 @@
                 <tr>
                     <td>
                         <a href="{{ route('blotter.pdf', $blotter->blotter_id) }}">
-                            Blotter #{{ $blotter->display_id }}
+                            {{ $blotter->display_id }}
                         </a>
                     </td>
                     <td>{{ $blotter->incident_type }}</td>
