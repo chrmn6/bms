@@ -1,12 +1,12 @@
 # Use official PHP with Apache
 FROM php:8.2-apache
 
-# Install required PHP extensions for Laravel
+# Install required PHP extensions for Laravel + GD dependencies
 RUN apt-get update && apt-get install -y \
     git unzip libpq-dev libzip-dev zip \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd
+    libpng-dev libjpeg-dev libfreetype6-dev \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype \
+    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql zip
 
 # Enable Apache mod_rewrite (needed for Laravel routes)
 RUN a2enmod rewrite
@@ -30,7 +30,7 @@ RUN mkdir -p /var/www/html/public/storage/uploads/users \
 # Set working dir
 WORKDIR /var/www/html
 
-# Install Composer //changes
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Install Laravel dependencies
