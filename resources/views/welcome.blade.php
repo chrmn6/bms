@@ -1634,11 +1634,11 @@
         <main class="flex flex-col-reverse lg:flex-row w-full max-w-4xl items-center lg:items-stretch mx-auto gap-x-8">
             <!-- Text Section -->
             <div class="flex-1 p-6 pb-12 lg:p-18 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC]">
-                <h1 class="mb-1 font-medium"
-                    style="font-size: 3.2rem; line-height: 1; text-transform: uppercase; font-weight: bold; text-align: center;">
+                <h1
+                    class="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6rem] 2xl:text-[7rem] uppercase text-center mb-1">
                     Welcome to Barangay Matina Gravahan
                 </h1>
-                <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-xl text-center">
+                <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-base sm:text-base text-center">
                     Simplifying barangay operations for a <br> more connected and efficient community.
                 </p>
             </div>

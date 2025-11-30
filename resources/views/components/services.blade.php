@@ -17,23 +17,23 @@
     }
 </style>
 
-<div class="flex flex-col items-center justify-center w-full bg-neutral-50">
+<div class="flex flex-col items-center justify-center w-full bg-neutral-50 mb-3">
     <!-- Section Header -->
     <div class="flex flex-col items-center justify-center space-y-2 py-8">
         <p class="text-sm text-[#706f6c] dark:text-[#A1A09A]">Our Key Features</p>
-        <p class="font-bold text-3xl lg:text-3xl text-center">Discover Our Key Features</p>
+        <p class="font-bold text-2xl lg:text-3xl text-center">Discover Our Key Features</p>
     </div>
 
     <!-- First Feature Block -->
     <main
         class="flex flex-col-reverse lg:flex-row w-full max-w-4xl items-center lg:items-stretch mx-auto gap-x-8 text-center mb-12">
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-left px-4 lg:px-0">
-            <h1 class="mb-2 font-bold text-xl">Citizen-Centric Platform</h1>
+            <h1 class="mb-2 font-bold text-base">Citizen-Centric Platform</h1>
             <h3 class="mb-2 font-semibold text-sm text-gray-700">Designed Around the Needs of Every Citizen</h3>
-            <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-base">
+            <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Prioritize the needs and convenience of the public.<br>
-                It simplifies access to services, ensures transparency, and enables easy communication between citizens
-                and staff.
+                It simplifies access to services, ensures transparency, and
+                enables easy communication between citizens and staff.
             </p>
         </div>
 
@@ -49,12 +49,13 @@
         </div>
 
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-right px-4 lg:px-0">
-            <h1 class="mb-2 font-bold text-xl">Streamlined Barangay Transactions</h1>
+            <h1 class="mb-2 font-bold text-base">Streamlined Barangay Transactions</h1>
             <h3 class="mb-2 font-semibold text-sm text-gray-700">Efficient, Transparent, and Citizen-Friendly Services
             </h3>
-            <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-base">
+            <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Simplified the access to local services, making processes faster and more transparent.
-                It reduces paperwork, minimizes waiting times, and allows citizens to<br> complete requests with ease.
+                It reduces paperwork, minimizes waiting times, and allows citizens to complete requests with
+                ease.
             </p>
         </div>
     </main>

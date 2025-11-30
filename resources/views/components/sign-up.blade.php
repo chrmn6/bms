@@ -15,7 +15,7 @@
     <!-- Section Header -->
     <div class="flex flex-col items-center justify-center space-y-2 mb-12 zoom-scroll">
         <p class="text-sm text-[#706f6c] dark:text-[#A1A09A]">How to use?</p>
-        <p class="font-bold text-3xl lg:text-3xl text-center">
+        <p class="font-bold text-2xl lg:text-3xl text-center">
             3 simple steps to use the site
         </p>
     </div>
@@ -27,7 +27,7 @@
         <div class="flex flex-col items-center text-center flex-1 space-y-4">
             <img src="/storage/images/login.png" width="265" height="264" loading="lazy" style="color:transparent">
             <div class="space-y-1">
-                <p class="font-bold text-lg">Register an Account</p>
+                <p class="font-bold text-base">Register an Account</p>
                 <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">
                     Provide your basic information and<br> create a strong password.
                 </p>
@@ -38,7 +38,7 @@
         <div class="flex flex-col items-center text-center flex-1 space-y-4">
             <img src="/storage/images/edit.png" width="265" height="264" loading="lazy" style="color:transparent">
             <div class="space-y-1">
-                <p class="font-bold text-lg">Edit Profile</p>
+                <p class="font-bold text-base">Edit Profile</p>
                 <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">
                     Provide all your information to<br> create your record.
                 </p>
@@ -49,7 +49,7 @@
         <div class="flex flex-col items-center text-center flex-1 space-y-4">
             <img src="/storage/images/browse.png" width="265" height="264" loading="lazy" style="color:transparent">
             <div class="space-y-1">
-                <p class="font-bold text-lg">Browse</p>
+                <p class="font-bold text-base">Browse</p>
                 <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">
                     Once registered, you can now<br> browse different services.
                 </p>
