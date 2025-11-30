@@ -1637,7 +1637,7 @@
                 <h1 class="mb-1 font-bold text-4xl uppercase text-center">
                     Welcome to Barangay Matina Gravahan
                 </h1>
-                <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-xl text-center">
+                <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base text-center">
                     Simplifying barangay operations for a <br> more connected and efficient community.
                 </p>
             </div>
