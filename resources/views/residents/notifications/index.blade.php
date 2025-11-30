@@ -29,7 +29,9 @@
                     @endforeach
                 </div>
             @else
-                <p class="text-gray-600">No notifications found.</p>
+                <div class="text-center py-10 text-gray-500">
+                    <p class="text-sm">No notifications found.</p>
+                </div>
             @endif
         </div>
     </div>

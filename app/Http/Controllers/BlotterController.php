@@ -17,17 +17,26 @@ class BlotterController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $query = Blotter::query();
         if ($user->role === 'resident') {
             $blotters = Blotter::where('resident_id', $user->resident->resident_id)->latest()->paginate(perPage: 10);
         } else {
             $blotters = Blotter::latest()->paginate(10);
         }
 
+        // Year filter
+        if ($request->year && $request->year !== 'all') {
+            $query->whereYear('created_at', $request->year);
+        }
+
+        $clearances = $query->latest()->paginate(10);
+        $years = Blotter::selectRaw('YEAR(created_at) as year')->groupBy('year')->orderBy('year', 'desc')->pluck('year');
+
         if ($request->header('HX-Request')) {
             return view('blotters.table', compact('blotters'));
         }
 
-        return view('blotters.index', compact('blotters'));
+        return view('blotters.index', compact('blotters', 'years'));
     }
 
     /**

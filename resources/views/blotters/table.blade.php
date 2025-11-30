@@ -1,13 +1,13 @@
-<table id="blotterTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+<table id="blotterTable" class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400"
     hx-get="{{ route('blotters.index') }}" hx-trigger="refreshTable from:body" hx-target="this" hx-swap="outerHTML">
     <thead class="text-base text-center text-gray-700 bg-slate-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Case No.</th>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Complainant</th>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Date Reported</th>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Status</th>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Mediated By</th>
-            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-sm md:text-sm">Actions</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Case No.</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Complainant</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Date Reported</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Status</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Mediated By</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Actions</th>
         </tr>
     </thead>
     <tbody class="text-center border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -31,7 +31,7 @@
                         };
                     @endphp
 
-                    <span class="px-1.5 py-1 rounded-md font-semibold text-sm {{ $statusColors['text'] }}">
+                    <span class="px-1.5 py-1 rounded-md font-semibold text-xs {{ $statusColors['text'] }}">
                         {{ ucfirst($blotter->status) }}
                     </span>
                 </td>
@@ -66,12 +66,12 @@
             <tr>
                 <td colspan="6" class="py-6 text-gray-500">
                     <div class="flex flex-col items-center justify-center">
-                        <svg class="w-6 h-6 mb-1 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="w-6 h-6 mb-1 text-[#6D0512] dark:text-white" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z" />
                         </svg>
-                        <p class="text-sm text-center mb-0">No blotter reports found.</p>
+                        <p class="text-xs text-center mb-0">No blotter reports found.</p>
                     </div>
                 </td>
             </tr>

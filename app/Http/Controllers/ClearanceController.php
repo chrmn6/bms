@@ -19,18 +19,27 @@ class ClearanceController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $query = Clearance::query();
         if ($user->role === 'resident') {
             $clearances = Clearance::where('resident_id', $user->resident->resident_id)->latest()->paginate(10);
         } else {
             $clearances = Clearance::latest()->paginate(10);
         }
 
+        // Year filter
+        if ($request->year && $request->year !== 'all') {
+            $query->whereYear('created_at', $request->year);
+        }
+
+        $clearances = $query->latest()->paginate(10);
+        $years = Clearance::selectRaw('YEAR(created_at) as year')->groupBy('year')->orderBy('year', 'desc')->pluck('year');
+
         
         if ($request->header('HX-Request')) {
         return view('clearance.table', compact('clearances'));
         }
 
-        return view('clearance.index', compact('clearances'));
+        return view('clearance.index', compact('clearances', 'years'));
     }
 
     /**

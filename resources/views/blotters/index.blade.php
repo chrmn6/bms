@@ -35,8 +35,18 @@
                         </button>
                     </div>
 
-                    <!-- Button on the right -->
+                    <!-- RIGHT: Year Filter + Request Button -->
                     <div class="flex items-center gap-2">
+                        <select id="yearFilter"
+                            class="p-2 text-xs font-semibold bg-neutral-50 border border-gray-700 rounded-md w-20"
+                            hx-get="{{ route('clearances.index') }}" hx-target="#clearanceTable"
+                            hx-include="#yearFilter">
+                            <option value="all">All Years</option>
+                            @foreach ($years as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>
+
                         @can('create', App\Models\Blotter::class)
                             <x-primary-button type="button" hx-get="{{ route('blotters.create') }}"
                                 hx-target="#blotterModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
@@ -103,7 +113,7 @@
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="announcementModalLabel">
-                                <i class="bi bi-file-earmark me-2"></i> File Blotter Report
+                                File Blotter Report
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
@@ -124,7 +134,7 @@
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="viewBlotterModalLabel">
-                                <i class="bi bi-file-earmark me-2"></i>Blotter Report Transcript
+                                Blotter Report Transcript
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>

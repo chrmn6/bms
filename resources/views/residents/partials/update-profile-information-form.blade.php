@@ -2,7 +2,7 @@
     @csrf
     @method('PUT')
     <!--PROFILE HEADER-->
-    <div class="py-3 mt-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+    <div class="py-3 p-2 mt-2 border border-gray-300 bg-neutral-50 shadow-sm dark:bg-gray-900 dark:border-gray-700">
         <div class="card-body !px-2.5 flex flex-col items-center text-center mb-3">
             <!-- Profile Picture -->
             <label for="image" class="relative cursor-pointer group d-block text-center">
@@ -39,7 +39,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
                             <!-- FIRST NAME -->
                             <tr>
@@ -101,7 +101,7 @@
                 </div>
         
                 <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
                             <!-- GENDER -->
                             <tr>
@@ -179,7 +179,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
                             <!--HOUSEHOLD NUMBER-->
                             <tr>
@@ -214,7 +214,7 @@
                     </table>
                 </div>
                 <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
                             <!--PLACE OF BIRTH-->
                             <tr>
@@ -240,7 +240,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
                             <!--EMAIL-->
                             <tr>
@@ -311,7 +311,7 @@
                     </table>
                 </div>
                 <div>
-                    <table class="table-auto border-collapse text-sm w-full m-0 p-0">
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
                             <!--CITIZENSHIP-->
                             <tr>

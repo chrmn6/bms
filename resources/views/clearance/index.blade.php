@@ -11,9 +11,10 @@
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Clearances</h5>
             <div class="items-center justify-between gap-4 pb-4 bg-slate-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
                 <!--SEARCH BAR-->
-                <div class="flex justify-between items-center p-3 flex-wrap sm:flex-nowrap">
-                    <!-- Texts on the left -->
-                    <div class="flex flex-wrap gap-1 mb-1" id="statusFilters">
+                <div class="flex justify-between items-center p-3 gap-3 flex-wrap sm:flex-nowrap">
+
+                    <!-- LEFT: Status Filters -->
+                    <div class="flex flex-wrap gap-1" id="statusFilters">
                         <button class="filter-btn p-2 text-xs font-semibold border border-gray-700 rounded-md"
                             data-status="all">
                             All
@@ -40,15 +41,27 @@
                         </button>
                     </div>
 
-                    <!-- Button on the right -->
-                    @can('create', App\Models\Clearance::class)
-                        <x-primary-button type="button" hx-get="{{ route('clearances.create') }}"
-                            hx-target="#clearanceModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
-                            data-bs-target="#addClearanceModal"
-                            class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center flex-shrink-0">
-                            Request
-                        </x-primary-button>
-                    @endcan
+                    <!-- RIGHT: Year Filter + Request Button -->
+                    <div class="flex items-center gap-2">
+                        <select id="yearFilter"
+                            class="p-2 text-xs font-semibold bg-neutral-50 border border-gray-700 rounded-md w-20"
+                            hx-get="{{ route('clearances.index') }}" hx-target="#clearanceTable"
+                            hx-include="#yearFilter">
+                            <option value="all">All Years</option>
+                            @foreach ($years as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>
+
+                        @can('create', App\Models\Clearance::class)
+                            <x-primary-button type="button" hx-get="{{ route('clearances.create') }}"
+                                hx-target="#clearanceModalBody" hx-swap="innerHTML" hx-trigger="click"
+                                data-bs-toggle="modal" data-bs-target="#addClearanceModal"
+                                class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D] flex items-center">
+                                Request
+                            </x-primary-button>
+                        @endcan
+                    </div>
                 </div>
 
                 <div class="overflow-y-auto h-64 border">
@@ -93,7 +106,7 @@
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="clearanceModalLabel">
-                                <i class="bi bi-file-earmark me-2"></i>Request Clearance
+                                Request Clearance
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
@@ -114,7 +127,7 @@
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="viewClearanceModalLabel">
-                                <i class="bi bi-file-earmark me-2"></i>Clearance Request Transcript
+                                Clearance Request Transcript
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>

@@ -1,5 +1,5 @@
 <div class="space-y-6 sm:space-y-4">
-    @foreach($announcements as $announcement)
+    @forelse($announcements as $announcement)
         <div class="flex gap-3 sm:gap-6">
             {{-- Date Column --}}
             <div class="w-16 flex-shrink-0 pt-1 sm:w-24 text-center">
@@ -85,5 +85,9 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @empty
+        <div class="text-center py-10 text-gray-500">
+            <p class="text-sm">No announcements found.</p>
+        </div>
+    @endforelse
 </div>
