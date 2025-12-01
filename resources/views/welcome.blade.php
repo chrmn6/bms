@@ -10,7 +10,6 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('storage/images/bms-logo.png') }}">
 
     <!-- Styles / Scripts -->
@@ -1644,11 +1643,12 @@
 
             <div class="flex-1 flex items-center justify-center p-6 rounded-lg">
                 <!-- Light mode image -->
-                <img src="{{ asset('storage/images/bms-home.png') }}" alt="BMS Header Light" class="w-full max-w-md lg:max-w-2xl h-auto object-contain/>
+                <img src="{{ asset('storage/images/bms-home.png') }}" alt="BMS Header Light"
+                    class="w-full max-w-md lg:max-w-2xl h-auto object-contain" fetchpriority="high">
 
                 <!-- Dark mode image -->
-                <img src=" {{ asset('storage/images/bms-home.png') }}" alt="BMS Header Dark"
-                    class="w-full max-w-md lg:max-w-2xl h-auto object-contain hidden dark:block" />
+                <img src="{{ asset('storage/images/bms-home.png') }}" alt="BMS Header Dark"
+                    class="w-full max-w-md lg:max-w-2xl h-auto object-contain hidden dark:block" fetchpriority="high">
             </div>
         </main>
     </div>

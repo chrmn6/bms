@@ -38,14 +38,15 @@
         </div>
 
         <div class="flex-1 flex items-center justify-center animate-right px-4 lg:px-0">
-            <img src="/storage/images/login.png" width="300" height="300" style="color:transparent">
+            <img src="/storage/images/login.png" width="300" height="300" style="color:transparent"
+                fetchpriority="high">
         </div>
     </main>
 
     <!-- Second Feature Block -->
     <main class="flex flex-col lg:flex-row w-full max-w-4xl items-center lg:items-stretch mx-auto gap-x-8 text-center">
         <div class="flex-1 flex items-center justify-center animate-left px-4 lg:px-0">
-            <img src="/storage/images/edit.png" width="300" height="300" style="color:transparent">
+            <img src="/storage/images/edit.png" width="300" height="300" style="color:transparent" fetchpriority="high">
         </div>
 
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-right px-4 lg:px-0">
