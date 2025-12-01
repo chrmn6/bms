@@ -32,11 +32,13 @@
             </div>
         </div>
 
-        <x-primary-button hx-get="{{ route('admin.programs.edit', $program->program_id) }}"
-            hx-target="#editProgramModalBody" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#editProgramModal"
-            class="mt-1 !bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center">
-            Edit
-        </x-primary-button>
+        @can('update', $program)
+            <x-primary-button type="button" hx-get="{{ route('admin.programs.edit', $program->program_id) }}"
+                hx-target="#editProgramModalBody" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#editProgramModal"
+                class="mt-1 !bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center">
+                Edit
+            </x-primary-button>
+        @endcan
 
         <x-primary-button onclick="window.location='{{ route('admin.programs.applicants', $program->program_id) }}'"
             class="mt-1 !bg-blue-500 hover:!bg-blue-600 active:!bg-blue-700 flex items-center justify-center">

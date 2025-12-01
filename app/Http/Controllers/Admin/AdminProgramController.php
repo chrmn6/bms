@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Program;
 use App\Models\ProgramApplication;
 use App\Notifications\GenericNotification;
+use App\Models\User;
 
 class AdminProgramController extends Controller
 {
@@ -46,6 +47,20 @@ class AdminProgramController extends Controller
         ]);
 
         Program::create($validated);
+
+        //SEND NOTIFICATIONS
+        $staff = Auth::user();
+        $residents = User::where('role', 'resident')->get();
+        $message = "has added a new program.";
+
+        foreach ($residents as $resident) {
+            $resident->notify(new GenericNotification(
+                $staff,
+                $message,
+                route('programs.index'),
+                'program'
+            ));
+        }
 
         if ($request->header('HX-Request')) {
             $programs = Program::latest()->get();
@@ -132,7 +147,7 @@ class AdminProgramController extends Controller
         if ($resident) {
             $resident->notify(new GenericNotification(
                 Auth::user(),
-                'Your application has been approved.',
+                'approved your application.',
                 route('programs.index'),
                 'program'
             ));
@@ -154,7 +169,7 @@ class AdminProgramController extends Controller
         if ($resident) {
             $resident->notify(new GenericNotification(
                 Auth::user(),
-                'Your application has been rejected.',
+                'rejected your application.',
                 route('programs.index'),
                 'program'
             ));

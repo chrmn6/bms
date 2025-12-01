@@ -29,7 +29,7 @@ class ProgramController extends Controller
             }]);
         }
 
-        return view('admin.programs.index', compact('programs'));
+        return view('programs.index', compact('programs'));
     }
 
     /**
@@ -53,7 +53,7 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        return view('admin.programs.show', compact('program'));
+        // 
     }
 
     /**
@@ -113,7 +113,7 @@ class ProgramController extends Controller
             $staff->notify(new GenericNotification(
                 Auth::user(),
                 $message,
-                route('admin.programs.index'),
+                route('admin.programs.applicants', $program->program_id),
                 'program'
             ));
         }
