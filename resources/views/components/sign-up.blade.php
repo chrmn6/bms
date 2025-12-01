@@ -25,8 +25,8 @@
 
         <!-- Step 1 -->
         <div class="flex flex-col items-center text-center flex-1 space-y-4">
-            <img src="/storage/images/login.png" width="265" height="264" fetchpriority="high"
-                style="color:transparent">
+            <img src="/storage/images/login.png" width="265" height="264" fetchpriority="high" style="color:transparent"
+                alt="Login">
             <div class="space-y-1">
                 <p class="font-bold text-base">Register an Account</p>
                 <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">
@@ -37,7 +37,8 @@
 
         <!-- Step 2 -->
         <div class="flex flex-col items-center text-center flex-1 space-y-4">
-            <img src="/storage/images/edit.png" width="265" height="264" fetchpriority="high" style="color:transparent">
+            <img src="/storage/images/edit.png" width="265" height="264" fetchpriority="high" style="color:transparent"
+                alt="Edit">
             <div class="space-y-1">
                 <p class="font-bold text-base">Edit Profile</p>
                 <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">
@@ -49,7 +50,7 @@
         <!-- Step 3 -->
         <div class="flex flex-col items-center text-center flex-1 space-y-4">
             <img src="/storage/images/browse.png" width="265" height="264" fetchpriority="high"
-                style="color:transparent">
+                style="color:transparent" alt="Browse">
             <div class="space-y-1">
                 <p class="font-bold text-base">Browse</p>
                 <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">

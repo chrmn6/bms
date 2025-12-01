@@ -29,7 +29,7 @@
         class="flex flex-col-reverse lg:flex-row w-full max-w-4xl items-center lg:items-stretch mx-auto gap-x-8 text-center mb-12">
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-left px-4 lg:px-0">
             <h1 class="mb-2 font-bold text-base">Citizen-Centric Platform</h1>
-            <h3 class="mb-2 font-semibold text-sm text-gray-700">Designed Around the Needs of Every Citizen</h3>
+            <h2 class="mb-2 font-semibold text-sm text-gray-700">Designed Around the Needs of Every Citizen</h2>
             <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Prioritize the needs and convenience of the public.<br>
                 It simplifies access to services, ensures transparency, and
@@ -38,21 +38,22 @@
         </div>
 
         <div class="flex-1 flex items-center justify-center animate-right px-4 lg:px-0">
-            <img src="/storage/images/login.png" width="300" height="300" style="color:transparent"
-                fetchpriority="high">
+            <img src="/storage/images/login.png" width="300" height="300" style="color:transparent" fetchpriority="high"
+                alt="Login">
         </div>
     </main>
 
     <!-- Second Feature Block -->
     <main class="flex flex-col lg:flex-row w-full max-w-4xl items-center lg:items-stretch mx-auto gap-x-8 text-center">
         <div class="flex-1 flex items-center justify-center animate-left px-4 lg:px-0">
-            <img src="/storage/images/edit.png" width="300" height="300" style="color:transparent" fetchpriority="high">
+            <img src="/storage/images/edit.png" width="300" height="300" style="color:transparent" fetchpriority="high"
+                alt="Edit">
         </div>
 
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-right px-4 lg:px-0">
             <h1 class="mb-2 font-bold text-base">Streamlined Barangay Transactions</h1>
-            <h3 class="mb-2 font-semibold text-sm text-gray-700">Efficient, Transparent, and Citizen-Friendly Services
-            </h3>
+            <h2 class="mb-2 font-semibold text-sm text-gray-700">Efficient, Transparent, and Citizen-Friendly Services
+            </h2>
             <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Simplified the access to local services, making processes faster and more transparent.
                 It reduces paperwork, minimizes waiting times, and allows citizens to complete requests with

@@ -2,7 +2,8 @@
     <div class="container mx-auto flex flex-row justify-between items-center">
         <!-- Logo -->
         <div class="flex-1 flex items-center justify-center">
-            <img src="/storage/images/bms-logo2.png" width="160" height="176" style="color:transparent">
+            <img src="/storage/images/bms-logo2.png" width="160" height="176" style="color:transparent"
+                fetchpriority="high" alt="BMS Logo">
         </div>
 
         <!-- Copyright -->
