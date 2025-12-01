@@ -1,16 +1,42 @@
 @section('title') {{ 'Residents List' }} @endsection
 
 <x-app-layout>
-    <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Residents</h5>
             <div class="items-center justify-between gap-4 pb-4 bg-neutral-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
-                <!--SEARCH BAR-->
-                <div class="flex justify-end p-3">
+                <div class="flex items-center justify-between p-3">
+                    <!--HOUSEHOLD FILTER--->
+                    <div>
+                        <form method="GET" class="flex items-center gap-3">
+                            <select id="household-filter" name="household_filter"
+                                class="block pt-2 ps-3 text-sm text-gray-900 border border-gray-900 rounded-lg w-38 bg-neutral-50"
+                                onchange="this.form.submit()">
+                                <option value="">All Households</option>
+                                @foreach($households as $household)
+                                <option value="{{ $household->household_id }}"
+                                    {{request('household_filter')==$household->household_id ?'selected' : '' }}>
+                                    {{ $household->household_number }}
+                                </option>
+                                @endforeach
+                            </select>
+
+                            <select id="gender-filter" name="gender"
+                                class="block pt-2 ps-3 text-sm text-gray-900 border border-gray-900 rounded-lg w-32 bg-neutral-50"
+                                onchange="this.form.submit()">
+                                <option value="">All Genders</option>
+                                <option value="Male" {{ request('gender')=='Male' ? 'selected' : '' }}>Male</option>
+                                <option value="Female" {{ request('gender')=='Female' ? 'selected' : '' }}>Female
+                                </option>
+                            </select>
+                        </form>
+                    </div>
+
+                    <!--SEARCH BAR-->
                     <x-input-label for="table-search" class="sr-only">Search</x-input-label>
                     <div class="relative">
                         <input type="text" id="table-search-users" name="search"
-                            class="block pt-2 ps-3 text-sm text-gray-900 border border-gray-900 rounded-lg w-48 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="block pt-2 ps-3 text-sm text-gray-900 border border-gray-900 rounded-lg w-38 bg-neutral-50"
                             placeholder="Search for users">
                     </div>
                 </div>
@@ -63,7 +89,7 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="flex justify-center mt-3">
+                <div class="mt-3 px-4">
                     {{ $residents->links() }}
                 </div>
             </div>

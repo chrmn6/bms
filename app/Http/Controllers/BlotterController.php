@@ -19,9 +19,7 @@ class BlotterController extends Controller
         $user = Auth::user();
         $query = Blotter::query();
         if ($user->role === 'resident') {
-            $blotters = Blotter::where('resident_id', $user->resident->resident_id)->latest()->paginate(perPage: 10);
-        } else {
-            $blotters = Blotter::latest()->paginate(10);
+            $query->where('resident_id', $user->resident->resident_id);
         }
 
         // Year filter
@@ -29,7 +27,7 @@ class BlotterController extends Controller
             $query->whereYear('created_at', $request->year);
         }
 
-        $clearances = $query->latest()->paginate(10);
+        $blotters = $query->latest()->paginate(10);
         $years = Blotter::selectRaw('YEAR(created_at) as year')->groupBy('year')->orderBy('year', 'desc')->pluck('year');
 
         if ($request->header('HX-Request')) {

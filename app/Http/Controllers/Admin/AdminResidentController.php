@@ -4,16 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Resident;
+use App\Models\Household;
 use Illuminate\Http\Request;
 
 class AdminResidentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $residents = Resident::with(['user', 'profile'])
-            ->orderBy('resident_id', 'desc')
-            ->paginate(20);
-        return view('admin.residents.index', compact('residents'));
+        $query = Resident::with(['user', 'profile', 'household'])->orderBy('resident_id', 'desc');
+
+        // Filter by household
+        if ($request->household_filter) {
+            $query->where('household_id', $request->household_filter);
+        }
+
+        // Filter by gender
+        if ($request->gender) {
+            $query->whereHas('profile', function ($q) use ($request) {
+                $q->where('gender', $request->gender);
+            });
+        }
+
+        $residents = $query->paginate(20)->withQueryString();
+        $households = Household::all();
+
+        return view('admin.residents.index', compact('residents', 'households'));
     }
 
     public function show($id)

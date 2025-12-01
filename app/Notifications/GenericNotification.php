@@ -45,7 +45,7 @@ class GenericNotification extends Notification
         return [
             'actor_id' => $this->actor->id,
             'actor_name' => $this->actor->full_name,
-            'actor_image' => $this->actor->image,
+            'actor_image' => $this->actor->avatar,
             'message' => $this->message,
             'url' => $this->url,
             'type' => $this->type,

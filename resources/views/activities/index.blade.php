@@ -10,7 +10,7 @@
 
 <x-dynamic-component :component="$layout">
     <div
-        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) @endif">
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) @endif">
         <div class="py-3">
             <div id='calendar' class="bg-[#FAFAFA] rounded-lg shadow-md p-4 mx-auto"></div>
         </div>
@@ -88,7 +88,7 @@
                     start: 'title',
                     right: 'dayGridMonth,listWeek'
                 },
-                contentHeight: 350,
+                contentHeight: 400,
                 events: '{{ route('activities.events') }}',
                 dayCellDidMount: function (info) {
                     if (info.date.getDay() === 0) {

@@ -1,7 +1,7 @@
 @section('title', 'Programs')
 
 <x-app-layout>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div class="py-3">
             <div class="flex items-center justify-between">
                 <h5 class="text-base font-semibold text-gray-500 dark:text-gray-100">
@@ -31,7 +31,7 @@
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="programModalLabel">
-                                <i class="bi bi-file-earmark me-2"></i>Create Program
+                                Create Program
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>

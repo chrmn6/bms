@@ -6,7 +6,7 @@
 
 <x-dynamic-component :component="$layout">
     <div
-        class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && Auth::user()->role === 'admin' || Auth::user()->role === 'staff') @endif">
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 @if(Auth::user() && Auth::user()->role === 'admin' || Auth::user()->role === 'staff') @endif">
         <div class="py-3">
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Clearances</h5>
             <div class="items-center justify-between gap-4 pb-4 bg-slate-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
@@ -70,32 +70,8 @@
                 </div>
 
                 <!--PAGINATION-->
-                <div class="flex justify-center mt-3">
-                    <!-- Previous Button -->
-                    <a href="{{ $clearances->onFirstPage() ? '#' : $clearances->previousPageUrl() }}"
-                        class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium 
-                        {{ $clearances->onFirstPage() ? 'text-gray-400 bg-gray-200 cursor-not-allowed' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' }}
-                        !no-underline border !border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 5H1m0 0 4 4M1 5l4-4" />
-                        </svg>
-                        Previous
-                    </a>
-
-                    <!-- Next Button -->
-                    <a href="{{ $clearances->hasMorePages() ? $clearances->nextPageUrl() : '#' }}"
-                        class="flex items-center justify-center px-3 h-8 text-sm font-medium 
-                        {{ $clearances->hasMorePages() ? 'text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-700' : 'text-gray-400 bg-gray-200 cursor-not-allowed' }}
-                        !no-underline border !border-gray-300 rounded-md dark:bg-gray-800 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        Next
-                        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </a>
+                <div class="mt-3 px-4">
+                    {{ $clearances->links() }}
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 @section('title') {{ 'Notifications' }} @endsection
 
 <x-app-layout>
-    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div class="py-3">
             <h5 class="text-base font-semibold text-gray-500 dark:text-gray-100">Notifications</h5>
 

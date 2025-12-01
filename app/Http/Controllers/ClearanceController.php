@@ -21,9 +21,7 @@ class ClearanceController extends Controller
         $user = Auth::user();
         $query = Clearance::query();
         if ($user->role === 'resident') {
-            $clearances = Clearance::where('resident_id', $user->resident->resident_id)->latest()->paginate(10);
-        } else {
-            $clearances = Clearance::latest()->paginate(10);
+            $query->where('resident_id', $user->resident->resident_id);
         }
 
         // Year filter

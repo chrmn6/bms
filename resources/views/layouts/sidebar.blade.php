@@ -25,7 +25,7 @@
             <div class="flex items-center">
                 <div class="flex items-center ms-3">
                     <div class="relative rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none me-4">
-                        <a href="{{ route('notifications.index') }}">
+                        <a href="{{ route('admin.notifications.index') }}">
                             <svg class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">

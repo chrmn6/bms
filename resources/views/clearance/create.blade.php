@@ -47,7 +47,7 @@
         <img src="{{ asset('storage/images/gcash-sample.jpg') }}" alt="GCash Sample" class="w-64 mb-3 rounded border">
     </div>
 
-    <div class="mb-2">
+    <div id="payment_proof_section" class="mb-2" style="display: none;">
         <x-input-label for="payment_proof" :value="__('Payment Proof')" />
         <input type="file" name="payment_proof" id="payment_proof"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
@@ -64,13 +64,17 @@
     function toggleGCashField() {
         const method = document.getElementById("payment_method").value;
         const gcashSection = document.getElementById("gcash_section");
+        const paymentProofSection = document.getElementById("payment_proof_section");
+        const paymentProof = document.getElementById("payment_proof");
 
         if (method === "GCash") {
             gcashSection.style.display = "block";
-            document.getElementById("gcash_reference").required = true;
+            paymentProofSection.style.display = "block";
+            paymentProof.required = true;
         } else {
             gcashSection.style.display = "none";
-            document.getElementById("gcash_reference").required = false;
+            paymentProofSection.style.display = "none";
+            paymentProof.required = false;
         }
     }
 </script>

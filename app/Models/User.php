@@ -80,4 +80,17 @@ class User extends Authenticatable
     {
         return 'STF-' . str_pad($this->id, 6, '20250', STR_PAD_LEFT);
     }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->resident && $this->resident->profile && $this->resident->profile->image) {
+            return $this->resident->profile->image;
+        }
+
+        if ($this->image) {
+            return $this->image;
+        }
+
+        return 'default-avatar.jpg';
+    }
 }

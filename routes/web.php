@@ -13,7 +13,7 @@ use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\AdminNotificationController;
+use App\Http\Controllers\Admin\AdminNotificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,14 +44,12 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('residents', [AdminResidentController::class, 'index'])->name('resident.index');
         Route::get('residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
+        Route::get('notifications', [AdminNotificationController::class, 'index'])->name('notifications.index');
     });
 
     // Blotter Reports (shared)
     Route::get('/blotters/{id}/pdf', [BlotterController::class, 'blotterTranscript'])->name('blotter.pdf');
     Route::get('/blotters/blotter-reports', [BlotterController::class, 'blotterPrintAll'])->name('blotters.printAll');
-    Route::resource('blotters', BlotterController::class)->except(['destroy']);
-
-    Route::get('/notifications', [AdminNotificationController::class, 'index'])->name('notifications.index');
 });
 
 // ADMIN-ONLY ROUTES
@@ -67,11 +65,9 @@ Route::resource('programs', ProgramController::class)->only(['index', 'show']);
 Route::post('/programs/{program}/join', [ProgramController::class, 'join'])->name('programs.join');
 
 // STAFF + RESIDENT ROUTES
-
 Route::middleware(['auth', 'role:resident|staff'])->group(function () {
     // Clearance PDF
     Route::get('/clearances/{clearance}/pdf', [ClearanceController::class, 'clearancePDF'])->name('clearances.pdf');
-    Route::resource('clearances', ClearanceController::class);
 });
 
 // RESIDENT-ONLY ROUTES
@@ -82,7 +78,7 @@ Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residen
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 });
 
-// ANNOUNCEMENTS & ACTIVITIES (All Authenticated Users)
+// All Authenticated Users
 Route::middleware('auth')->group(function () {
     Route::resource('announcements', AnnouncementController::class);
     Route::get('/activities/events', [ActivityController::class, 'events'])->name('activities.events');
@@ -94,8 +90,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SettingsController::class, 'update'])->name('settings.updatePassword');
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('settings.destroy');
-
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 });
 
 //PROGRAMS ROUTE
