@@ -25,24 +25,33 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
         $user = Auth::user();
 
-        if ($user->status === 'Inactive') {
-        Auth::logout();
-            return back()->withErrors([
-                'email' => 'Your account is inactive. Please contact the administrator.',
-            ]);
+        
+        if ($user->status !== 'Active') {
+            Auth::logout();
+
+            $message = match ($user->status) {
+                'Pending' => 'Your account is pending approval by admin.',
+                'Rejected' => 'Your registration was rejected by admin.',
+                'Inactive' => 'Your account is inactive. Please contact the administrator.',
+                default => 'Your account cannot be accessed at this time.',
+            };
+
+            return back()->withErrors(['email' => $message]);
         }
 
         if (in_array($user->role, ['admin', 'staff'])) {
-            return redirect()->intended('/dashboard')->with('success', 'You are logged in successfully!');
+            return redirect()->intended('/dashboard')
+                ->with('success', 'You are logged in successfully!');
         }
 
-        return redirect()->intended('/residents/dashboard')->with('success', 'You are logged in successfully!');
+        return redirect()->intended('/residents/dashboard')
+            ->with('success', 'You are logged in successfully!');
     }
+
 
     /**
      * Destroy an authenticated session.

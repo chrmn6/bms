@@ -32,12 +32,10 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone_number' => ['nullable', 'string', 'max:11'],
         ]);
-
-        $status = $request->role === 'resident' ? 'Pending' : 'Active';
 
         $user = User::create([
             'first_name' => $request->first_name,
@@ -50,9 +48,7 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect()->intended(route('residents.dashboard'));
+        return redirect('/login')->with('success', 'Registration successful! Please wait for admin approval.');
     }
+
 }
