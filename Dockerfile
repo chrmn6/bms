@@ -37,6 +37,12 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 RUN php artisan storage:link
 
+# CLEAR ALL LARAVEL CACHES — IMPORTANT FIX FOR INVALID SIGNATURE
+RUN php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan route:clear && \
+    php artisan view:clear
+
 # Install Node + npm
 RUN apt-get update && apt-get install -y nodejs npm
 
