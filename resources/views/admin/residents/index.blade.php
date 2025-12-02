@@ -53,6 +53,7 @@
                                 <th scope="col" class="px-3 py-2">Gender</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
+                                <th scope="col" class="px-3 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -72,9 +73,38 @@
                                             <div class="text-sm font-semibold">{{ $resident->full_name }}</div>
                                         </div>
                                     </th>
-                                    <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
-                                    <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
+                                    <td class="px-3 py-2">{{ $resident->profile?->gender ?? 'N/A' }}</td>
+                                    <td class="px-3 py-2">{{ $resident->household?->household_number ?? 'N/A' }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
+                                    <td class="px-3 py-2">
+                                        @if ($resident->user->status === 'Pending')
+                                            <div class="flex gap-2 justify-center">
+                                                {{-- Approve --}}
+                                                <form action="{{ route('admin.resident.approve', $resident->user->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button class="px-3 py-1 bg-green-600 text-white rounded-md text-xs">
+                                                        Approve
+                                                    </button>
+                                                </form>
+
+                                                {{-- Reject --}}
+                                                <form action="{{ route('admin.resident.reject', $resident->user->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button class="px-3 py-1 bg-red-600 text-white rounded-md text-xs">
+                                                        Reject
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @elseif($resident->user->status === 'Active')
+                                            <span class="text-green-600 font-semibold text-xs">Active</span>
+                                        @elseif($resident->user->status === 'Rejected')
+                                            <span class="text-red-600 font-semibold text-xs">Rejected</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

@@ -34,8 +34,10 @@ class RegisteredUserController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone_number' => ['nullable', 'string', 'max:20'],
+            'phone_number' => ['nullable', 'string', 'max:11'],
         ]);
+
+        $status = $request->role === 'resident' ? 'Pending' : 'Active';
 
         $user = User::create([
             'first_name' => $request->first_name,
@@ -44,6 +46,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number,
             'role' => 'resident',
+            'status' => 'Pending',
         ]);
 
         event(new Registered($user));
