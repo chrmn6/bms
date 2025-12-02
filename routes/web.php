@@ -104,3 +104,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('/debug', function () {
+    return config('app.url') . ' | ' . env('APP_URL');
+});
