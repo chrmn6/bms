@@ -71,7 +71,7 @@ Route::middleware(['auth', 'role:resident|staff'])->group(function () {
 });
 
 // RESIDENT-ONLY ROUTES
-Route::middleware(['auth', 'verified', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
+Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
     Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ResidentController::class, 'edit'])->name('edit');
     Route::put('/profile', [ResidentController::class, 'update'])->name('update');
@@ -104,14 +104,3 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 });
 
 require __DIR__ . '/auth.php';
-
-Route::get('/debug', function () {
-    return config('app.url') . ' | ' . env('APP_URL');
-});
-
-Route::get('/debug-key', function () {
-    return [
-        'env_APP_KEY' => env('APP_KEY'),
-        'config_app_key' => config('app.key'),
-    ];
-});
