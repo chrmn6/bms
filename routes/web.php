@@ -108,3 +108,10 @@ require __DIR__ . '/auth.php';
 Route::get('/debug', function () {
     return config('app.url') . ' | ' . env('APP_URL');
 });
+
+Route::get('/debug-key', function () {
+    return [
+        'env_APP_KEY' => env('APP_KEY'),
+        'config_app_key' => config('app.key'),
+    ];
+});
