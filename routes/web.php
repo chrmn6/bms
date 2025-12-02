@@ -29,12 +29,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// DASHBOARD (Shared by Admin + Staff)
-Route::middleware(['auth', 'role:admin|staff'])->get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-
 // ADMIN + STAFF ROUTES
 Route::middleware(['auth', 'role:admin|staff'])->group(function () {
 
+    //Dashboard
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -90,17 +89,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SettingsController::class, 'update'])->name('settings.updatePassword');
     Route::delete('/settings', [SettingsController::class, 'destroy'])->name('settings.destroy');
-});
 
-//PROGRAMS ROUTE
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
-    Route::resource('programs', AdminProgramController::class);
-    Route::get('programs/{program}/applicants', [AdminProgramController::class, 'applicants'])
-        ->name('programs.applicants');
-    Route::post('programs/applications/{id}/approve', [AdminProgramController::class, 'approve'])
-        ->name('programs.approve');
-    Route::post('programs/applications/{id}/reject', [AdminProgramController::class, 'reject'])
-        ->name('programs.reject');
+    //PROGRAMS ROUTE
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('programs', AdminProgramController::class);
+        Route::get('programs/{program}/applicants', [AdminProgramController::class, 'applicants'])
+            ->name('programs.applicants');
+        Route::post('programs/applications/{id}/approve', [AdminProgramController::class, 'approve'])
+            ->name('programs.approve');
+        Route::post('programs/applications/{id}/reject', [AdminProgramController::class, 'reject'])
+            ->name('programs.reject');
+    });
 });
 
 require __DIR__ . '/auth.php';
