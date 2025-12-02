@@ -30,7 +30,7 @@ Route::get('/', function () {
 });
 
 // DASHBOARD (Shared by Admin + Staff)
-Route::middleware(['auth', 'verified', 'role:admin|staff'])->get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth', 'role:admin|staff'])->get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
 // ADMIN + STAFF ROUTES
 Route::middleware(['auth', 'role:admin|staff'])->group(function () {
@@ -71,7 +71,7 @@ Route::middleware(['auth', 'role:resident|staff'])->group(function () {
 });
 
 // RESIDENT-ONLY ROUTES
-Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
     Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ResidentController::class, 'edit'])->name('edit');
     Route::put('/profile', [ResidentController::class, 'update'])->name('update');
