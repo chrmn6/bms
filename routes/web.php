@@ -45,9 +45,8 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
         Route::get('residents', [AdminResidentController::class, 'index'])->name('resident.index');
         Route::get('residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
         Route::get('notifications', [AdminNotificationController::class, 'index'])->name('notifications.index');
-        Route::patch('/admin/residents/{user}/approve', [ResidentController::class, 'approve'])->name('admin.resident.approve');
-        Route::patch('/admin/residents/{user}/reject', [ResidentController::class, 'reject'])->name('admin.resident.reject');
-
+        Route::patch('residents/{id}/approve', [AdminResidentController::class, 'approve'])->name('resident.approve');
+        Route::patch('residents/{id}/reject', [AdminResidentController::class, 'reject'])->name('resident.reject');
     });
 
     // Blotter Reports (shared)

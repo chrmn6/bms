@@ -12,19 +12,7 @@ class AdminResidentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Resident::with(['user', 'profile', 'household'])->orderBy('resident_id', 'desc');
-
-        // Filter by household
-        if ($request->household_filter) {
-            $query->where('household_id', $request->household_filter);
-        }
-
-        // Filter by gender
-        if ($request->gender) {
-            $query->whereHas('profile', function ($q) use ($request) {
-                $q->where('gender', $request->gender);
-            });
-        }
+        $query = Resident::with(['user'])->orderBy('resident_id', 'desc');
 
         $residents = $query->paginate(20)->withQueryString();
         $households = Household::all();

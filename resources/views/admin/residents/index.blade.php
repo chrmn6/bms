@@ -50,8 +50,6 @@
                             <tr>
                                 <th scope="col" class="px-3 py-2">Resident ID</th>
                                 <th scope="col" class="px-3 py-2">Full Name</th>
-                                <th scope="col" class="px-3 py-2">Gender</th>
-                                <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
                                 <th scope="col" class="px-3 py-2">Actions</th>
                             </tr>
@@ -73,14 +71,12 @@
                                             <div class="text-sm font-semibold">{{ $resident->full_name }}</div>
                                         </div>
                                     </th>
-                                    <td class="px-3 py-2">{{ $resident->profile?->gender ?? 'N/A' }}</td>
-                                    <td class="px-3 py-2">{{ $resident->household?->household_number ?? 'N/A' }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
                                     <td class="px-3 py-2">
                                         @if ($resident->user->status === 'Pending')
                                             <div class="flex gap-2 justify-center">
                                                 {{-- Approve --}}
-                                                <form action="{{ route('admin.resident.approve', $resident->user->id) }}"
+                                                <form action="{{ route('admin.resident.approve', $resident->resident_id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
@@ -90,7 +86,7 @@
                                                 </form>
 
                                                 {{-- Reject --}}
-                                                <form action="{{ route('admin.resident.reject', $resident->user->id) }}"
+                                                <form action="{{ route('admin.resident.reject', $resident->resident_id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
