@@ -70,7 +70,7 @@ Route::middleware(['auth', 'role:resident|staff'])->group(function () {
 });
 
 // RESIDENT-ONLY ROUTES
-Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
     Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ResidentController::class, 'edit'])->name('edit');
     Route::put('/profile', [ResidentController::class, 'update'])->name('update');
