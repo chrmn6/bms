@@ -51,11 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function requiresEmailVerification()
-    {
-        return $this->role === 'resident';
-    }
-
     public function resident()
     {
         return $this->hasOne(Resident::class, 'user_id', 'id');
