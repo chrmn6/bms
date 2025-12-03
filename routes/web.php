@@ -102,4 +102,15 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::get('/debug-config', function() {
+    return response()->json([
+        'app_url' => config('app.url'),
+        'app_key_set' => config('app.key') ? 'YES' : 'NO',
+        'app_env' => config('app.env'),
+        'request_scheme' => request()->getScheme(),
+        'request_host' => request()->getHost(),
+        'request_url' => request()->url(),
+    ]);
+});
+
 require __DIR__ . '/auth.php';
