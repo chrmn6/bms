@@ -24,18 +24,22 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $user = \App\Models\User::where('email', $request->email)->first();
 
-        $request->session()->regenerate();
-
-        $user = Auth::user();
-
-        if ($user->status === 'Inactive') {
-        Auth::logout();
+        if (!$user) {
             return back()->withErrors([
-                'email' => 'Your account is inactive. Please contact the administrator.',
+                'email' => 'These credentials do not match our records.',
             ]);
         }
+
+        if ($user->status !== 'Active') {
+            return back()->withErrors([
+                'email' => 'Your account is not yet approved by the administrator.',
+            ]);
+        }
+
+        $request->authenticate();
+        $request->session()->regenerate();
 
         if (in_array($user->role, ['admin', 'staff'])) {
             return redirect()->intended('/dashboard')->with('success', 'You are logged in successfully!');
@@ -43,6 +47,7 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended('/residents/dashboard')->with('success', 'You are logged in successfully!');
     }
+
 
     /**
      * Destroy an authenticated session.

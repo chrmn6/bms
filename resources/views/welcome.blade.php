@@ -1544,7 +1544,7 @@
                         @click.self="openLogin = false">
                         <!-- Modal Box -->
                         <div x-transition.scale
-                            class="relative bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-md">
+                            class="relative bg-neutral-50 dark:bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-md">
                             <!-- Close button -->
                             <button @click="openLogin = false"
                                 class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"

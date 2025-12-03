@@ -28,8 +28,8 @@
     <main
         class="flex flex-col-reverse lg:flex-row w-full max-w-4xl items-center lg:items-stretch mx-auto gap-x-8 text-center mb-12">
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-left px-4 lg:px-0">
-            <h1 class="mb-2 font-bold text-base">Citizen-Centric Platform</h1>
-            <h2 class="mb-2 font-semibold text-sm text-gray-700">Designed Around the Needs of Every Citizen</h2>
+            <h1 class="mb-2 font-bold text-base">Resident-Centric Platform</h1>
+            <h2 class="mb-2 font-semibold text-sm text-gray-700">Designed Around the Needs of Every Residents</h2>
             <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Prioritize the needs and convenience of the public.<br>
                 It simplifies access to services, ensures transparency, and

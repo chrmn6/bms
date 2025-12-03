@@ -43,6 +43,7 @@ Route::middleware(['auth', 'role:admin|staff'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('residents', [AdminResidentController::class, 'index'])->name('resident.index');
         Route::get('residents/{id}', [AdminResidentController::class, 'show'])->name('resident.show');
+        Route::post('residents/{id}/approve', [AdminResidentController::class, 'approve'])->name('resident.approve');
         Route::get('notifications', [AdminNotificationController::class, 'index'])->name('notifications.index');
     });
 
@@ -70,7 +71,7 @@ Route::middleware(['auth', 'role:resident|staff'])->group(function () {
 });
 
 // RESIDENT-ONLY ROUTES
-Route::middleware(['auth', 'verified', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
+Route::middleware(['auth', 'role:resident'])->prefix('residents')->name('residents.')->group(function () {
     Route::get('/dashboard', [ResidentController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ResidentController::class, 'edit'])->name('edit');
     Route::put('/profile', [ResidentController::class, 'update'])->name('update');
@@ -102,19 +103,19 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('/debug-config', function() {
-    return response()->json([
-        'app_url' => config('app.url'),
-        'app_key_set' => config('app.key') ? 'YES' : 'NO',
-        'app_env' => config('app.env'),
-        'request_scheme' => request()->getScheme(),
-        'request_host' => request()->getHost(),
-        'request_url' => request()->url(),
-    ]);
-});
+// Route::get('/debug-config', function() {
+//     return response()->json([
+//         'app_url' => config('app.url'),
+//         'app_key_set' => config('app.key') ? 'YES' : 'NO',
+//         'app_env' => config('app.env'),
+//         'request_scheme' => request()->getScheme(),
+//         'request_host' => request()->getHost(),
+//         'request_url' => request()->url(),
+//     ]);
+// });
 
-Route::get('/headers', function () {
-    return request()->headers->all();
-});
+// Route::get('/headers', function () {
+//     return request()->headers->all();
+// });
 
 require __DIR__ . '/auth.php';

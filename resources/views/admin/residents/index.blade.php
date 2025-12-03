@@ -53,6 +53,7 @@
                                 <th scope="col" class="px-3 py-2">Gender</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
+                                <th scope="col" class="px-3 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -75,6 +76,21 @@
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
+                                    <td class="px-3 py-2">
+                                        @if($resident->user->status !== 'Active')
+                                            <form action="{{ route('admin.resident.approve', $resident->resident_id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <x-primary-button type="submit"
+                                                    class="px-3 py-1 !bg-green-600 text-black rounded text-xs hover:bg-green-700">
+                                                    Approve
+                                                </x-primary-button>
+                                            </form>
+                                        @else
+                                            <span class="text-green-700 font-semibold text-sm">Active</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

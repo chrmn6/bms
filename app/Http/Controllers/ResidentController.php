@@ -56,8 +56,6 @@ class ResidentController extends Controller
         // Ensure attributes exist with defaults
         $resident->attributes ?? $resident->attributes()->create([
             'voter_status' => 'No',
-            'pwd_status' => 'No',
-            'senior' => 'No',
             'blood_type' => null,
         ]);
 
@@ -135,14 +133,10 @@ class ResidentController extends Controller
         // Attributes
         $attributes = $resident->attributes ?? $resident->attributes()->create([
             'voter_status' => 'No',
-            'pwd_status' => 'No',
-            'senior' => 'No',
             'blood_type' => null,
         ]);
         $attributes->update([
             'voter_status' => $validated['voter_status'] ?? 'No',
-            'pwd_status' => $validated['pwd_status'] ?? 'No',
-            'senior' => $validated['senior'] ?? 'No',
             'blood_type' => $validated['blood_type'] ?? null,
         ]);
 

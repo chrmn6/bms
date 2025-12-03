@@ -36,4 +36,15 @@ class AdminResidentController extends Controller
         $resident = Resident::with(['user', 'profile'])->findOrFail($id);
         return view('admin.residents.show', compact('resident'));
     }
+
+    public function approve($id)
+    {
+        $resident = Resident::with('user')->findOrFail($id);
+
+        $resident->user->update([
+            'status' => 'Active'
+        ]);
+
+        return back()->with('success', 'Resident has been approved.');
+    }
 }
