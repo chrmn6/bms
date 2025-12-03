@@ -113,4 +113,8 @@ Route::get('/debug-config', function() {
     ]);
 });
 
+Route::get('/headers', function () {
+    return request()->headers->all();
+});
+
 require __DIR__ . '/auth.php';
