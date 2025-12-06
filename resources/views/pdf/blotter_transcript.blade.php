@@ -41,15 +41,16 @@
 
     <div class="mt-3 space-y-1 mb-8">
         <p><span class="font-semibold text-base">Complainant:</span> {{ $blotter->resident->full_name}}</p>
+        <p><span class="font-semibold text-base">Respondent:</span> {{ $blotter->respondent_name}}</p>
         <p><span class="font-semibold text-base">Address:</span> {{ $blotter->resident->full_address }}</p>
         <p><span class="font-semibold text-base">Contact:</span> {{ $blotter->resident->user->phone_number }}</p>
     </div>
 
     <p class="text-justify leading-relaxed mt-3 mb-8" style="text-indent: 2em;">
-        On {{ $blotter->formatted_incident_date }}, at around {{ $blotter->formatted_incident_time }},
-        a {{ strtolower($blotter->incident_type) }} was reported by
-        {{ $blotter->resident->full_name }} at {{ $blotter->location }}.
-        According to the complainant, {{ strtolower($blotter->description) }}.
+        On {{ $blotter->formatted_incident_date }}, at around {{ $blotter->case->formatted_incident_time }},
+        a {{ strtolower($blotter->case->incident_type) }} was reported by
+        {{ $blotter->resident->full_name }} at {{ $blotter->case->location }}.
+        According to the complainant, {{ strtolower($blotter->case->description) }}.
     </p>
 
 

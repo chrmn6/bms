@@ -49,7 +49,7 @@
                             {{ $blotter->display_id }}
                         </a>
                     </td>
-                    <td>{{ $blotter->incident_type }}</td>
+                    <td>{{ $blotter->case->incident_type }}</td>
                     <td>{{ ucfirst($blotter->status) }}</td>
                     <td>{{ $blotter->resident->full_name ?? 'N/A' }}</td>
                     <td>{{ $blotter->created_at->format('Y-m-d') }}</td>

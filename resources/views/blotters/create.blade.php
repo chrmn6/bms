@@ -35,13 +35,12 @@
                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
                 required>
         </div>
-
-        <div class="col-md-6 mb-3">
-            <x-input-label for="location" :value="__('Location')" />
-            <input type="text" name="location"
-                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                required>
-        </div>
+    </div>
+    <div class="mb-3">
+        <x-input-label for="location" :value="__('Location')" />
+        <input type="text" name="location"
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+            required>
     </div>
     <div class="mb-3">
         <x-input-label for="description" :value="__('Description')" />
