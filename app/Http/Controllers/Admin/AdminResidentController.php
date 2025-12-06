@@ -5,13 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Resident;
 use App\Models\Household;
+use App\Models\Phase;
 use Illuminate\Http\Request;
 
 class AdminResidentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Resident::with(['user', 'profile', 'household'])->orderBy('resident_id', 'desc');
+        $query = Resident::with(['user', 'profile', 'household', 'phase'])->orderBy('resident_id', 'desc');
+
+        // Filter by phase
+        if ($request->phase_filter) {
+            $query->where('phase_id', $request->phase_filter);
+        }
 
         // Filter by household
         if ($request->household_filter) {
@@ -27,8 +33,9 @@ class AdminResidentController extends Controller
 
         $residents = $query->paginate(20)->withQueryString();
         $households = Household::all();
+        $phases = Phase::all();
 
-        return view('admin.residents.index', compact('residents', 'households'));
+        return view('admin.residents.index', compact('residents', 'households', 'phases'));
     }
 
     public function show($id)

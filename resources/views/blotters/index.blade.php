@@ -105,7 +105,7 @@
             <!-- View Blotter Modal -->
             <div class="modal fade" id="viewBlotterModal" tabindex="-1" aria-labelledby="viewBlotterModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-m modal-dialog-centered">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="bg-[#FAFAFA] modal-content border-0 shadow-lg">
                         <div class="modal-header !bg-[#6D0512] text-white py-2">
                             <h5 class="modal-title" id="viewBlotterModalLabel">

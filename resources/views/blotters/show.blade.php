@@ -9,6 +9,10 @@
                 <td>{{ $blotter->resident->full_name }}</td>
             </tr>
             <tr class="border-b border-gray-500">
+                <th class="text-left font-semibold p-2">RESPONDENT</th>
+                <td>{{ $blotter->respondent_name}}</td>
+            </tr>
+            <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">FULL ADDRESS</th>
                 <td>{{ $blotter->resident->address }}</td>
             </tr>

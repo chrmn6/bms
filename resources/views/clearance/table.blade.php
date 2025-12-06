@@ -5,6 +5,7 @@
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Clearance No.</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Requested By</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Clearance Type</th>
+            <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Date Requested</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Status</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Processed By</th>
             <th scope="col" class="px-2 py-2 md:px-3 md:py-2 text-xs md:text-xs">Actions</th>
@@ -19,6 +20,7 @@
                 </td>
                 <td class="px-1 py-2">{{ $clearance->resident->full_name }}</td>
                 <td class="px-2 py-2">{{ $clearance->clearance_type }}</td>
+                <td class="px-3 py-2">{{ $clearance->created_at->format('M d, Y') }}</td>
                 <td class="px-2 py-2">
                     @php
                         $statusColors = match ($clearance->status) {

@@ -181,6 +181,23 @@
                 <div>
                     <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
                         <tbody>
+                            <!--PHASE NUMBER-->
+                            <tr>
+                                <th class="text-left font-semibold p-2">
+                                    <x-input-label for="phase_id" :value="__('Phase')" />
+                                </th>
+                                <td>
+                                    <select id="phase_id" name="phase_id" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
+                                        <option value="">Select Phase</option>
+                                        @foreach($phases as $phase)
+                                            <option value="{{ $phase->phase_id }}" {{ $resident->phase_id == $phase->phase_id ? 'selected' : '' }}>
+                                                {{ $phase->phase_number }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error class="mt-2" :messages="$errors->get('phase_id')" />
+                                </td>
+                            </tr>
                             <!--HOUSEHOLD NUMBER-->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -199,6 +216,12 @@
                                     <x-input-error class="mt-2" :messages="$errors->get('household_id')" />
                                 </td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
+                        <tbody>
                             <!--STREET ADDRESS-->
                             <tr>
                                 <th class="text-left font-semibold p-2">
@@ -210,12 +233,6 @@
                                     <x-input-error class="mt-2" :messages="$errors->get('address')" />
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-                    <table class="table-fixed border-collapse text-sm w-full m-0 p-0">
-                        <tbody>
                             <!--PLACE OF BIRTH-->
                             <tr>
                                 <th class="text-left font-semibold p-2">

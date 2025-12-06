@@ -14,13 +14,14 @@ class Blotter extends Model
     protected $fillable = [
         'resident_id',
         'user_id',
+        'respondent_name',
         'incident_type',
         'incident_date',
         'incident_time',
         'location',
         'description',
-        'status',
         'image',
+        'status',
     ];
 
     public function resident()
@@ -33,6 +34,11 @@ class Blotter extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function getDisplayIdAttribute()
+    {
+        return 'BLR-' . str_pad($this->blotter_id, 6, '20250', STR_PAD_LEFT);
+    }
+
     public function getFormattedIncidentDateAttribute()
     {
         return Carbon::parse($this->incident_date)->format('F j, Y');
@@ -41,10 +47,5 @@ class Blotter extends Model
     public function getFormattedIncidentTimeAttribute()
     {
         return Carbon::parse($this->incident_time)->format('h:i A');
-    }
-
-    public function getDisplayIdAttribute()
-    {
-        return 'BLR-' . str_pad($this->blotter_id, 6, '20250', STR_PAD_LEFT);
     }
 }

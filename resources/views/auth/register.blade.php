@@ -204,6 +204,21 @@
                     </h3>
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
 
+                        <!-- PHASE -->
+                        <div>
+                            <x-input-label for="phase_id" value="Phase *" />
+                            <select id="phase_id" name="phase_id"
+                                class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                <option value="">Choose phase</option>
+                                @foreach($phases as $phase)
+                                    <option value="{{ $phase->phase_id }}" {{ old('phase_id') == $phase->phase_id ? 'selected' : '' }}>
+                                        {{ $phase->phase_number }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('phase_id')" />
+                        </div>
+
                         <!-- HOUSEHOLD -->
                         <div>
                             <x-input-label for="household_id" value="Household *" />

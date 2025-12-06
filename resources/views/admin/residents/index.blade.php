@@ -6,9 +6,22 @@
             <h5 class="text-base font-semibold mb-3 text-gray-500 dark:text-gray-100">Residents</h5>
             <div class="items-center justify-between gap-4 pb-4 bg-neutral-50 dark:bg-gray-900 shadow-md sm:rounded-lg">
                 <div class="flex items-center justify-between p-3">
-                    <!--HOUSEHOLD FILTER--->
+                    <!--PHASE FILTER--->
                     <div>
                         <form method="GET" class="flex items-center gap-3">
+                            <select id="phase-filter" name="phase_filter"
+                                class="block pt-2 ps-3 text-sm text-gray-900 border border-gray-900 rounded-lg w-38 bg-neutral-50"
+                                onchange="this.form.submit()">
+                                <option value="">All Phases</option>
+                                @foreach($phases as $phase)
+                                <option value="{{ $phase->phase_id }}" {{request('phase_filter')==$phase->phase_id
+                                    ?'selected' :
+                                    '' }}>
+                                    {{ $phase->phase_number }}
+                                </option>
+                                @endforeach
+                            </select>
+
                             <select id="household-filter" name="household_filter"
                                 class="block pt-2 ps-3 text-sm text-gray-900 border border-gray-900 rounded-lg w-38 bg-neutral-50"
                                 onchange="this.form.submit()">
@@ -51,6 +64,7 @@
                                 <th scope="col" class="px-3 py-2">Resident ID</th>
                                 <th scope="col" class="px-3 py-2">Full Name</th>
                                 <th scope="col" class="px-3 py-2">Gender</th>
+                                <th scope="col" class="px-3 py-2">Phase Number</th>
                                 <th scope="col" class="px-3 py-2">Household Number</th>
                                 <th scope="col" class="px-3 py-2">Date Registered</th>
                                 <th scope="col" class="px-3 py-2">Actions</th>
@@ -74,6 +88,7 @@
                                         </div>
                                     </th>
                                     <td class="px-3 py-2">{{ $resident->profile->gender }}</td>
+                                    <td class="px-3 py-2">{{ $resident->phase->phase_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->household->household_number }}</td>
                                     <td class="px-3 py-2">{{ $resident->user->created_at->format('m/d/Y') }}</td>
                                     <td class="px-3 py-2">

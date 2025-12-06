@@ -12,6 +12,7 @@ class Resident extends Model
 
     protected $fillable = [
         'user_id',
+        'phase_id',
         'household_id',
         'middle_name',
         'suffix',
@@ -36,6 +37,11 @@ class Resident extends Model
     public function attributes()
     {
         return $this->hasOne(ResidentAttributes::class, 'resident_id', 'resident_id');
+    }
+
+    public function phase()
+    {
+        return $this->belongsTo(Phase::class, 'phase_id', 'phase_id');
     }
 
     public function household()

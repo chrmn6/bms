@@ -56,6 +56,7 @@ class BlotterController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'respondent_name' => 'required|string|max:255',
             'incident_type' => 'required|string|max:255',
             'incident_date' => 'required|date',
             'incident_time' => 'required',

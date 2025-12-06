@@ -8,6 +8,13 @@
 
     <div class="row">
         <div class="col-md-6 mb-3">
+            <x-input-label for="respondent_name" :value="__('Respondent Name')" />
+            <input type="text" name="respondent_name"
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+                required>
+        </div>
+
+        <div class="col-md-6 mb-3">
             <x-input-label for="incident_type" :value="__('Incident Type')" />
             <input type="text" name="incident_type"
                 class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"

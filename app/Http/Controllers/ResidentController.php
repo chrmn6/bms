@@ -10,6 +10,7 @@ use App\Models\Clearance;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Household;
+use App\Models\Phase;
 
 class ResidentController extends Controller
 {
@@ -59,8 +60,9 @@ class ResidentController extends Controller
             'blood_type' => null,
         ]);
 
-        $resident->load(['details', 'profile', 'household', 'attributes']);
+        $resident->load(['details', 'profile', 'household', 'attributes', 'phase']);
         $households = Household::all();
+        $phases = Phase::all();
 
         return view('residents.edit', [
             'user' => $user,
@@ -69,6 +71,7 @@ class ResidentController extends Controller
             'profile' => $resident->profile,
             'attributes' => $resident->attributes,
             'households' => $households,
+            'phases' => $phases,
         ]);
     }
 
@@ -94,6 +97,7 @@ class ResidentController extends Controller
             'voter_status' => 'nullable|in:Yes,No',
             'blood_type' => 'nullable|string|max:3',
             'household_id' => 'nullable|exists:households,household_id',
+            'phase_id' => 'nullable|exists:phases,phase_id',
         ]);
 
         // Update user info - use $validated array
@@ -145,6 +149,7 @@ class ResidentController extends Controller
             'middle_name' => $validated['middle_name'] ?? null,
             'suffix' => $validated['suffix'] ?? null,
             'household_id' => $validated['household_id'] ?? null,
+            'phase_id' => $validated['phase_id'] ?? null,
             'address' => $validated['address'] ?? null,
         ]);
 

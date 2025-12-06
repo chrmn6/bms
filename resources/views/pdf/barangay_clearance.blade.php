@@ -34,7 +34,7 @@
     <p class="font-bold mb-4">TO WHOM IT MAY CONCERN:</p>
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">
         This is to certify that <strong>{{ $resident->full_name }}</strong> with residence and postal
-        address at {{ $resident->household->household_number }}, {{ $resident->address }}, Barangay Matina Gravahan,
+        address at {{ $resident->full_address }}, Barangay Matina Gravahan,
         Davao City has no derogatory record filed in our Barangay Office.
     </p>
 

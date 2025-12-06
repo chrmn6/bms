@@ -30,7 +30,7 @@ class StaffController extends Controller
 
         //Population
 
-       $population = DB::table('residents')
+        $population = DB::table('residents')
         ->join('resident_profiles', 'residents.resident_id', '=', 'resident_profiles.resident_id')
         ->selectRaw("
             MONTH(residents.created_at) as month,
@@ -54,6 +54,6 @@ class StaffController extends Controller
         $labels = $blotter->pluck('incident_type');
         $counts = $blotter->pluck('total_reports');
 
-        return view('staff.dashboard', compact('stats','recent_announcements','recent_activities', 'male', 'female', 'labels', 'counts'));
+        return view('dashboard', compact('stats','recent_announcements','recent_activities', 'male', 'female', 'labels', 'counts'));
     }
 }

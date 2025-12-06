@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id('blotter_id');
             $table->unsignedBigInteger('resident_id');
             $table->foreign('resident_id')->references('resident_id')->on('residents')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->string('respondent_name')->nullable();
             $table->string('incident_type');
             $table->date('incident_date');
             $table->time('incident_time');
@@ -24,6 +23,8 @@ return new class extends Migration
             $table->text('description');
             $table->enum('status', ['pending', 'resolved', 'dismissed'])->default('pending');
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

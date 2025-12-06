@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Clearance;
 use App\Models\Household;
+use App\Models\Phase;
 use App\Models\User;
 use App\Notifications\GenericNotification;
 use App\Models\Official;
@@ -195,6 +196,7 @@ class ClearanceController extends Controller
         $clearance = Clearance::with(['resident.user'])->findOrFail($clearance_id);
         $resident = $clearance->resident;
         $household = Household::find($resident->household_number);
+        $phase = Phase::find($resident->phase_number);
 
         $official = Official::where('position', 'Barangay Captain')->where('status', 'Active')->first();
 
@@ -209,7 +211,9 @@ class ClearanceController extends Controller
             'issued_date' => $clearance->issued_date ?? now(),
             'valid_until' => $clearance->valid_until,
             'household_number' => $resident->household_number,
+            'phase_number' => $resident->phase_number,
             'household' => $household,
+            'phase' => $phase,
             'official' => $official,
             'barangay_name' => 'Barangay Matina Gravahan',
             'city_name' => 'Davao City',

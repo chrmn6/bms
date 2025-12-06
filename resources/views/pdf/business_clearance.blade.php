@@ -36,8 +36,7 @@
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">
         Pursuant to existing ordinance of this barangay, CLEARANCE is granted to
         <strong>{{ $resident->full_name }}</strong> And owner of
-        <strong>{{ $resident->full_name }}</strong> located at {{ $resident->household->household_number }},
-        {{ $resident->address }}.
+        <strong>{{ $resident->full_name }}</strong> located at {{ $resident->full_address }}.
     </p>
 
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">

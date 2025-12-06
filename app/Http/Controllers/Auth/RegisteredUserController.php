@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Resident;
 use App\Models\Household;
+use App\Models\Phase;
 use App\Models\ResidentProfile;
 use App\Models\ResidentDetails;
 use App\Models\ResidentAttributes;
@@ -25,7 +26,8 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         $households = Household::all();
-        return view('auth.register', compact('households'));
+        $phases = Phase::all();
+        return view('auth.register', compact('households', 'phases'));
     }
 
     /**
@@ -56,6 +58,7 @@ class RegisteredUserController extends Controller
             'blood_type'    => 'nullable|string|max:3',
 
             'household_id'  => 'nullable|exists:households,household_id',
+            'phase_id'  => 'nullable|exists:phases,phase_id',
         ]);
 
         $user = User::create([
@@ -71,6 +74,7 @@ class RegisteredUserController extends Controller
         $resident = Resident::create([
             'user_id'       => $user->id,
             'household_id'  => $request->household_id,
+            'phase_id'  => $request->phase_id,
             'middle_name'   => $request->middle_name,
             'suffix'        => $request->suffix,
             'address'       => $request->address,
