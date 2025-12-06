@@ -18,14 +18,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    if (Auth::check()) {
-        $user = Auth::user();
-        if ($user->role === 'admin' || $user->role === 'staff') {
-            return redirect()->route('dashboard');
-        } elseif ($user->role === 'resident') {
-            return redirect()->route('residents.dashboard');
-        }
-    }
     return view('welcome');
 });
 
@@ -102,20 +94,5 @@ Route::middleware('auth')->group(function () {
             ->name('programs.reject');
     });
 });
-
-// Route::get('/debug-config', function() {
-//     return response()->json([
-//         'app_url' => config('app.url'),
-//         'app_key_set' => config('app.key') ? 'YES' : 'NO',
-//         'app_env' => config('app.env'),
-//         'request_scheme' => request()->getScheme(),
-//         'request_host' => request()->getHost(),
-//         'request_url' => request()->url(),
-//     ]);
-// });
-
-// Route::get('/headers', function () {
-//     return request()->headers->all();
-// });
 
 require __DIR__ . '/auth.php';
