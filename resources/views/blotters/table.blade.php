@@ -20,7 +20,7 @@
                     </a>
                 </td>
                 <td class="px-4 py-2">{{ $blotter->resident->full_name }}</td>
-                <td class="px-4 py-2">{{ $blotter->incident_date }}</td>
+                <td class="px-4 py-2">{{ $blotter->case->incident_date }}</td>
                 <td class="px-4 py-2">
                     @php
                         $statusColors = match ($blotter->status) {

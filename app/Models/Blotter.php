@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Carbon\Carbon;
 
 class Blotter extends Model
 {
@@ -15,11 +14,6 @@ class Blotter extends Model
         'resident_id',
         'user_id',
         'respondent_name',
-        'incident_type',
-        'incident_date',
-        'incident_time',
-        'location',
-        'description',
         'image',
         'status',
     ];
@@ -34,18 +28,13 @@ class Blotter extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function case()
+    {
+        return $this->hasOne(BlotterCase::class, 'blotter_id', 'blotter_id');
+    }
+
     public function getDisplayIdAttribute()
     {
         return 'BLR-' . str_pad($this->blotter_id, 6, '20250', STR_PAD_LEFT);
-    }
-
-    public function getFormattedIncidentDateAttribute()
-    {
-        return Carbon::parse($this->incident_date)->format('F j, Y');
-    }
-
-    public function getFormattedIncidentTimeAttribute()
-    {
-        return Carbon::parse($this->incident_time)->format('h:i A');
     }
 }

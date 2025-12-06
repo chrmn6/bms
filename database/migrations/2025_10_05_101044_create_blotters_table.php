@@ -16,11 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('resident_id');
             $table->foreign('resident_id')->references('resident_id')->on('residents')->onDelete('cascade');
             $table->string('respondent_name')->nullable();
-            $table->string('incident_type');
-            $table->date('incident_date');
-            $table->time('incident_time');
-            $table->string('location');
-            $table->text('description');
             $table->enum('status', ['pending', 'resolved', 'dismissed'])->default('pending');
             $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

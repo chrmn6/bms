@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Resident;
 use App\Models\Blotter;
+use App\Models\BlotterCase;
 use App\Models\Clearance;
 use App\Models\Household;
 use App\Models\ResidentAttributes;
@@ -127,10 +128,15 @@ class UserController extends Controller
     // === Blotter Section ===
     public function getBlotter()
     {
-        $blotters = DB::table('blotters')
-        ->select('location', 'incident_type', DB::raw('COUNT(*) as total'))
-        ->groupBy('location', 'incident_type')
-        ->get();
+        $blotters = DB::table('blotter_cases')
+            ->join('blotters', 'blotters.blotter_id', '=', 'blotter_cases.blotter_id')
+            ->select(
+                'blotter_cases.location',
+                'blotter_cases.incident_type',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('blotter_cases.location', 'blotter_cases.incident_type')
+            ->get();
 
         $locations = $blotters->pluck('location')->unique()->values();
         $types = $blotters->pluck('incident_type')->unique()->values();
@@ -140,8 +146,9 @@ class UserController extends Controller
             $data = [];
             foreach ($locations as $location) {
                 $record = $blotters->where('location', $location)
-                ->where('incident_type', $type)
-                ->first();
+                    ->where('incident_type', $type)
+                    ->first();
+
                 $data[] = $record ? $record->total : 0;
             }
             $series[] = [

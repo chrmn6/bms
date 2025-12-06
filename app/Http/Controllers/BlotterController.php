@@ -55,27 +55,42 @@ class BlotterController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'respondent_name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
             'incident_type' => 'required|string|max:255',
             'incident_date' => 'required|date',
             'incident_time' => 'required',
             'location' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('storage/uploads/blotters'), $fileName);
-            $data['image'] = $fileName;
+            $validated['image'] = $fileName;
         }
 
-        $data['resident_id'] = Auth::user()->resident->resident_id;
-        $data['user_id'] = null;
+        // Create blotter record
+        $blotter = Blotter::create([
+            'resident_id' => Auth::user()->resident->resident_id,
+            'user_id' => null,
+            'respondent_name' => $validated['respondent_name'],
+            'image' => $validated['image'] ?? null,
+            'status' => 'pending',
+        ]);
 
-        Blotter::create($data);
+        // Create case record
+        $blotter->case()->create([
+            'incident_type' => $validated['incident_type'],
+            'incident_date' => $validated['incident_date'],
+            'incident_time' => $validated['incident_time'],
+            'location' => $validated['location'],
+            'description' => $validated['description'],
+        ]);
+
 
         // Notify admin/staff about the request
         $staffs = User::whereIn('role', ['admin', 'staff'])->get();
@@ -110,6 +125,7 @@ class BlotterController extends Controller
     public function show(Blotter $blotter)
     {
         $this->authorize('view', $blotter);
+        $blotter->load('case');
         return view('blotters.show', compact('blotter'));
     }
 
@@ -119,7 +135,7 @@ class BlotterController extends Controller
     public function edit(Blotter $blotter)
     {
         $this->authorize('update', $blotter);
-
+        $blotter->load('case');
         return view('blotters.edit', compact('blotter'));
     }
 
@@ -180,7 +196,7 @@ class BlotterController extends Controller
 
     public function blotterTranscript($blotter)
     {
-        $blotter = Blotter::with(['resident.user'])->findOrFail($blotter);
+        $blotter = Blotter::with(['resident.user', 'case'])->findOrFail($blotter);
 
         $data = [
         'blotter' => $blotter,

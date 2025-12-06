@@ -22,19 +22,19 @@
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">TYPE OF INCIDENT</th>
-                <td>{{ $blotter->incident_type }}</td>
+                <td>{{ $blotter->case->incident_type }}</td>
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">DATE AND TIME</th>
-                <td>{{ $blotter->formatted_incident_date }} at {{ $blotter->formatted_incident_time }}</td>
+                <td>{{ $blotter->case->formatted_incident_date }} at {{ $blotter->case->formatted_incident_time }}</td>
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">LOCATION</th>
-                <td>{{ $blotter->location }}</td>
+                <td>{{ $blotter->case->location }}</td>
             </tr>
             <tr class="border-b border-gray-500">
                 <th class="text-left font-semibold p-2">DESCRIPTION</th>
-                <td>{{ $blotter->description}}</td>
+                <td>{{ $blotter->case->description}}</td>
             </tr>
             <tr class="border-b border-gray-500 align-top">
                 <th class="text-left font-semibold p-2">PROOF OF EVIDENCE</th>
