@@ -32,6 +32,15 @@
             </div>
         </div>
 
+        <div class="flex items-center gap-1 text-sm">
+            <svg class="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="1.2"
+                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>HON.
+            {{ $program->expense->official->resident->full_name ?? 'N/A' }}
+        </div>
+
         @can('update', $program)
             <x-primary-button type="button" hx-get="{{ route('admin.programs.edit', $program->program_id) }}"
                 hx-target="#editProgramModalBody" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#editProgramModal"

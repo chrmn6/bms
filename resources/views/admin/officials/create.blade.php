@@ -10,8 +10,14 @@
 
     <div class="row g-3 mb-2">
         <div class="col-md-6">
-            <x-input-label for="full_name" :value="__('Full Name')" />
-            <x-text-input id="full_name" name="full_name" type="text" class="mt-1 block w-full" required />
+            <x-input-label for="resident_id" :value="__('Official Name')" />
+            <select id="resident_id" name="resident_id" required
+                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">
+                <option value="">Select Resident</option>
+                @foreach($residents as $resident)
+                    <option value="{{ $resident->resident_id }}">{{ $resident->full_name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="col-md-6">
             <x-input-label for="position" :value="__('Position')" />
@@ -46,13 +52,6 @@
                 <option value="Inactive">Inactive</option>
             </select>
         </div>
-    </div>
-
-    <div class="mb-3">
-        <label class="block text-gray-700 dark:text-gray-300">Upload image</label>
-        <input type="file" name="image" id="image"
-            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-            required>
     </div>
 
     <div class="d-flex justify-content-end gap-2">

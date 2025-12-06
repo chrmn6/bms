@@ -9,6 +9,7 @@ use App\Models\Program;
 use App\Models\ProgramApplication;
 use App\Notifications\GenericNotification;
 use App\Models\User;
+use App\Models\ProgramExpense;
 
 class AdminProgramController extends Controller
 {
@@ -17,7 +18,7 @@ class AdminProgramController extends Controller
      */
     public function index(Request $request)
     {
-        $programs = Program::latest()->get();
+        $programs = Program::with('expense.official.resident')->latest()->get();
 
         if ($request->header('HX-Request')) {
             return view('admin.programs.card', compact('programs'));
@@ -30,7 +31,8 @@ class AdminProgramController extends Controller
      */
     public function create()
     {
-        return view('admin.programs.create');
+        $officials = \App\Models\Official::all();
+        return view('admin.programs.create', compact('officials'));
     }
 
     /**
@@ -44,9 +46,24 @@ class AdminProgramController extends Controller
             'applicants_limit' => 'required|integer|min:1',
             'application_start' => 'required|date',
             'application_end' => 'required|date|after:application_start',
+            'amount' => 'required|numeric|min:0',
+            'created_by' => 'required|integer',
         ]);
 
-        Program::create($validated);
+        $program = Program::create([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'applicants_limit' => $validated['applicants_limit'],
+            'application_start' => $validated['application_start'],
+            'application_end' => $validated['application_end'],
+        ]);
+
+        $official = Auth::user()->official;
+        ProgramExpense::create([
+            'program_id' => $program->program_id,
+            'amount' => $validated['amount'],
+            'created_by' => $validated['created_by'],
+        ]);
 
         //SEND NOTIFICATIONS
         $staff = Auth::user();
@@ -102,9 +119,21 @@ class AdminProgramController extends Controller
             'applicants_limit' => 'required|integer|min:1',
             'application_start' => 'required|date',
             'application_end' => 'required|date|after:application_start',
+            'amount' => 'required|numeric|min:0',
         ]);
 
-        $program->update($validated);
+        $program->update([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'applicants_limit' => $validated['applicants_limit'],
+            'application_start' => $validated['application_start'],
+            'application_end' => $validated['application_end'],
+        ]);
+
+        // Update Expense
+        $program->expense->update([
+            'amount' => $validated['amount'],
+        ]);
 
         if ($request->header('HX-Request')) {
             $programs = Program::latest()->get();

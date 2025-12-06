@@ -26,8 +26,15 @@ class AdminResidentController extends Controller
 
         // Filter by gender
         if ($request->gender) {
-            $query->whereHas('profile', function ($q) use ($request) {
-                $q->where('gender', $request->gender);
+            $query->whereHas('profile', function ($query) use ($request) {
+                $query->where('gender', $request->gender);
+            });
+        }
+
+        // Filter by status
+        if ($request->status) {
+            $query->whereHas('user', function ($query) use ($request) {
+                $query->where('status', $request->status);
             });
         }
 
@@ -53,5 +60,16 @@ class AdminResidentController extends Controller
         ]);
 
         return back()->with('success', 'Resident has been approved.');
+    }
+
+    public function reject($id)
+    {
+        $resident = Resident::with('user')->findOrFail($id);
+
+        $resident->user->update([
+            'status' => 'Inactive'
+        ]);
+
+        return back()->with('success', 'Resident has been rejected.');
     }
 }

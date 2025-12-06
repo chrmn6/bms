@@ -32,9 +32,17 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
-        if ($user->status !== 'Active') {
+        // Handle login validation
+        if ($user->status === 'Active') {
+        } else if ($user->status === 'Inactive') {
+            // User was rejected
             return back()->withErrors([
-                'email' => 'Your account is not yet approved by the administrator.',
+                'email' => 'Sorry, the administrator rejected your registration. Contact them why.'
+            ]);
+        } else {
+            // Pending or any other status
+            return back()->withErrors([
+                'email' => 'Your account is not yet approved by the administrator.'
             ]);
         }
 

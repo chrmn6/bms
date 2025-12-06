@@ -24,6 +24,12 @@ class Program extends Model
         'application_end' => 'datetime',
     ];
 
+    public function expense()
+    {
+        return $this->hasOne(ProgramExpense::class, 'program_id', 'program_id')->with('official.resident');
+    }
+
+
     public function applicants()
     {
         return $this->hasMany(ProgramApplication::class, 'program_id');

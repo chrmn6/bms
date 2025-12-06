@@ -80,6 +80,10 @@
                         <table class="w-full text-sm border border-gray-300">
                             <tbody>
                                 <tr class="border-b border-gray-300">
+                                    <th class="text-left font-semibold p-2">Phase Number</th>
+                                    <td class="p-2">{{ $resident->phase->phase_number }}</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
                                     <th class="text-left font-semibold p-2">Household Number</th>
                                     <td class="p-2">{{ $resident->household->household_number }}</td>
                                 </tr>
@@ -124,10 +128,23 @@
                                     <th class="text-left font-semibold p-2">Blood Type</th>
                                     <td class="p-2">{{ $resident->attributes->blood_type }}</td>
                                 </tr>
-
-                                <tr>
+                                <tr class="border-b border-gray-300">
                                     <th class="text-left font-semibold p-2">Registered Voter</th>
                                     <td class="p-2">{{ $resident->attributes->voter_status }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left font-semibold p-2">Official</th>
+                                    <td class="p-2">
+                                        @if($resident->official)
+                                            <span class="text-sm font-semibold text-[#6D0512] ">
+                                                {{ $resident->official->position }}
+                                            </span>
+                                        @else
+                                            <span class="text-sm font-semibold text-[#6D0512]">
+                                                Resident
+                                            </span>
+                                        @endif
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->hasOne(Resident::class, 'user_id', 'id');
     }
 
+    public function official()
+    {
+        return $this->hasOne(Official::class, 'resident_id', 'resident_id');
+    }
+
     public function activities()
     {
         return $this->hasMany(Activity::class);

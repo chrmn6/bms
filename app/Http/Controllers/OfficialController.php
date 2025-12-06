@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Official;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class OfficialController extends Controller
@@ -12,7 +13,7 @@ class OfficialController extends Controller
      */
     public function index(Request $request)
     {
-        $officials = Official::latest()->paginate(10);
+        $officials = Official::with('resident')->paginate(10);
 
         if ($request->headers->has('HX-Request')) {
             return view('admin.officials.table', compact('officials'));
@@ -26,11 +27,12 @@ class OfficialController extends Controller
      */
     public function create(Request $request)
     {
+        $residents = \App\Models\Resident::all();
         if ($request->header('HX-Request')) {
-            return view('admin.officials.create');
+            return view('admin.officials.create', compact('residents'));
         }
 
-        return view('admin.officials.index');
+        return view('admin.officials.index', compact('residents'));
     }
 
     /**
@@ -39,20 +41,12 @@ class OfficialController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
+            'resident_id' => 'required|exists:residents,resident_id',
             'position' => 'required|in:Barangay Captain,SK Kagawad,Barangay Council',
             'term_start' => 'required|date',
             'term_end' => 'nullable|date|after:term_start',
             'status' => 'required|in:Active,Inactive',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/uploads/users'), $fileName);
-            $validated['image'] = $fileName;
-        }
 
         Official::create($validated);
 
@@ -70,7 +64,9 @@ class OfficialController extends Controller
      */
     public function show(Official $official)
     {
-        return view('admin.officials.show', compact('official'));
+        $programs = Program::whereHas('expense', function($query) use ($official) {
+        $query->where('created_by', $official->official_id);})->with('expense')->latest()->get();
+        return view('admin.officials.show', compact('official', 'programs'));
     }
 
     /**

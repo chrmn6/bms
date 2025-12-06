@@ -59,6 +59,11 @@ class Resident extends Model
         return $this->hasMany(Blotter::class, 'resident_id', 'resident_id');
     }
 
+    public function official()
+    {
+        return $this->hasOne(Official::class, 'resident_id', 'resident_id');
+    }
+
     public function programApplications()
     {
         return $this->hasMany(ProgramApplication::class, 'resident_id');

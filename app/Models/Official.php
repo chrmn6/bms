@@ -12,18 +12,22 @@ class Official extends Model
     protected $primaryKey = 'official_id';
 
     protected $fillable = [
-        'full_name',
+        'resident_id',
         'position',
         'status',
         'term_start',
         'term_end',
-        'image',
     ];
 
     protected $casts = [
         'term_start' => 'date',
         'term_end' => 'date',
     ];
+
+    public function resident()
+    {
+        return $this->belongsTo(Resident::class, 'resident_id', 'resident_id');
+    }
 
     public function getDisplayIdAttribute()
     {

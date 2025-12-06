@@ -22,10 +22,11 @@
                     </a>
                 </td>
                 <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('storage/uploads/users/' . $official->image) }}"
-                        alt="{{ $official->full_name }}">
+                    <img class="w-8 h-8 rounded-full"
+                        src="{{ asset('storage/uploads/residents/' . $official->resident->profile->image) }}"
+                        alt="{{ $official->resident->full_name }}">
                     <div class="ps-2">
-                        <div class="text-sm font-semibold">{{ $official->full_name }}</div>
+                        <div class="text-sm font-semibold">{{ $official->resident->full_name }}</div>
                     </div>
                 </th>
                 <td class="px-3 py-2">{{ $official->position }}</td>

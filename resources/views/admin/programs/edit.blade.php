@@ -40,6 +40,12 @@ if (event.detail.xhr.status === 200) {
             value="{{ old('application_end', $program->application_end->format('Y-m-d')) }}" required>
     </div>
 
+    <div class="mb-3">
+        <x-input-label for="amount" class="form-label">Project Budget</x-input-label>
+        <input type="number" name="amount" id="amount" step="0.01" min="0" class="form-control"
+            value="{{ old('amount', $program->expense->amount) }}" required>
+    </div>
+
     <div class="d-flex justify-content-end gap-2">
         <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
             Update

@@ -41,6 +41,25 @@
             required>
     </div>
 
+    <div class="mb-2">
+        <x-input-label for="amount" :value="__('Project Budget')" />
+        <input type="number" name="amount" step="0.01" min="0"
+            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
+            required>
+    </div>
+
+    <div class="mb-2">
+        <x-input-label for="created_by" :value="__('Official In-Charge')" />
+        <select name="created_by" id="created_by" class="w-full border-gray-300 rounded-md shadow-sm" required>
+            <option value="">Select Official</option>
+            @foreach($officials as $official)
+                <option value="{{ $official->official_id }}">
+                    {{ $official->resident->full_name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
     <div class="d-flex justify-content-end gap-2">
         <x-primary-button type="submit" class="!bg-[#6D0512] hover:!bg-[#8A0A1A] active:!bg-[#50040D]">
             Create

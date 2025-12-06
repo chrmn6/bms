@@ -11,9 +11,9 @@
 
     <div class="row g-3 mb-2">
         <div class="col-md-6">
-            <x-input-label for="first_name" :value="__('First Name')" />
-            <x-text-input id="first_name" name="first_name" type="text"
-                value="{{ old('first_name', $official->full_name) }}"
+            <x-input-label for="resident_id" :value="__('Official Name')" />
+            <x-text-input id="resident_id" name="resident_id" type="text"
+                value="{{ old('resident_id', $official->resident->full_name) }}"
                 class="mt-1 block w-full bg-gray-100 cursor-not-allowed" readonly />
         </div>
         <div class="col-md-6">

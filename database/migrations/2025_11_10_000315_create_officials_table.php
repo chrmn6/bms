@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('officials', function (Blueprint $table) {
             $table->id('official_id');
-            $table->string('full_name');
+            $table->unsignedBigInteger('resident_id')->nullable();
+            $table->foreign('resident_id')->references('resident_id')->on('residents')->onDelete('set null');
             $table->enum('position', ['Barangay Captain', 'SK Kagawad', 'Barangay Council']);
             $table->date('term_start');
             $table->date('term_end')->nullable();
             $table->enum('status', ['Active', 'Inactive']);
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
