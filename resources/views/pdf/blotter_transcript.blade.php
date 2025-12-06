@@ -47,7 +47,7 @@
     </div>
 
     <p class="text-justify leading-relaxed mt-3 mb-8" style="text-indent: 2em;">
-        On {{ $blotter->formatted_incident_date }}, at around {{ $blotter->case->formatted_incident_time }},
+        On {{ $blotter->case->formatted_incident_date }}, at around {{ $blotter->case->formatted_incident_time }},
         a {{ strtolower($blotter->case->incident_type) }} was reported by
         {{ $blotter->resident->full_name }} at {{ $blotter->case->location }}.
         According to the complainant, {{ strtolower($blotter->case->description) }}.
