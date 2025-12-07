@@ -11,7 +11,7 @@
             <div class="flex flex-wrap gap-2">
                 <!-- Households -->
                 <div>
-                    <x-stat-card cardBg="bg-orange-100" textColor="text-orange-500" iconColor="bg-orange-400"
+                    <x-stat-card cardBg="bg-gray-200" textColor="text-gray-800" iconColor="bg-gray-800"
                         :count="$stats['households_count']" label="HOUSEHOLDS">
                         <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -24,7 +24,7 @@
 
                 <!-- Residents -->
                 <a href="{{ route('admin.resident.index') }}" style="text-decoration: none;">
-                    <x-stat-card cardBg="bg-yellow-100" textColor="text-yellow-500" iconColor="bg-yellow-400"
+                    <x-stat-card cardBg="bg-gray-200" textColor="text-gray-800" iconColor="bg-gray-800"
                         :count="$stats['residents_count']" label="RESIDENTS">
                         <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">
@@ -36,7 +36,7 @@
 
                 <!-- Blotter -->
                 <a href="{{ route('blotters.index') }}" style="text-decoration: none;">
-                    <x-stat-card cardBg="bg-indigo-100" textColor="text-indigo-500" iconColor="bg-indigo-500"
+                    <x-stat-card cardBg="bg-indigo-200" textColor="text-indigo-800" iconColor="bg-indigo-800"
                         :count="$stats['blotter_reports_pending']" label="BLOTTER">
                         <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">
@@ -48,7 +48,7 @@
 
                 <!-- Clearances -->
                 <a href="{{ route('clearances.index') }}" style="text-decoration: none;">
-                    <x-stat-card cardBg="bg-green-100" textColor="text-green-500" iconColor="bg-green-500"
+                    <x-stat-card cardBg="bg-indigo-200" textColor="text-indigo-800" iconColor="bg-indigo-800"
                         :count="$stats['clearances_pending']" label="CLEARANCE">
                         <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">
@@ -59,17 +59,17 @@
                     </x-stat-card>
                 </a>
 
-                <!-- Voters -->
-                <div>
-                    <x-stat-card cardBg="bg-pink-100" textColor="text-pink-500" iconColor="bg-pink-400"
-                        :count="$stats['voter_count']" label="VOTERS">
+                <!--BUDGET SUMMARY-->
+                <a href="{{ route('admin.budget.index') }}" style="text-decoration: none;">
+                    <x-stat-card cardBg="bg-green-200 shadow-md" textColor="text-green-800" iconColor="bg-green-800"
+                        :count="$budgetSummary['total_amount']" label="BUDGET">
                         <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="1.3" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 17.345a4.76 4.76 0 0 0 2.558 1.618c2.274.589 4.512-.446 4.999-2.31.487-1.866-1.273-3.9-3.546-4.49-2.273-.59-4.034-2.623-3.547-4.488.486-1.865 2.724-2.899 4.998-2.31.982.236 1.87.793 2.538 1.592m-3.879 12.171V21m0-18v2.2" />
                         </svg>
                     </x-stat-card>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -89,6 +89,20 @@
                 </h5>
                 <div id="blotter-report-stacked-chart" data-locations='@json($locations)' data-series='@json($series)'>
                 </div>
+            </div>
+        </div>
+
+        <div class="bg-neutral-50 shadow rounded-md p-4 mt-2 mb-3">
+            <h5 class="font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <svg class="w-5 h-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667" />
+                </svg>
+                Program Expenses
+            </h5>
+            <div id="financial-chart" data-categories='@json($financialData['categories'] ?? [])'
+                data-budgetdata='@json($financialData['budgetData'] ?? [])'
+                data-expensedata='@json($financialData['expenseData'] ?? [])'>
             </div>
         </div>
     </div>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Budget;
 use App\Models\Program;
+use App\Models\Official;
 use App\Models\ProgramApplication;
 use App\Notifications\GenericNotification;
 use App\Models\User;
@@ -31,7 +33,7 @@ class AdminProgramController extends Controller
      */
     public function create()
     {
-        $officials = \App\Models\Official::all();
+        $officials = Official::all();
         return view('admin.programs.create', compact('officials'));
     }
 
@@ -50,6 +52,19 @@ class AdminProgramController extends Controller
             'created_by' => 'required|integer',
         ]);
 
+        // Check budget availability
+        $budgetCheck = $this->checkBudgetAvailability($validated['amount']);
+        if (!$budgetCheck['success']) {
+            if ($request->header('HX-Request')) {
+                return response()->json(['error' => $budgetCheck['message']])
+                ->header('HX-Trigger', json_encode([
+                    'showError' => ['message' => $budgetCheck['message']]
+                ]));
+            }
+            return back()->withErrors(['amount' => $budgetCheck['message']]);
+        }
+
+        // Create the program
         $program = Program::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -65,7 +80,7 @@ class AdminProgramController extends Controller
             'created_by' => $validated['created_by'],
         ]);
 
-        //SEND NOTIFICATIONS
+        // SEND NOTIFICATIONS
         $staff = Auth::user();
         $residents = User::where('role', 'resident')->get();
         $message = "has added a new program.";
@@ -81,13 +96,40 @@ class AdminProgramController extends Controller
 
         if ($request->header('HX-Request')) {
             $programs = Program::latest()->get();
-            return response()->view('admin.programs.card', compact('programs'))
-            ->header('HX-Trigger', json_encode(['refreshTable' => true, 'closeModal' => true, 'programCreated' => true,
+            return response()->view('admin.programs.card', compact('programs'))->header('HX-Trigger', json_encode([
+                'refreshTable' => true, 
+                'closeModal' => true, 
+                'programCreated' => true,
             ]));
         }
 
         return redirect()->route('admin.programs.index')->with('success', 'Program created successfully.');
     }
+
+    /**
+     * Check if sufficient budget is available
+     */
+    private function checkBudgetAvailability($amount)
+    {
+        $budgets = Budget::orderBy('budget_id')->get();
+        if ($budgets->isEmpty()) {
+            return [
+                'success' => false,
+                'message' => 'No budget found. Please add a budget first.'
+            ];
+        }
+
+        $totalBudget = $budgets->sum('amount');
+        if ($amount > $totalBudget) {
+            return [
+                'success' => false,
+                'message' => 'Insufficient budget. Available: ₱' . number_format($totalBudget, 2)
+            ];
+        }
+
+        return ['success' => true];
+    }
+
 
     /**
      * Display the specified resource.

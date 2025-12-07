@@ -14,9 +14,10 @@
 
         <!-- About Us / Links -->
         <div class="flex-1 flex flex-col text-gray-600 text-sm sm:text-base items-left">
-            <a href="/" class="hover:text-gray-900 transition">ABOUT US</a>
+            <a href="/about" class="hover:text-gray-900 transition">ABOUT US</a>
             <a href="/" class="hover:text-gray-900 transition">How To Register?</a>
-            <a href="/" class="hover:text-gray-900 transition">Services</a>
+            <a href="/" class="hover:text-gray-900 transition">Features</a>
+            <a href="/contact" class="hover:text-gray-900 transition">Contact Us</a>
         </div>
 
         <!-- Developed By -->

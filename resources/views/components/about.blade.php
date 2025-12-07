@@ -7,13 +7,18 @@
 
             <p class="mt-2 text-sm sm:text-base max-w-xl text-[#706f6c] dark:text-[#A1A09A]">
                 This platform provides a centralized online space where
-                citizens can request documents, view barangay updates,
+                residents can request documents, view barangay updates,
                 access programs and services.
                 It was developed to promote transparency,
                 improve service delivery, and
                 strengthen communication between
                 the barangay and its residents.
             </p>
+
+            <a href="{{ route('about') }}"
+                class="mt-3 px-3 py-2 !bg-[#6D0512] text-white font-normal hover:!bg-[#6D0512] transition-colors">
+                Learn More
+            </a>
 
         </div>
     </div>

@@ -101,6 +101,16 @@
             });
         });
 
+        document.body.addEventListener('showError', function (event) {
+            const message = event.detail.message;
+            Swal.fire({
+                icon: 'error',
+                text: message,
+                confirmButtonText: 'OK',
+                width: '400px',
+            });
+        });
+
         document.body.addEventListener('closeModal', function () {
             const modalEl = document.querySelector('.modal.show');
             if (modalEl) {

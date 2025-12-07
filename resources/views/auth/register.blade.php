@@ -15,12 +15,12 @@
 </head>
 
 <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex justify-center min-h-screen">
-    <div class="form-section p-8 flex justify-center items-center overflow-auto w-full">
-        <div class="form-container w-full max-w-6xl space-y-6">
-
+    <div class="form-section p-6 flex justify-center items-center overflow-auto w-full">
+        <div class="form-container w-full max-w-7xl space-y-4 bg-white dark:bg-gray-900 p-6 rounded-lg shadow">
             <div class="form-header text-center">
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Resident Registration</h1>
-                <p class="text-gray-600 dark:text-gray-300">Please fill all required information</p>
+                <p class="text-gray-600 dark:text-gray-300">Create your account to access the barangay management
+                    system.</p>
             </div>
 
             @if(session('success'))

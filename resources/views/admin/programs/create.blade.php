@@ -10,21 +10,24 @@
         <x-input-label for="title" :value="__('Program title')" />
         <input type="text" name="title"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-            required>
+            placeholder="GREENHOUSE PROGRAM" required>
+        <x-input-error :messages="$errors->get('title')" class="mt-2" />
     </div>
 
     <div class="mb-2">
         <x-input-label for="description" :value="__('Description')" />
         <textarea name="description"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-            rows="2" required></textarea>
+            rows="2" placeholder="This program is for .... " required></textarea>
+        <x-input-error :messages="$errors->get('description')" class="mt-2" />
     </div>
 
     <div class="mb-2">
         <x-input-label for="applicant_limit" :value="__('Applicant Limit')" />
         <input type="number" name="applicants_limit"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-            required>
+            placeholder="100" required>
+        <x-input-error :messages="$errors->get('applicant_limit')" class="mt-2" />
     </div>
 
     <div class="mb-2">
@@ -32,6 +35,7 @@
         <input type="date" name="application_start"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
             required>
+        <x-input-error :messages="$errors->get('application_start')" class="mt-2" />
     </div>
 
     <div class="mb-2">
@@ -39,17 +43,19 @@
         <input type="date" name="application_end"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
             required>
+        <x-input-error :messages="$errors->get('application_end')" class="mt-2" />
     </div>
 
     <div class="mb-2">
         <x-input-label for="amount" :value="__('Project Budget')" />
         <input type="number" name="amount" step="0.01" min="0"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-            required>
+            placeholder="10000" required>
+        <x-input-error :messages="$errors->get('amount')" class="mt-2" />
     </div>
 
     <div class="mb-2">
-        <x-input-label for="created_by" :value="__('Official In-Charge')" />
+        <x-input-label for="created_by" :value="__('Program Organizer')" />
         <select name="created_by" id="created_by" class="w-full border-gray-300 rounded-md shadow-sm" required>
             <option value="">Select Official</option>
             @foreach($officials as $official)
@@ -58,6 +64,7 @@
                 </option>
             @endforeach
         </select>
+        <x-input-error :messages="$errors->get('created_by')" class="mt-2" />
     </div>
 
     <div class="d-flex justify-content-end gap-2">

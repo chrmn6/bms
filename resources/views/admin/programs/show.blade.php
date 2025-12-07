@@ -32,9 +32,8 @@
                             class="d-inline">
                             @csrf
                             <input type="hidden" name="note" id="approve-note">
-                            <button type="submit" class="btn btn-success btn-sm"
-                                onclick="document.getElementById('approve-note').value = document.getElementById('admin-note').value;
-                                                                return confirm('Are you sure you want to approve this application?');">
+                            <button type="submit" class="btn btn-success btn-sm" onclick="document.getElementById('approve-note').value = document.getElementById('admin-note').value;
+                                        return confirm('Are you sure you want to approve this application?');">
                                 Approve
                             </button>
                         </form>
@@ -43,9 +42,8 @@
                             class="d-inline">
                             @csrf
                             <input type="hidden" name="note" id="reject-note">
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                onclick="document.getElementById('reject-note').value = document.getElementById('admin-note').value; 
-                                                                return confirm('Are you sure you want to reject this application?');">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="document.getElementById('reject-note').value = document.getElementById('admin-note').value; 
+                                        return confirm('Are you sure you want to reject this application?');">
                                 Reject
                             </button>
                         </form>

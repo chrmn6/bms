@@ -33,7 +33,7 @@
             <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Prioritize the needs and convenience of the public.<br>
                 It simplifies access to services, ensures transparency, and
-                enables easy communication between citizens and staff.
+                enables easy communication between residents and staff.
             </p>
         </div>
 
@@ -52,11 +52,11 @@
 
         <div class="flex-1 flex flex-col justify-center text-[#1b1b18] dark:text-[#EDEDEC] animate-right px-4 lg:px-0">
             <h1 class="mb-2 font-bold text-base">Streamlined Barangay Transactions</h1>
-            <h2 class="mb-2 font-semibold text-sm text-gray-700">Efficient, Transparent, and Citizen-Friendly Services
+            <h2 class="mb-2 font-semibold text-sm text-gray-700">Efficient, Transparent, and Resident-Friendly Services
             </h2>
             <p class="mt-2 text-[#706f6c] dark:text-[#A1A09A] text-sm sm:text-base">
                 Simplified the access to local services, making processes faster and more transparent.
-                It reduces paperwork, minimizes waiting times, and allows citizens to complete requests with
+                It reduces paperwork, minimizes waiting times, and allows residents to complete requests with
                 ease.
             </p>
         </div>

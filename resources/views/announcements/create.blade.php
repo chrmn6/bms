@@ -9,12 +9,13 @@
 
     <div class="mb-3">
         <x-input-label for="title" class="form-label">Title</x-input-label>
-        <input type="text" name="title" id="title" class="form-control" required>
+        <input type="text" name="title" id="title" class="form-control" placeholder="FUN RUN PROGRAM" required>
     </div>
 
     <div class="mb-3">
         <x-input-label for="content" class="form-label">Content</x-input-label>
-        <textarea name="content" id="content" rows="4" class="form-control"></textarea>
+        <textarea name="content" id="content" rows="4" class="form-control"
+            placeholder="Great news! Our barangay is .... " required></textarea>
     </div>
 
     <div class="d-flex justify-content-end gap-2">

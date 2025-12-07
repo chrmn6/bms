@@ -83,9 +83,9 @@ document.head.appendChild(style);
 
 //POPULATION
 document.addEventListener('DOMContentLoaded', function() {
-    var chartEl = document.getElementById('population-donut-chart');
-    var male = JSON.parse(chartEl.dataset.male);
-    var female = JSON.parse(chartEl.dataset.female);
+    const chartEl = document.getElementById('population-donut-chart');
+    const male = JSON.parse(chartEl.dataset.male);
+    const female = JSON.parse(chartEl.dataset.female);
 
     const options = {
         series: [male, female],
@@ -102,17 +102,17 @@ document.addEventListener('DOMContentLoaded', function() {
         dataLabels: { enabled: true }
     };
 
-    var chart = new ApexCharts(document.querySelector("#population-donut-chart"), options);
+    const chart = new ApexCharts(document.querySelector("#population-donut-chart"), options);
     chart.render();
 });
 
 // BLOTTER INCIDENTS PER LOCATION
 document.addEventListener('DOMContentLoaded', function () {
-    var chartEl = document.getElementById('blotter-report-stacked-chart');
-    var locations = JSON.parse(chartEl.dataset.locations);
-    var series = JSON.parse(chartEl.dataset.series);
+    const chartEl = document.getElementById('blotter-report-stacked-chart');
+    const locations = JSON.parse(chartEl.dataset.locations);
+    const series = JSON.parse(chartEl.dataset.series);
 
-    var options = {
+    const options = {
         series: series,
         chart: {
             type: 'bar',
@@ -142,6 +142,55 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     };
 
-    var chart = new ApexCharts(document.querySelector("#blotter-report-stacked-chart"), options);
+    const chart = new ApexCharts(document.querySelector("#blotter-report-stacked-chart"), options);
+    chart.render();
+});
+
+// FINANCIAL ANALYSIS
+document.addEventListener('DOMContentLoaded', function () {
+    const chartEl = document.getElementById('financial-chart');
+    const categories = JSON.parse(chartEl.dataset.categories);
+    const budgetData = JSON.parse(chartEl.dataset.budgetdata);
+    const expenseData = JSON.parse(chartEl.dataset.expensedata);
+
+    const options = {
+        series: [{
+            name: 'Budget',
+            data: budgetData
+        }, {
+            name: 'Expenses',
+            data: expenseData
+        }],
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: {
+                show: true
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: categories,
+        },
+        yaxis: {
+            labels: {
+                formatter: function (val) {
+                    return '₱' + val.toLocaleString();
+                }
+            }
+        },
+        fill: {
+            opacity: 1
+        },
+        colors: ['#10b981', '#ef4444'],
+        legend: {
+            position: 'top',
+            horizontalAlign: 'left'
+        }
+    };
+
+    const chart = new ApexCharts(document.querySelector("#financial-chart"), options);
     chart.render();
 });

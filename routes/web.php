@@ -14,12 +14,15 @@ use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\AdminNotificationController;
+use App\Http\Controllers\Admin\BudgetController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::view('/about', 'about')->name('about');
+Route::view('/contact', 'contact')->name('contact');
 
 // ADMIN + STAFF ROUTES
 Route::middleware(['auth', 'role:admin|staff'])->group(function () {
@@ -51,6 +54,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Manage Staff Accounts
     Route::resource('staff', UserController::class);
     Route::resource('officials', OfficialController::class);
+    Route::resource('budget', BudgetController::class);
+    Route::get('/admin/budget/transactions', [BudgetController::class, 'transactions'])->name('budget.transactions');
 });
 
 // PROGRAMS ROUTES

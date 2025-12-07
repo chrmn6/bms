@@ -24,7 +24,7 @@
                             <th scope="col" class="px-3 py-2">Application No.</th>
                             <th scope="col" class="px-3 py-2">Resident</th>
                             <th scope="col" class="px-3 py-2">Status</th>
-                            <th scope="col" class="px-3 py-2">Submitted Date</th>
+                            <th scope="col" class="px-3 py-2">Date Applied</th>
                             <th scope="col" class="px-3 py-2">Action</th>
                         </tr>
                     </thead>

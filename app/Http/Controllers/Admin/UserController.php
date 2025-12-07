@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Resident;
 use App\Models\Blotter;
-use App\Models\BlotterCase;
+use App\Models\Budget;
 use App\Models\Clearance;
 use App\Models\Household;
-use App\Models\ResidentAttributes;
+use App\Models\Program;
+use App\Models\ProgramExpense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -89,6 +90,8 @@ class UserController extends Controller
         $stats = $this->getStats();
         $populationData = $this->getPopulationData();
         $blotter = $this->getBlotter();
+        $budgetSummary = $this->getBudgetSummary();
+        $financialData = $this->getFinancialAnalytics();
 
         return view('dashboard', [
             'stats' => $stats,
@@ -96,6 +99,8 @@ class UserController extends Controller
             'female' => $populationData['female'],
             'locations' => $blotter['locations'],
             'series' => $blotter['series'],
+            'budgetSummary' => $budgetSummary,
+            'financialData' => $financialData,
         ]);
     }
 
@@ -107,7 +112,7 @@ class UserController extends Controller
             'residents_count'         => Resident::count(),
             'clearances_pending'      => Clearance::where('status', 'pending')->count(),
             'blotter_reports_pending' => Blotter::where('status', 'pending')->count(),
-            'voter_count' => ResidentAttributes::where('voter_status', 'yes')->count(),
+            'budgets' => Budget::where('amount')->count(),
         ];
     }
 
@@ -160,6 +165,29 @@ class UserController extends Controller
         return compact('locations', 'series');
     }
 
+    public function getBudgetSummary()
+    {
+        $totalAmount = Budget::sum('amount');
+        return [
+            'total_amount' => $totalAmount
+        ];
+    }
+
+    protected function getFinancialAnalytics()
+    {
+        $programs = DB::table('programs')
+            ->join('program_expenses', 'programs.program_id', '=', 'program_expenses.program_id')
+            ->select(
+                'programs.title',
+                'program_expenses.amount'
+            )->orderBy('programs.created_at', 'asc')->get();
+
+        $categories = $programs->pluck('title')->values();
+        $budgetData = $programs->pluck('amount')->values();
+        $expenseData = $programs->pluck('amount')->values();
+
+        return compact('categories', 'budgetData', 'expenseData');
+    }
 
     /**
      * Display the specified user details (used for HTMX modal).
