@@ -13,7 +13,8 @@
         <table class="w-full border-collapse">
             <tr>
                 <td class="w-[100px] text-center">
-                    <img src="{{ public_path('storage/images/bms-logo.png') }}" alt="Barangay Logo" width="60">
+                    <img src="{{ public_path('storage/images/bms-logo.png') }}" alt="Barangay Logo" width="60"
+                        fetchpriority="high">
                 </td>
                 <td class="text-center">
                     <h1 class="m-0 text-base font-normal">Republic of the Philippines</h1>
@@ -48,7 +49,7 @@
     </p>
 
     <div class="mt-16 text-right">
-        <p class="font-bold text-lg">HON. {{ $official->full_name }}</p>
+        <p class="font-bold text-lg">HON. {{ $official->resident->full_name}}</p>
         <p class="text-base">Barangay Captain</p>
     </div>
 </body>

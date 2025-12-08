@@ -9,11 +9,11 @@
                 @if ($resident->profile?->image)
                     <img id="profilePreview" src="{{ asset('storage/uploads/residents/' . $resident->profile->image) }}"
                         class="rounded-circle" alt="Profile Photo"
-                        style="width: 110px; height: 110px; object-fit: cover; border: 2px solid #6D0512; margin-bottom: 4px;">
+                        style="width: 110px; height: 110px; object-fit: cover; border: 2px solid #6D0512; margin-bottom: 4px;" fetchpriority="high">
                 @else
                     <img id="profilePreview" src="{{ asset('storage/images/default-avatar.jpg') }}" class="rounded-circle"
                         alt="Default Profile Photo"
-                        style="width: 110px; height: 110px; object-fit: cover; border: 2px solid #6D0512; margin-bottom: 4px;">
+                        style="width: 110px; height: 110px; object-fit: cover; border: 2px solid #6D0512; margin-bottom: 4px;" fetchpriority="high">
                 @endif
                 <input type="file" name="image" id="image" class="d-none">
             </label>

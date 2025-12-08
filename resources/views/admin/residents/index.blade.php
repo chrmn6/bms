@@ -95,7 +95,7 @@
                                     <th class="flex items-center px-2 py-2 text-gray-900 dark:text-white">
                                         <img class="w-8 h-8 rounded-full"
                                             src="{{ asset('storage/uploads/residents/' . $resident->profile->image) }}"
-                                            alt="{{ $resident->full_name }}">
+                                            alt="{{ $resident->full_name }}" fetchpriority="high">
                                         <div class="ps-2">
                                             <div class="text-sm font-semibold">{{ $resident->full_name }}</div>
                                         </div>

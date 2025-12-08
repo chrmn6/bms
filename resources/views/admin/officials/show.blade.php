@@ -11,7 +11,8 @@
                     <div
                         class="relative w-20 h-20 xl:w-28 xl:h-28 flex-shrink-0 overflow-hidden rounded-full shadow-md bg-neutral-50">
                         <img src="{{ asset('storage/uploads/residents/' . $official->resident->profile->image) }}"
-                            alt="{{ $official->resident->full_name }}" class="w-full h-full object-cover">
+                            alt="{{ $official->resident->full_name }}" class="w-full h-full object-cover"
+                            fetchpriority="high">
                     </div>
                     <!-- Name + Position + Status -->
                     <div class="flex flex-col justify-center mt-3">
@@ -172,7 +173,7 @@
                                 <div class="flex">
                                     <div class="grow">
                                         <img src="{{ asset('storage/images/bms-logo.png') }}" alt="BMS LOGO"
-                                            class="h-11">
+                                            class="h-11" fetchpriority="high">
                                     </div>
                                 </div>
 

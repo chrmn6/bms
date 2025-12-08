@@ -40,7 +40,7 @@
                 <th class="text-left font-semibold p-2">PROOF OF EVIDENCE</th>
                 <td>@if($blotter->image && file_exists(public_path('storage/uploads/blotters/' . $blotter->image)))
                     <img src="{{ asset('storage/uploads/blotters/' . $blotter->image) }}" alt="Proof of Evidence"
-                        class="img-fluid" style="max-width: 200px;">
+                        class="img-fluid" style="max-width: 200px;" fetchpriority="high">
                 @else
                         <span class="text-muted">No image uploaded</span>
                     @endif

@@ -20,7 +20,7 @@
                 <th class="text-left font-semibold p-2">PAYMENT PROOF</th>
                 <td>@if($clearance->payment_proof && file_exists(public_path('storage/uploads/proofs/' . $clearance->payment_proof)))
                     <img src="{{ asset('storage/uploads/proofs/' . $clearance->payment_proof) }}" alt="Payment Proof"
-                        class="img-fluid" style="max-width: 200px;">
+                        class="img-fluid" style="max-width: 200px;" fetchpriority="high">
                 @else
                         <span class="text-muted">No image uploaded</span>
                     @endif

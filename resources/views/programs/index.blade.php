@@ -115,7 +115,7 @@
                                     <x-input-label for="proof_file" :value="__('Sample Proof of Evidence')" />
                                     <img src="{{ asset('storage/uploads/applicants/sample-proof.png') }}"
                                         alt="Sample Proof" class="mx-auto rounded border"
-                                        style="max-width: 300px; opacity: 0.6;">
+                                        style="max-width: 300px; opacity: 0.6;" fetchpriority="high">
                                 </div>
 
                                 <div class="mb-3">

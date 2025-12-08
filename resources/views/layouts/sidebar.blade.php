@@ -51,7 +51,7 @@
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
                             <img src="{{ asset('/storage/uploads/users/' . Auth::user()->image) }}"
-                                alt="{{ Auth::user()->full_name }}" class="w-8 h-8 rounded-full">
+                                alt="{{ Auth::user()->full_name }}" class="w-8 h-8 rounded-full" fetchpriority="high">
                             <div class="flex flex-col leading-tight">
                                 <span class="font-semibold text-sm text-gray-900">{{ Auth::user()->full_name }}</span>
                                 <span class="text-sm text-gray-500">{{ ucfirst(Auth::user()->role) }}</span>

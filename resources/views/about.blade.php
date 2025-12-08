@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="shortcut icon" href="{{ asset('storage/images/bms-logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('storage/images/bms-logo.png') }}" fetchpriority="high">
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -1548,10 +1548,6 @@
                 <!-- Light mode image -->
                 <img src="{{ asset('storage/images/bms-home.png') }}" alt="BMS Header Light"
                     class="w-full max-w-md lg:max-w-2xl h-auto object-contain" fetchpriority="high">
-
-                <!-- Dark mode image -->
-                <img src="{{ asset('storage/images/bms-home.png') }}" alt="BMS Header Dark"
-                    class="w-full max-w-md lg:max-w-2xl h-auto object-contain hidden dark:block" fetchpriority="high">
             </div>
         </main>
     </div>

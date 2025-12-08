@@ -15,7 +15,8 @@
         <table class="w-full border-collapse">
             <tr>
                 <td class="w-[100px] text-center">
-                    <img src="{{ public_path('storage/images/bms-logo.png') }}" alt="Barangay Logo" width="60">
+                    <img src="{{ public_path('storage/images/bms-logo.png') }}" alt="Barangay Logo" width="60"
+                        fetchpriority="high">
                 </td>
                 <td class="text-center">
                     <h1 class="m-0 text-base font-normal">Republic of the Philippines</h1>

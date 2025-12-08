@@ -13,7 +13,7 @@
                                 <div class="flex items-center gap-1">
                                     <img src="{{ asset('storage/uploads/residents/' . $notification->data['actor_image']) }}"
                                         alt="{{ $notification->data['actor_name'] ?? 'System' }}"
-                                        class="w-8 h-8 rounded-full object-cover">
+                                        class="w-8 h-8 rounded-full object-cover" fetchpriority="high">
                                     <h6 class="font-semibold text-sm m-0">
                                         {{ $notification->data['actor_name'] ?? 'System' }}
                                     </h6>
