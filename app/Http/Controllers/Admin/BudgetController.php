@@ -40,6 +40,35 @@ class BudgetController extends Controller
         return redirect()->route('admin.budget.index')->with('success', 'Budget added successfully!');
     }
 
+    public function edit(Budget $budget, Request $request)
+    {
+        if ($request->header('HX-Request')) {
+            return view('admin.budget.edit', compact('budget'));
+        }
+
+        return redirect()->route('admin.budget.index');
+    }
+
+    public function update(Request $request, Budget $budget)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        $budget->update([
+            'amount' => $request->amount,
+            'description' => $request->description,
+        ]);
+
+        if ($request->header('HX-Request')) {
+            $budgets = Budget::orderBy('created_at', 'desc')->paginate(20);
+            return response()->view('admin.budget.table', compact('budgets'))->header('HX-Trigger', 'budgetUpdated');
+        }
+
+        return redirect()->route('admin.budget.index')->with('success', 'Budget updated successfully!');
+    }
+
     public function transactions()
     {
         $expenses = ProgramExpense::with(['program', 'official.resident'])

@@ -1,5 +1,5 @@
 <div class="{{ $cardBg }} rounded-md border-0 cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md"
-    style="width: 215px; height: 100px; padding: 15px;">
+    style="width: 220px; height: 100px; padding: 15px;">
 
     <div class="flex justify-between h-full">
         <div class="flex flex-col items-start gap-3">
