@@ -49,16 +49,33 @@
                         </svg>
                     </x-primary-button>
                     @can('update', $blotter)
-                        <x-primary-button hx-get="{{ route('blotters.edit', $blotter->blotter_id) }}"
-                            hx-target="#editStatusModalBody" hx-swap="innerHTML" hx-trigger="click" data-bs-toggle="modal"
-                            data-bs-target="#editStatusModal"
-                            class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center">
-                            <svg class="w-[15px] h-[15px] text-white dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
-                            </svg>
-                        </x-primary-button>
+                        <div class="relative inline-block text-left">
+                            <!-- Button -->
+                            <x-primary-button type="button"
+                                class="!bg-yellow-500 hover:!bg-yellow-600 active:!bg-yellow-700 flex items-center justify-center"
+                                onclick="document.getElementById('status-dropdown-{{ $blotter->blotter_id }}').classList.toggle('hidden')"
+                                aria-expanded="false">
+                                <svg class="w-[15px] h-[15px] text-white dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
+                                </svg>
+                            </x-primary-button>
+
+                            <!-- Dropdown Menu -->
+                            <div id="status-dropdown-{{ $blotter->blotter_id }}"
+                                class="hidden absolute right-0 mt-1 w-40 bg-neutral-50 border border-gray-200 rounded-lg shadow-lg z-50">
+                                <form class="flex flex-col" hx-put="{{ route('blotters.update', $blotter->blotter_id) }}"
+                                    hx-target="#status-dropdown-{{ $blotter->blotter_id }}" hx-swap="outerHTML">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="status" value="resolved"
+                                        class="px-4 py-2 text-left text-sm">Resolved</button>
+                                    <button type="submit" name="status" value="dismissed"
+                                        class="px-4 py-2 text-left text-sm">Dismissed</button>
+                                </form>
+                            </div>
+                        </div>
                     @endcan
                 </td>
             </tr>
