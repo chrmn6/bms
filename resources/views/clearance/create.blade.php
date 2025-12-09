@@ -48,7 +48,7 @@
             fetchpriority="high">
     </div>
 
-    <div id=" payment_proof_section" class="mb-2" style="display: none;">
+    <div id="payment_proof_section" class="mb-2" style="display: none;">
         <x-input-label for="payment_proof" :value="__('Payment Proof')" />
         <input type="file" name="payment_proof" id="payment_proof"
             class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-md shadow-sm">

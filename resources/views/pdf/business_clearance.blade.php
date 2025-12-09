@@ -36,7 +36,7 @@
     <p class="font-bold mb-4">TO WHOM IT MAY CONCERN:</p>
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">
         Pursuant to existing ordinance of this barangay, CLEARANCE is granted to
-        <strong>{{ $resident->full_name }}</strong> And owner of
+        <strong>{{ $resident->full_name }}</strong> and owner of
         <strong>{{ $resident->full_name }}</strong> located at {{ $resident->full_address }}.
     </p>
 
@@ -47,13 +47,13 @@
     </p>
 
     <p class="text-justify leading-relaxed mb-8" style="text-indent: 2em;">
-        Clearance is valid up to {{ $clearance->valid_until }} unless revoked due to a valid cause.
+        Clearance is valid up to {{ $clearance->valid_until->format('F d, Y') }} unless revoked due to a valid cause.
         Issued this {{ $clearance->issued_date->format('F d, Y') }} at Barangay Matina Gravahan, Davao City,
         Philippines.
     </p>
 
     <div class="mt-16 text-right">
-        <p class="font-bold text-lg">HON. {{ $official->full_name }}</p>
+        <p class="font-bold text-lg">HON. {{ $official->resident->full_name }}</p>
         <p class="text-base">Barangay Captain</p>
     </div>
 

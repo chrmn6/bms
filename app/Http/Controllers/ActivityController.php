@@ -52,7 +52,7 @@ class ActivityController extends Controller
     {
 
         $this->authorize('create', Activity::class);
-        $data = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'date_time' => 'required|date',
@@ -60,8 +60,8 @@ class ActivityController extends Controller
             'status' => 'nullable|in:Planned,Completed,Cancelled',
         ]);
 
-        $data['user_id'] = Auth::id();
-        $activity = Activity::create($data);
+        $validated['user_id'] = Auth::id();
+        $activity = Activity::create($validated);
 
         // Send notification
         $staff = Auth::user();
@@ -111,7 +111,7 @@ class ActivityController extends Controller
     {
         $this->authorize('update', $activity);
 
-        $data = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'date_time' => 'required|date',
@@ -119,7 +119,7 @@ class ActivityController extends Controller
             'status' => 'nullable|in:Planned,Completed,Cancelled',
         ]);
 
-        $activity->update($data);
+        $activity->update($validated);
 
         if ($request->header('HX-Request')) {
         return response('', 200)

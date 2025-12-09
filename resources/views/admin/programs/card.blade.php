@@ -1,4 +1,4 @@
-<div class="space-y-6 sm:space-y-4">
+<div class="flex flex-wrap gap-6 justify-start">
     @forelse($programs as $program)
         <div class="flex gap-3 sm:gap-6">
             <div
@@ -60,7 +60,7 @@
             </div>
         </div>
     @empty
-        <div class="text-center py-10 text-gray-500">
+        <div class="w-full text-center text-gray-500 dark:text-gray-400 py-6">
             <p class="text-sm">No programs found.</p>
         </div>
     @endforelse

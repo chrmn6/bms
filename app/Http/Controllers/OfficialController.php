@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Official;
 use App\Models\Program;
+use App\Models\Resident;
 use Illuminate\Http\Request;
 
 class OfficialController extends Controller
@@ -27,7 +28,7 @@ class OfficialController extends Controller
      */
     public function create(Request $request)
     {
-        $residents = \App\Models\Resident::all();
+        $residents = Resident::all();
         if ($request->header('HX-Request')) {
             return view('admin.officials.create', compact('residents'));
         }

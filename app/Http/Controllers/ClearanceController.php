@@ -58,30 +58,31 @@ class ClearanceController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'clearance_type' => 'required|string|max:255',
             'purpose' => 'required|string',
             'payment_method' => 'required|in:Cash,GCash',
             'payment_proof' => 'required_if:payment_method,GCash|nullable|image|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
-
-        $data['resident_id'] = Auth::user()->resident->resident_id;
-        $data['status'] = 'pending';
-        $data['issued_date'] = null;
-        $data['valid_until'] = null;
-        $data['remarks'] = null;
-        $data['user_id'] = null;
-        $data['payment_method'] = $request->payment_method;
         
         // for payment proof
         if ($request->hasFile('payment_proof')) {
             $file = $request->file('payment_proof');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('storage/uploads/proofs'), $fileName);
-            $data['payment_proof'] = $fileName;
+            $validated['payment_proof'] = $fileName;
         }
 
-        Clearance::create($data);
+        //create the clearance
+        $clearances = Clearance::create([
+            'resident_id'     => Auth::user()->resident->resident_id,
+            'user_id'         => null,
+            'clearance_type'  => $validated['clearance_type'],
+            'status'          => 'pending',
+            'purpose'        => $validated['purpose'],
+            'payment_method' => $validated['payment_method'],
+            'payment_proof'  => $validated['payment_proof'] ?? null,
+        ]);
 
         // Notify admin/staff about the request
         $staffs = User::whereIn('role', ['admin', 'staff'])->get();
@@ -203,7 +204,7 @@ class ClearanceController extends Controller
         
         $type = strtolower($clearance->clearance_type);
 
-        $data = [
+        $validated = [
             'resident' => $resident,
             'resident_profile' => $resident->profile,
             'resident_address' => $resident->address,
@@ -244,7 +245,7 @@ class ClearanceController extends Controller
                 return back()->with('error', 'Invalid clearance type found.');
         }
 
-        $pdf = Pdf::loadView($view, $data)->setPaper('A4', 'portrait');
+        $pdf = Pdf::loadView($view, $validated)->setPaper('A4', 'portrait');
         return $pdf->download($filename);
     }
 }

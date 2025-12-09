@@ -7,7 +7,7 @@
                 Programs
             </h5>
             <div class="flex flex-wrap gap-6 justify-start">
-                @foreach($programs as $program)
+                @forelse($programs as $program)
                     <div
                         class="program-card bg-white p-4 max-w-sm border rounded-md shadow-md hover:shadow-lg transition-shadow">
                         <h5 class="mb-2 text-base font-bold tracking-tight text-heading">
@@ -96,7 +96,11 @@
                             </div>
                         @endif
                     </div>
-                @endforeach
+                @empty
+                    <div class="w-full text-center text-gray-500 dark:text-gray-400 py-6">
+                        <p class="text-sm">No programs found.</p>
+                    </div>
+                @endforelse
             </div>
 
             <!-- Apply Modal -->

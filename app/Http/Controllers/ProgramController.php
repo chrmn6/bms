@@ -24,8 +24,8 @@ class ProgramController extends Controller
             ->get();
 
         if ($user && $user->resident) {
-            $programs->load(['applicants' => function ($q) use ($user) {
-                $q->where('resident_id', $user->resident->resident_id);
+            $programs->load(['applicants' => function ($query) use ($user) {
+                $query->where('resident_id', $user->resident->resident_id);
             }]);
         }
 

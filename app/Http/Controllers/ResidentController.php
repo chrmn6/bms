@@ -24,19 +24,15 @@ class ResidentController extends Controller
         $user = Auth::user();
         $resident = Resident::where('user_id', $user->id)->first();
 
-        if (!$resident) {
-            return redirect()->route('residents.edit')->with('error', 'No resident profile found. Please complete your profile information.');
-        }
-
         $recent_announcements = Announcement::with('user')->latest()->take(10)->get();
         $recent_activities = Activity::latest()->take(10)->get();
         $clearances = $resident->clearances()->latest()->take(5)->get();
         $blotters = $resident->blotters()->latest()->take(5)->get();
 
-        return view('residents.dashboard', compact('resident', 'recent_announcements', 'recent_activities', 'clearances', 'blotters'));
+        return view('residents.dashboard', compact('recent_announcements', 'recent_activities', 'clearances', 'blotters'));
     }
 
-        public function edit()
+    public function edit()
     {
         $user = Auth::user();
 
@@ -83,6 +79,7 @@ class ResidentController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'phone_number' => 'nullable|string|max:11',
             'middle_name' => 'nullable|string|max:255',
             'suffix' => 'nullable|string|max:255',
             'place_of_birth' => 'nullable|string|max:255',
@@ -104,6 +101,7 @@ class ResidentController extends Controller
         $user->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
+            'phone_number' => $validated['phone_number'],
         ]);
 
         // Profile

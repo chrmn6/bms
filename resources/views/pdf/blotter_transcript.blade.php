@@ -37,8 +37,6 @@
     <p><span class="font-semibold">Blotter No.:</span> {{ $blotter->display_id }}</p>
     <p><span class="font-semibold">Date Reported:</span> {{ $blotter->created_at->format('F d, Y h:i A') }}
     </p>
-    <p class="mb-4"><span class="font-semibold">Status:</span> {{ strtoupper($blotter->status) }}
-    </p>
 
     <div class="mt-3 space-y-1 mb-8">
         <p><span class="font-semibold text-base">Complainant:</span> {{ $blotter->resident->full_name}}</p>

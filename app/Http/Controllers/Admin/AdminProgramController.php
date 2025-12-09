@@ -73,6 +73,7 @@ class AdminProgramController extends Controller
             'application_end' => $validated['application_end'],
         ]);
 
+        //Create expenses
         $official = Auth::user()->official;
         ProgramExpense::create([
             'program_id' => $program->program_id,

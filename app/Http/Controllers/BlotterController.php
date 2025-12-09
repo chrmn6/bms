@@ -160,7 +160,6 @@ class BlotterController extends Controller
         $residents = User::where('role', 'resident')->get();
         
         $statusMessages = [
-            'pending'   => 'Your blotter report is now pending.',
             'resolved'  => 'Your blotter report has been resolved.',
             'dismissed'  => 'Your blotter report has been dismissed.',
         ];
@@ -198,14 +197,14 @@ class BlotterController extends Controller
     {
         $blotter = Blotter::with(['resident.user', 'case'])->findOrFail($blotter);
 
-        $data = [
+        $validated = [
         'blotter' => $blotter,
         'barangay_name' => 'Barangay Matina Gravahan',
         'city_name' => 'Davao City',
         'barangay_captain' => 'John Doe',
         ];
 
-        $pdf = Pdf::loadView('pdf.blotter_transcript', $data)->setPaper('A4', 'portrait');
+        $pdf = Pdf::loadView('pdf.blotter_transcript', $validated)->setPaper('A4', 'portrait');
         return $pdf->stream("BlotterReport_{$blotter->resident->full_name}.pdf");
     }
 
@@ -213,14 +212,14 @@ class BlotterController extends Controller
     {
         $blotters = Blotter::whereIn('status', ['resolved', 'dismissed'])->orderBy('created_at', 'desc')->get();
 
-        $data = [
+        $validated = [
             'blotters' => $blotters,
             'barangay_name' => 'Barangay Matina Gravahan',
             'city_name' => 'Davao City',
             'barangay_captain' => 'John Doe',
         ];
 
-        $pdf = Pdf::loadView('pdf.blotters_list', $data)->setPaper('A4', 'portrait');
+        $pdf = Pdf::loadView('pdf.blotters_list', $validated)->setPaper('A4', 'portrait');
 
         return $pdf->download('BlotterReports.pdf');
     }

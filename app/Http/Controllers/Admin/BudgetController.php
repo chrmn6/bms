@@ -22,14 +22,15 @@ class BudgetController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'amount' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:255',
         ]);
 
+        // Create the budget
         Budget::create([
-            'amount' => $request->amount,
-            'description' => $request->description,
+            'amount' => $validated['amount'],
+            'description' => $validated['description'],
         ]);
 
         if ($request->header('HX-Request')) {
@@ -51,14 +52,14 @@ class BudgetController extends Controller
 
     public function update(Request $request, Budget $budget)
     {
-        $request->validate([
+        $validated = $request->validate([
             'amount' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:255',
         ]);
 
         $budget->update([
-            'amount' => $request->amount,
-            'description' => $request->description,
+            'amount' => $validated['amount'],
+            'description' => $validated['description'],
         ]);
 
         if ($request->header('HX-Request')) {

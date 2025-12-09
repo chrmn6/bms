@@ -79,8 +79,8 @@ class Resident extends Model
 
     public function getFullAddressAttribute()
     {
-        if ($this->household) {
-            return $this->household->household_number . ', ' . $this->address;
+        if ($this->household && $this->phase) {
+            return $this->phase->phase_number . ', ' . $this->household->household_number . ', ' . $this->address;
         }
         return $this->address ?? 'Unknown Address';
     }

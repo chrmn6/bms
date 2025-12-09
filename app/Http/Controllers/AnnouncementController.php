@@ -52,13 +52,13 @@ class AnnouncementController extends Controller
     {
         $this->authorize('create', Announcement::class);
 
-        $data = $request->validate([
+        $validated = $request->validate([
             'title'   => 'required|string|max:255',
             'content' => 'nullable|string',
         ]);
 
-        $data['user_id'] = Auth::id();
-        $announcement = Announcement::create($data);
+        $validated['user_id'] = Auth::id();
+        $announcement = Announcement::create($validated);
 
         // Send notification
         $staff = Auth::user();
@@ -119,12 +119,12 @@ class AnnouncementController extends Controller
     {
         $this->authorize('update', $announcement);
 
-        $data = $request->validate([
+        $validated = $request->validate([
             'title'   => 'required|string|max:255',
             'content' => 'nullable|string',
         ]);
 
-        $announcement->update($data);
+        $announcement->update($validated);
 
         if ($request->header('HX-Request')) {
             $announcements = Announcement::with('user')->latest()->paginate(6);

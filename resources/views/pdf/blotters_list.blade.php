@@ -53,7 +53,7 @@
                     <td>{{ $blotter->case->incident_type }}</td>
                     <td>{{ ucfirst($blotter->status) }}</td>
                     <td>{{ $blotter->resident->full_name ?? 'N/A' }}</td>
-                    <td>{{ $blotter->created_at->format('Y-m-d') }}</td>
+                    <td>{{ $blotter->created_at->format('F d, Y') }}</td>
                 </tr>
             @endforeach
         </tbody>
